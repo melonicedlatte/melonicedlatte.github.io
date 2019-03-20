@@ -1,0 +1,22 @@
+id,value,color
+재곤
+재곤.Databases,
+재곤.Databases.MySQL,1.0,#00618A
+재곤.Web,
+재곤.Web.Front-End
+재곤.Web.Front-End.HTML & CSS,2.5,#E54F24
+재곤.Web.Front-End.SVG,0.5,#FF9900
+재곤.Web.Front-End.Bootstrap,2.5,#563B7E
+재곤.Web.Front-End.JavaScript World
+재곤.Web.Front-End.JavaScript World.JavaScript,1.5,#D6BA33
+재곤.Web.Front-End.JavaScript World.JQuery,1.8,#1169AE
+재곤.Web.Front-End.JavaScript World.D3 js,1.0,#F6854D
+재곤.Web.Back-End
+재곤.Web.Back-End.PHP,1.0,#617CBE
+재곤.Web.Back-End.SQL,1.3,#E58E00
+재곤.Web.Back-End.RubyOnRails, 1.9, #808080
+재곤.Android
+재곤.Android.AndroidStudio, 3, #CA212F
+재곤.Python
+재곤.Python.TensorFlow, 1.2 , #EB2C2F
+재곤.Python.Visualization, 1.2 , #0678BE
