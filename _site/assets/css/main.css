@@ -917,7 +917,7 @@ a > .item__header.disabled, a > .item__header:disabled, a.item__header.disabled,
 .items > .item:not(:last-child) { margin-bottom: 0.5rem; }
 
 .items--divided > .item { list-style-type: none; }
-.items--divided > .item:not(:first-child) { padding-top: 1.5rem; }
+.items--divided > .item:not(:first-child) { padding-top: 0.5rem; }
 .items--divided > .item:not(:last-child) { padding-bottom: 1.5rem; border: 0 solid #e6e6e6; border-bottom-width: 1px; }
 
 .swiper { position: relative; overflow: hidden; }
