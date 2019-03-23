@@ -1,0 +1,1308 @@
+<!DOCTYPE html><html lang="en">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>효율적인 코딩/프로그래밍을 위하여 알아야 할 개념 정리  - Easy is Perfect</title>
+
+<meta name="description" content="효율적인 프로그래밍이나 코딩을 위해서 알아야 할 것을 모아서 정리 해 보았습니다.막연하게 효율적인 알고리즘? 이나 자료구조를 사용해야 된다는 정도만 알지 사실 제대로 알 지 못하는 점이 많았습니다.이번 포스팅을 기회로 개인적으로도 공부할 수 있는 기회가 되었습니다.&nbsp;주의 ...">
+<link rel="canonical" href="http://localhost:4000/computer/2017/07/02/232216.html"><link rel="alternate" type="application/rss+xml" title="Easy is Perfect" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/favicon.ico">
+
+<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/browserconfig.xml">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" ><!-- start custom head snippets -->
+
+<!-- end custom head snippets --><script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.decodeUrl = function(str) {
+    return str ? decodeURIComponent(str.replace(/\+/g, '%20')) : '';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.4',
+      sources: {
+        font_awesome: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn1.lncld.net/static/js/3.4.1/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script></head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport has-aside cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#515151;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg><a title="Want to make some good product for world
+" href="/">Easy is Perfect</a></div><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/archive">Archive</a></li><li class="navigation__item"><a href="/about">About</a></li><li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet --><article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>효율적인 코딩/프로그래밍을 위하여 알아야 할 개념 정리 </h1></header><span class="split-space">&nbsp;</span>
+          <a class="edit-on-github"
+            title="Edit on Github"
+            href="https://github.com/melonicedlatte/melonicedlatte.github.io/tree/master/_posts/2017-07-02-232216.html">
+            <i class="far fa-edit"></i></a></div><meta itemprop="headline" content="효율적인 코딩/프로그래밍을 위하여 알아야 할 개념 정리 "><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Computer">Computer</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Jul 02, 2017</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-07-02T00:00:00+09:00">
+    <meta itemprop="keywords" content="Computer"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+
+<!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><p><font face="Courier New">효율적인 프로그래밍이나 코딩을 위해서 알아야 할 것을 모아서 정리 해 보았습니다.<br>막연하게 효율적인 알고리즘? 이나 자료구조를 사용해야 된다는 정도만 알지 <br>사실 제대로 알 지 못하는 점이 많았습니다.<br>이번 포스팅을 기회로 개인적으로도 공부할 수 있는 기회가 되었습니다.&nbsp;</font></p><p><font face="Courier New"><u><b>주의 : 포스팅은 지극히 초보의 관점에서 진행합니다.</b>&nbsp;<br>부족한게 많아서 사실 저도 잘 정리하면서도 모르겠네요.<br><br>계속 학습하면서 다져가야겠습니다.&nbsp;</u></font></p><p><font face="Courier New"><u><br></u></font></p><p><br></p><p><span style="font-family: &quot;Courier New&quot;;">1. 컴퓨터 퍼포먼스가 높아지면서 많은 사람들이 크게 효율성을 고려하지 않는데,&nbsp;<br>방심하다 낭패를 볼 수 있기 때문에 정리했다고 하십니다. [출처 : 네이버 블로그 : 하드코더 ]</span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><strong><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:#3366FF;border:none windowtext 1.0pt;
+mso-border-alt:none windowtext 0cm;padding:0cm">■ <span style="background-color: rgb(255, 255, 255);">시간단축을 위한 공간규칙&nbsp;</span></span></strong><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><o:p></o:p></span><strong><span lang="KO" style="line-height: 30px; font-family: 나눔고딕; color: rgb(51, 102, 255); border: 1pt none windowtext; padding: 0cm;">=&gt; 시간 절약</span></strong></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple">&nbsp;&nbsp; <span lang="KO">①</span> Data Structure Augmentation</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:lime"><br>
+</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span style="background-color: rgb(255, 239, 198);"><span lang="KO">빈번한 연산을 하는데
+필요한 시간은 종종 부가적 정보로 데이터 구조를 늘리거나</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span lang="KO"><span style="background-color: rgb(255, 239, 198);">또는 데이터 구조 내의 정보를
+변경</span>하여 더 쉽게 접근할 수 있도록 함으로써</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">감소시킬 수 있다</span><br>
+</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:purple">&nbsp;&nbsp; <span lang="KO">②</span> Store Precomputed Results<br>
+</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO" style="background-color: rgb(255, 239, 198);">비용이 많이 드는 함수값을 다시
+계산하는 비용은 함수를 한번만 계산하고</span><span style="background-color: rgb(255, 239, 198);">&nbsp;</span><br><span style="background-color: rgb(255, 255, 255);">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span lang="KO"><span style="background-color: rgb(255, 239, 198);">그 결과를 저장</span>하는 방법으로 감소시킬
+수 있다</span>. <span lang="KO">그 이후에 함수가 호출될 때는</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span lang="KO">다시 계산하기보다는 테이블을 검색하여
+처리한다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">③</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Cashing<br>
+</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span style="background-color: rgb(255, 239, 198);"><span lang="KO">가장 빈번하게
+접근하는 데이터는 그 접근 비용이 가장 적어야 한다</span>.</span><br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">④</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Lazy Evaluation</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">어떤 아이템이 실제로 필요하기 전까지는
+평가</span>(evalution)<span lang="KO">를 하지 않음으로써</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span lang="KO">아이템에 대한 불필요한 평가를 피한다</span>.<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><o:p>&nbsp;</o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><o:p>&nbsp;</o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><strong><span lang="KO" style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#3366FF;
+border:none windowtext 1.0pt;mso-border-alt:none windowtext 0cm;padding:0cm">■ 공간절약을
+위한 시간규칙 =&gt; 메모리 절약</span></strong></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:purple">①</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:purple"> Packing<br>
+</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span style="background-color: rgb(255, 239, 198);"><span lang="KO">촘촘한
+데이터 구조를 사용하면 데이터를 저장하고 검색하는 데 필요한 시간은</span><o:p></o:p></span></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><span style="background-color: rgb(255, 239, 198);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">늘어나지만</span>&nbsp;</span><span lang="KO"><span style="background-color: rgb(255, 239, 198);">메모리비용</span>을 줄일 수 있다</span>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span lang="KO">패킹은 종종 메모리를 절약하기
+위해 시간을 희생하는 것이지만</span>,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang="KO">때로는 더
+작은 데이터 표현으로 인해 처리속도가 더 빨라질 수도 있다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">②</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Interpreters<br>
+</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span lang="KO">어떤
+프로그램을 표현하기 위한 메모리는 많이 발생하는 일련의 오퍼레이션을</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">간결하게 표현하는</span>&nbsp;<span lang="KO">인터프리터를 사용하여 감소시킬 수 있는 경우가 종종 있다</span>.&nbsp;<br><br><o:p></o:p></span></p><h4 style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><o:p>-&gt;&nbsp;</o:p></span><font face="Courier New" style="font-weight: normal;">인터프리터(<font color="#222222"><span style="font-size: 16px;">interpreter</span></font>, 문화어: 해석기)는 프로그래밍 언어의 소스 코드를 바로 실행하는 컴퓨터 프로그램 또는 환경을 말한다. 원시 코드를 기계어로 번역하는 컴파일러와 대비된다.&nbsp;</font></h4><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><o:p><br></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><o:p>&nbsp;</o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><strong><span lang="KO" style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#3366FF;
+border:none windowtext 1.0pt;mso-border-alt:none windowtext 0cm;padding:0cm">■ 루프
+규칙</span></strong><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:#333333"><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:purple">①</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:purple"> Code Motion Out of Loops</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span lang="KO">어떤 계산을 루프가 <span style="background-color: rgb(255, 239, 198);">반복될 때마다
+실행하는 것보다는 루프 밖에서 한번만 실행</span>하는</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">것이 낫다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">②</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Combining Tests&nbsp;</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span style="background-color: rgb(255, 239, 198);"><span lang="KO">효율적인 내부 루프</span>(inner
+loop)</span><span lang="KO"><span style="background-color: rgb(255, 239, 198);">는 가장 적은 테스트를 포함</span>하고 있어야하며</span>,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; <span lang="KO">단지 하나의 테스트만을
+포함하고 있는 것이 바람직하다</span>. <span lang="KO">따라서 프로그래머는</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang="KO">루프의 몇
+가지 종료 조건을 다른 종료 조건을 이용하여 시뮬레이트해봐야 한다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">③</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Loop Unrolling</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO"><span style="background-color: rgb(255, 239, 198);">루프를 펼치는 것은 루프 인덱스 값을
+변경해야 하는 비용을 제거</span>하고</span>,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang="KO">또한 파이프라인
+지연</span>(pipeline stall)<span lang="KO">을 피하도록 도와주며</span>,<span lang="KO"><span style="background-color: rgb(255, 239, 198);">분기를 감소</span>시키고</span>,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang="KO">명령어</span>(instruction)
+<span lang="KO">수준의 병렬처리를 증가시킨다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">④</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Transfer-Drven Loop
+Unrolling</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span lang="KO">만약 내부 루프에서 많은 비용이
+단순한 대입문에 소모된다면</span>,<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">이런 대입문은 코드를 반복하고</span>&nbsp;<span lang="KO">변수의 사용을 배경하여 제거할 수 있다</span>.<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">특히</span>, i=j<span lang="KO">와같은 대입문을 제거하면</span>,&nbsp;<span lang="KO">이와 관련된 코드에서</span> j<span lang="KO">가</span> i <span lang="KO">인것처럼 다루어야한다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">⑤</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Unconditional Branch
+Removal</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">빠른 루프에는 무조건적 분기를 포함하면
+안된다</span>.<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">루프의 마지막 부분에 있는 무조건적 분기는</span>&nbsp;<span lang="KO">루프를 회전시켜 루프의 마지막에
+조건적</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;<span lang="KO">분기를 갖도록 하여 제거할 수 있다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">⑥</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Loop Fusion</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">근처에 있는 두 루프가 같은 요소의 집합에
+대해 동작하고 있다면</span>,<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">동작 부분을 묶어 하나의</span>&nbsp;<span lang="KO">루프에서 처리하도록 한다</span>.<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><o:p>&nbsp;</o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><o:p>&nbsp;</o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><strong><span lang="KO" style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#3366FF;
+border:none windowtext 1.0pt;mso-border-alt:none windowtext 0cm;padding:0cm">■ 논리규칙</span></strong><b><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#3366FF;
+border:none windowtext 1.0pt;mso-border-alt:none windowtext 0cm;padding:0cm"><o:p></o:p></span></b></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:purple">①</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:purple">
+Exploit Algebraic Identities<br>
+</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">만약 논리식을
+평가하는 데 <span style="background-color: rgb(255, 239, 198);">비용이 많이 든다면</span></span>, <span lang="KO">평가하는 데 비용이 덜 드는 대수적으</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">로 동치인</span>&nbsp;<span lang="KO">논리식으로 <span style="background-color: rgb(255, 239, 198);">대체한다</span></span><span style="background-color: rgb(255, 239, 198);">.</span><br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">②</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Short-Circuiting
+Monotone Functions</span><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">만약 여러변수에 대한 어떤 단조 증가
+함수가 특정 한계를 초과하는지 검사하려 할 때</span>,<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">특정 한계를</span>&nbsp;<span lang="KO">한 번 넘은 다음에는 다른 변수에대해서 평가를 할 필요가 없다</span>.&nbsp;<br>
+&nbsp;&nbsp;</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:purple">&nbsp;<span lang="KO">③</span> Reordering Tests</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">논리식은 비용이 <span style="background-color: rgb(255, 239, 198);">적게 들고 결과가 참인
+경우가 </span>많은 식이 비용이 많이 들고 결과가</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">참인 경우가 거의</span>&nbsp;<span lang="KO">없는 식보다 <span style="background-color: rgb(255, 239, 198);">앞에 와야 한다</span></span><span style="background-color: rgb(255, 239, 198);">.</span><br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">④</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Precompute Logical
+Functions</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">작고 유한한 도메인에 대한 논리 함수는
+그 도메인을 나타내는 테이블에 대한 검색으로</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span lang="KO">대체할 수 있다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">⑤</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Boolean Variable
+Elimination</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span style="background-color: rgb(255, 239, 198);"><span lang="KO">불리언</span>(Boolean)<span lang="KO">변수</span></span> v<span lang="KO">에대한 대입식을</span> v<span lang="KO">가 참일 때와 거짓일 대를 처리하는</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if-else<span lang="KO">문으로</span>&nbsp;<span lang="KO">바꾸어 프로그램에서 불리언 <span style="background-color: rgb(255, 239, 198);">변수를 제거</span>할 수 있다</span>.<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><o:p>&nbsp;</o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><o:p>&nbsp;</o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><strong><span lang="KO" style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#3366FF;
+border:none windowtext 1.0pt;mso-border-alt:none windowtext 0cm;padding:0cm">■ 프로시저
+규칙</span></strong><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:#333333"><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:purple">①</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:purple"> Collasping Function Hierarchies<br>
+</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">함수가 다른
+함수를 호출하는 구조로 되어 있는 경우 호출되는 함수를 인라인화하고</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span style="background-color: rgb(255, 239, 198);"><span lang="KO">넘겨지는 변수를 묶어서</span>&nbsp;</span><span lang="KO"><span style="background-color: rgb(255, 239, 198);">함수를 재작성</span>하면 종종 실행시간을 단축할 수 있다</span>.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">②</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Exploit Common Cases</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">함수는 <span style="background-color: rgb(255, 239, 198);">모든 경우를 정확히 처리하고 빈번한
+경우에 대해서는 효율적</span>으로</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">처리해야 한다</span>.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">③</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Coroutines</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">다중 패스</span>(multi-pass)
+<span lang="KO">알고리즘은 종종 협동루틴</span>(coroutines)<span lang="KO">을 사용하여</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">단일 패스</span>(single-pass)&nbsp;<span lang="KO">알고리즘으로 바꿀 수 있다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">④</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Transformations on
+Recursive Functions</span><span style="mso-bidi-font-size:9.0pt;line-height:
+150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">명시적인 프로그램 스택을 사용하여 <span style="background-color: rgb(255, 239, 198);">재귀를
+반복으로 변환</span>한다</span>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">만약 함수의 마지막 부분에서 자신을 재귀적으로
+호출하면</span>, <span lang="KO">그 부분을 함수의</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang="KO">첫 번째
+부분으로 분기하도록 바꿀 수 있는데</span>, <span lang="KO">이것을</span> Removing Tail Recursion<span lang="KO">이라고</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">도 한다</span>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">작은 부분문제를 풀 때는 재귀를 반복하여
+크기가</span> 0 <span lang="KO">또는</span> 1 <span lang="KO">에대한 문제를 풀게 하는 것</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">보다는 보조 프로시저를 사용하는 편이 더 효율적일 수 있다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">⑤</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Paralelism</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">하드웨어가 병렬처리를 지원하는 경우</span>,
+<span lang="KO"><span style="background-color: rgb(255, 239, 198);">프로그램은 가능한 많이 병렬처리</span>를 사용할 수</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;<span lang="KO">있는</span>&nbsp;<span lang="KO">구조로 작성되어야 한다</span>.<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+</span><strong><span lang="KO" style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:#3366FF;border:none windowtext 1.0pt;mso-border-alt:
+none windowtext 0cm;padding:0cm">■ 수식 규칙</span></strong><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#3366FF"><br>
+</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;
+color:#333333">&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple">①</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:purple">
+Compile-Time Initialization</span><span style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO"><span style="background-color: rgb(255, 239, 198);">가능한 많은 변수가 프로그램이 실행되기
+전에 초기화</span>되어 있어야 한다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">②</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Exploit Algebraic
+Identities</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">만약 평가하는 비용이 많이 드는 수식이
+있다면</span>, <span lang="KO">평가하는 데 비용이 적게 들면서</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">대수적으로</span>&nbsp;<span lang="KO">동치인 수식으로 바꾼다</span>.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">배열의 모든 요소에 대해 반복하는 루프에서
+<span style="background-color: rgb(255, 239, 198);">곱셈을 계산하는 데 덧셈을 이용하도록</span></span><span style="background-color: rgb(255, 239, 198);"><o:p></o:p></span></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><span style="background-color: rgb(255, 239, 198);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">하면</span>&nbsp;<span lang="KO">연산 강도를 줄일 수 있다</span>.</span> <span lang="KO">많은 컴파일러가 이 최적화를 수행한다</span>.<o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span lang="KO">이 기법은 점증적 알고리즘의</span>&nbsp;<span lang="KO">여러 경우로 일반화 될 수 있다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">③</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Common Subexpression
+Elimination</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;
+font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">만약 포함된 변수가 변하지 않은 채로
+동일한 수식이 두 번 평가된다면</span>, <span lang="KO">첫번째 평가</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">결과를 저장한</span>&nbsp;<span lang="KO">다음 두 번째로 수식을 평가하는 부분에서 사용하여 같은 수식을
+두번</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">평가하는 것을 피할 수 있다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">④</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Pairing Computation</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">만약 <span style="background-color: rgb(255, 239, 198);">비슷한 두 수식</span>이 빈번하게 함께
+평가된다면</span>, <span lang="KO">그 <span style="background-color: rgb(255, 239, 198);">둘을 하나의 쌍</span>으로 평가하는</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<span lang="KO">새로운</span>&nbsp;<span lang="KO">프로시저를 만들어야 한다</span>.<br>
+&nbsp;&nbsp;&nbsp;</span><span lang="KO" style="mso-bidi-font-size:9.0pt;
+line-height:150%;font-family:나눔고딕;color:purple">⑤</span><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:purple"> Exploit Word Parallelism</span><span style="mso-bidi-font-size:9.0pt;line-height:150%;font-family:나눔고딕;color:#333333"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <span lang="KO">비용이 많이 드는 수식을 평가할 때는
+컴퓨터 하부 구조가 제공하는 기본적인 데이터</span><o:p></o:p></span></p><p style="margin: 0cm 0cm 0.0001pt; line-height: 150%; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; vertical-align: baseline;"><span style="mso-bidi-font-size:
+9.0pt;line-height:150%;font-family:나눔고딕;color:#333333">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;<span lang="KO">경로의</span>&nbsp;<span lang="KO">폭을 최대로 사용하라</span>.<o:p></o:p></span></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; border: 0px; vertical-align: baseline; line-height: 18px;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class="MsoNormal" style="line-height:150%"><span style="font-size:16.0pt;
+mso-bidi-font-size:11.0pt;line-height:150%;font-family:나눔고딕"><o:p>&nbsp;</o:p></span></p><p><span style="font-family: &quot;Courier New&quot;;"><br></span></p><p><font face="Courier New"><br>2. 다른 블로그에서 가져온 글인데 이 글은 해외에 있는 15년 이상 경력의 프로그래머가&nbsp;<br>만든 글을 번역한 글이라고 합니다. 출처는 밑에 남겼습니다.&nbsp;</font></p><ol style="margin-right: 0px; margin-bottom: 2em; margin-left: 0px; padding: 0px 0px 0px 1.25em; border: 0px; font-variant-numeric: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline; list-style-position: initial; list-style-image: initial;"><li style="padding-left: 0.25em; border: 0px; font-variant-numeric: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">최적화 VS 가독성. 최적화보단 가독성</span></p><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;">코드는 항상&nbsp;<span style="background-color: rgb(206, 222, 231);"><u>읽기 쉽고 개발자들이 이해할 수 있게끔 작성</u></span>하라. 읽기 어려운 코드를 읽는데 소모되는 시간과 비용은 최적화로부터 얻을 수 있는 것보다 더욱 크다. 최적화가 필요하다면, DI (의존성 주입)을 사용해 독립적인 모듈로 만들고, 100%의 테스트 커버리지를 유지하여 최소 1년간은 건들지 않아도 되도록 만들어라.</p><h3 style="color: rgb(100, 100, 100); font-size: inherit; font-style: inherit; font-variant: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><font face="Courier New"><br></font><span lang="EN-US"></span></h3><h4 style="line-height: 1.3; color: rgb(0, 0, 0); margin-top: 0px; margin-bottom: 0.25em; background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; overflow: visible; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); margin-left: 25px;">테스트 커버리지 ( 출처 : 조대협의 블로그 )&nbsp;</h4><h4 style="font-variant-numeric: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline; margin-left: 25px;"><span style="font-weight: normal;">&nbsp; 우리가 단위 테스트나 통합 테스트와 같은 일련의 <span style="background-color: rgb(255, 239, 198);">테스트 작업을 수행하였</span>을때<span lang="EN-US">,&nbsp;</span>이 테스트가 <span style="background-color: rgb(255, 239, 198);">전체 테스트를 해야 하는 부분중에서 얼마만큼을 테스트 했는지를 판단해야 한다</span><span lang="EN-US">.<br></span>&nbsp; 예를 들어<span lang="EN-US">, 20</span>가지의 기능을 가지고 있는 애플리케이션이 있을때<span lang="EN-US">,&nbsp;</span>몇가지 기능에 대해서 테스트를 했는가와 같이<span lang="EN-US">,&nbsp;</span></span><u>수행한 테스트가 테스트의 대상을 얼마나 커버했는지를 나타내는 것</u><span style="font-weight: normal;">이 테스트 커버러지이다<span lang="EN-US">.&nbsp;</span>이 커버러지율을 기준으로 애플리케이션이 릴리즈가 가능한 수준으로 검증이 되었는가를 판단하게 된다<span lang="EN-US">.<br></span>&nbsp; 위에서 예를 든것과 같이 기능에 대한 테스트 완료여부를 커버러지의 척도로 삼을 수 도 있다<span lang="EN-US">.<br></span>&nbsp; 좀 더 작은 범위의 테스트인 단위 테스트의 경우는 개개의 클래스나 논리적인 단위의 컴포넌트 각각을 테스트하기 때문에<span lang="EN-US">,&nbsp;</span>테스트에 대한 커버 범위를 각각의 클래스 또는 소스 코드의 각 라인을 척도로 삼을 수 있는데<span lang="EN-US">,<span style="background-color: rgb(255, 239, 198);">&nbsp;</span></span><span style="background-color: rgb(255, 239, 198);">테스트가 전체 소스코드중에서 얼마나를 커버했는지를 나타내는것이<span lang="EN-US">&nbsp;"</span>코드 커버러지<span lang="EN-US">(Code Coverage)"&nbsp;</span>이다<span lang="EN-US">.</span></span></span></h4><h4 style="font-variant-numeric: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline; margin-left: 25px;"><br></h4><h4 style="background-image: none; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; margin-top: 0px; margin-bottom: 0.25em; overflow: visible; padding: 0px; border-bottom: 1px solid rgb(162, 169, 177); line-height: 1.3; margin-left: 25px;">코드 커버리지</h4><h4 style="margin-top: 0.5em; margin-bottom: 0.5em; line-height: inherit; margin-left: 25px;"><span style="font-weight: normal;"><font face="Helvetica">&nbsp; 코드 커버리지(Code Coverage)는 <span style="background-color: rgb(255, 239, 198);">소프트웨어의 테스트를 논할 때 얼마나 테스트가 충분한가</span>를 나타내는 지표중 하나다. 말 그대로 코드가 얼마나 커버되었는가이다. &nbsp;소프트웨어 테스트를 진행했을 때 코드 자체가 얼마나 실행되었냐는 것이다.</font></span></h4><p style="font-variant-numeric: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline; margin-left: 25px;"><br></p><h4 style="line-height: inherit; color: rgb(0, 0, 0); margin-top: 0px; margin-bottom: 0.75em; font-variant-numeric: inherit; padding: 0px; border: 0px; font-stretch: inherit; vertical-align: baseline;"><span style="font-weight: normal;">&nbsp;-&gt; 사실 상세한 설명은 아직 이해가 잘 되지 않지만, 가독성이 중요하다는 것을 말해주는 대목 같습니다.&nbsp;</span></h4><h4 style="line-height: inherit; color: rgb(0, 0, 0); margin-top: 0px; margin-bottom: 0.75em; font-variant-numeric: inherit; padding: 0px; border: 0px; font-stretch: inherit; vertical-align: baseline;"><span style="font-weight: normal;"><br></span></h4><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="font-family: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">아키텍처 우선</span></p><p style="font-family: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; vertical-align: baseline;">나는 “우리는 빨리 개발을 해야하기 때문에 아키텍처를 설계할 시간이 없다”라고 말하는 사람을 많이 봐왔다. 그리고 그 중 99%가 이러한 생각 때문에 큰 문제를 겪었다.</p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; vertical-align: baseline;"><b><u><font face="Impact">아키텍처를 생각하지 않고 코드를 작성하는 것은 목표 달성을위한 계획없이 자신의 욕망을 꿈꾸는 것처럼 쓸모가 없다. &nbsp;&nbsp;</font></u></b><span style="font-family: inherit; font-weight: inherit;">코드를 작성하기 전에 먼저&nbsp;<span style="background-color: rgb(255, 239, 198);">수행 할 작업, 사용 방법, 모듈화 방법, 서비스가 서로 어떻게 동작하는지, 구조가 무엇인지, 테스트 및 디버깅 방법, 업데이트 방법</span>들을 먼저 생각하고 이해해야한다.</span></p><p style="font-family: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; vertical-align: baseline;"><br></p><h4 style="line-height: inherit; color: rgb(0, 0, 0); margin-top: 0px; margin-bottom: 0.75em; font-variant-numeric: inherit; padding: 0px; border: 0px; font-stretch: inherit; vertical-align: baseline;"><span style="font-weight: normal;">-&gt; 저도 코드를 막 짜는 경우가 있는데, 복잡도가 증가할수록 계획 없이 짠 코드는 시간만 낭비하는 경우가 많은 것 같습니다.&nbsp;</span></h4><p style="font-family: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; vertical-align: baseline;"><br></p><p style="font-family: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">테스트 커버리지</span></p><p style="font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">테스트는 좋은 일이지만 항상 비용 효율적인건 아니며 프로젝트에 따라 다르다.</p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><u><b>테스트가 필요한 경우:</b></u></p><ul style="font-weight: inherit; margin-right: 0px; margin-bottom: 1em; margin-left: 0px; padding: 0px 0px 0px 1em; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; list-style: disc;"><li style="padding-left: 0.5em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">최소 한 달간은 건들지 않아도 될 모듈이나 마이크로서비스를 개발하는 경우</li><li style="padding-left: 0.5em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">오픈소스 코드를 작성하는 경우</li><li style="padding-left: 0.5em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">핵심 코드 또는 금전적인 부분과 맞닿는 코드를 작성하는 경우</li><li style="padding-left: 0.5em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">코드를 업데이트 하는 것과 동시에 테스트를 업데이트 할 수 있는 충분한 비용이 있는 경우</li></ul><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><b><u>테스트가 필요하지 않는 경우:</u></b></p><ul style="font-weight: inherit; margin-right: 0px; margin-bottom: 1em; margin-left: 0px; padding: 0px 0px 0px 1em; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; list-style: disc;"><li style="padding-left: 0.5em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">스타트업인 경우</li><li style="padding-left: 0.5em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">팀이 작고 코드가 빠르게 변하는 경우</li><li style="padding-left: 0.5em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">출력값을 보고 간단하게 수동으로 테스트가 가능한 스크립트를 작성하는 경우</li></ul><p style="font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">나쁜 테스트 코드와 함께 코드를 짜는 것은 테스트가 없는 코드보다 더 위험할 수 있음을 기억하라.</p><h4 style="line-height: inherit; color: rgb(0, 0, 0); margin-top: 0px; margin-bottom: 0.75em; font-variant-numeric: inherit; padding: 0px; border: 0px; font-stretch: inherit; vertical-align: baseline;"><span style="font-weight: normal;"><br>-&gt; 이 파트는 개인적으로 이해가 잘 되지 않네요.&nbsp;</span></h4><p style="font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><p style="font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><p style="font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">간단하고 단순하게</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">복잡한 코드를 작성하지 말라. 간단하게 작성하면 버그가 줄어들고 디버깅 시간도 줄어들 수 있다. 코드는 수많은 추상화 및 기타 객체지향적인 문제 (특히 Java 개발자와 관련이 있음) 없이 딱 필요한 일만을 수행해야하며, 추후에 간단한 방법으로 코드를 업데이트하기 위해 필요한 것의 20%를 수행해야한다.<br><br></p><h4 style="line-height: inherit; color: rgb(0, 0, 0); margin-top: 0px; margin-bottom: 0.75em; font-variant-numeric: inherit; padding: 0px; border: 0px; font-stretch: inherit; vertical-align: baseline;"><span style="font-weight: normal;">-&gt; 어떤 사람은 주석이 없으면 코드는 쓰레기라는 말을 했던 것 같은데, 주석이 없어도 이해가 되야 된다는 것을 강조하네요.<br>그만큼 쉬운 코드를 짜라는 말이겠죠? 주석보단 구글 API 문서 같은 걸 말하는 것 같습니다.&nbsp;</span></h4><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><div><span style="font-weight: normal;"><br></span></div></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">주석</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">주석은 나쁜 코드를 보여준다. <span style="background-color: rgb(255, 239, 198);">좋은 코드는 주석 없이도 이해할 수 있어야</span>한다. 그러면 새로운 개발자를 위해 시간을 절약하기 위해 해야 할 일은 무엇인가? — <span style="background-color: rgb(255, 239, 198);">메서드의 정의와 사용법을 설명하는 한 줄짜리 간단한 문서를 작성하라</span>. 이는 이해를 위한 많은 시간을 절약해 줄 것이며 — 더 많은 사람들에게 메서드를 더 잘 구현할 수 있는 기회를 제공해준다. 또한 이는 글로벌 코드 문서화를 위한 좋은 시작점이 될 것이다.<br><br></p><h4 style="line-height: inherit; color: rgb(0, 0, 0); margin-top: 0px; margin-bottom: 0.75em; font-variant-numeric: inherit; padding: 0px; border: 0px; font-stretch: inherit; vertical-align: baseline;"><span style="font-weight: normal;">-&gt; 어떤 사람은 주석이 없으면 코드는 쓰레기라는 말을 했던 것 같은데, 주석이 없어도 이해가 되야 된다는 것을 강조하네요.<br>그만큼 쉬운 코드를 짜라는 말이겠죠? 주석보단 구글 API 문서 같은 걸 말하는 것 같습니다.&nbsp;</span></h4><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">강한 결합 VS 느슨한 결합</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">항상 마이크로서비스 아키텍처를 사용하도록 노력하라. 모놀리틱 소프트웨어는 마이크로서비스 소프트웨어보다 빠르지만, 단일 서버 환경에서만 그렇다. 마이크로서비스는 여러분의 소프트웨어를 여러 서버로의 분산뿐만 아니라 가끔은 하나의 머신에서의 분산처리 (프로세스 분산을 의미한다)도 할 수 있는 가능성을 제공해준다.</p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><h4 style="line-height: inherit; color: rgb(0, 0, 0); margin-top: 0px; margin-bottom: 0.75em; font-variant-numeric: inherit; padding: 0px; border: 0px; font-stretch: inherit; vertical-align: baseline;"><span style="font-weight: normal;">-&gt; 어떤 사람은 주석이 없으면 코드는 쓰레기라는 말을 했던 것 같은데, 주석이 없어도 이해가 되야 된다는 것을 강조하네요.<br>그만큼 쉬운 코드를 짜라는 말이겠죠? 주석보단 구글 API 문서 같은 걸 말하는 것 같습니다.</span></h4><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p></li><li style="padding-left: 0.25em; border: 0px; font-variant-numeric: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">코드 리뷰</span></p><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;">코드 리뷰는 좋을 수도 있고 나쁠 수도 있다.</p><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;">여러분의 팀에 코드의 95%를 이해하고 있고 시간 낭비 없이 모든 업데이트 사항을 모니터링 할 수 있는 개발자가 있는 경우에만 코드 리뷰를 도입하도록 하라. 이 외의 경우에는 단지 시간 낭비가 될 수 있으며 모두가 이를 싫어하게 될 것이다. 이 부분은 많은 질문을 가져오기 때문에 이를 좀 더 깊게 살펴보자.</p><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;">많은 사람들은 코드 리뷰가 새로운 사람이나 코드의 다른 부분을 작업하는 팀원을 가르치는 좋은 방법이라고 생각한다. 그러나 코드 리뷰의 주요 목표는 코드 품질을 유지하는 것이지 가르치는게 아니다. 여러분의 팀이 원자로 또는 우주 로켓 엔진 냉각 시스템을 제어하는 코드를 작성했다고 가정해보자. 그리고 여러분은 아주 어려운 로직에서 큰 실수를 저질렀고, 이를 새로운 사람에게 코드 리뷰를 위해 제공했다고 해보자. 이 경우 여러분은 사고 위험에 대해 어떻게 생각하는가? — 내 대답은 70% 이상이다.</p><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><span style="background-color: rgb(255, 239, 198);">좋은 팀은 각자가 자신의 역할을 가지고 있으며 일의 한 부분에 대해 완전한 책임감을 갖고 있는 팀이다</span>. 만약 누가 코드의 다른 부분을 이해하고 싶으면 해당 부분을 담당하고 있는 사람에게 찾아가 질문을 하면된다. 모든걸 아는건 불가능하며 전체보다는 코드의 작은 부분을 (하지만 적어도 30%는) 완전히 이해하는것이 더 낫다.</p><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><br></p><h4 style="font-variant-numeric: inherit; line-height: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; vertical-align: baseline;"><span style="color: rgb(0, 0, 0); font-family: inherit; font-size: inherit; font-style: inherit; font-variant-ligatures: inherit; font-variant-caps: inherit; font-weight: normal;">-&gt;&nbsp;</span><span style="font-weight: normal;">코드 검토(code review)는 코드를 개발자가 작성하고, 다른 개발자가 정해진 방법을 통해 검토하는 일을 말한다. 등위 검사, 제3자 검사라고도 한다.</span></h4><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><br></p><p style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">리팩토링은 작동하지 않는다</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">나는 일하는 동안 “나중에 리팩토링 할거니까 걱정하지마라”라는 말을 많이 들었다. 그리고 나중에 이는 큰 기술적 부채로 돌아오거나 모든 코드를 다 삭제한 후 처음부터 다시 작성하게 되었다.</p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">따라서 처음부터 여러번 소프트웨어 다시 개발할 수 있는 자금이 있는게 아니라면 부채를 만들지 말라.</p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><h4 style="line-height: inherit; color: rgb(0, 0, 0); margin-top: 0px; margin-bottom: 0.75em; font-variant-numeric: inherit; padding: 0px; border: 0px; font-stretch: inherit; vertical-align: baseline;"><span style="font-weight: normal;">-&gt; 처음 제작할 때 부터, 다시 만들 생각을 하지 말자는 취지의 말 같네요.&nbsp;</span></h4><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">피곤하거나 컨디션이 좋지 않을때 코딩하지 말라</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="background-color: rgb(255, 239, 198);">개발자들이 피곤할 땐 평소보다 2-5배 더 많은 버그와 실수를 만들어낸다.</span> 따라서 과업은 매우 나쁘다. 그렇기 때문에 하루의 업무시간을 약 6시간으로 고려하는 국가가 점점 더 많아지고 있으며, 일부 국가에서는 이미 실천하고있다. 정신적인 일은 육체적인 일을 다루는 것과 같지 않다.</p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">모든걸 한꺼번에 작성하자 말라 - 반복적으로 개발하라</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">코드를 작성하기 전에 우선 <span style="background-color: rgb(255, 239, 198);">여러분의 고객과 클라이언트가 정말로 필요로 하는걸 분석하고 예측하고</span>, 짧은 기간동안 개발할 수 있는 MVF(Most Valuable Features)를 추려내라. 품질 업데이트를 배포하기 위해 이러한 반복을 사용하도록 하고 무리한 요구사항과 품질 희생에 시간과 자원을 낭비하지말라.</p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">자동화 VS 수동</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">자동화는 장기적으로 100% 성공이다. 따라서 지금 당장 무언가를 자동화 할 수 있는것이 있다면 바로 하도록 하라. “5 분 밖에 걸리지 않는데, 왜 자동화 해야해?”라고 생각할 수도 있다. 하지만 한 번 계산해보자. 예를 들어 5명의 개발자로 이루어진 팀의 일상적인 작업을 들어보자. 5분 * 5명 * 21일 * 12개월 = 6,300분 = 105시간 = 13.125 일 ~ 5,250$. 직원이 40,000명일 경우엔 비용이 얼마나 커질까?</p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">나가서 취미를 갖자</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">일의 차별화는 정신 능력을 향상시키며 새롭고 신선한 아이디어를 제공한다. 따라서 잠시 쉬고 신선한 공기를 마시거나 친구들과 이야기를 하거나 기타를 연주하는등의 <span style="background-color: rgb(255, 239, 198);">취미를 가져라.</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><br></p></li><li style="color: rgb(100, 100, 100); font-family: inherit; font-size: inherit; padding-left: 0.25em; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; vertical-align: baseline;"><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; color: rgb(60, 59, 59); background-color: rgb(255, 214, 99);">여유 시간에 새로운걸 배워라</span></p><p style="margin-top: 0px; margin-bottom: 0.75em; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline;">학습을 중단하면 퇴화하기 시작한다.</p></li></ol><p><br></p><p><br></p><p><br></p><p><br></p><p></p><div style="text-align: center;">- 출처 -&nbsp;</div><div style="text-align: center;"><a href="http://egloos.zum.com/YSocks/v/416453" style="background-color: rgb(255, 255, 255);">http://egloos.zum.com/YSocks/v/416453</a><a href="http://egloos.zum.com/YSocks/v/416453"><br></a></div><div style="text-align: center;"><a href="https://mingrammer.com/translation-13-simple-rules-for-good-coding" style="background-color: rgb(255, 255, 255);">https://mingrammer.com/translation-13-simple-rules-for-good-coding</a><a href="https://mingrammer.com/translation-13-simple-rules-for-good-coding"><br></a></div><div style="text-align: center;"><a href="https://hackernoon.com/few-simple-rules-for-good-coding-my-15-years-experience-96cb29d4acd9" style="background-color: rgb(255, 255, 255);">https://hackernoon.com/few-simple-rules-for-good-coding-my-15-years-experience-96cb29d4acd9</a><a href="https://hackernoon.com/few-simple-rules-for-good-coding-my-15-years-experience-96cb29d4acd9"><br></a></div><div style="text-align: center;"><a href="http://bcho.tistory.com/156" style="background-color: rgb(255, 255, 255);">http://bcho.tistory.com/156</a><a href="http://bcho.tistory.com/156"><br></a></div><div style="text-align: center;"><a href="https://ko.wikipedia.org/wiki/%EC%BD%94%EB%93%9C_%EC%BB%A4%EB%B2%84%EB%A6%AC%EC%A7%80" style="background-color: rgb(255, 255, 255);">https://ko.wikipedia.org/wiki/%EC%BD%94%EB%93%9C_%EC%BB%A4%EB%B2%84%EB%A6%AC%EC%A7%80</a><a href="https://ko.wikipedia.org/wiki/%EC%BD%94%EB%93%9C_%EC%BB%A4%EB%B2%84%EB%A6%AC%EC%A7%80"><br></a></div><div style="text-align: center;"><a href="http://egloos.zum.com/YSocks/v/416453">http://egloos.zum.com/YSocks/v/416453</a><br><br></div><p></p></div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><meta itemprop="dateModified" content="2017-07-02T00:00:00+09:00"><!-- start custom article footer snippet -->
+
+<!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
+    <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer><div class="article__section-navigator clearfix"><div class="previous"><span>PREVIOUS</span><a href="/web/2017/07/02/020607.html">[R] 리눅스 R 설치 + Jupyter NoteBook 에서 R 사용하기</a></div><div class="next"><span>NEXT</span><a href="/python/2017/07/04/215820.html">Python 멀티프로그래밍 문법 및 실험 </a></div></div></div>
+
+</div>
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
+
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
+      });
+      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
+    });
+  });
+})();
+</script></div><section class="page__comments d-print-none"></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet --></div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="I am an amazing person."><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+      </a></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Easy is Perfect 2019,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer></div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"><script>
+(function () {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    // search panel
+    var search = (window.search || (window.search = {}));
+    var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
+      true : window.useDefaultSearchBox ;
+
+    var $searchModal = $('.js-page-search-modal');
+    var $searchToggle = $('.js-search-toggle');
+    var searchModal = $searchModal.modal({ onChange: handleModalChange, hideWhenWindowScroll: true });
+    var modalVisible = false;
+    search.searchModal = searchModal;
+
+    var $searchBox = null;
+    var $searchInput = null;
+    var $searchClear = null;
+
+    function getModalVisible() {
+      return modalVisible;
+    }
+    search.getModalVisible = getModalVisible;
+
+    function handleModalChange(visible) {
+      modalVisible = visible;
+      if (visible) {
+        search.onShow && search.onShow();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+      } else {
+        search.onShow && search.onHide();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        setTimeout(function() {
+          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          search.clear && search.clear();
+          window.pageAsideAffix && window.pageAsideAffix.refresh();
+        }, 400);
+      }
+    }
+
+    $searchToggle.on('click', function() {
+      modalVisible ? searchModal.hide() : searchModal.show();
+    });
+    // Char Code: 83  S, 191 /
+    $(window).on('keyup', function(e) {
+      if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
+        modalVisible || searchModal.show();
+      }
+    });
+
+    if (useDefaultSearchBox) {
+      $searchBox = $('.js-search-box');
+      $searchInput = $searchBox.children('input');
+      $searchClear = $searchBox.children('.js-icon-clear');
+      search.getSearchInput = function() {
+        return $searchInput.get(0);
+      };
+      search.getVal = function() {
+        return $searchInput.val();
+      };
+      search.setVal = function(val) {
+        $searchInput.val(val);
+      };
+
+      $searchInput.on('focus', function() {
+        $(this).addClass('focus');
+      });
+      $searchInput.on('blur', function() {
+        $(this).removeClass('focus');
+      });
+      $searchInput.on('input', window.throttle(function() {
+        var val = $(this).val();
+        if (val === '' || typeof val !== 'string') {
+          search.clear && search.clear();
+        } else {
+          $searchBox.addClass('not-empty');
+          search.onInputNotEmpty && search.onInputNotEmpty(val);
+        }
+      }, 400));
+      $searchClear.on('click', function() {
+        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        search.clear && search.clear();
+      });
+    }
+  });
+})();
+</script><div class="search search--dark">
+  <div class="main">
+    <div class="search__header">Search</div>
+    <div class="search-bar">
+      <div class="search-box js-search-box">
+        <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
+        <input type="text" />
+        <div class="search-box__icon-clear js-icon-clear">
+          <a><i class="fas fa-times"></i></a>
+        </div>
+      </div>
+      <button class="button button--theme-dark button--pill search__cancel js-search-toggle">
+        Cancel</button>
+    </div>
+    <div class="search-result js-search-result"></div>
+  </div>
+</div>
+<script>var SOURCES = window.TEXT_VARIABLES.sources;
+var PAHTS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+  var search = (window.search || (window.search = {}));
+  var searchData = window.TEXT_SEARCH_DATA ? initData(window.TEXT_SEARCH_DATA) : {};
+
+  function memorize(f) {
+    var cache = {};
+    return function () {
+      var key = Array.prototype.join.call(arguments, ',');
+      if (key in cache) return cache[key];
+      else return cache[key] = f.apply(this, arguments);
+    };
+  }
+
+  function initData(data) {
+    var _data = [], i, j, key, keys, cur;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i], _data[key] = [];
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        cur.title = window.decodeUrl(cur.title);
+        cur.url = window.decodeUrl(cur.url);
+        _data[key].push(cur);
+      }
+    }
+    return _data;
+  }
+
+  /// search
+  function searchByQuery(query) {
+    var i, j, key, keys, cur, _title, result = {};
+    keys = Object.keys(searchData);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      for (j = 0; j < searchData[key].length; j++) {
+        cur = searchData[key][j], _title = cur.title;
+        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+          && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          if (result[key] === undefined) {
+            result[key] = [];
+          }
+          result[key].push(cur);
+        }
+      }
+    }
+    return result;
+  }
+
+  var renderHeader = memorize(function(header) {
+    return $('<p class="search-result__header">' + header + '</p>');
+  });
+
+  var renderItem = function(index, title, url) {
+    return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
+  };
+
+  function render(data) {
+    if (!data) { return null; }
+    var $root = $('<ul></ul>'), i, j, key, keys, cur, itemIndex = 0;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      $root.append(renderHeader(key));
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        $root.append(renderItem(itemIndex++, cur.title, cur.url));
+      }
+    }
+    return $root;
+  }
+
+  // search box
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+
+  function clear() {
+    $result.html(null);
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+  }
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
+
+  search.clear = clear;
+  search.onInputNotEmpty = onInputNotEmpty;
+
+  function updateResultItems() {
+    lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
+    activeIndex >= 0 && $resultItems.eq(activeIndex).addClass('active');
+  }
+
+  function moveActiveIndex(direction) {
+    var itemsCount = $resultItems ? $resultItems.length : 0;
+    if (itemsCount > 1) {
+      lastActiveIndex = activeIndex;
+      if (direction === 'up') {
+        activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
+      } else if (direction === 'down') {
+        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+      }
+      updateResultItems();
+    }
+  }
+
+  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
+  $(window).on('keyup', function(e) {
+    var modalVisible = search.getModalVisible && search.getModalVisible();
+    if (modalVisible) {
+      if (e.which === 38) {
+        modalVisible && moveActiveIndex('up');
+      } else if (e.which === 40) {
+        modalVisible && moveActiveIndex('down');
+      } else if (e.which === 13) {
+        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    }
+  });
+
+  $result.on('mouseover', '.search-result__item > a', function() {
+    var itemIndex = $(this).parent().data('index');
+    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+  });
+});
+</script></div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    toc = $tocRoot.toc({
+      selectors: TOC_SELECTOR,
+      container: $articleContent,
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    affix = $pageAside.affix({
+      offsetBottom: $pageFooter.outerHeight(),
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      scroll: hasSidebar ? $('.js-page-main').children() : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+    window.pageAsideAffix = affix;
+  });
+})();
+</script>
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>

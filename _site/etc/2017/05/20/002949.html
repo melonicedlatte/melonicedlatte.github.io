@@ -1,0 +1,953 @@
+<!DOCTYPE html><html lang="en">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>인력 사무소의 수수료 문제점  - Easy is Perfect</title>
+
+<meta name="description" content="아래의 뉴스는 인력 사무소의 수수료 문제점을 자신의 이야기 처럼 풀어서 쓴 좋은 글입니다.&nbsp;아래의 뉴스도 보고 제 경험과 덧불어서 포스팅하겠습니다.&nbsp;인력들은 항상 힘들게 일하시는데요.&nbsp;항상 수수료 문제가 거론됩니다.&nbsp;이전부터 많이 거론되어 왔던 ...">
+<link rel="canonical" href="http://localhost:4000/etc/2017/05/20/002949.html"><link rel="alternate" type="application/rss+xml" title="Easy is Perfect" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/favicon.ico">
+
+<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/browserconfig.xml">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" ><!-- start custom head snippets -->
+
+<!-- end custom head snippets --><script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.decodeUrl = function(str) {
+    return str ? decodeURIComponent(str.replace(/\+/g, '%20')) : '';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.4',
+      sources: {
+        font_awesome: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn1.lncld.net/static/js/3.4.1/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script></head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport has-aside cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#515151;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg><a title="Want to make some good product for world
+" href="/">Easy is Perfect</a></div><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/archive">Archive</a></li><li class="navigation__item"><a href="/about">About</a></li><li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet --><article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>인력 사무소의 수수료 문제점 </h1></header><span class="split-space">&nbsp;</span>
+          <a class="edit-on-github"
+            title="Edit on Github"
+            href="https://github.com/melonicedlatte/melonicedlatte.github.io/tree/master/_posts/2017-05-20-002949.html">
+            <i class="far fa-edit"></i></a></div><meta itemprop="headline" content="인력 사무소의 수수료 문제점 "><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Etc">Etc</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>May 20, 2017</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-05-20T00:00:00+09:00">
+    <meta itemprop="keywords" content="Etc"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+
+<!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><div class="se_component se_paragraph default" style="margin-top: 30px; font-family: 나눔고딕, nanumgothic, se_NanumGothic, sans-serif, simhei; -webkit-font-smoothing: antialiased; word-break: normal; margin-left: 40px; margin-right: 40px; color: rgb(128, 128, 128); font-size: 14px;"><div class="se_sectionArea" style="position: relative; width: 886px; margin: 0px auto; max-width: none;"><div class="se_editArea" style="position: relative;"><div class="se_viewArea se_ff_nanumgothic se_fs_T3 se_align-left" style="position: relative; font-family: 나눔고딕, nanumgothic, se_NanumGothic, AppleSDGothicNeo, sans-serif, simhei; font-size: 16px; word-wrap: break-word; line-height: 1.9;"><div class="se_editView" style="position: relative;"><div class="se_textView"><p class="se_textarea" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; width: 886px; height: 90px; outline: 0px; border: none; background: 0px 0px; font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit; color: inherit; text-align: inherit; font-style: inherit; text-decoration: inherit; resize: none; word-break: break-word; word-wrap: break-word;"><span style="background-color: inherit;">아래의 뉴스는 인력 사무소의 수수료 문제점을 자신의 이야기 처럼 풀어서 쓴 좋은 글입니다.&nbsp;<br></span><span style="background-color: inherit;">아래의 뉴스도 보고 제 경험과 덧불어서 포스팅하겠습니다.&nbsp;<br></span><span style="background-color: inherit;"><span style="background-color: inherit; color: rgb(0, 0, 0);"></span><br></span><span style="background-color: inherit;"><span style="background-color: inherit; color: rgb(0, 0, 0);"></span></span></p></div></div></div></div></div></div><div class="se_component se_image default" style="margin-top: 30px; font-family: 나눔고딕, nanumgothic, se_NanumGothic, sans-serif, simhei; -webkit-font-smoothing: antialiased; margin-left: 40px; margin-right: 40px; color: rgb(128, 128, 128); font-size: 14px;"><div class="se_sectionArea se_align-left" style="position: relative; width: 886px; margin: 0px auto; max-width: none; font-size: 0px;"><div class="se_editArea" style="position: relative;"><div class="se_viewArea" style="position: relative; display: inline-block; width: 400px; max-width: 400px;"><a href="http://blog.naver.com/PostList.nhn?blogId=04banjang&amp;categoryNo=0&amp;from=postList#" class="se_mediaArea __se_image_link __se_link" data-linktype="img" data-linkdata="{&quot;imgId&quot; : &quot;SEDOC-1491570504220--1908457247_image_0_img&quot;, &quot;src&quot; : &quot;http://postfiles14.naver.net/MjAxNzA0MDdfMjY5/MDAxNDkxNTcwMTcxNDEy.lMDX59Mc92R17M0kgf6fZSiRZxcTe_leGon-3JYkn0Mg.jCqYzdVHKTC_7hEWpC4FZul47nqtuD_fzL4uq3Sdq6Ig.JPEG.04banjang/image_9570109891491570162389.jpg&quot;, &quot;linkUse&quot; : &quot;false&quot;,&quot;link&quot; : &quot;&quot;}" style="color: rgb(0, 0, 0); position: relative; display: block;"><img id="SEDOC-1491570504220--1908457247_image_0_img" class="se_mediaImage __se_img_el" src="http://postfiles14.naver.net/MjAxNzA0MDdfMjY5/MDAxNDkxNTcwMTcxNDEy.lMDX59Mc92R17M0kgf6fZSiRZxcTe_leGon-3JYkn0Mg.jCqYzdVHKTC_7hEWpC4FZul47nqtuD_fzL4uq3Sdq6Ig.JPEG.04banjang/image_9570109891491570162389.jpg?type=w966" width="400" height="261" data-attachment-id="IikQzqwrIL6buwqwFiLres4BDQOQ" alt="" style="vertical-align: top; height: auto; width: 400px; max-width: 100%;"></a></div></div></div></div><div class="se_component se_paragraph default" style="margin-top: 30px; font-family: 나눔고딕, nanumgothic, se_NanumGothic, sans-serif, simhei; -webkit-font-smoothing: antialiased; word-break: normal; margin-left: 40px; margin-right: 40px; color: rgb(128, 128, 128); font-size: 14px;"><div class="se_sectionArea" style="position: relative; width: 886px; margin: 0px auto; max-width: none;"><div class="se_editArea" style="position: relative;"><div class="se_viewArea se_ff_nanumgothic se_fs_T3 se_align-left" style="position: relative; font-family: 나눔고딕, nanumgothic, se_NanumGothic, AppleSDGothicNeo, sans-serif, simhei; font-size: 16px; word-wrap: break-word; line-height: 1.9;"><div class="se_editView" style="position: relative;"><div class="se_textView"><p class="se_textarea" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; width: 886px; height: 150px; outline: 0px; border: none; background: 0px 0px; font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit; color: inherit; text-align: inherit; font-style: inherit; text-decoration: inherit; resize: none; word-break: break-word; word-wrap: break-word;"><span style="background-color: inherit;"><span style="background-color: inherit; color: rgb(0, 0, 0);"></span><br></span><span style="background-color: inherit;"><span style="background-color: inherit; color: rgb(0, 0, 0);">인력들은 항상 힘들게 일하시는데요.&nbsp;</span></span><span style="background-color: inherit;"><span style="background-color: inherit; color: rgb(0, 0, 0);">항상 수수료 문제가 거론됩니다.&nbsp;</span><br></span><span style="background-color: inherit;"><span style="background-color: inherit; color: rgb(0, 0, 0);"></span>이전부터 많이 거론되어 왔던 문제입니다.&nbsp;<br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"></span></p></div></div></div></div></div></div><div class="se_component se_image default" style="margin-top: 30px; font-family: 나눔고딕, nanumgothic, se_NanumGothic, sans-serif, simhei; -webkit-font-smoothing: antialiased; margin-left: 40px; margin-right: 40px; color: rgb(128, 128, 128); font-size: 14px;"><div class="se_sectionArea se_align-left" style="position: relative; width: 886px; margin: 0px auto; max-width: none; font-size: 0px;"><div class="se_editArea" style="position: relative;"><div class="se_viewArea" style="position: relative; display: inline-block; width: 317px; max-width: 317px;"><a href="http://blog.naver.com/PostList.nhn?blogId=04banjang&amp;categoryNo=0&amp;from=postList#" class="se_mediaArea __se_image_link __se_link" data-linktype="img" data-linkdata="{&quot;imgId&quot; : &quot;SEDOC-1491570504220--1908457247_image_1_img&quot;, &quot;src&quot; : &quot;http://postfiles2.naver.net/MjAxNzA0MDdfMTAg/MDAxNDkxNTcwMjM3OTI0.L6_omvmLn82qdyOmLjKQDBO20f68cwVrZ37G_plXjt4g.RkZFVBiKkFWvZkCBo7O-mSJ6IddWU86a7S9POyObPnkg.PNG.04banjang/image.png&quot;, &quot;linkUse&quot; : &quot;false&quot;,&quot;link&quot; : &quot;&quot;}" style="color: rgb(0, 0, 0); position: relative; display: block;"><img id="SEDOC-1491570504220--1908457247_image_1_img" class="se_mediaImage __se_img_el" src="http://postfiles2.naver.net/MjAxNzA0MDdfMTAg/MDAxNDkxNTcwMjM3OTI0.L6_omvmLn82qdyOmLjKQDBO20f68cwVrZ37G_plXjt4g.RkZFVBiKkFWvZkCBo7O-mSJ6IddWU86a7S9POyObPnkg.PNG.04banjang/image.png?type=w966" width="317" height="159" data-attachment-id="IGVmydytT4sDxj3i4xJqVyM8InoI" alt="" style="vertical-align: top; height: auto; width: 317px; max-width: 100%;"></a></div></div></div></div><div class="se_component se_paragraph default" style="margin-top: 30px; font-family: 나눔고딕, nanumgothic, se_NanumGothic, sans-serif, simhei; -webkit-font-smoothing: antialiased; word-break: normal; margin-left: 40px; margin-right: 40px; color: rgb(128, 128, 128); font-size: 14px;"><div class="se_sectionArea" style="position: relative; width: 886px; margin: 0px auto; max-width: none;"><div class="se_editArea" style="position: relative;"><div class="se_viewArea se_ff_nanumgothic se_fs_T3 se_align-left" style="position: relative; font-family: 나눔고딕, nanumgothic, se_NanumGothic, AppleSDGothicNeo, sans-serif, simhei; font-size: 16px; word-wrap: break-word; line-height: 1.9;"><div class="se_editView" style="position: relative;"><div class="se_textView"><p class="se_textarea" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; width: 886px; height: 360px; outline: 0px; border: none; background: 0px 0px; font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit; color: inherit; text-align: inherit; font-style: inherit; text-decoration: inherit; resize: none; word-break: break-word; word-wrap: break-word;"><span style="background-color: inherit;"><span style="background-color: inherit; color: rgb(0, 0, 0);">현재 인력 사무소에서는&nbsp;</span><span style="background-color: inherit; color: rgb(0, 0, 0);"><span style="font-weight: 600; background-color: inherit;">10% 의 수수료</span></span><span style="background-color: inherit; color: rgb(0, 0, 0);">를 떼가는 것이 관행화 되어 있습니다.&nbsp;</span><span style="background-color: inherit; color: rgb(0, 0, 0);"><br></span><span style="background-color: inherit; color: rgb(0, 0, 0);">이 문제는 단순히 인력들을 착취하는 것 처럼 보일 수 있지만 사실은</span><span style="background-color: inherit; color: rgb(0, 0, 0);"><u style="background-color: inherit;">&nbsp;인력사무소도 위험을 떠 앉게</u></span><span style="background-color: inherit; color: rgb(0, 0, 0);">&nbsp;됩니다.&nbsp;</span></span><span style="background-color: inherit;"><span style="background-color: inherit; color: rgb(0, 0, 0);"><br></span><span style="background-color: inherit; color: rgb(0, 0, 0);">인력사무소에서는 현장에서 일 하고 온 인력들에게 전부 임금을&nbsp;</span><span style="background-color: inherit; color: rgb(0, 0, 0);"><span style="font-weight: 600; background-color: inherit;">당일 지급</span></span><span style="background-color: inherit; color: rgb(0, 0, 0);">해야됩니다.<br></span></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;">하지만 건설회사가 대금을 주는 날짜는 인력들이 공사 현장에 가고 나서 60일 정도 뒤에 일어 난다고 합니다.&nbsp;<br></span><span style="background-color: inherit;">따라서 인력사무소는 건설회사가 대금을 주는 날짜보다&nbsp;</span><span style="background-color: inherit;">&nbsp;먼저 돈을 줘야 되기 때문에,&nbsp;<br></span><span style="background-color: inherit;"><u style="background-color: inherit;">자신들의 돈을 미리 주고 나중에 건설 회사로 부터 받고 있습니다.</u></span><span style="background-color: inherit;">&nbsp;<br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"></span></p></div></div></div></div></div></div><div class="se_component se_image default" style="margin-top: 30px; font-family: 나눔고딕, nanumgothic, se_NanumGothic, sans-serif, simhei; -webkit-font-smoothing: antialiased; margin-left: 40px; margin-right: 40px; color: rgb(128, 128, 128); font-size: 14px;"><div class="se_sectionArea se_align-left" style="position: relative; width: 886px; margin: 0px auto; max-width: none; font-size: 0px;"><div class="se_editArea" style="position: relative;"><div class="se_viewArea" style="position: relative; display: inline-block; width: 404px; max-width: 404px;"><a href="http://blog.naver.com/PostList.nhn?blogId=04banjang&amp;categoryNo=0&amp;from=postList#" class="se_mediaArea __se_image_link __se_link" data-linktype="img" data-linkdata="{&quot;imgId&quot; : &quot;SEDOC-1491570504220--1908457247_image_2_img&quot;, &quot;src&quot; : &quot;http://postfiles5.naver.net/MjAxNzA0MDdfMTMg/MDAxNDkxNTcwNDg2NzI5.9lKB6yKtevMPdRlLHbt90SLbr2e_vZO4kfU-g6bdes0g.2jFIuktO4B5WHmm9TxUegFBODN2ryKt9xZJNcBSYMfMg.PNG.04banjang/image.png&quot;, &quot;linkUse&quot; : &quot;false&quot;,&quot;link&quot; : &quot;&quot;}" style="color: rgb(0, 0, 0); position: relative; display: block;"><img id="SEDOC-1491570504220--1908457247_image_2_img" class="se_mediaImage __se_img_el" src="http://postfiles5.naver.net/MjAxNzA0MDdfMTMg/MDAxNDkxNTcwNDg2NzI5.9lKB6yKtevMPdRlLHbt90SLbr2e_vZO4kfU-g6bdes0g.2jFIuktO4B5WHmm9TxUegFBODN2ryKt9xZJNcBSYMfMg.PNG.04banjang/image.png?type=w966" width="404" height="611" data-attachment-id="IDixFlhD6xyypw-B6h2R6DVRYBao" alt="" style="vertical-align: top; height: auto; width: 404px; max-width: 100%;"></a></div></div></div></div><div class="se_component se_paragraph default" style="margin-top: 30px; font-family: 나눔고딕, nanumgothic, se_NanumGothic, sans-serif, simhei; -webkit-font-smoothing: antialiased; word-break: normal; margin-left: 40px; margin-right: 40px; color: rgb(128, 128, 128); font-size: 14px;"><div class="se_sectionArea" style="position: relative; width: 886px; margin: 0px auto; max-width: none;"><div class="se_editArea" style="position: relative;"><div class="se_viewArea se_ff_nanumgothic se_fs_T3 se_align-left" style="position: relative; font-family: 나눔고딕, nanumgothic, se_NanumGothic, AppleSDGothicNeo, sans-serif, simhei; font-size: 16px; word-wrap: break-word; line-height: 1.9;"><div class="se_editView" style="position: relative;"><div class="se_textView"><p class="se_textarea" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; width: 886px; height: 360px; outline: 0px; border: none; background: 0px 0px; font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit; color: inherit; text-align: inherit; font-style: inherit; text-decoration: inherit; resize: none; word-break: break-word; word-wrap: break-word;"><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;">따라서, 한 번만 공사 업체가 부도가 난다던가 돈을 주지 않으면 인력사무소에도 큰 타격을 주게 됩니다.&nbsp;<br></span><span style="background-color: inherit;">인터뷰 한 결과로는 한 인력사무소에서는<br></span><span style="background-color: inherit;">'우리가 리스크를 많이 떠 앉고 있다.&nbsp;</span><span style="background-color: inherit;"><u style="background-color: inherit;">수수료를 줄여도 되니까 리스크를 줄이면 좋겠다.'</u></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;">라고 말했습니다.&nbsp;<br></span><span style="background-color: inherit;"><span style="background-color: inherit;"></span><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;">건설 현장 노동자는 '촬영 와봐야 바뀌는 게 없다고' 말합니다.&nbsp;<br></span><span style="background-color: inherit;">정부에서도 많은 지원을 해 주어야 될 것 같습니다.&nbsp;<br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"></span></p></div></div></div></div></div></div><div class="se_component se_image default" style="margin-top: 30px; font-family: 나눔고딕, nanumgothic, se_NanumGothic, sans-serif, simhei; -webkit-font-smoothing: antialiased; margin-left: 40px; margin-right: 40px; color: rgb(128, 128, 128); font-size: 14px;"><div class="se_sectionArea se_align-left" style="position: relative; width: 886px; margin: 0px auto; max-width: none; font-size: 0px;"><div class="se_editArea" style="position: relative;"><div class="se_viewArea" style="position: relative; display: inline-block; width: 400px; max-width: 400px;"><a href="http://blog.naver.com/PostList.nhn?blogId=04banjang&amp;categoryNo=0&amp;from=postList#" class="se_mediaArea __se_image_link __se_link" data-linktype="img" data-linkdata="{&quot;imgId&quot; : &quot;SEDOC-1491570504220--1908457247_image_3_img&quot;, &quot;src&quot; : &quot;http://postfiles1.naver.net/MjAxNzA0MDdfNTYg/MDAxNDkxNTcwNDI1MzM2.LyOnUizQ9sXEkkJu-JSV5LB4mOp_Q2g0ZbsLkLkEI5sg.IULIGhZGLNAh6DEB8SyZM068RxygLkQqZCE3VY99LJMg.JPEG.04banjang/image_163165181491570416200.jpg&quot;, &quot;linkUse&quot; : &quot;false&quot;,&quot;link&quot; : &quot;&quot;}" style="color: rgb(0, 0, 0); position: relative; display: block;"><img id="SEDOC-1491570504220--1908457247_image_3_img" class="se_mediaImage __se_img_el" src="http://postfiles1.naver.net/MjAxNzA0MDdfNTYg/MDAxNDkxNTcwNDI1MzM2.LyOnUizQ9sXEkkJu-JSV5LB4mOp_Q2g0ZbsLkLkEI5sg.IULIGhZGLNAh6DEB8SyZM068RxygLkQqZCE3VY99LJMg.JPEG.04banjang/image_163165181491570416200.jpg?type=w966" width="400" height="269" data-attachment-id="I-M0rDdBAv613x_upFNvhPWXNBD4" alt="" style="vertical-align: top; height: auto; width: 400px; max-width: 100%;"></a></div></div></div></div><div class="se_component se_paragraph default" style="margin-top: 30px; font-family: 나눔고딕, nanumgothic, se_NanumGothic, sans-serif, simhei; -webkit-font-smoothing: antialiased; word-break: normal; margin-left: 40px; margin-right: 40px; color: rgb(128, 128, 128); font-size: 14px;"><div class="se_sectionArea" style="position: relative; width: 886px; margin: 0px auto; max-width: none;"><div class="se_editArea" style="position: relative;"><div class="se_viewArea se_ff_nanumgothic se_fs_T3 se_align-left" style="position: relative; font-family: 나눔고딕, nanumgothic, se_NanumGothic, AppleSDGothicNeo, sans-serif, simhei; font-size: 16px; word-wrap: break-word; line-height: 1.9;"><div class="se_editView" style="position: relative;"><div class="se_textView"><p class="se_textarea" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; width: 886px; height: 270px; outline: 0px; border: none; background: 0px 0px; font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit; color: inherit; text-align: inherit; font-style: inherit; text-decoration: inherit; resize: none; word-break: break-word; word-wrap: break-word;"><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;">현재 대한민국에서는 비 정규직이 엄청난 사회적 문제로 떠오르고 있는데요.<br></span><span style="background-color: inherit;">비정규직보다 더 힘겨운 상황에 있는 건설 노동자들에게도 힘이 필요합니다.</span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;"><br></span><span style="background-color: inherit;">-</span><span style="background-color: inherit;">출처 -&nbsp;<span style="background-color: inherit; color: rgb(0, 0, 0);"><br></span><span style="background-color: inherit; color: rgb(0, 0, 0);"><a href="http://m.ohmynews.com/NWS_Web/Mobile/at_pg.aspx?CNTN_CD=A0001949343#cb" target="_blank" class="se_link" style="color: rgb(96, 140, 186) !important;">http://m.ohmynews.com/NWS_Web/Mobile/at_pg.aspx?CNTN_CD=A0001949343<span class="__se3tag" style="background-color: inherit;"></span></a><a class="tag" href="http://blog.naver.com/PostListByTagName.nhn?blogId=04banjang&amp;encodedTagName=cb" style="text-decoration-line: none; color: rgb(56, 124, 187) !important;">#cb</a></span></span></p><div class="autosourcing-stub-extra" style="position: absolute; opacity: 0;"><p style="margin-top: 11px; margin-bottom: 7px; padding: 0px; font-size: 12px; font-family: Dotum;"><a class="tag" href="http://blog.naver.com/PostListByTagName.nhn?blogId=04banjang&amp;encodedTagName=cb" style="text-decoration-line: none; color: rgb(56, 124, 187) !important;"><span style="font-weight: 600; padding: 0px 7px 0px 0px;">[출처]</span>&nbsp;</a><a href="http://blog.naver.com/04banjang/220977888616" target="_blank" style="color: rgb(96, 140, 186) !important;">인력 사무소의 수수료 문제점</a><span style="background-color: inherit; padding: 0px 7px 0px 5px;">|</span><span style="font-weight: 600; padding: 0px 7px 0px 0px;">작성자</span>&nbsp;<a href="http://blog.naver.com/04banjang" target="_blank" style="color: rgb(96, 140, 186) !important;">공사업계의 신생아</a></p></div><p></p></div></div></div></div></div></div></div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><meta itemprop="dateModified" content="2017-05-20T00:00:00+09:00"><!-- start custom article footer snippet -->
+
+<!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
+    <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer><div class="article__section-navigator clearfix"><div class="previous"><span>PREVIOUS</span><a href="/web/2017/05/18/185045.html">Ajax 내에서 return 하면 undefined 현상.</a></div><div class="next"><span>NEXT</span><a href="/web/2017/05/21/171017.html">background 의 이미지가 커서 보이지 않을 때, 크기 맞추기</a></div></div></div>
+
+</div>
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
+
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
+      });
+      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
+    });
+  });
+})();
+</script></div><section class="page__comments d-print-none"></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet --></div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="I am an amazing person."><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+      </a></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Easy is Perfect 2019,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer></div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"><script>
+(function () {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    // search panel
+    var search = (window.search || (window.search = {}));
+    var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
+      true : window.useDefaultSearchBox ;
+
+    var $searchModal = $('.js-page-search-modal');
+    var $searchToggle = $('.js-search-toggle');
+    var searchModal = $searchModal.modal({ onChange: handleModalChange, hideWhenWindowScroll: true });
+    var modalVisible = false;
+    search.searchModal = searchModal;
+
+    var $searchBox = null;
+    var $searchInput = null;
+    var $searchClear = null;
+
+    function getModalVisible() {
+      return modalVisible;
+    }
+    search.getModalVisible = getModalVisible;
+
+    function handleModalChange(visible) {
+      modalVisible = visible;
+      if (visible) {
+        search.onShow && search.onShow();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+      } else {
+        search.onShow && search.onHide();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        setTimeout(function() {
+          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          search.clear && search.clear();
+          window.pageAsideAffix && window.pageAsideAffix.refresh();
+        }, 400);
+      }
+    }
+
+    $searchToggle.on('click', function() {
+      modalVisible ? searchModal.hide() : searchModal.show();
+    });
+    // Char Code: 83  S, 191 /
+    $(window).on('keyup', function(e) {
+      if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
+        modalVisible || searchModal.show();
+      }
+    });
+
+    if (useDefaultSearchBox) {
+      $searchBox = $('.js-search-box');
+      $searchInput = $searchBox.children('input');
+      $searchClear = $searchBox.children('.js-icon-clear');
+      search.getSearchInput = function() {
+        return $searchInput.get(0);
+      };
+      search.getVal = function() {
+        return $searchInput.val();
+      };
+      search.setVal = function(val) {
+        $searchInput.val(val);
+      };
+
+      $searchInput.on('focus', function() {
+        $(this).addClass('focus');
+      });
+      $searchInput.on('blur', function() {
+        $(this).removeClass('focus');
+      });
+      $searchInput.on('input', window.throttle(function() {
+        var val = $(this).val();
+        if (val === '' || typeof val !== 'string') {
+          search.clear && search.clear();
+        } else {
+          $searchBox.addClass('not-empty');
+          search.onInputNotEmpty && search.onInputNotEmpty(val);
+        }
+      }, 400));
+      $searchClear.on('click', function() {
+        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        search.clear && search.clear();
+      });
+    }
+  });
+})();
+</script><div class="search search--dark">
+  <div class="main">
+    <div class="search__header">Search</div>
+    <div class="search-bar">
+      <div class="search-box js-search-box">
+        <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
+        <input type="text" />
+        <div class="search-box__icon-clear js-icon-clear">
+          <a><i class="fas fa-times"></i></a>
+        </div>
+      </div>
+      <button class="button button--theme-dark button--pill search__cancel js-search-toggle">
+        Cancel</button>
+    </div>
+    <div class="search-result js-search-result"></div>
+  </div>
+</div>
+<script>var SOURCES = window.TEXT_VARIABLES.sources;
+var PAHTS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+  var search = (window.search || (window.search = {}));
+  var searchData = window.TEXT_SEARCH_DATA ? initData(window.TEXT_SEARCH_DATA) : {};
+
+  function memorize(f) {
+    var cache = {};
+    return function () {
+      var key = Array.prototype.join.call(arguments, ',');
+      if (key in cache) return cache[key];
+      else return cache[key] = f.apply(this, arguments);
+    };
+  }
+
+  function initData(data) {
+    var _data = [], i, j, key, keys, cur;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i], _data[key] = [];
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        cur.title = window.decodeUrl(cur.title);
+        cur.url = window.decodeUrl(cur.url);
+        _data[key].push(cur);
+      }
+    }
+    return _data;
+  }
+
+  /// search
+  function searchByQuery(query) {
+    var i, j, key, keys, cur, _title, result = {};
+    keys = Object.keys(searchData);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      for (j = 0; j < searchData[key].length; j++) {
+        cur = searchData[key][j], _title = cur.title;
+        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+          && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          if (result[key] === undefined) {
+            result[key] = [];
+          }
+          result[key].push(cur);
+        }
+      }
+    }
+    return result;
+  }
+
+  var renderHeader = memorize(function(header) {
+    return $('<p class="search-result__header">' + header + '</p>');
+  });
+
+  var renderItem = function(index, title, url) {
+    return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
+  };
+
+  function render(data) {
+    if (!data) { return null; }
+    var $root = $('<ul></ul>'), i, j, key, keys, cur, itemIndex = 0;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      $root.append(renderHeader(key));
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        $root.append(renderItem(itemIndex++, cur.title, cur.url));
+      }
+    }
+    return $root;
+  }
+
+  // search box
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+
+  function clear() {
+    $result.html(null);
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+  }
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
+
+  search.clear = clear;
+  search.onInputNotEmpty = onInputNotEmpty;
+
+  function updateResultItems() {
+    lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
+    activeIndex >= 0 && $resultItems.eq(activeIndex).addClass('active');
+  }
+
+  function moveActiveIndex(direction) {
+    var itemsCount = $resultItems ? $resultItems.length : 0;
+    if (itemsCount > 1) {
+      lastActiveIndex = activeIndex;
+      if (direction === 'up') {
+        activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
+      } else if (direction === 'down') {
+        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+      }
+      updateResultItems();
+    }
+  }
+
+  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
+  $(window).on('keyup', function(e) {
+    var modalVisible = search.getModalVisible && search.getModalVisible();
+    if (modalVisible) {
+      if (e.which === 38) {
+        modalVisible && moveActiveIndex('up');
+      } else if (e.which === 40) {
+        modalVisible && moveActiveIndex('down');
+      } else if (e.which === 13) {
+        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    }
+  });
+
+  $result.on('mouseover', '.search-result__item > a', function() {
+    var itemIndex = $(this).parent().data('index');
+    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+  });
+});
+</script></div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    toc = $tocRoot.toc({
+      selectors: TOC_SELECTOR,
+      container: $articleContent,
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    affix = $pageAside.affix({
+      offsetBottom: $pageFooter.outerHeight(),
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      scroll: hasSidebar ? $('.js-page-main').children() : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+    window.pageAsideAffix = affix;
+  });
+})();
+</script>
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>
