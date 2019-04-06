@@ -339,6 +339,14 @@
               <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
 
 <!-- end custom main top snippet --><article itemscope itemtype="http://schema.org/WebPage"><header style="display:none;"><h1>Home</h1></header><meta itemprop="headline" content="Home"><meta itemprop="author" content="melonicedlatte"/><div class="js-article-content"><div class="layout--articles"><div class="article-list items items--divided"><article class="item"><div class="item__content">
+          <header><a href="/computer/2018/06/02/162245.html"><h3 itemprop="headline" class="item__header">git reset 후에 이전 commit으로 되돌리고 서버에도 반영하기</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">git을 사용하다보면 에러가 발생하여 이전 버전으로 commit 해야 할 경우가 생긴다.&nbsp;이럴 경우에는 git reset 을 통해서 이전 버전으로 넘긴다.위와 같은 커밋이 있다고 가정하자.&nbsp;타인과의 작업이 발생하면서 commit 557cf31 부터 문제가 발생했다.&nbsp;이 때, 나는 ff32f4d로 돌아가고 싶다.&nbsp;완벽하게 모든 파일을 돌리고 싶기 때문에 --hard 조건을 넣어준다.&nbsp;자세한 reset 에 대한 설명은 아래의 링크를 참조한다.&nbsp;http://www.devpools.kr/2017/02/05/%EC%B4%88%EB%B3%B4%EC%9A%A9-git-%EB...</div><p><a href="/computer/2018/06/02/162245.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Computer">Computer</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Jun 02, 2018</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2018-06-02T00:00:00+09:00">
+    <meta itemprop="keywords" content="Computer"></div>
+      </article><article class="item"><div class="item__content">
           <header><a href="/database/2018/05/22/164330.html"><h3 itemprop="headline" class="item__header">오라클 ORA-01849: hour must be between 1 and 12 해결</h3></a></header>
           <div class="item__description"><div class="article__content" itemprop="description articleBody">ORA-01849: hour must be between 1 and 12 오라클 세팅이 12시간으로 되어 있는데 to_date( ~~~~ ,'yyyy-mm-dd hh:mi') 라고 했을 때, 24시간 대의 시간을 입력하면 에러가 발생한다. 이 때, hh뒤에 24를 붙이면 간단하게 해결할 수 있다.&nbsp; to_date( ~~~~ ,'yyyy-mm-dd hh24:mi')로 수정하면 된다.&nbsp;또, 분을 mm이 아니라 mi 라고 입력해주어야 정상적으로 입력된다.&nbsp;queryString = ` BEGIN                    INSERT INTO SCREENING_SCHEDULE( SCREE...</div><p><a href="/database/2018/05/22/164330.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
@@ -412,16 +420,8 @@ eval "$(pyenv init -)"위의 명령어를 입력하여 환경 변수를 설정�
             </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>May 21, 2018</span>
             </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2018-05-21T00:00:00+09:00">
     <meta itemprop="keywords" content="Python"></div>
-      </article><article class="item"><div class="item__content">
-          <header><a href="/web/2018/05/13/184858.html"><h3 itemprop="headline" class="item__header">$(...).summernote is not a function 오류 해결하기</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">나 같은 경우에는 이미지 업로드 하는 경우에 수 많은 에러가 발생했다.$(...).summernote is not a function 에러가 가장 오래 걸렸던 에러이다.&nbsp;&nbsp;이유를 살펴보니 jquery 가 2번 import 되어 생기는 문제였다.&nbsp;한 번만 되게 하면 바로 해결된다.&nbsp;</div><p><a href="/web/2018/05/13/184858.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Web">Web</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>May 13, 2018</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2018-05-13T00:00:00+09:00">
-    <meta itemprop="keywords" content="Web"></div>
       </article></div>
-</div><div class="layout--home"><div class="pagination"><p>336 post articles, 34 pages.</p>
+</div><div class="layout--home"><div class="pagination"><p>337 post articles, 34 pages.</p>
     <div class="pagination__menu">
       <ul class="menu menu--nowrap"><li><a class="button button--secondary button--circle" href="/page11">
             <i class="fas fa-angle-left"></i>
@@ -446,7 +446,8 @@ eval "$(pyenv init -)"위의 명령어를 입력하여 환경 변수를 설정�
 </script>
 
 
-</div><section class="page__comments d-print-none"></section></article><!-- start custom main bottom snippet -->
+</div><br>
+                      <section class="page__comments d-print-none"></section></article><!-- start custom main bottom snippet -->
 
 <!-- end custom main bottom snippet --></div>
             </div></div></div><div class="page__footer d-print-none">
