@@ -10,7 +10,13 @@
 
 <meta name="theme-color" content="#ffffff">
 <!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" ><!-- start custom head snippets -->
-
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-9601240193039960",
+          enable_page_level_ads: true
+     });
+</script>
 <!-- end custom head snippets --><script>(function() {
   window.isArray = function(val) {
     return Object.prototype.toString.call(val) === '[object Array]';
@@ -348,10 +354,28 @@
             </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>May 22, 2018</span>
             </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2018-05-22T00:00:00+09:00">
     <meta itemprop="keywords" content="Database"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
-
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-9601240193039960"
+     data-ad-slot="2929900697"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 <!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><p>ORA-01849: hour must be between 1 and 12 </p><p>오라클 세팅이 12시간으로 되어 있는데 to_date( ~~~~ ,'yyyy-mm-dd hh:mi') 라고 했을 때, 24시간 대의 시간을 입력하면 에러가 발생한다. <br>이 때, hh뒤에 24를 붙이면 간단하게 해결할 수 있다.&nbsp;</p><p> to_date( ~~~~ ,'yyyy-mm-dd hh24:mi')로 수정하면 된다.&nbsp;<br>또, 분을 mm이 아니라 mi 라고 입력해주어야 정상적으로 입력된다.&nbsp;</p><p><br></p><pre style="background-color:#ffffff;color:#000000;font-family:'Menlo';font-size:9.0pt;">queryString = <span style="color:#008000;font-weight:bold;">` BEGIN<br></span><span style="color:#008000;font-weight:bold;">                    INSERT INTO SCREENING_SCHEDULE( SCREENING_DATE, STARTING_TIME, MOVIE_CD, THEATER_CD)<br></span><span style="color:#008000;font-weight:bold;">                    VALUES ( TO_DATE(:release_date, 'YYYY-MM-DD') , TO_DATE(:running_time, 'hh24:mi'), :movie_list, :theater_list );<br></span><span style="color:#008000;font-weight:bold;">                    COMMIT;<br></span><span style="color:#008000;font-weight:bold;">                END;`</span>,</pre><p><br></p><p><img src="/system/uploads/images/000/001/025/original/image.png?1526974973" style="width: 1118px;"><br></p></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
     <br><footer class="article__footer"><meta itemprop="dateModified" content="2018-05-22T00:00:00+09:00"><!-- start custom article footer snippet -->
-
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-9601240193039960"
+     data-ad-slot="7045115963"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 <!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
     <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
       <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
