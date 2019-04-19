@@ -1,0 +1,14 @@
+---
+layout : article
+title: "오라클 ORA-01849: hour must be between 1 and 12 해결"
+aside:
+  toc: true
+tags: Database
+category : Database
+author: melonicedlatte
+published : True
+hellogohn_num : 290
+key : 2018-05-22-164330
+--- 
+
+<p>ORA-01849: hour must be between 1 and 12 </p><p>오라클 세팅이 12시간으로 되어 있는데 to_date( ~~~~ ,'yyyy-mm-dd hh:mi') 라고 했을 때, 24시간 대의 시간을 입력하면 에러가 발생한다. <br>이 때, hh뒤에 24를 붙이면 간단하게 해결할 수 있다.&nbsp;</p><p> to_date( ~~~~ ,'yyyy-mm-dd hh24:mi')로 수정하면 된다.&nbsp;<br>또, 분을 mm이 아니라 mi 라고 입력해주어야 정상적으로 입력된다.&nbsp;</p><p><br></p><pre style="background-color:#ffffff;color:#000000;font-family:'Menlo';font-size:9.0pt;">queryString = <span style="color:#008000;font-weight:bold;">` BEGIN<br></span><span style="color:#008000;font-weight:bold;">                    INSERT INTO SCREENING_SCHEDULE( SCREENING_DATE, STARTING_TIME, MOVIE_CD, THEATER_CD)<br></span><span style="color:#008000;font-weight:bold;">                    VALUES ( TO_DATE(:release_date, 'YYYY-MM-DD') , TO_DATE(:running_time, 'hh24:mi'), :movie_list, :theater_list );<br></span><span style="color:#008000;font-weight:bold;">                    COMMIT;<br></span><span style="color:#008000;font-weight:bold;">                END;`</span>,</pre><p><br></p><p><img src="/system/uploads/images/000/001/025/original/image.png?1526974973" style="width: 1118px;"><br></p>

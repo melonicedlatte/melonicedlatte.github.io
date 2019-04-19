@@ -1,0 +1,14 @@
+---
+layout : article
+title: "background 의 이미지가 커서 보이지 않을 때, 크기 맞추기"
+aside:
+  toc: true
+tags: Web
+category : Web
+author: melonicedlatte
+published : True
+hellogohn_num : 86
+key : 2017-05-21-171017
+--- 
+
+<p><img src="/system/uploads/images/000/001/098/original/image.png?1530188408" style="width: 396px;"><br></p><p><br></p><p>위와 같은 로고는 크기가 890 * 595 정도 되는 사진입니다. <br>이 로고를 50 * 50 의 a 태그의 background 로 설정해주면 아무 것도 보이지 않습니다.&nbsp;</p><p>이는 이미지의 투명한 부분만 보이기 때문입니다.&nbsp;</p><p>이럴 경우에는 &nbsp;아래와 같이 입력하여 최적화 해 주어야 합니다.&nbsp;</p><pre style="background-color:#2b2b2b;color:#a9b7c6;font-family:'Fira Code';font-size:11.3pt;"><span style="color:#e8bf6a;">background-size</span>: <span style="color:#6897bb;">100</span>% <span style="color:#6897bb;">100</span>%<span style="color:#cc7832;">;<br></span><span style="color:#e8bf6a;">height</span>: <span style="color:#6897bb;">50</span><span style="color:#e8bf6a;">px</span><span style="color:#cc7832;">;<br></span><span style="color:#e8bf6a;">width </span>: <span style="color:#6897bb;">50</span><span style="color:#e8bf6a;">px</span><span style="color:#cc7832;">;</span></pre><p>background size 를 100% 100% 으로 설정하면 됩니다.&nbsp;</p>

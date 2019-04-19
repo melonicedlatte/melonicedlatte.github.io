@@ -1,0 +1,42 @@
+---
+layout : article
+title: "리눅스, 맥OS 에서 현재 열려있는 포트와 프로세스 id 확인 및 종료하기"
+aside:
+  toc: true
+tags: Linux
+category : Linux
+author: melonicedlatte
+published : True
+hellogohn_num : 276
+key : 2018-04-13-181546
+--- 
+
+<p>포트</p><p>리눅스나 맥OS 에서 열려있는 포트를 아래의 명령어로 확인 가능하다.&nbsp;<br></p><blockquote>netstat -tupln</blockquote>
+
+
+
+
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #f4f4f4; background-color: #000000; background-color: rgba(0, 0, 0, 0.85)}
+span.s1 {font-variant-ligatures: no-common-ligatures}
+</style>
+
+
+<p class="p1"><span class="s1">$ netstat -tupln<br>Proto Recv-Q Send-Q Local Address <span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>Foreign Address <span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp; </span>State <span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; </span>PID/Program name&nbsp;</span><span style="font-variant-ligatures: no-common-ligatures;">&nbsp; &nbsp; &nbsp;&nbsp;</span></p><p class="p1"><span class="s1">tcp6 <span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; </span>0<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; </span>0 :::80 <span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>:::*<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>LISTEN<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; </span>3942<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></span><span class="s1">&nbsp;</span><span style="font-variant-ligatures: no-common-ligatures;">&nbsp; &nbsp; &nbsp;&nbsp;</span></p><p class="p1"><span class="s1"><span class="Apple-converted-space">tcp6&nbsp;<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp;&nbsp;</span>0<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp;&nbsp;</span>0 :::8080<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>:::*<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span>LISTEN<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; -</span><span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp;</span>&nbsp;&nbsp; &nbsp;</span></span></p><p class="p1"><span class="s1">tcp6 <span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; </span>0<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; </span>0 :::22 <span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>:::*<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>LISTEN<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; </span>-<span class="Apple-converted-space">&nbsp;&nbsp;<br></span></span><span style="font-variant-ligatures: no-common-ligatures;">udp</span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-variant-ligatures: no-common-ligatures;">0</span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp; &nbsp; &nbsp; </span><span style="font-variant-ligatures: no-common-ligatures;">0 0.0.0.0:68</span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-variant-ligatures: no-common-ligatures;">0.0.0.0:* </span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-variant-ligatures: no-common-ligatures;">- </span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp;</span></p><p><br></p><p>위처럼 어떤 포트의 경우(8080)에는 오른쪽에 PID가 나오지 않는다.&nbsp;<br>이럴 경우에는 어떻게 프로세스를 종료해야 할까??<br>그럴 경우에는 아래의 명령어로 어떤 프로세스가 수행 중인지 확인 가능하다.&nbsp;<br></p><blockquote>ps -ef</blockquote><p></p><p>
+
+
+
+
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #f4f4f4; background-color: #000000; background-color: rgba(0, 0, 0, 0.85)}
+span.s1 {font-variant-ligatures: no-common-ligatures}
+</style>
+
+
+</p><p class="p1"><span class="s1">$ ps -ef</span></p><p class="p1"><span class="s1">root<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; </span>7084<span class="Apple-converted-space">&nbsp; </span>6153<span class="Apple-converted-space">&nbsp; </span>0 09:08 pts/1<span class="Apple-converted-space">&nbsp; &nbsp; </span>00:00:00 sudo node server.js</span></p><p class="p1"><span class="s1">root<span class="Apple-converted-space">&nbsp; &nbsp; &nbsp; </span>7085<span class="Apple-converted-space">&nbsp; </span>7084<span class="Apple-converted-space">&nbsp; </span>0 09:08 pts/1<span class="Apple-converted-space">&nbsp; &nbsp; </span>00:00:00 node server.js<br></span><span style="font-variant-ligatures: no-common-ligatures;">ubuntu</span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp; &nbsp; </span><span style="font-variant-ligatures: no-common-ligatures;">7092</span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp; </span><span style="font-variant-ligatures: no-common-ligatures;">6153</span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp; </span><span style="font-variant-ligatures: no-common-ligatures;">0 09:10 pts/1</span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp; &nbsp; </span><span style="font-variant-ligatures: no-common-ligatures;">00:00:00 ps -ef</span></p><p><br></p><p>8080은 nodejs 로 백그라운드 서버가 구동중이다.<br>해당 종료하려면 아래의 명령어를 사용한다 !!&nbsp;</p><blockquote>kill 프로세스번호</blockquote><p><br></p><style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #f4f4f4; background-color: #000000; background-color: rgba(0, 0, 0, 0.85)}
+span.s1 {font-variant-ligatures: no-common-ligatures}
+</style><style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #f4f4f4; background-color: #000000; background-color: rgba(0, 0, 0, 0.85)}
+span.s1 {font-variant-ligatures: no-common-ligatures}
+</style>

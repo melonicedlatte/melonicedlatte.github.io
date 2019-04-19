@@ -1,0 +1,14 @@
+---
+layout : article
+title: "확인, 취소에 따라 동작 할 수 있는 Confirm 창 사용하기 "
+aside:
+  toc: true
+tags: Web
+category : Web
+author: melonicedlatte
+published : True
+hellogohn_num : 94
+key : 2017-06-02-152110
+--- 
+
+<pre style="background-color:#2b2b2b;color:#a9b7c6;font-family:'Fira Code';font-size:11.3pt;"><span style="color:#cc7832;font-weight:bold;">var </span>con_test = confirm(<span style="color:#6a8759;">"</span><span style="color:#6a8759;font-family:'굴림체';">어떤 값이 나올까요</span><span style="color:#6a8759;">."</span>)<span style="color:#cc7832;">;<br></span><span style="color:#cc7832;font-weight:bold;">if</span>(con_test == <span style="color:#cc7832;font-weight:bold;">true</span>){<br>    alert(<span style="color:#6a8759;">"</span><span style="color:#6a8759;font-family:'굴림체';">확인을 누르셨군요</span><span style="color:#6a8759;">"</span>)<span style="color:#cc7832;">;<br></span>}<br><span style="color:#cc7832;font-weight:bold;">else if</span>(con_test == <span style="color:#cc7832;font-weight:bold;">false</span>){<br>    alert(<span style="color:#6a8759;">"</span><span style="color:#6a8759;font-family:'굴림체';">취소를 누르셨군요</span><span style="color:#6a8759;">."</span>)<span style="color:#cc7832;">;<br></span>}</pre><p><img src="/system/uploads/images/000/001/108/original/image.png?1530189106" style="width: 468px;"><br></p><p><br></p><p>위와 같은 소스 코드를 입력하면 alert가 아닌 confirm 창이 떠서 확인 취소를 누를 수 있다.</p><p>alert는 단순히 경고만 주기 때문에, 확인이나 취소를 누를 수 없다.&nbsp;</p><p><br></p><p>해당 버튼을 누르면 발생하는 이벤트는 위와 같이 정의할 수 있다.&nbsp;</p><p>자바 스크립트 코드 안에 저 코드를 넣어주면 간단하게 동작하게 할 수 있다.&nbsp;</p>

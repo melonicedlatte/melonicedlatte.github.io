@@ -1,0 +1,14 @@
+---
+layout : article
+title: ".gitignore 파일 생성 후, 서버에 적용하기 "
+aside:
+  toc: true
+tags: Computer
+category : Computer
+author: melonicedlatte
+published : True
+hellogohn_num : 292
+key : 2018-06-02-171330
+--- 
+
+<p>.gitignore 파일을 생성하면 서버에 바로 적용되지 않는다.&nbsp;<br>해당 파일이 남아있는데, 서버에 적용시키기 위해서는 아래의 3개 명령어를 입력해 주면 된다.&nbsp;</p><blockquote>git rm -r --cached . <br>git add . <br>git commit -m "fixed untracked files”<br></blockquote>

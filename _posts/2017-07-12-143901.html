@@ -1,0 +1,14 @@
+---
+layout : article
+title: "[Node.js] 존재 하지 않는 페이지 에러 메세지 띄우기"
+aside:
+  toc: true
+tags: Web
+category : Web
+author: melonicedlatte
+published : True
+hellogohn_num : 116
+key : 2017-07-12-143901
+--- 
+
+<p style="color: rgb(51, 51, 51);">- 원하지 않는 경로나 존재하지 않는 경로에 들어 갔을 때 ,<br>Node.js 에서 '이 페이지는 존재하지 않습니다' 라고 보여주기 위해서 필요한 코드</p><p style="color: rgb(51, 51, 51);">&gt;&gt; 코드</p><div class="colorscripter-code" style="color: rgb(240, 240, 240); overflow: auto; font-family: Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace !important; position: relative !important;"><table class="colorscripter-code-table" cellspacing="0" cellpadding="0" style="background-color: rgb(39, 39, 39); margin: 0px; padding: 0px; border: none; border-radius: 4px;"><tbody><tr><td style="padding: 6px; border-right: 2px solid rgb(79, 79, 79);"><div style="margin: 0px; padding: 0px; word-break: normal; text-align: right; color: rgb(170, 170, 170); line-height: 23.4px;"><h5 style="line-height: 18.2px;"><span style="font-weight: normal;">1<br></span><span style="font-weight: normal;">2<br></span><span style="font-weight: normal;">3<br></span><span style="font-weight: normal;">4</span></h5></div></td><td style="padding-top: 6px; padding-bottom: 6px;"><div style="margin: 0px; padding: 0px; line-height: 23.4px;"><h5 style="line-height: 18.2px; background-color: rgb(48, 48, 48); padding: 0px 6px; white-space: pre;"><span style="font-weight: normal;"><span style="color: rgb(153, 153, 153);">//&nbsp;모든&nbsp;요청에&nbsp;대해서&nbsp;처리하겠다.<br></span></span><span style="font-weight: normal;">app.all(<span style="color: rgb(255, 213, 0);">'*'</span>,&nbsp;<span style="color: rgb(255, 51, 153);">function</span>(req,&nbsp;res){<br></span><span style="font-weight: normal;">&nbsp;&nbsp;&nbsp;&nbsp;res.status(<span style="color: rgb(193, 10, 255);">404</span>).send(<span style="color: rgb(255, 213, 0);">'&lt;h1&gt;요청한&nbsp;페이지는&nbsp;없습니다.&lt;/h1&gt;'</span>);<br></span><span style="font-weight: normal;">})</span>;</h5></div><div style="text-align: right; margin-top: -13px; margin-right: 5px; font-size: 9px; font-style: italic;"><a href="http://colorscripter.com/info#e" target="_blank" style="color: rgb(79, 79, 79);">Colored by Color Scripter</a></div></td><td style="padding-right: 2px; padding-bottom: 4px; vertical-align: bottom;"><a href="http://colorscripter.com/info#e" target="_blank" style="color: white;"><span style="font-size: 9px; word-break: normal; background-color: rgb(79, 79, 79); border-radius: 10px; padding: 1px;">cs</span></a></td></tr></tbody></table></div><p style="color: rgb(51, 51, 51);">&gt;&gt; 결과&nbsp;<br><br><img src="/system/uploads/images/000/001/176/original/image.png?1530192686" style="width: 472px;"><br></p>

@@ -1,0 +1,14 @@
+---
+layout : article
+title: "python pandas 데이터를 excel 파일로 만들기, 한글깨짐 해결"
+aside:
+  toc: true
+tags: Python
+category : Python
+author: melonicedlatte
+published : True
+hellogohn_num : 52
+key : 2017-02-23-122239
+--- 
+
+<blockquote>&nbsp; df.to_csv("파일이름")</blockquote><p>위의 메소드는 excel 에서 읽으면 깨지는 현상이 발생합니다.&nbsp;</p><p><br></p><p><img src="/system/uploads/images/000/000/266/original/image.png?1507545106" style="width: 752px;"><br></p><p>encoding 을 utf-8 이나 다른 걸로 해도 윈도우 엑셀에서 읽으려고 하면 읽히지 않는다. ( 한글이 깨진다 )&nbsp;</p><p><br></p><blockquote>df.to_excel('foo.xlsx', sheet_name='sheet1')</blockquote><p>그 때, 위와 같은 명령어를 입력해주면 해결된다&nbsp;</p><p><br></p><p><br></p>

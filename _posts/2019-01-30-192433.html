@@ -1,0 +1,14 @@
+---
+layout : article
+title: "[컴퓨터구조] ISA(Instruction set architecture)와 마이크로 아키텍쳐란? "
+aside:
+  toc: true
+tags: Computer
+category : Computer
+author: melonicedlatte
+published : True
+hellogohn_num : 391
+key : 2019-01-30-192433
+--- 
+
+<h3>- ISA란?</h3><p>컴퓨터 구조를 배우다 보면 <b>ISA</b> 라는 말이 나오게 된다.<br><b>ISA</b>는&nbsp;<b>Instruction set architecture</b> 의 약자로 한글로 해석하면 명령어 집합 구조이며, 마이크로프로세서가 인식해서 기능을 이해하고 실행할 수 있는 기계어 명령어를 말한다. <br>마이크로프로세서마다 기계어 코드의 길이와 숫자 코드가 다르다. <br>명령어의 각 비트는 기능적으로 분할하여 의미를 부여하고 숫자화한다. <br>프로그램 개발자가 숫자(0과 1로 이루어진 숫자들)로 프로그램하기가 불편하므로 기계어와 일대일로 문자화한 것이 어셈블리어이다.</p><p>아래의 그림을 한 번 살펴보자.&nbsp;<br>응용 어플리케이션에서 부터 시작하여 다양한 단계를 거쳐서 Software 에서 Hardware로 넘어가게 된다.&nbsp;<br>이 때, Software 에서 Hardware 로 넘어가는 단계에서 <b>중재자 역할</b>을 해주는 것이 ISA 이다.&nbsp;<br></p><p><img src="/system/uploads/images/000/001/499/original/image.png?1548842619" style="width: 761.286px; height: 465.614px;"><br></p><p><span style="background-color: rgb(255, 231, 206);">ISA는 최하위 레벨의 프로그래밍 인터페이스로, 프로세서가 실행할 수 있는 모든 명령어들을 포함한다. </span><br>명령어 집합, 곧 명령어 집합 구조는 <u>자료형, 명령어, 레지스터, 어드레싱 모드, 메모리 구조, 인터럽트, 예외 처리, 외부 입출력을 포함한 프로그래밍</u> 관련 컴퓨터 아키텍처의 일부이다.&nbsp;</p><p><br></p><p><img src="/system/uploads/images/000/001/500/original/image.png?1548843712" style="width: 292.536px; height: 493.964px;"></p><p>위의 그림은 아톰 프로세서를 보여준다.&nbsp;<br>아톰 프로세서의 명령어 집합(ISA)를 보면 IA-32, x86-64 를 사용하는 것을 볼 수 있다.&nbsp;<br>이를 쉽게 풀어서 말하면 <span style="background-color: rgb(255, 231, 206);">아톰 프로세서는 프로세서가 실행할 수 있는 명령어 집합을&nbsp; IA-32, x86-64로 쓴다</span>고 보면 쉽게 이해할 수 있다.<br></p><p><br></p><p><br></p><h3>- 마이크로 아키텍쳐란?</h3><p> </p><p>명령어 집합 구조(ISA)를 <b><u>물리적으로 구현하는 방법</u></b>을 마이크로아키텍처 혹은 컴퓨터 조직이라고 하며, <br>같은 명령어 집합 구조를 서로 다른 마이크로아키텍처로 구현하기도 한다. <br>예를 들어, 인텔의 펜티엄과 AMD의 애슬론은 거의 같은 명령어 집합 구조를 서로 다른 마이크로아키텍처로 구현한 것이다.<br></p><p><br></p><p>- 출처 -&nbsp;<br><a href="https://ko.wikipedia.org/wiki/%EB%AA%85%EB%A0%B9%EC%96%B4_%EC%A7%91%ED%95%A9">https://ko.wikipedia.org/wiki/%EB%AA%85%EB%A0%B9%EC%96%B4_%EC%A7%91%ED%95%A9</a>&nbsp;<br><a href="https://i.stack.imgur.com/AvG0R.jpg">https://i.stack.imgur.com/AvG0R.jpg</a><br><br></p>

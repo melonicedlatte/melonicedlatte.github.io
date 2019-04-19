@@ -1,0 +1,14 @@
+---
+layout : article
+title: "Ruby On Rails API 만들기 "
+aside:
+  toc: true
+tags: Web
+category : Web
+author: melonicedlatte
+published : True
+hellogohn_num : 56
+key : 2017-02-23-231734
+--- 
+
+<p>php 를 이용하여 서버에서 api 를 만든적이있었는데 집에서 블로그 제작으로 사용하는 ruby on rails 에서는 어떻게 만드는지 궁금해서 만들어 보았습니다.</p><div class="colorscripter-code" style="color:#010101; font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important; overflow:auto"><table class="colorscripter-code-table" style="margin:0; padding:0; border:none; background-color:#fafafa; border-radius:4px;" cellspacing="0" cellpadding="0"><tbody><tr><td style="padding:6px; border-right:2px solid #e5e5e5"><div style="margin: 0px; padding: 0px; word-break: normal; text-align: right; color: rgb(102, 102, 102); line-height: 130%;"><div style="line-height:130%">1</div><div style="line-height:130%">2</div><div style="line-height:130%">3</div></div></td><td style="padding-top: 6px; padding-bottom: 6px;"><div style="margin: 0px; padding: 0px; line-height: 130%;"><div style="padding:0 6px; white-space:pre; line-height:130%">@json&nbsp;<span style="color:#0086b3"></span><span style="color:#a71d5d">=</span>&nbsp;{&nbsp;:title&nbsp;<span style="color:#0086b3"></span><span style="color:#a71d5d">=</span><span style="color:#0086b3"></span><span style="color:#a71d5d">&gt;</span>&nbsp;Posttext.find(<span style="color:#0099cc">2</span>).title&nbsp;,&nbsp;:category&nbsp;<span style="color:#0086b3"></span><span style="color:#a71d5d">=</span><span style="color:#0086b3"></span><span style="color:#a71d5d">&gt;</span>&nbsp;Posttext.find(<span style="color:#0099cc">2</span>).category}.to_json</div><div style="padding:0 6px; white-space:pre; line-height:130%">             키              값                    키                 값 </div><div style="padding:0 6px; white-space:pre; line-height:130%">                    위와 같이 {:key =&gt; value } 의 형태로 만들어 주면 됩니다. </div></div></td><td style="vertical-align: bottom; padding-right: 2px; padding-bottom: 4px;"><a href="http://colorscripter.com/info#e" target="_blank" style="color: white;"><span style="font-size: 9px; word-break: normal; background-color: rgb(229, 229, 229); border-radius: 10px; padding: 1px;">cs</span></a></td></tr></tbody></table></div><p>위와 같이 간단한 코드만 있으면 json 을 만들 수 있습니다.</p><p>:<img src="/system/uploads/images/000/001/032/original/image.png?1530181870" style="width: 259px;"></p><p>그러면 위와 같은 형태로 JSON 이 간단하게 만들어 지게 됩니다.&nbsp;</p>

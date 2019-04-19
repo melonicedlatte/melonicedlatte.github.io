@@ -1,0 +1,14 @@
+---
+layout : article
+title: "[ aws ] 아마존 웹 서비스 ec2 _ 포트 설정하기!! "
+aside:
+  toc: true
+tags: Web
+category : Web
+author: melonicedlatte
+published : True
+hellogohn_num : 137
+key : 2017-09-29-182718
+--- 
+
+<p style="color: rgb(51, 51, 51);">아마존 웹 서비스에 apache를 설치하고 접속을 시도했는데 되지 않더라구요.</p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/277/original/image.png?1530195066" style="width: 242px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br class="Apple-interchange-newline">아래의 명령어로 포트가 열려있나 확인 해 보았을 때, 80번 포트는 이상 없이 동작 중이었습니다.&nbsp;<br></p><blockquote>$ netstat -tupln</blockquote><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/278/original/image.png?1530195087" style="width: 1102px;"><br><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br>확인해보니 port 설정이 기본적으로 80 번이 열려 있지 않았기 때문에 그런 것이었습니다.&nbsp;<br>기본 설정은 무조건 닫혀 있는 것 같습니다.&nbsp;</p><p style="color: rgb(51, 51, 51);">aws 의 instance 설정에 가서 오른쪽으로 넘긴 후에 Security Groups 라는 탭의 하이퍼링크를 클릭합니다.&nbsp;<br>여기서는&nbsp;<u><font color="#3984c6">launch-wizard-1</font></u>&nbsp;가 되겠네요&nbsp;</p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/279/original/image.png?1530195093" style="width: 999px;"><br><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">그 다음 Inbound 에 들어가서 Edit 버튼을 눌러줍니다.&nbsp;<br><br><img src="/system/uploads/images/000/001/280/original/image.png?1530195100" style="width: 1110px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">그 다음에는 Edit inbound rules 창에서 Add Rule 버튼을 눌러 준 다음에 HTTP 규칙을 추가해줍니다.&nbsp;</p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/281/original/image.png?1530195106" style="width: 1063px;"><br><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">그 다음 해당 ip 로 접속하면 완료 !!!&nbsp;</p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/282/original/image.png?1530195112" style="width: 586px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">- 출처 -&nbsp;<br><a href="http://makelog.tistory.com/entry/AWS-%ED%8F%AC%ED%8A%B8-%EC%97%B4%EA%B8%B0">http://makelog.tistory.com/entry/AWS-%ED%8F%AC%ED%8A%B8-%EC%97%B4%EA%B8%B0</a></p>

@@ -1,0 +1,15 @@
+---
+layout : article
+title: "pyenv 가 mac 에서 작동되지 않을 때 "
+aside:
+  toc: true
+tags: Android
+category : Android
+author: melonicedlatte
+published : True
+hellogohn_num : 283
+key : 2018-05-21-210345
+--- 
+
+<p><br class="Apple-interchange-newline"><pre>pyenv global x.x.x</pre></p><p>를 명령어를 통해서 버전을 변경하고&nbsp;</p><p><pre>python --version</pre>를 통해 버전을 확인 했는데, 파이썬 버전이 바뀌지 않는 경우가 있습니다.&nbsp;</p><p><br></p><pre style="font-family: SFMono-Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 11.9px; margin-bottom: 16px; word-wrap: normal; padding: 16px; line-height: 1.45; background-color: rgb(246, 248, 250); border-radius: 3px; color: rgb(36, 41, 46);"><code style="font-family: SFMono-Regular, Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace; font-size: 11.9px; margin: 0px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; border-radius: 3px; word-break: normal; white-space: pre; border: 0px; display: inline; overflow: visible; line-height: inherit; word-wrap: normal;">export PATH="/Users/username/.pyenv:$PATH"
+eval "$(pyenv init -)"</code></pre><p>위의 명령어를 입력하여 환경 변수를 설정해주면 간단하게 해결됩니다.&nbsp;</p><p><br></p><p><br></p><p><br></p>

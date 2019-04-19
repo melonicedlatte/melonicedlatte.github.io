@@ -1,0 +1,1087 @@
+<!DOCTYPE html><html lang="en">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>[백준] 14890번 C/C++ 풀이 _ 경사로 - Easy is Perfect</title>
+
+<meta name="description" content="문제 :&nbsp;https://www.acmicpc.net/problem/14890경사로&nbsp;성공문제집&nbsp;시간 제한메모리 제한제출정답맞은 사람정답 비율2 초512 MB92744234047.486%문제크기가 N×N인 지도가 있다. 지도의 각 칸에는 그 곳의 높이가 적혀...">
+<link rel="canonical" href="http://localhost:4000/algorithm/2018/03/25/043919.html"><link rel="alternate" type="application/rss+xml" title="Easy is Perfect" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/logo.svg"><link rel="icon" sizes="32x32" href="/assets/images/logo/logo.svg"><link rel="icon" sizes="16x16" href="/assets/images/logo/logo.svg"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/images/logo/logo.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/images/logo/logo.svg">
+
+<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/images/logo/logo.svg">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" ><!-- start custom head snippets -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-9601240193039960",
+          enable_page_level_ads: true
+     });
+</script>
+<!-- end custom head snippets --><script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.decodeUrl = function(str) {
+    return str ? decodeURIComponent(str.replace(/\+/g, '%20')) : '';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.4',
+      sources: {
+        font_awesome: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn1.lncld.net/static/js/3.4.1/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script></head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport has-aside cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="270.054px" height="270.054px" viewBox="0 0 270.054 270.054" style="enable-background:new 0 0 270.054 270.054;"
+	 xml:space="preserve">
+<g>
+	<g>
+		<path d="M266.639,78.803c-9.4-1.7-18.9-2.2-28.4-3c8.8-8,16.699-16.7,21.5-27.9c1.6-3.7-0.2-8.6-4.9-8.5
+			c-12.4,0.3-24.4,3-36.3,6.6c-45.7-56.9-107.8,34-155.2,87.4c-0.8-5-2.3-10-3.2-14c-2.4-10.3-6.9-24.2-18.6-26.8
+			c-12.4-2.7-16.8,9.9-16,19.6c0.2,2.9,0.8,5.9,1.5,8.8c-5.2-4.3-10.8-7.4-16.8-7.9c-9.6-0.8-10.9,11.2-10,17.8
+			c1.3,10.1,10.7,35.6,23.6,41.6c1,2.9,3.7,5.3,7,4c0.3-0.1,0.5-0.3,0.8-0.4c8.2,9.601,26.9,9.601,38.1,11
+			c14.7,1.801,29.8,2.4,44.9,2.301c-4.7,16.6-3,44,14.4,52.399c2.6,1.3,6.6-1.6,4.4-4.399c-11-14.801-16.3-29.5-15.2-48
+			c12.5-0.2,25.1-0.9,37.4-2c-5.301,16.8,2.899,45.5,23.899,45.399c4,0,6.101-6,2.101-7.899c-8.101-3.801-14.301-6-18.101-15
+			c-3.101-7.5-2.5-15.2-2.5-23.101c3.2-0.3,6.3-0.6,9.5-1c48.3-5.5,75.101-41.3,71.3-82.799c0.5,0.1,1,0,1.5-0.2
+			c9.4-3.6,16.1-9.4,24.2-15.2C270.838,85.603,271.238,79.703,266.639,78.803z M45.238,106.403c7.8,11.2,4.8,25.5,8.6,37.399
+			c-1.4,1.4-2.7,2.8-4,4.101c0-0.7-0.2-1.4-0.7-2.101c-4.3-6.2-7.3-13.7-9.9-20.6c-1.9-5-3.3-10.2-3.9-15.5
+			C34.638,101.803,41.138,100.403,45.238,106.403z M27.438,165.403c-9.1-5.9-15.1-24-16.8-31.2c-0.8-3.2-3.1-12.4,1.7-11
+			c11.8,3.6,22.3,19.399,29.6,28.3c0.8,1,1.8,1.4,2.8,1.4C38.438,158.602,32.738,162.903,27.438,165.403z M157.438,176.403
+			c-40.799,4.1-80.299,3-120.399-2.801c56.5-28.3,72.2-115,136-132.299c21.5-5.8,38.5,14.4,48.8,34.3c-0.199,0.2-0.4,0.4-0.6,0.5
+			c-4.1,3.5-0.301,8.9,3.9,9.4c0.5,0.1,1,0.1,1.399,0.1c1.8,4.4,3.399,8.6,4.399,12.2
+			C245.538,147.002,196.838,172.403,157.438,176.403z"/>
+		<path d="M192.438,63.903c-1.799-1.2-4-0.5-5.5,0.7c-3.1,2.5-2.6,7-2.899,10.6c-0.3,2.6-1.101,5.4-2.2,7.8
+			c-1.1,2.3-2.1,3.6-3.9,5.2c-0.899,0.8-1.699,1.2-3.199,1.6c-0.1,0-0.7,0-1.2,0c0.2-0.1-0.601-0.3-0.899-0.3
+			c-0.701-0.4-1.301-1-1.601-1.8c-2.2-5.5,0.3-12,1.899-17.2c1.301-4.3-4.899-6.8-7.1-3c-4,6.8-6.8,15.6-4.5,23.5
+			c1.7,6,7.301,10.3,13.6,10c6.801-0.3,12.301-4.9,15.9-10.3c2.2-3.3,3.5-7.3,4.301-11.2
+			C196.238,74.503,197.538,67.403,192.438,63.903z"/>
+		<path d="M180.738,131.303c-5.301-2.5-11.6,4.2-6.6,8.6c6.6,6,9.5,13.3,0.199,18.5c-13.6,7.6-20.699-15.101-22.4-23.9
+			c-1.199-6.5-10.299-4.3-10.899,1.5c0,0.1,0,0.2,0,0.3c-1-2.899-4.101-5-7.6-3.2c-0.5,0.3-1,0.6-1.6,0.9
+			c-7.9,4.599-27.3,13.599-26.2-1.7c1.1-15.9,21.8-12.5,31.299-8.6c3.9,1.6,6-4.4,2.701-6.5c-16.201-10.2-42.201-8-44.701,15.1
+			c-0.8,7.299,2.8,14.799,9.8,17.799c4.5,1.9,9.3,2,14,1.101c-1.3,5.7,0.2,11.5,6.5,15.8c11.199,7.7,18.4-1.2,22.6-11.8
+			c6.6,11.8,17.301,20.1,32.301,13.1C195.338,161.002,196.438,138.602,180.738,131.303z M131.238,157.903c-7.2-4,2.5-12.4,6.6-15
+			c0.301-0.2,0.6-0.301,0.9-0.5c0.699-0.4,1.199-1,1.699-1.5C139.238,148.302,136.639,160.903,131.238,157.903z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+<a title="Want to make some good product for world
+" href="/">Easy is Perfect</a></div><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/archive">Archive</a></li><li class="navigation__item"><a href="/about">About</a></li><li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet --><article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>[백준] 14890번 C/C++ 풀이 _ 경사로</h1></header><span class="split-space">&nbsp;</span>
+          <a class="edit-on-github"
+            title="Edit on Github"
+            href="https://github.com/melonicedlatte/melonicedlatte.github.io/tree/master/_posts/2018-03-25-043919.html"
+            target="_blank">
+            <i class="far fa-edit"></i></a></div><meta itemprop="headline" content="[백준] 14890번 C/C++ 풀이 _ 경사로"><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Algorithm">Algorithm</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Mar 25, 2018</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2018-03-25T00:00:00+09:00">
+    <meta itemprop="keywords" content="Algorithm"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-9601240193039960"
+     data-ad-slot="2929900697"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><h3 style="color: rgb(51, 51, 51);">문제 :&nbsp;https://www.acmicpc.net/problem/14890</h3><div class="col-md-10" style="width: 808.328px; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-size: 13px; border-radius: 0px !important;"><div class="page-header" style="border-radius: 0px !important;"><h1 style="margin-top: 5px; font-size: 28px; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 35px; color: rgb(88, 95, 105); text-shadow: none; border-radius: 0px !important;"><span id="problem_title" class="" style="border-radius: 0px !important;">경사로</span>&nbsp;<span class="label label-success" style="padding: 4px 7px; font-size: 11px; font-weight: 400;">성공</span></h1></div></div><div class="col-md-2 no-print" style="width: 161.656px; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-size: 13px; border-radius: 0px !important;"><div class="btn-group" style="margin-top: 50px; border-radius: 0px !important;"><button class="btn btn-default" type="button" id="favorite_button" data-favorite="0" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; text-transform: none; padding: 6px 12px; border-top-left-radius: 4px; border-bottom-left-radius: 4px; box-shadow: none; outline: 0px !important;"><span class="glyphicon glyphicon-star-empty" id="favorite_image" style="border-radius: 0px !important;"></span></button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; text-transform: none; padding-top: 6px; padding-bottom: 6px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; box-shadow: none; outline: 0px !important;">문제집&nbsp;<span class="caret" style="border-top-style: solid; border-radius: 0px !important;"></span></button></div></div><div class="col-md-12" style="width: 970px; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-size: 13px; border-radius: 0px !important;"><div class="table-responsive" style="border-radius: 0px !important;"><table class="table" id="problem-info" style="width: 940px; border-radius: 0px !important;"><thead style="border-radius: 0px !important;"><tr style="border-radius: 0px !important;"><th style="line-height: 1.42857; border-bottom: none; width: 151px; border-radius: 0px !important;">시간 제한</th><th style="line-height: 1.42857; border-bottom: none; width: 151px; border-radius: 0px !important;">메모리 제한</th><th style="line-height: 1.42857; border-bottom: none; width: 160px; border-radius: 0px !important;">제출</th><th style="line-height: 1.42857; border-bottom: none; width: 160px; border-radius: 0px !important;">정답</th><th style="line-height: 1.42857; border-bottom: none; width: 159px; border-radius: 0px !important;">맞은 사람</th><th style="line-height: 1.42857; border-bottom: none; width: 159px; border-radius: 0px !important;">정답 비율</th></tr></thead><tbody style="border-radius: 0px !important;"><tr style="border-radius: 0px !important;"><td style="line-height: 1.42857; border-radius: 0px !important;">2 초</td><td style="line-height: 1.42857; border-radius: 0px !important;">512 MB</td><td style="line-height: 1.42857; border-radius: 0px !important;">927</td><td style="line-height: 1.42857; border-radius: 0px !important;">442</td><td style="line-height: 1.42857; border-radius: 0px !important;">340</td><td style="line-height: 1.42857; border-radius: 0px !important;">47.486%</td></tr></tbody></table></div></div><div id="problem-body" style="color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-size: 13px; border-radius: 0px !important;"><div class="col-md-12" style="width: 970px; border-radius: 0px !important;"><section id="description" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">문제</h2></div><div id="problem_description" style="font-size: medium; line-height: 30px; border-radius: 0px !important;"><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">크기가 N×N인 지도가 있다. 지도의 각 칸에는 그 곳의 높이가 적혀져 있다.&nbsp;</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">오늘은 이 지도에서 지나갈 수 있는 길이 몇 개 있는지 알아보려고 한다. 길이란 한 행 또는 한 열 전부를 나타내며, 한쪽 끝에서 다른쪽 끝까지 지나가는 것이다.&nbsp;</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">다음과 같은 N=6인 경우 지도를 살펴보자.</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); text-align: center; border-radius: 0px !important;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/1.png" style="height: 250px; width: 250px; border-radius: 0px !important;"></p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">이 때, 길은 총 2N개가 있으며, 아래와 같다.</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); text-align: center; border-radius: 0px !important;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/2.png" style="height: 290px; width: 290px; border-radius: 0px !important;"></p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">길을 지나갈 수 있으려면 길에 속한 모든 칸의&nbsp;높이가 모두 같아야 한다. 또는, 경사로를 놓아서 지나갈 수 있는 길을 만들 수 있다. 경사로는 높이가 항상 1이며, 길이는&nbsp;L이다. 또, 개수는 매우 많아 부족할 일이 없다. 경사로는 낮은 칸과 높은 칸을 연결하며, 아래와 같은 조건을 만족해야한다.</p><ul style="border-radius: 0px !important;"><li style="color: rgb(85, 85, 85); border-radius: 0px !important;">경사로는 낮은 칸에 놓으며, L개의 연속된 칸에 경사로의 바닥이 모두 접해야 한다.</li><li style="color: rgb(85, 85, 85); border-radius: 0px !important;">낮은 칸과 높은 칸의 높이 차이는 1이어야 한다.</li><li style="color: rgb(85, 85, 85); border-radius: 0px !important;">경사로를 놓을 낮은 칸의 높이는 모두 같아야 하고, L개의 칸이 연속되어 있어야 한다.</li></ul><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">아래와 같은 경우에는 경사로를 놓을 수 없다.</p><ul style="border-radius: 0px !important;"><li style="color: rgb(85, 85, 85); border-radius: 0px !important;">경사로를 놓은 곳에 또 경사로를 놓는 경우</li><li style="color: rgb(85, 85, 85); border-radius: 0px !important;">낮은 칸과 높은 칸의 높이 차이가 1이 아닌 경우</li><li style="color: rgb(85, 85, 85); border-radius: 0px !important;">낮은 지점의 칸의 높이가 모두 같지 않거나, L개가 연속되지 않은 경우</li><li style="color: rgb(85, 85, 85); border-radius: 0px !important;">경사로를 놓다가 범위를 벗어나는 경우</li></ul><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">L = 2인 경우에 경사로를 놓을 수 있는 경우를 그림으로 나타내면 아래와 같다.</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); text-align: center; border-radius: 0px !important;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/3.png" style="height: 107px; width: 687px; border-radius: 0px !important;"></p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">경사로를 놓을 수 없는 경우는 아래와 같다.</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); text-align: center; border-radius: 0px !important;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/4.png" style="height: 158px; width: 1023px; border-radius: 0px !important;"></p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">위의 그림의 가장 왼쪽부터 1번, 2번, 3번, 4번 예제라고 했을 때, 1번은 높이 차이가 1이 아니라서, 2번은 경사로를 바닥과 접하게 놓지 않아서, 3번은 겹쳐서 놓아서, 4번은 기울이게 놓아서 불가능한 경우이다.</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">가장 위에 주어진 그림 예의 경우에 지나갈 수 있는 길은 초록색으로, 지나갈 수 없는 길은 빨간색으로 표시되어 있으며, 아래와 같다. 경사로의 길이 L = 2이다.</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); text-align: center; border-radius: 0px !important;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/5.png" style="height: 290px; width: 290px; border-radius: 0px !important;"></p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">지도가 주어졌을 때, 지나갈 수 있는 길의 개수를 구하는 프로그램을 작성하시오.</p></div></section></div><div class="col-md-12" style="width: 970px; border-radius: 0px !important;"><section id="input" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">입력</h2></div><div id="problem_input" style="font-size: medium; line-height: 30px; border-radius: 0px !important;"><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">첫째 줄에 N (2&nbsp;≤ N ≤ 100)과 L (1 ≤ L ≤ N)이 주어진다. 둘째 줄부터 N개의 줄에 지도가 주어진다. 각 칸의 높이는 10보다 작거나 같은 자연수이다.</p></div></section></div><div class="col-md-12" style="width: 970px; border-radius: 0px !important;"><section id="output" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">출력</h2></div><div id="problem_output" style="font-size: medium; line-height: 30px; border-radius: 0px !important;"><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">첫째&nbsp;줄에 지나갈 수 있는 길의 개수를 출력한다.</p></div></section></div><div class="col-md-12" style="width: 970px; border-radius: 0px !important;"><div class="row" style="border-radius: 0px !important;"><div class="col-md-6" style="width: 485px; border-radius: 0px !important;"><section id="sampleinput" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">예제 입력&nbsp;<button type="button" class="btn btn-link copy-button no-print" data-clipboard-target="#sample-input-1" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; color: rgb(66, 139, 202); text-transform: none; padding: 0px; outline: 0px !important;">복사</button></h2></div><pre class="sampledata" id="sample-input-1" style="overflow-x: scroll; font-family: Menlo, Monaco, &quot;Source Code Pro&quot;, consolas, monospace; font-size: 18px; padding: 8px; line-height: 1.42857; word-break: normal; overflow-wrap: normal; background-color: rgb(247, 247, 249); border-color: rgb(225, 225, 232); border-radius: 5px;">6 2
+3 3 3 3 3 3
+2 3 3 3 3 3
+2 2 2 3 2 3
+1 1 1 2 2 2
+1 1 1 3 3 1
+1 1 2 3 3 2
+</pre></section></div><div class="col-md-6" style="width: 485px; border-radius: 0px !important;"><section id="sampleoutput" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">예제 출력&nbsp;<button type="button" class="btn btn-link copy-button no-print" data-clipboard-target="#sample-output-1" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; color: rgb(66, 139, 202); text-transform: none; padding: 0px; outline: 0px !important;">복사</button></h2></div><pre class="sampledata" id="sample-output-1" style="overflow-x: scroll; font-family: Menlo, Monaco, &quot;Source Code Pro&quot;, consolas, monospace; font-size: 18px; padding: 8px; line-height: 1.42857; word-break: normal; overflow-wrap: normal; background-color: rgb(247, 247, 249); border-color: rgb(225, 225, 232); border-radius: 5px;">3
+</pre></section></div></div></div><div class="col-md-12" style="width: 970px; border-radius: 0px !important;"><div class="row" style="border-radius: 0px !important;"><div class="col-md-6" style="width: 485px; border-radius: 0px !important;"><section id="sampleinput2" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">예제 입력 2&nbsp;<button type="button" class="btn btn-link copy-button" data-clipboard-target="#sample-input-2" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; color: rgb(66, 139, 202); text-transform: none; padding: 0px; outline: 0px !important;">복사</button></h2></div><pre class="sampledata" id="sample-input-2" style="overflow-x: scroll; font-family: Menlo, Monaco, &quot;Source Code Pro&quot;, consolas, monospace; font-size: 18px; padding: 8px; line-height: 1.42857; word-break: normal; overflow-wrap: normal; background-color: rgb(247, 247, 249); border-color: rgb(225, 225, 232); border-radius: 5px;">6 2
+3 2 1 1 2 3
+3 2 2 1 2 3
+3 2 2 2 3 3
+3 3 3 3 3 3
+3 3 3 3 2 2
+3 3 3 3 2 2
+</pre></section></div><div class="col-md-6" style="width: 485px; border-radius: 0px !important;"><section id="sampleoutput2" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">예제 출력 2&nbsp;<button type="button" class="btn btn-link copy-button" data-clipboard-target="#sample-output-2" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; color: rgb(66, 139, 202); text-transform: none; padding: 0px; outline: 0px !important;">복사</button></h2></div><pre class="sampledata" id="sample-output-2" style="overflow-x: scroll; font-family: Menlo, Monaco, &quot;Source Code Pro&quot;, consolas, monospace; font-size: 18px; padding: 8px; line-height: 1.42857; word-break: normal; overflow-wrap: normal; background-color: rgb(247, 247, 249); border-color: rgb(225, 225, 232); border-radius: 5px;">7
+</pre></section></div></div></div><div class="col-md-12" style="width: 970px; border-radius: 0px !important;"><div class="row" style="border-radius: 0px !important;"><div class="col-md-6" style="width: 485px; border-radius: 0px !important;"><section id="sampleinput3" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">예제 입력 3&nbsp;<button type="button" class="btn btn-link copy-button" data-clipboard-target="#sample-input-3" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; color: rgb(66, 139, 202); text-transform: none; padding: 0px; outline: 0px !important;">복사</button></h2></div><pre class="sampledata" id="sample-input-3" style="overflow-x: scroll; font-family: Menlo, Monaco, &quot;Source Code Pro&quot;, consolas, monospace; font-size: 18px; padding: 8px; line-height: 1.42857; word-break: normal; overflow-wrap: normal; background-color: rgb(247, 247, 249); border-color: rgb(225, 225, 232); border-radius: 5px;">6 3
+3 2 1 1 2 3
+3 2 2 1 2 3
+3 2 2 2 3 3
+3 3 3 3 3 3
+3 3 3 3 2 2
+3 3 3 3 2 2
+</pre></section></div><div class="col-md-6" style="width: 485px; border-radius: 0px !important;"><section id="sampleoutput3" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">예제 출력 3&nbsp;<button type="button" class="btn btn-link copy-button" data-clipboard-target="#sample-output-3" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; color: rgb(66, 139, 202); text-transform: none; padding: 0px; outline: 0px !important;">복사</button></h2></div><pre class="sampledata" id="sample-output-3" style="overflow-x: scroll; font-family: Menlo, Monaco, &quot;Source Code Pro&quot;, consolas, monospace; font-size: 18px; padding: 8px; line-height: 1.42857; word-break: normal; overflow-wrap: normal; background-color: rgb(247, 247, 249); border-color: rgb(225, 225, 232); border-radius: 5px;">3
+</pre></section></div></div></div><div class="col-md-12" style="width: 970px; border-radius: 0px !important;"><div class="row" style="border-radius: 0px !important;"><div class="col-md-6" style="width: 485px; border-radius: 0px !important;"><section id="sampleinput4" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">예제 입력 4&nbsp;<button type="button" class="btn btn-link copy-button" data-clipboard-target="#sample-input-4" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; color: rgb(66, 139, 202); text-transform: none; padding: 0px; outline: 0px !important;">복사</button></h2></div><pre class="sampledata" id="sample-input-4" style="overflow-x: scroll; font-family: Menlo, Monaco, &quot;Source Code Pro&quot;, consolas, monospace; font-size: 18px; padding: 8px; line-height: 1.42857; word-break: normal; overflow-wrap: normal; background-color: rgb(247, 247, 249); border-color: rgb(225, 225, 232); border-radius: 5px;">6 1
+3 2 1 1 2 3
+3 2 2 1 2 3
+3 2 2 2 3 3
+3 3 3 3 3 3
+3 3 3 3 2 2
+3 3 3 3 2 2
+</pre></section></div><div class="col-md-6" style="width: 485px; border-radius: 0px !important;"><section id="sampleoutput4" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">예제 출력 4&nbsp;<button type="button" class="btn btn-link copy-button" data-clipboard-target="#sample-output-4" style="font-weight: 400; line-height: 1.42857; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; color: rgb(66, 139, 202); text-transform: none; padding: 0px; outline: 0px !important;">복사</button></h2></div><pre class="sampledata" id="sample-output-4" style="overflow-x: scroll; font-family: Menlo, Monaco, &quot;Source Code Pro&quot;, consolas, monospace; font-size: 18px; padding: 8px; line-height: 1.42857; word-break: normal; overflow-wrap: normal; background-color: rgb(247, 247, 249); border-color: rgb(225, 225, 232); border-radius: 5px;">11
+</pre></section></div></div></div><div class="col-md-12" style="width: 970px; border-radius: 0px !important;"><section id="hint" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">힌트</h2></div><div id="problem_hint" style="font-size: medium; line-height: 30px; border-radius: 0px !important;"><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">예제 2의 경우 아래와 같은 초록색 길을 지나갈 수 있다.</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); text-align: center; border-radius: 0px !important;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/6.png" style="height: 290px; width: 290px; border-radius: 0px !important;"></p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">예제 3의&nbsp; 경우에는 아래와 같은 초록색 길이 지나갈 수 있는 길이다.</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); text-align: center; border-radius: 0px !important;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/7.png" style="height: 290px; width: 290px; border-radius: 0px !important;"></p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); border-radius: 0px !important;">마지막으로, 예제 4의 경우에는 아래와 같은 초록색 길이 지나갈 수 있는 길이다.</p><p style="margin-top: 0px; margin-bottom: 10px; color: rgb(85, 85, 85); text-align: center; border-radius: 0px !important;"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14890/8.png" style="height: 290px; width: 290px; border-radius: 0px !important;"></p></div></section></div></div><div class="col-md-12" style="width: 970px; color: rgb(51, 51, 51); font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-size: 13px; border-radius: 0px !important;"><section id="source" style="border-radius: 0px !important;"><div class="headline" style="margin: 10px 0px 25px; border-bottom: 1px dotted rgb(228, 233, 240); border-radius: 0px !important;"><h2 style="font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Noto Sans CJK KR&quot;, &quot;Noto Sans KR&quot;, 나눔바른고딕, 나눔고딕, NanumGothic, 맑은고딕, &quot;Malgun Gothic&quot;, &quot;Nanum Gothic&quot;, sans-serif; font-weight: normal; line-height: 33px; color: rgb(88, 95, 105); margin: 0px 0px -2px; font-size: 22px; text-shadow: none; padding-bottom: 5px; display: inline-block; border-bottom: 2px solid rgb(0, 118, 192); border-radius: 0px !important;">출처</h2></div><ul style="border-radius: 0px !important;"><li style="color: rgb(85, 85, 85); border-radius: 0px !important;">문제를 만든 사람:&nbsp;<a href="https://www.acmicpc.net/user/baekjoon" style="background-image: initial; background-position: 0px 0px; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; color: rgb(85, 85, 85); border-radius: 0px !important; outline: 0px !important;">baekjoon</a></li></ul></section></div><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><h3 style="color: rgb(51, 51, 51);">문제 해설&nbsp;</h3><p style="color: rgb(51, 51, 51);">문제 자체가 어려운 알고리즘이나 시간 복잡도를 생각해야 하는 문제가 아니라 그냥 구현이 어려운 문제 같다.&nbsp;<br>구현을 하는데 코드가 너무 길게 나왔다.&nbsp;</p><p style="color: rgb(51, 51, 51);">중간에 짜잘한 오류도 많고.... 풀었지만 시간이 너무 많이 걸려 실제 시험에 나왔으면 그냥 틀렸다고 보면 된다.&nbsp;</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">먼저 가로를 검사하고 세로를 따로 검사하면 되는 방식이다.&nbsp;<br>내 풀이는 추천할 만한 풀이는 아닌 것 같다.<br>먼저 내 풀이는 for문 안에 다 넣으려고 해서 너무 복잡하다.&nbsp;<br>반드시 메소드로 분리하자.&nbsp;</p><p style="color: rgb(51, 51, 51);">또, 다른 풀이들은 로우와 컬럼을 계산하는 부분을 따로 둔 것이 아니라 행렬의 트랜스포즈를 썼다.<br></p><p style="color: rgb(51, 51, 51);">컬럼의 트랜스포즈는 로우이기 때문이다.&nbsp;</p><p style="color: rgb(51, 51, 51);">그 이외에&nbsp;<span style="background-color: rgb(255, 231, 206);">핵심은 경사로를 왼쪽(위쪽) 기준으로 놓을지 오른쪽(아래쪽) 기준으로 놓는다는 것이다.(차이가 1 만큼 날 때)&nbsp;</span><br></p><p style="color: rgb(51, 51, 51);"><span style="background-color: rgb(255, 231, 206);"><br></span></p><p style="color: rgb(51, 51, 51);">그 이외의 설명은 주석으로 첨부한다.&nbsp;</p><p style="color: rgb(51, 51, 51);"><a href="https://www.acmicpc.net/source/7070871">https://www.acmicpc.net/source/7070871</a></p><p style="color: rgb(51, 51, 51);">이 풀이가 굉장히 간단하게 짠 풀이인데, 참고해보면 좋다고 생각한다.&nbsp;</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><h3 style="color: rgb(51, 51, 51);">교훈</h3><p style="color: rgb(51, 51, 51);">- 가로 세로가 있을 때, 인덱스를 설정할 때 변수로 앞에서 선언해서 바뀌더라도 하나만 바뀌게 하자.&nbsp;<br>- 가로 세로를 하나의 함수로 만들어서 처리하자.&nbsp;<br>- 가로를 만들어 놓은 게 있으면, 동일한 배열을 생성하여 T (트랜젝션)을 해서 사용했으면 동일했을 것이다.&nbsp;<br>- 최대한 함수로 빼서 flag 를 사용하지 말자. (for문이 계속 겹치면서 헷갈림)</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><h4 style="color: rgb(51, 51, 51);">이전에는 이렇게 풀었지만 다시는 이렇게 풀지 않을 것 같다.....<br>짧은 소스코드도 함께 참고해보자...&nbsp;<br><br>아래와 같이 짜야 된다는 교훈을 얻었습니다. ..</h4><p style="color: rgb(51, 51, 51);"><br></p><h3 style="color: rgb(51, 51, 51);">숏코딩</h3><div class="colorscripter-code" style="color: rgb(254, 254, 254); overflow: auto; font-family: Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace !important; position: relative !important; line-height: 1.2;"><table class="colorscripter-code-table" style="margin:0; padding:0; border:none; background-color:#222222; border-radius:4px;" cellspacing="0" cellpadding="0"><tbody><tr><td style="padding:6px; border-right:2px solid #4f4f4f"><div style="margin: 0px; padding: 0px; word-break: normal; text-align: right; color: rgb(170, 170, 170); line-height: 1.2;"><div style="line-height: 1.2;"><span style="font-size: 14px;">1</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">2</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">3</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">4</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">5</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">6</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">7</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">8</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">9</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">10</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">11</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">12</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">13</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">14</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">15</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">16</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">17</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">18</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">19</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">20</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">21</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">22</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">23</span></div><div style="line-height: 1.2;"><span style="font-size: 14px;">24</span></div></div></td><td style="padding-top: 6px; padding-bottom: 6px;"><div style="margin: 0px; padding: 0px; line-height: 1.2;"><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="color: rgb(253, 10, 172); font-size: 14px;">#include</span><span style="font-size: 14px;">&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&lt;</span><span style="font-size: 14px;">cstdio</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&gt;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="color: rgb(5, 246, 213); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;main()&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(5, 246, 213); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;n,&nbsp;l,&nbsp;ans&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">,&nbsp;i,&nbsp;j,&nbsp;c;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(5, 246, 213); font-size: 14px;">short</span><span style="font-size: 14px;">&nbsp;a[</span><span style="color: rgb(195, 2, 237); font-size: 14px;">200</span><span style="font-size: 14px;">][</span><span style="color: rgb(195, 2, 237); font-size: 14px;">100</span><span style="font-size: 14px;">];</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(5, 246, 213); font-size: 14px;">scanf</span><span style="font-size: 14px;">(</span><span style="color: rgb(165, 241, 18); font-size: 14px;">"%d&nbsp;%d"</span><span style="font-size: 14px;">,&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&amp;</span><span style="font-size: 14px;">n,&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&amp;</span><span style="font-size: 14px;">l);</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(i</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;i</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&lt;</span><span style="font-size: 14px;">n;&nbsp;i</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(j</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;j</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&lt;</span><span style="font-size: 14px;">n;&nbsp;j</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(5, 246, 213); font-size: 14px;">scanf</span><span style="font-size: 14px;">(</span><span style="color: rgb(165, 241, 18); font-size: 14px;">"%hd"</span><span style="font-size: 14px;">,&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&amp;</span><span style="font-size: 14px;">a[i][j]);</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(i</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;i</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&lt;</span><span style="font-size: 14px;">n;&nbsp;i</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(j</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;j</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&lt;</span><span style="font-size: 14px;">n;&nbsp;j</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a[i&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;n][j]&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;a[j][i];</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(i</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;i</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&lt;</span><span style="font-size: 14px;">n&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">*</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">2</span><span style="font-size: 14px;">;&nbsp;i</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(j</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;j</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&lt;</span><span style="font-size: 14px;">n&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">;&nbsp;j</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(a[i][j]&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;a[i][j&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">])&nbsp;c</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">else</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(a[i][j]&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;a[i][j&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">]&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&amp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&amp;</span><span style="font-size: 14px;">&nbsp;c&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&gt;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;l)&nbsp;c&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">else</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(a[i][j]&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;a[i][j&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">]&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&amp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&amp;</span><span style="font-size: 14px;">&nbsp;c&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&gt;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">)&nbsp;c&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">-</span><span style="font-size: 14px;">l&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">else</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(j&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;n&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">1</span><span style="font-size: 14px;">&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&amp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&amp;</span><span style="font-size: 14px;">&nbsp;c&nbsp;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">&gt;</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">)&nbsp;ans</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="color:#33FFBA"></span><span style="color: rgb(241, 173, 11); font-size: 14px;">+</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(5, 246, 213); font-size: 14px;">printf</span><span style="font-size: 14px;">(</span><span style="color: rgb(165, 241, 18); font-size: 14px;">"%d"</span><span style="font-size: 14px;">,&nbsp;ans);</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(241, 173, 11); font-size: 14px;">return</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(195, 2, 237); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1.2;"><span style="font-size: 14px;">}</span></div></div><div style="text-align: right; margin-top: -13px; margin-right: 5px; font-size: 9px; font-style: italic; line-height: 1.2;"><a href="http://colorscripter.com/info#e" target="_blank" style="color: rgb(79, 79, 79);">Colored by Color Scripter</a></div></td><td style="vertical-align: bottom; padding-right: 2px; padding-bottom: 4px;"><a href="http://colorscripter.com/info#e" target="_blank" style="color: white;"><span style="font-size: 9px; word-break: normal; background-color: rgb(79, 79, 79); border-radius: 10px; padding: 1px;">cs</span></a></td></tr></tbody></table></div><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><h3 style="color: rgb(51, 51, 51);">이전에 짰던 소스코드</h3><div class="colorscripter-code" style="color: rgb(1, 1, 1); overflow: auto; line-height: 1; font-family: Consolas, &quot;Liberation Mono&quot;, Menlo, Courier, monospace !important; position: relative !important;"><table class="colorscripter-code-table" cellspacing="0" cellpadding="0" style="background-color: rgb(250, 250, 250); margin: 0px; padding: 0px; border: none; border-radius: 4px;"><tbody><tr><td style="padding: 6px; border-right: 2px solid rgb(229, 229, 229);"><div style="margin: 0px; padding: 0px; word-break: normal; text-align: right; color: rgb(102, 102, 102); line-height: 1;"><div style="line-height: 1;"><span style="font-size: 14px;">1</span></div><div style="line-height: 1;"><span style="font-size: 14px;">2</span></div><div style="line-height: 1;"><span style="font-size: 14px;">3</span></div><div style="line-height: 1;"><span style="font-size: 14px;">4</span></div><div style="line-height: 1;"><span style="font-size: 14px;">5</span></div><div style="line-height: 1;"><span style="font-size: 14px;">6</span></div><div style="line-height: 1;"><span style="font-size: 14px;">7</span></div><div style="line-height: 1;"><span style="font-size: 14px;">8</span></div><div style="line-height: 1;"><span style="font-size: 14px;">9</span></div><div style="line-height: 1;"><span style="font-size: 14px;">10</span></div><div style="line-height: 1;"><span style="font-size: 14px;">11</span></div><div style="line-height: 1;"><span style="font-size: 14px;">12</span></div><div style="line-height: 1;"><span style="font-size: 14px;">13</span></div><div style="line-height: 1;"><span style="font-size: 14px;">14</span></div><div style="line-height: 1;"><span style="font-size: 14px;">15</span></div><div style="line-height: 1;"><span style="font-size: 14px;">16</span></div><div style="line-height: 1;"><span style="font-size: 14px;">17</span></div><div style="line-height: 1;"><span style="font-size: 14px;">18</span></div><div style="line-height: 1;"><span style="font-size: 14px;">19</span></div><div style="line-height: 1;"><span style="font-size: 14px;">20</span></div><div style="line-height: 1;"><span style="font-size: 14px;">21</span></div><div style="line-height: 1;"><span style="font-size: 14px;">22</span></div><div style="line-height: 1;"><span style="font-size: 14px;">23</span></div><div style="line-height: 1;"><span style="font-size: 14px;">24</span></div><div style="line-height: 1;"><span style="font-size: 14px;">25</span></div><div style="line-height: 1;"><span style="font-size: 14px;">26</span></div><div style="line-height: 1;"><span style="font-size: 14px;">27</span></div><div style="line-height: 1;"><span style="font-size: 14px;">28</span></div><div style="line-height: 1;"><span style="font-size: 14px;">29</span></div><div style="line-height: 1;"><span style="font-size: 14px;">30</span></div><div style="line-height: 1;"><span style="font-size: 14px;">31</span></div><div style="line-height: 1;"><span style="font-size: 14px;">32</span></div><div style="line-height: 1;"><span style="font-size: 14px;">33</span></div><div style="line-height: 1;"><span style="font-size: 14px;">34</span></div><div style="line-height: 1;"><span style="font-size: 14px;">35</span></div><div style="line-height: 1;"><span style="font-size: 14px;">36</span></div><div style="line-height: 1;"><span style="font-size: 14px;">37</span></div><div style="line-height: 1;"><span style="font-size: 14px;">38</span></div><div style="line-height: 1;"><span style="font-size: 14px;">39</span></div><div style="line-height: 1;"><span style="font-size: 14px;">40</span></div><div style="line-height: 1;"><span style="font-size: 14px;">41</span></div><div style="line-height: 1;"><span style="font-size: 14px;">42</span></div><div style="line-height: 1;"><span style="font-size: 14px;">43</span></div><div style="line-height: 1;"><span style="font-size: 14px;">44</span></div><div style="line-height: 1;"><span style="font-size: 14px;">45</span></div><div style="line-height: 1;"><span style="font-size: 14px;">46</span></div><div style="line-height: 1;"><span style="font-size: 14px;">47</span></div><div style="line-height: 1;"><span style="font-size: 14px;">48</span></div><div style="line-height: 1;"><span style="font-size: 14px;">49</span></div><div style="line-height: 1;"><span style="font-size: 14px;">50</span></div><div style="line-height: 1;"><span style="font-size: 14px;">51</span></div><div style="line-height: 1;"><span style="font-size: 14px;">52</span></div><div style="line-height: 1;"><span style="font-size: 14px;">53</span></div><div style="line-height: 1;"><span style="font-size: 14px;">54</span></div><div style="line-height: 1;"><span style="font-size: 14px;">55</span></div><div style="line-height: 1;"><span style="font-size: 14px;">56</span></div><div style="line-height: 1;"><span style="font-size: 14px;">57</span></div><div style="line-height: 1;"><span style="font-size: 14px;">58</span></div><div style="line-height: 1;"><span style="font-size: 14px;">59</span></div><div style="line-height: 1;"><span style="font-size: 14px;">60</span></div><div style="line-height: 1;"><span style="font-size: 14px;">61</span></div><div style="line-height: 1;"><span style="font-size: 14px;">62</span></div><div style="line-height: 1;"><span style="font-size: 14px;">63</span></div><div style="line-height: 1;"><span style="font-size: 14px;">64</span></div><div style="line-height: 1;"><span style="font-size: 14px;">65</span></div><div style="line-height: 1;"><span style="font-size: 14px;">66</span></div><div style="line-height: 1;"><span style="font-size: 14px;">67</span></div><div style="line-height: 1;"><span style="font-size: 14px;">68</span></div><div style="line-height: 1;"><span style="font-size: 14px;">69</span></div><div style="line-height: 1;"><span style="font-size: 14px;">70</span></div><div style="line-height: 1;"><span style="font-size: 14px;">71</span></div><div style="line-height: 1;"><span style="font-size: 14px;">72</span></div><div style="line-height: 1;"><span style="font-size: 14px;">73</span></div><div style="line-height: 1;"><span style="font-size: 14px;">74</span></div><div style="line-height: 1;"><span style="font-size: 14px;">75</span></div><div style="line-height: 1;"><span style="font-size: 14px;">76</span></div><div style="line-height: 1;"><span style="font-size: 14px;">77</span></div><div style="line-height: 1;"><span style="font-size: 14px;">78</span></div><div style="line-height: 1;"><span style="font-size: 14px;">79</span></div><div style="line-height: 1;"><span style="font-size: 14px;">80</span></div><div style="line-height: 1;"><span style="font-size: 14px;">81</span></div><div style="line-height: 1;"><span style="font-size: 14px;">82</span></div><div style="line-height: 1;"><span style="font-size: 14px;">83</span></div><div style="line-height: 1;"><span style="font-size: 14px;">84</span></div><div style="line-height: 1;"><span style="font-size: 14px;">85</span></div><div style="line-height: 1;"><span style="font-size: 14px;">86</span></div><div style="line-height: 1;"><span style="font-size: 14px;">87</span></div><div style="line-height: 1;"><span style="font-size: 14px;">88</span></div><div style="line-height: 1;"><span style="font-size: 14px;">89</span></div><div style="line-height: 1;"><span style="font-size: 14px;">90</span></div><div style="line-height: 1;"><span style="font-size: 14px;">91</span></div><div style="line-height: 1;"><span style="font-size: 14px;">92</span></div><div style="line-height: 1;"><span style="font-size: 14px;">93</span></div><div style="line-height: 1;"><span style="font-size: 14px;">94</span></div><div style="line-height: 1;"><span style="font-size: 14px;">95</span></div><div style="line-height: 1;"><span style="font-size: 14px;">96</span></div><div style="line-height: 1;"><span style="font-size: 14px;">97</span></div><div style="line-height: 1;"><span style="font-size: 14px;">98</span></div><div style="line-height: 1;"><span style="font-size: 14px;">99</span></div><div style="line-height: 1;"><span style="font-size: 14px;">100</span></div><div style="line-height: 1;"><span style="font-size: 14px;">101</span></div><div style="line-height: 1;"><span style="font-size: 14px;">102</span></div><div style="line-height: 1;"><span style="font-size: 14px;">103</span></div><div style="line-height: 1;"><span style="font-size: 14px;">104</span></div><div style="line-height: 1;"><span style="font-size: 14px;">105</span></div><div style="line-height: 1;"><span style="font-size: 14px;">106</span></div><div style="line-height: 1;"><span style="font-size: 14px;">107</span></div><div style="line-height: 1;"><span style="font-size: 14px;">108</span></div><div style="line-height: 1;"><span style="font-size: 14px;">109</span></div><div style="line-height: 1;"><span style="font-size: 14px;">110</span></div><div style="line-height: 1;"><span style="font-size: 14px;">111</span></div><div style="line-height: 1;"><span style="font-size: 14px;">112</span></div><div style="line-height: 1;"><span style="font-size: 14px;">113</span></div><div style="line-height: 1;"><span style="font-size: 14px;">114</span></div><div style="line-height: 1;"><span style="font-size: 14px;">115</span></div><div style="line-height: 1;"><span style="font-size: 14px;">116</span></div><div style="line-height: 1;"><span style="font-size: 14px;">117</span></div><div style="line-height: 1;"><span style="font-size: 14px;">118</span></div><div style="line-height: 1;"><span style="font-size: 14px;">119</span></div><div style="line-height: 1;"><span style="font-size: 14px;">120</span></div><div style="line-height: 1;"><span style="font-size: 14px;">121</span></div><div style="line-height: 1;"><span style="font-size: 14px;">122</span></div><div style="line-height: 1;"><span style="font-size: 14px;">123</span></div><div style="line-height: 1;"><span style="font-size: 14px;">124</span></div><div style="line-height: 1;"><span style="font-size: 14px;">125</span></div><div style="line-height: 1;"><span style="font-size: 14px;">126</span></div><div style="line-height: 1;"><span style="font-size: 14px;">127</span></div><div style="line-height: 1;"><span style="font-size: 14px;">128</span></div><div style="line-height: 1;"><span style="font-size: 14px;">129</span></div><div style="line-height: 1;"><span style="font-size: 14px;">130</span></div><div style="line-height: 1;"><span style="font-size: 14px;">131</span></div><div style="line-height: 1;"><span style="font-size: 14px;">132</span></div><div style="line-height: 1;"><span style="font-size: 14px;">133</span></div><div style="line-height: 1;"><span style="font-size: 14px;">134</span></div><div style="line-height: 1;"><span style="font-size: 14px;">135</span></div><div style="line-height: 1;"><span style="font-size: 14px;">136</span></div><div style="line-height: 1;"><span style="font-size: 14px;">137</span></div><div style="line-height: 1;"><span style="font-size: 14px;">138</span></div><div style="line-height: 1;"><span style="font-size: 14px;">139</span></div><div style="line-height: 1;"><span style="font-size: 14px;">140</span></div><div style="line-height: 1;"><span style="font-size: 14px;">141</span></div><div style="line-height: 1;"><span style="font-size: 14px;">142</span></div><div style="line-height: 1;"><span style="font-size: 14px;">143</span></div><div style="line-height: 1;"><span style="font-size: 14px;">144</span></div><div style="line-height: 1;"><span style="font-size: 14px;">145</span></div><div style="line-height: 1;"><span style="font-size: 14px;">146</span></div><div style="line-height: 1;"><span style="font-size: 14px;">147</span></div><div style="line-height: 1;"><span style="font-size: 14px;">148</span></div><div style="line-height: 1;"><span style="font-size: 14px;">149</span></div><div style="line-height: 1;"><span style="font-size: 14px;">150</span></div><div style="line-height: 1;"><span style="font-size: 14px;">151</span></div><div style="line-height: 1;"><span style="font-size: 14px;">152</span></div><div style="line-height: 1;"><span style="font-size: 14px;">153</span></div><div style="line-height: 1;"><span style="font-size: 14px;">154</span></div><div style="line-height: 1;"><span style="font-size: 14px;">155</span></div><div style="line-height: 1;"><span style="font-size: 14px;">156</span></div><div style="line-height: 1;"><span style="font-size: 14px;">157</span></div><div style="line-height: 1;"><span style="font-size: 14px;">158</span></div><div style="line-height: 1;"><span style="font-size: 14px;">159</span></div><div style="line-height: 1;"><span style="font-size: 14px;">160</span></div><div style="line-height: 1;"><span style="font-size: 14px;">161</span></div><div style="line-height: 1;"><span style="font-size: 14px;">162</span></div><div style="line-height: 1;"><span style="font-size: 14px;">163</span></div><div style="line-height: 1;"><span style="font-size: 14px;">164</span></div><div style="line-height: 1;"><span style="font-size: 14px;">165</span></div><div style="line-height: 1;"><span style="font-size: 14px;">166</span></div><div style="line-height: 1;"><span style="font-size: 14px;">167</span></div><div style="line-height: 1;"><span style="font-size: 14px;">168</span></div><div style="line-height: 1;"><span style="font-size: 14px;">169</span></div><div style="line-height: 1;"><span style="font-size: 14px;">170</span></div><div style="line-height: 1;"><span style="font-size: 14px;">171</span></div></div></td><td style="padding-top: 6px; padding-bottom: 6px;"><div style="margin: 0px; padding: 0px; line-height: 1;"><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(0, 134, 179); font-size: 14px;">#include</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">iostream</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&gt;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(0, 134, 179); font-size: 14px;">#include</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">algorithm</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&gt;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(0, 134, 179); font-size: 14px;">#include</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">vector</span><span style="color: rgb(167, 29, 93); font-size: 14px;">&gt;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(0, 134, 179); font-size: 14px;">#pragma</span><span style="font-size: 14px;">&nbsp;warning(disable:</span><span style="color: rgb(0, 153, 204); font-size: 14px;">4996</span><span style="font-size: 14px;">)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(167, 29, 93); font-size: 14px;">using</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">namespace</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">std</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;N,&nbsp;L;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;arr[</span><span style="color: rgb(0, 153, 204); font-size: 14px;">100</span><span style="font-size: 14px;">][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">100</span><span style="font-size: 14px;">];</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;&nbsp;(가로는&nbsp;3축이&nbsp;0&nbsp;세로는&nbsp;1)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;isUsed[</span><span style="color: rgb(0, 153, 204); font-size: 14px;">100</span><span style="font-size: 14px;">][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">100</span><span style="font-size: 14px;">][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">2</span><span style="font-size: 14px;">];</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;answer&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;main()&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;정보&nbsp;입력&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">cin</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&gt;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&gt;</span><span style="font-size: 14px;">&nbsp;N&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&gt;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&gt;</span><span style="font-size: 14px;">&nbsp;L;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;N;&nbsp;i</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;N;&nbsp;j</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">scanf</span><span style="font-size: 14px;">(</span><span style="color: rgb(99, 163, 92); font-size: 14px;">"%d"</span><span style="font-size: 14px;">,&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="font-size: 14px;">arr[i][j]);</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;LNum&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;i,&nbsp;j;&nbsp;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;isSlide,&nbsp;isOver;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;로우&nbsp;확인</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;N;&nbsp;i</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;arr[i][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">];</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;&nbsp;j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;N;&nbsp;j</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(isOver)&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;이전&nbsp;숫자와&nbsp;같으면&nbsp;continue</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;arr[i][j])&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">continue</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;이전&nbsp;숫자와&nbsp;2이상&nbsp;차이나면&nbsp;break;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">else</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(abs(before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;arr[i][j])&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&gt;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">2</span><span style="font-size: 14px;">)&nbsp;{&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;1&nbsp;차이나면&nbsp;앞&nbsp;뒤를&nbsp;구분하고&nbsp;L&nbsp;만큼&nbsp;있는지&nbsp;확인</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;뒤에가&nbsp;1만큼&nbsp;더&nbsp;크면&nbsp;앞을&nbsp;살핀다.&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">else</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;arr[i][j]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)&nbsp;{&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;L&nbsp;만큼&nbsp;살펴본다.&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;L)&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="font-size: 14px;">&nbsp;(isSlide);&nbsp;t</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;인덱스를&nbsp;벗어나거나&nbsp;사용한&nbsp;인덱스이면&nbsp;종료&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;((j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;(t</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">)&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">|</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">|</span><span style="font-size: 14px;">&nbsp;(isUsed[i][j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">]))&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;비교하는&nbsp;숫자와&nbsp;다르면&nbsp;답이&nbsp;아님&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(arr[i][j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">!</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;before_num)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;경사로로&nbsp;사용&nbsp;(가로는&nbsp;3축이&nbsp;0&nbsp;세로는&nbsp;1)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isUsed[i][j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;앞이&nbsp;1만큼&nbsp;더&nbsp;크면&nbsp;뒤를&nbsp;살핀다.&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">else</span><span style="font-size: 14px;">&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;j&nbsp;한칸&nbsp;증가</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;L&nbsp;만큼&nbsp;살펴본다.&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;L)&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="font-size: 14px;">&nbsp;(isSlide)&nbsp;;&nbsp;t</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;인덱스를&nbsp;벗어나거나&nbsp;사용한&nbsp;인덱스이면&nbsp;종료&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;((j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;N)</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">|</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">|</span><span style="font-size: 14px;">&nbsp;(isUsed[i][j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;t][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">]))&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;비교하는&nbsp;숫자와&nbsp;차이가&nbsp;1만&nbsp;나야됨&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(arr[i][j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;t]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">!</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;before_num</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)&nbsp;{&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;경사로로&nbsp;사용&nbsp;(가로는&nbsp;3축이&nbsp;0&nbsp;세로는&nbsp;1)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isUsed[i][j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;t][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">&nbsp;;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">!</span><span style="font-size: 14px;">isOver&nbsp;)&nbsp;j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;(L</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">);</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(isSlide)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;arr[i][j];&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">!</span><span style="font-size: 14px;">isOver)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;컬럼&nbsp;확인</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;j&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;N;&nbsp;j</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;arr[</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">][j];</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;&nbsp;i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;N;&nbsp;i</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(isOver)&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;이전&nbsp;숫자와&nbsp;같으면&nbsp;continue</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;arr[i][j])&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">continue</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;이전&nbsp;숫자와&nbsp;2이상&nbsp;차이나면&nbsp;break;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">else</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(abs(before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;arr[i][j])&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&gt;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">2</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;1&nbsp;차이나면&nbsp;앞&nbsp;뒤를&nbsp;구분하고&nbsp;L&nbsp;만큼&nbsp;있는지&nbsp;확인</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;뒤에가&nbsp;1만큼&nbsp;더&nbsp;크면&nbsp;앞을&nbsp;살핀다.&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">else</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;arr[i][j]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;L&nbsp;만큼&nbsp;살펴본다.&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;L)&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="font-size: 14px;">&nbsp;(isSlide);&nbsp;t</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;인덱스를&nbsp;벗어나거나&nbsp;사용한&nbsp;인덱스이면&nbsp;종료&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;((i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">)&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">|</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">|</span><span style="font-size: 14px;">&nbsp;(isUsed[i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)][j][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">]))&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;비교하는&nbsp;숫자와&nbsp;다르면&nbsp;답이&nbsp;아님&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(arr[i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)][j]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">!</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;before_num)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;경사로로&nbsp;사용&nbsp;(가로는&nbsp;3축이&nbsp;0&nbsp;세로는&nbsp;1)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isUsed[i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)][j][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;앞이&nbsp;1만큼&nbsp;더&nbsp;크면&nbsp;뒤를&nbsp;살핀다.&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">else</span><span style="font-size: 14px;">&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;j&nbsp;한칸&nbsp;증가</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;L&nbsp;만큼&nbsp;살펴본다.&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">for</span><span style="font-size: 14px;">&nbsp;(</span><span style="color: rgb(6, 109, 226); font-size: 14px;">int</span><span style="font-size: 14px;">&nbsp;t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;&nbsp;(t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;L)&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="font-size: 14px;">&nbsp;(isSlide);&nbsp;t</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;인덱스를&nbsp;벗어나거나&nbsp;사용한&nbsp;인덱스이면&nbsp;종료&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;((i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;t&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;N)&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">|</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">|</span><span style="font-size: 14px;">&nbsp;(isUsed[i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;t][j][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">]))&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;비교하는&nbsp;숫자와&nbsp;차이가&nbsp;1만&nbsp;나야됨&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(arr[i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;t][j]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">!</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isOver&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">break</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(153, 153, 153); font-size: 14px;">//&nbsp;경사로로&nbsp;사용&nbsp;(가로는&nbsp;3축이&nbsp;0&nbsp;세로는&nbsp;1)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isUsed[i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">&nbsp;t][j][</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">]&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(isSlide&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&amp;</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">!</span><span style="font-size: 14px;">isOver)&nbsp;i&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;(L&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">-</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">1</span><span style="font-size: 14px;">);</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(isSlide)&nbsp;{</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;before_num&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">=</span><span style="font-size: 14px;">&nbsp;arr[i][j];</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">if</span><span style="font-size: 14px;">&nbsp;(</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">!</span><span style="font-size: 14px;">isOver)</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">+</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(6, 109, 226); font-size: 14px;">cout</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="color: rgb(255, 51, 153);"></span><span style="color: rgb(167, 29, 93); font-size: 14px;">&lt;</span><span style="font-size: 14px;">&nbsp;answer;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(167, 29, 93); font-size: 14px;">return</span><span style="font-size: 14px;">&nbsp;</span><span style="color: rgb(0, 153, 204); font-size: 14px;">0</span><span style="font-size: 14px;">;</span></div><div style="padding: 0px 6px; white-space: pre; line-height: 1;"><span style="font-size: 14px;">}</span></div></div><div style="text-align: right; margin-top: -13px; margin-right: 5px; font-size: 9px; font-style: italic; line-height: 1;"><a href="http://colorscripter.com/info#e" target="_blank" style="color: rgb(229, 229, 229);">Colored by Color Scripter</a></div></td><td style="padding-right: 2px; padding-bottom: 4px; vertical-align: bottom;"><a href="http://colorscripter.com/info#e" target="_blank" style="color: white;"><span style="font-size: 9px; word-break: normal; background-color: rgb(229, 229, 229); border-radius: 10px; padding: 1px;">cs</span></a></td></tr></tbody></table></div></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
+    <br><footer class="article__footer"><meta itemprop="dateModified" content="2018-03-25T00:00:00+09:00"><!-- start custom article footer snippet -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-9601240193039960"
+     data-ad-slot="7045115963"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
+    <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer><div class="article__section-navigator clearfix"><div class="previous"><span>PREVIOUS</span><a href="/algorithm/2018/03/25/020108.html">[백준] 2156번 C/C++ 풀이 _ 포도주 시식</a></div><div class="next"><span>NEXT</span><a href="/project/2018/03/25/202045.html">[이더리움] 이더리움의 기본 개념 및 docker 위에 geth 설치하기</a></div></div></div>
+
+</div>
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
+
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
+      });
+      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
+    });
+  });
+})();
+</script></div><br>
+                      <section class="page__comments d-print-none"><!-- start custom comments snippet -->
+<style>
+    .fb-comments iframe{
+        width: 100% !important;
+    }
+</style>
+
+<!-- facebook script  -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://hellogohn.com/post_one258" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet --></div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+      </a><li title="Follow me on Github.">
+        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/melonicedlatte" target="_blank">
+          <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+        </a>
+      </li></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Easy is Perfect 2019,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer></div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"><script>
+(function () {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    // search panel
+    var search = (window.search || (window.search = {}));
+    var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
+      true : window.useDefaultSearchBox ;
+
+    var $searchModal = $('.js-page-search-modal');
+    var $searchToggle = $('.js-search-toggle');
+    var searchModal = $searchModal.modal({ onChange: handleModalChange, hideWhenWindowScroll: true });
+    var modalVisible = false;
+    search.searchModal = searchModal;
+
+    var $searchBox = null;
+    var $searchInput = null;
+    var $searchClear = null;
+
+    function getModalVisible() {
+      return modalVisible;
+    }
+    search.getModalVisible = getModalVisible;
+
+    function handleModalChange(visible) {
+      modalVisible = visible;
+      if (visible) {
+        search.onShow && search.onShow();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+      } else {
+        search.onShow && search.onHide();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        setTimeout(function() {
+          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          search.clear && search.clear();
+          window.pageAsideAffix && window.pageAsideAffix.refresh();
+        }, 400);
+      }
+    }
+
+    $searchToggle.on('click', function() {
+      modalVisible ? searchModal.hide() : searchModal.show();
+    });
+    // Char Code: 83  S, 191 /
+    $(window).on('keyup', function(e) {
+      if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
+        modalVisible || searchModal.show();
+      }
+    });
+
+    if (useDefaultSearchBox) {
+      $searchBox = $('.js-search-box');
+      $searchInput = $searchBox.children('input');
+      $searchClear = $searchBox.children('.js-icon-clear');
+      search.getSearchInput = function() {
+        return $searchInput.get(0);
+      };
+      search.getVal = function() {
+        return $searchInput.val();
+      };
+      search.setVal = function(val) {
+        $searchInput.val(val);
+      };
+
+      $searchInput.on('focus', function() {
+        $(this).addClass('focus');
+      });
+      $searchInput.on('blur', function() {
+        $(this).removeClass('focus');
+      });
+      $searchInput.on('input', window.throttle(function() {
+        var val = $(this).val();
+        if (val === '' || typeof val !== 'string') {
+          search.clear && search.clear();
+        } else {
+          $searchBox.addClass('not-empty');
+          search.onInputNotEmpty && search.onInputNotEmpty(val);
+        }
+      }, 400));
+      $searchClear.on('click', function() {
+        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        search.clear && search.clear();
+      });
+    }
+  });
+})();
+</script><div class="search search--dark">
+  <div class="main">
+    <div class="search__header">Search</div>
+    <div class="search-bar">
+      <div class="search-box js-search-box">
+        <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
+        <input type="text" />
+        <div class="search-box__icon-clear js-icon-clear">
+          <a><i class="fas fa-times"></i></a>
+        </div>
+      </div>
+      <button class="button button--theme-dark button--pill search__cancel js-search-toggle">
+        Cancel</button>
+    </div>
+    <div class="search-result js-search-result"></div>
+  </div>
+</div>
+<script>var SOURCES = window.TEXT_VARIABLES.sources;
+var PAHTS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+  var search = (window.search || (window.search = {}));
+  var searchData = window.TEXT_SEARCH_DATA ? initData(window.TEXT_SEARCH_DATA) : {};
+
+  function memorize(f) {
+    var cache = {};
+    return function () {
+      var key = Array.prototype.join.call(arguments, ',');
+      if (key in cache) return cache[key];
+      else return cache[key] = f.apply(this, arguments);
+    };
+  }
+
+  function initData(data) {
+    var _data = [], i, j, key, keys, cur;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i], _data[key] = [];
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        cur.title = window.decodeUrl(cur.title);
+        cur.url = window.decodeUrl(cur.url);
+        _data[key].push(cur);
+      }
+    }
+    return _data;
+  }
+
+  /// search
+  function searchByQuery(query) {
+    var i, j, key, keys, cur, _title, result = {};
+    keys = Object.keys(searchData);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      for (j = 0; j < searchData[key].length; j++) {
+        cur = searchData[key][j], _title = cur.title;
+        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+          && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          if (result[key] === undefined) {
+            result[key] = [];
+          }
+          result[key].push(cur);
+        }
+      }
+    }
+    return result;
+  }
+
+  var renderHeader = memorize(function(header) {
+    return $('<p class="search-result__header">' + header + '</p>');
+  });
+
+  var renderItem = function(index, title, url) {
+    return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
+  };
+
+  function render(data) {
+    if (!data) { return null; }
+    var $root = $('<ul></ul>'), i, j, key, keys, cur, itemIndex = 0;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      $root.append(renderHeader(key));
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        $root.append(renderItem(itemIndex++, cur.title, cur.url));
+      }
+    }
+    return $root;
+  }
+
+  // search box
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+
+  function clear() {
+    $result.html(null);
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+  }
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
+
+  search.clear = clear;
+  search.onInputNotEmpty = onInputNotEmpty;
+
+  function updateResultItems() {
+    lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
+    activeIndex >= 0 && $resultItems.eq(activeIndex).addClass('active');
+  }
+
+  function moveActiveIndex(direction) {
+    var itemsCount = $resultItems ? $resultItems.length : 0;
+    if (itemsCount > 1) {
+      lastActiveIndex = activeIndex;
+      if (direction === 'up') {
+        activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
+      } else if (direction === 'down') {
+        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+      }
+      updateResultItems();
+    }
+  }
+
+  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
+  $(window).on('keyup', function(e) {
+    var modalVisible = search.getModalVisible && search.getModalVisible();
+    if (modalVisible) {
+      if (e.which === 38) {
+        modalVisible && moveActiveIndex('up');
+      } else if (e.which === 40) {
+        modalVisible && moveActiveIndex('down');
+      } else if (e.which === 13) {
+        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    }
+  });
+
+  $result.on('mouseover', '.search-result__item > a', function() {
+    var itemIndex = $(this).parent().data('index');
+    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+  });
+});
+</script></div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    toc = $tocRoot.toc({
+      selectors: TOC_SELECTOR,
+      container: $articleContent,
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    affix = $pageAside.affix({
+      offsetBottom: $pageFooter.outerHeight(),
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      scroll: hasSidebar ? $('.js-page-main').children() : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+    window.pageAsideAffix = affix;
+  });
+})();
+</script>
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+---
+layout : article
+title: "[ aws ] 아마존 RDS oracle 이용 중 발생하는 접속 에러 문제 해결하기 "
+aside:
+  toc: true
+tags: Database
+category : Database
+author: melonicedlatte
+published : True
+hellogohn_num : 267
+key : 2018-04-04-195526
+--- 
+
+<p>저는 맥 OS를 사용합니다.&nbsp;<br>RDS를 개설하여 열어보려고 했는데, 한 15시간 해도 안되더라구요...<br><br></p><p>1.&nbsp;io error: the network adapter could not establish 에러가 발생했다.<br>2. 방화벽 문제인줄 알고 방화벽을 오픈했지만, aws rds oracle locale not recognized 에러가 발생했다. <br>3. 이것 저것 해보다가 그냥 connect 내용을 save하고, 더블 클릭해보니 sql developer 에서 vendor code 17176 에러를 송출</p><p>1,2 에서 이것 저것 해보다가 안되서 3 번을 검색하니 바로 해결할 수 있었다.&nbsp;</p><p>아래의 링크를 참조했다.&nbsp;</p><p><a href="http://ending1.tistory.com/49">http://ending1.tistory.com/49</a>&nbsp;<br></p><p><br></p><p>핵심은 아래와 같다.&nbsp;</p><p style="">sqldeveloper에서 우클릭 (혹은 ctrl+클릭) 패키지 내용보기 후 <br>Contents/Resources/sqldeveloper/sqldeveloper/bin/sqldeveloper.conf<br>파일을 열어 다음과 같은 옵션을 추가 한다.</p><table class="txc-table" width="594" cellspacing="0" cellpadding="0" border="0" 맑은="" 고딕",="" sans-serif;font-size:13px"="" style="border: none;"><tbody><tr><td style="border-width: 1px; border-style: solid; border-color: rgb(204, 204, 204);"><p>AddVMOption -Duser.language=ko<br><span style="background-color: transparent;">AddVMOption -Duser.country=KR&nbsp;</span></p></td></tr></tbody></table><p style=""></p><p><br style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; background-color: rgb(150, 150, 150);">&nbsp;</p><p>접속에 성공했습니다 !!&nbsp;<br></p><p><img src="/system/uploads/images/000/000/960/original/image.png?1522838600" style="width: 50%;"><br></p>

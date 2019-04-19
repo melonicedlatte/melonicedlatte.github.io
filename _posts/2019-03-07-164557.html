@@ -1,0 +1,14 @@
+---
+layout : article
+title: "apt-get update와 upgrade 속도가 너무 느릴 때 해결 방법"
+aside:
+  toc: true
+tags: Linux
+category : Linux
+author: melonicedlatte
+published : True
+hellogohn_num : 399
+key : 2019-03-07-164557
+--- 
+
+<p><b><u>apt 의 기본 주소</u></b>가 어떻게 설정되어 있느냐에 따라서 속도가 매우 느릴 수 있습니다.<br>해외 서버를 기본으로 두고 있으면 속도가 국내 서버보다 상대적으로 느릴 수 밖에 없습니다.&nbsp;<br>국내 서버로 바꿔 주는 작업을 아래와 같이 수행하면 됩니다.&nbsp;</p><blockquote>sudo vim /etc/apt/sources.list</blockquote><p>위의 명령어를 사용하여 기본 주소를 설정할 수 있는 파일을 수정해야 합니다.&nbsp;<br><br></p><p><br>archive.ubuntu.com -&gt; kr.archive.ubuntu.com<br>아래의 그림처럼 전자를 후자로 바꾸어 줍니다.&nbsp;<br>vim 에서 명령어는 아래와 같습니다.&nbsp;<br>security 는 그냥 수정하지 않고 넘어갑니다.&nbsp;</p><blockquote>:%s/archive.ubuntu.com/kr.archive.ubuntu.com/</blockquote><p><br><img src="/system/uploads/images/000/001/521/original/image.png?1551944575" style="width: 865.345px; height: 605.742px;"></p><p><br>그 다음 apt-get update나 upgrade 명령어를 입력하면 속도가 40KB 수준에서 1MB~4MB 수준까지 올라가는 것을 확인할 수 있습니다.&nbsp;</p>

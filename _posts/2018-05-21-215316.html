@@ -1,0 +1,14 @@
+---
+layout : article
+title: "pip 로 파일을 설치했는데 python에서 import 되지 않을 때 해결책"
+aside:
+  toc: true
+tags: Python
+category : Python
+author: melonicedlatte
+published : True
+hellogohn_num : 285
+key : 2018-05-21-215316
+--- 
+
+<p>pip 로 파일을 설치했는데 python에서 import 되지 않을 때가 있다.</p><p>이는 다양한 버전의 python이 충돌하면서 생기는 문제이다.&nbsp;</p><p><br></p><p>해결책 1.&nbsp;</p><p>~/.bash_profile 파일에 아래의 명령어를 추가해준다.&nbsp;</p><pre class="lang-py prettyprint prettyprinted" style="margin-bottom: 1em; padding: 5px; border-width: 0px; border-style: initial; border-color: initial; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: inherit; font-family: Consolas, Menlo, Monaco, &quot;Lucida Console&quot;, &quot;Liberation Mono&quot;, &quot;DejaVu Sans Mono&quot;, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, monospace, sans-serif; vertical-align: baseline; box-sizing: inherit; width: auto; max-height: 600px; background-color: rgb(239, 240, 241); color: rgb(57, 51, 24); word-wrap: normal;"><code style="margin: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: Consolas, Menlo, Monaco, &quot;Lucida Console&quot;, &quot;Liberation Mono&quot;, &quot;DejaVu Sans Mono&quot;, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, monospace, sans-serif; font-size: 13px; vertical-align: baseline; box-sizing: inherit; background-color: rgb(239, 240, 241); white-space: inherit;"><span class="pln" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; color: rgb(48, 51, 54);">export PYTHONPATH</span><span class="pun" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; color: rgb(48, 51, 54);">=</span><span class="str" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; color: rgb(125, 39, 39);">"${PYTHONPATH}:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/site-packages"</span></code></pre><p><br></p><p><br></p><p>해결책 2.&nbsp;</p><p><span style="color: rgb(36, 39, 41); font-family: Consolas, Menlo, Monaco, &quot;Lucida Console&quot;, &quot;Liberation Mono&quot;, &quot;DejaVu Sans Mono&quot;, &quot;Bitstream Vera Sans Mono&quot;, &quot;Courier New&quot;, monospace, sans-serif; font-size: 13px; white-space: pre-wrap; background-color: rgb(239, 240, 241);">python -m pip install</span><br></p><p>위의 명령어를 사용하여 pip 를 구동하면 기본 설정된 python 으로 설치한다 !!&nbsp;</p><p><br></p><p><br></p>

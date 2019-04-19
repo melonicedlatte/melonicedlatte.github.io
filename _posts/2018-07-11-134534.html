@@ -1,0 +1,20 @@
+---
+layout : article
+title: "ffmpeg 를 사용하여 avi 파일을 mp4 파일로 변경하기 "
+aside:
+  toc: true
+tags: Linux
+category : Linux
+author: melonicedlatte
+published : True
+hellogohn_num : 299
+key : 2018-07-11-134534
+--- 
+
+<p>리눅스에서 손쉽게 영상을 변형하는 방법은 ffmpeg를 사용하는 것입니다.&nbsp;</p><p><br></p><p>하나의 avi 파일을 mp4로 바꾸는<br></p><p class="p1"><span class="s4">ffmpeg</span><span class="s2">&nbsp;-i '파일명.avi' -c:v libx264 -crf 19 -preset slow -c:a aac -b:a 192k -ac 2 파일명.mp4;</span></p><div><span class="s2"><br></span></div><p>폴더에 있는 모든&nbsp;avi 파일을 mp4로 바꾸는&nbsp;script&nbsp;</p><p class="p1"><span class="s1">for</span><span class="s2"> FILE in </span><span class="s3">*</span><span class="s2">.avi;<br></span><span class="s4">ffmpeg</span><span class="s2"> -i $FILE -c:v libx264 -crf 19 -preset slow -c:a aac -b:a 192k -ac 2 ${FILE%.mp4};</span></p><p><br></p><style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #f4f4f4; background-color: #000000; background-color: rgba(0, 0, 0, 0.85)}
+span.s1 {font-variant-ligatures: no-common-ligatures; color: #afad24}
+span.s2 {font-variant-ligatures: no-common-ligatures}
+span.s3 {font-variant-ligatures: no-common-ligatures; color: #5230e1}
+span.s4 {font-variant-ligatures: no-common-ligatures; color: #34bc26}
+</style>

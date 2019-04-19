@@ -1,0 +1,30 @@
+---
+layout : article
+title: "audio files with multiple channels not supported _ problem solve"
+aside:
+  toc: true
+tags: Computer
+category : Computer
+author: melonicedlatte
+published : True
+hellogohn_num : 312
+key : 2018-07-23-163557
+--- 
+
+<p>I use other library making sound segmentation.&nbsp;<br>But i have a problem like behind.&nbsp;</p><p class="p1"><span class="s1">Input: cultoo.wav</span></p><p class="p1"><span class="s1">Output: /speaker-diarization/lna/cultoo.lna</span></p><p class="p1"><span class="s1">exception: AudioReader: sorry, audio files with multiple channels not supported</span></p><p class="p1"><span class="s1">Traceback (most recent call last):</span></p><p class="p1"><span class="s1"><span class="Apple-converted-space">&nbsp; </span>File "./generate_exp.py", line 264, in &lt;module&gt;</span></p><p class="p1"><span class="s1"><span class="Apple-converted-space">&nbsp; &nbsp; </span>shift_dec_bord(lnas, arguments['--exppath'])</span></p><p class="p1"><span class="s1"><span class="Apple-converted-space">&nbsp; </span>File "./generate_exp.py", line 181, in shift_dec_bord</span></p><p class="p1"><span class="s1"><span class="Apple-converted-space">&nbsp; &nbsp; </span>num_models, l = _read_lna(lna)</span></p><p class="p1"><span class="s1"><span class="Apple-converted-space">&nbsp; </span>File "./generate_exp.py", line 123, in _read_lna<br></span><span class="Apple-converted-space" style="font-variant-ligatures: no-common-ligatures;">&nbsp; &nbsp;&nbsp;</span><span style="font-variant-ligatures: no-common-ligatures;">with open(lna, 'r') as f:</span></p><p><br></p><p>That time, you solve easily like behind.&nbsp;<br>You have to use ffmpeg and -ac option.</p><p>
+
+
+
+
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #f4f4f4; background-color: #000000; background-color: rgba(0, 0, 0, 0.85)}
+span.s1 {font-variant-ligatures: no-common-ligatures}
+span.s2 {font-variant-ligatures: no-common-ligatures; color: #34bc26}
+span.s3 {text-decoration: underline ; font-variant-ligatures: no-common-ligatures}
+</style>
+
+
+</p><p class="p1"><span class="s1">&nbsp;</span><span class="s2">ffmpeg</span><span class="s1"> -i </span><span class="s3">cultoo.wav</span><span class="s1">&nbsp; -ac 1 </span><span class="s3">cultoo.wav</span><span class="s1">&nbsp;</span></p><p><br></p><style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Monaco; color: #f4f4f4; background-color: #000000; background-color: rgba(0, 0, 0, 0.85)}
+span.s1 {font-variant-ligatures: no-common-ligatures}
+</style>

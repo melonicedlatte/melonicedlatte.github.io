@@ -1,0 +1,14 @@
+---
+layout : article
+title: "vi or vim 에서 문자열 변환(치환)하기"
+aside:
+  toc: true
+tags: Linux
+category : Linux
+author: melonicedlatte
+published : True
+hellogohn_num : 400
+key : 2019-03-07-165556
+--- 
+
+<p>vim 을 이용하여 작업할 때 문자열을 치환할 일이 발생합니다.<br>이럴 경우 어떤 명령어를 써야 할까요?</p><p><br></p><h3>- 기본 치환&nbsp;<br><br></h3><blockquote>:%s/바꾸기전문자/바꿀문자</blockquote><p>ex) :%s/helloworld/helloearth<br>위의 명령어를 vim 에서 수행해주면 helloworld 라는 문자열을 helloearth로 변경할 수 있습니다.&nbsp;</p><p><br></p><p><br></p><h3>- 문자열에 /가 들어가 있다면?</h3><p>만약 바꾸기 전 문자와 바꿀 문자에 / 가 들어가있다면 ?&nbsp;<br>역슬래시를 사용해주면 됩니다.&nbsp;<br><br></p><blockquote>:%s/<span style="background-color: rgb(255, 231, 156);">\/root\/file.txt</span>/<span style="background-color: rgb(247, 198, 206);">\/home\/user\/file.txt</span></blockquote><p><br></p><p><br></p><h3>- 추가적인 옵션이 필요하다면?&nbsp;<br><br></h3><blockquote>:%s/바꾸기전문자/바꿀문자/옵션</blockquote><div>바꿀문자 뒤에 /를 해주고 옵션을 걸어주면 추가적인 조건을 걸 수 있습니다.&nbsp;<br>해당 내용에 대한&nbsp;자세한 사항은 아래의 링크를 참조하시면 됩니다.&nbsp;<br></div><p><a href="https://techlog.gurucat.net/297" style="background-color: rgb(255, 255, 255); text-decoration-line: none;">https://techlog.gurucat.net/297</a>&nbsp;&nbsp;</p>
