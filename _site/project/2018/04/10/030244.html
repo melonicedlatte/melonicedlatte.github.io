@@ -1,0 +1,1164 @@
+<!DOCTYPE html><html lang="en">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>[이더리움] 크립토키티 백서 한글 번역 - Easy is Perfect</title>
+
+<meta name="description" content="﻿﻿크립토키티 백서에 대한 번역입니다.&nbsp;저의 영어와 지식 실력이 딸려, 번역기도 쓰고 사전도 많이 찾아서, 오역이 많을 수 있으니 오역은 댓글이나 메일 주시면 수정하겠습니다.&nbsp;크립토키티 백서블록체인 기술을 이용한 양육과 수집이 가능한 고양이 &nbsp;&nbsp;...">
+<link rel="canonical" href="http://localhost:4000/project/2018/04/10/030244.html"><link rel="alternate" type="application/rss+xml" title="Easy is Perfect" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/logo.svg"><link rel="icon" sizes="32x32" href="/assets/images/logo/logo.svg"><link rel="icon" sizes="16x16" href="/assets/images/logo/logo.svg"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/images/logo/logo.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/images/logo/logo.svg">
+
+<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/images/logo/logo.svg">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" ><!-- start custom head snippets -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-9601240193039960",
+          enable_page_level_ads: true
+     });
+</script>
+<!-- end custom head snippets --><script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.decodeUrl = function(str) {
+    return str ? decodeURIComponent(str.replace(/\+/g, '%20')) : '';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.4',
+      sources: {
+        font_awesome: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn1.lncld.net/static/js/3.4.1/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script></head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport has-aside cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="270.054px" height="270.054px" viewBox="0 0 270.054 270.054" style="enable-background:new 0 0 270.054 270.054;"
+	 xml:space="preserve">
+<g>
+	<g>
+		<path d="M266.639,78.803c-9.4-1.7-18.9-2.2-28.4-3c8.8-8,16.699-16.7,21.5-27.9c1.6-3.7-0.2-8.6-4.9-8.5
+			c-12.4,0.3-24.4,3-36.3,6.6c-45.7-56.9-107.8,34-155.2,87.4c-0.8-5-2.3-10-3.2-14c-2.4-10.3-6.9-24.2-18.6-26.8
+			c-12.4-2.7-16.8,9.9-16,19.6c0.2,2.9,0.8,5.9,1.5,8.8c-5.2-4.3-10.8-7.4-16.8-7.9c-9.6-0.8-10.9,11.2-10,17.8
+			c1.3,10.1,10.7,35.6,23.6,41.6c1,2.9,3.7,5.3,7,4c0.3-0.1,0.5-0.3,0.8-0.4c8.2,9.601,26.9,9.601,38.1,11
+			c14.7,1.801,29.8,2.4,44.9,2.301c-4.7,16.6-3,44,14.4,52.399c2.6,1.3,6.6-1.6,4.4-4.399c-11-14.801-16.3-29.5-15.2-48
+			c12.5-0.2,25.1-0.9,37.4-2c-5.301,16.8,2.899,45.5,23.899,45.399c4,0,6.101-6,2.101-7.899c-8.101-3.801-14.301-6-18.101-15
+			c-3.101-7.5-2.5-15.2-2.5-23.101c3.2-0.3,6.3-0.6,9.5-1c48.3-5.5,75.101-41.3,71.3-82.799c0.5,0.1,1,0,1.5-0.2
+			c9.4-3.6,16.1-9.4,24.2-15.2C270.838,85.603,271.238,79.703,266.639,78.803z M45.238,106.403c7.8,11.2,4.8,25.5,8.6,37.399
+			c-1.4,1.4-2.7,2.8-4,4.101c0-0.7-0.2-1.4-0.7-2.101c-4.3-6.2-7.3-13.7-9.9-20.6c-1.9-5-3.3-10.2-3.9-15.5
+			C34.638,101.803,41.138,100.403,45.238,106.403z M27.438,165.403c-9.1-5.9-15.1-24-16.8-31.2c-0.8-3.2-3.1-12.4,1.7-11
+			c11.8,3.6,22.3,19.399,29.6,28.3c0.8,1,1.8,1.4,2.8,1.4C38.438,158.602,32.738,162.903,27.438,165.403z M157.438,176.403
+			c-40.799,4.1-80.299,3-120.399-2.801c56.5-28.3,72.2-115,136-132.299c21.5-5.8,38.5,14.4,48.8,34.3c-0.199,0.2-0.4,0.4-0.6,0.5
+			c-4.1,3.5-0.301,8.9,3.9,9.4c0.5,0.1,1,0.1,1.399,0.1c1.8,4.4,3.399,8.6,4.399,12.2
+			C245.538,147.002,196.838,172.403,157.438,176.403z"/>
+		<path d="M192.438,63.903c-1.799-1.2-4-0.5-5.5,0.7c-3.1,2.5-2.6,7-2.899,10.6c-0.3,2.6-1.101,5.4-2.2,7.8
+			c-1.1,2.3-2.1,3.6-3.9,5.2c-0.899,0.8-1.699,1.2-3.199,1.6c-0.1,0-0.7,0-1.2,0c0.2-0.1-0.601-0.3-0.899-0.3
+			c-0.701-0.4-1.301-1-1.601-1.8c-2.2-5.5,0.3-12,1.899-17.2c1.301-4.3-4.899-6.8-7.1-3c-4,6.8-6.8,15.6-4.5,23.5
+			c1.7,6,7.301,10.3,13.6,10c6.801-0.3,12.301-4.9,15.9-10.3c2.2-3.3,3.5-7.3,4.301-11.2
+			C196.238,74.503,197.538,67.403,192.438,63.903z"/>
+		<path d="M180.738,131.303c-5.301-2.5-11.6,4.2-6.6,8.6c6.6,6,9.5,13.3,0.199,18.5c-13.6,7.6-20.699-15.101-22.4-23.9
+			c-1.199-6.5-10.299-4.3-10.899,1.5c0,0.1,0,0.2,0,0.3c-1-2.899-4.101-5-7.6-3.2c-0.5,0.3-1,0.6-1.6,0.9
+			c-7.9,4.599-27.3,13.599-26.2-1.7c1.1-15.9,21.8-12.5,31.299-8.6c3.9,1.6,6-4.4,2.701-6.5c-16.201-10.2-42.201-8-44.701,15.1
+			c-0.8,7.299,2.8,14.799,9.8,17.799c4.5,1.9,9.3,2,14,1.101c-1.3,5.7,0.2,11.5,6.5,15.8c11.199,7.7,18.4-1.2,22.6-11.8
+			c6.6,11.8,17.301,20.1,32.301,13.1C195.338,161.002,196.438,138.602,180.738,131.303z M131.238,157.903c-7.2-4,2.5-12.4,6.6-15
+			c0.301-0.2,0.6-0.301,0.9-0.5c0.699-0.4,1.199-1,1.699-1.5C139.238,148.302,136.639,160.903,131.238,157.903z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+<a title="Want to make some good product for world
+" href="/">Easy is Perfect</a></div><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/archive">Archive</a></li><li class="navigation__item"><a href="/about">About</a></li><li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet --><article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>[이더리움] 크립토키티 백서 한글 번역</h1></header><span class="split-space">&nbsp;</span>
+          <a class="edit-on-github"
+            title="Edit on Github"
+            href="https://github.com/melonicedlatte/melonicedlatte.github.io/tree/master/_posts/2018-04-10-030244.html"
+            target="_blank">
+            <i class="far fa-edit"></i></a></div><meta itemprop="headline" content="[이더리움] 크립토키티 백서 한글 번역"><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Project">Project</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Apr 10, 2018</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2018-04-10T00:00:00+09:00">
+    <meta itemprop="keywords" content="Project"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-9601240193039960"
+     data-ad-slot="2929900697"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><p style="text-align: left; line-height: 1.4; margin-bottom: 2.82mm;" align="center"><span style="font-size: 8px;">﻿</span><span style="font-size: 18px;">﻿크립토키티 백서에 대한 번역입니다.&nbsp;<br>저의 영어와 지식 실력이 딸려, 번역기도 쓰고 사전도 많이 찾아서, 오역이 많을 수 있으니 오역은 댓글이나 메일 주시면 수정하겠습니다.&nbsp;</span><br></p><p style="line-height:108%;margin-bottom:2.82mm;" align="center"><span style="font-family:210 콤퓨타세탁 L;font-size:18pt"><br></span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="center"><span style="font-family:210 콤퓨타세탁 L;font-size:18pt">크립토키티 백서</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="center"><span style="font-family:나눔고딕OTF ExtraBold;color:#5f3540;font-size:11pt">블록체인 기술을 이용한 양육과 수집이 가능한 고양이 </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;블록체인 기술이 계속해서 기사 헤드라인에 등장하면서, 암호화폐에 대한 관심이 매우 커지고 있습니다. 하지만, 일반 대중은 암호화폐가 무엇인지, 그것이 어떻게 중요한지, 어떻게 작동하는지 모릅니다. 따라서, 블록체인에 대한 대중의 인식은 계속해서 좁아지고 근시안적으로 변하고 있습니다. 마찬가지로 기술의 잠재력과 장기적인 영향은 대체적으로 수수께끼이고 무시되고 있습니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;크립토키티는 4가지 전략을 통하여 평균적인 소비자들이 블록체인 기술에 접근할 수 있게 할 것입니다 :</span></p><p style="line-height:108%;margin-bottom:2.82mm;;text-indent:-7.06mm;;margin-left:14.11mm;" align="justify"><span style="font-family:Wingdings;font-size:10pt">l</span><span style="font-family:나눔고딕;font-size:10pt">블록 체인의 고유 한 애플리케이션 활용한 게임적인 특징</span></p><p style="line-height:108%;margin-bottom:2.82mm;;text-indent:-7.06mm;;margin-left:14.11mm;" align="justify"><span style="font-family:Wingdings;font-size:10pt">l</span><span style="font-family:나눔고딕;font-size:10pt">순수한 블록체인에 대한 열정으로, 접근하기 쉽고 소비자 만족도를 높이는 브랜드</span></p><p style="line-height:108%;margin-bottom:2.82mm;;text-indent:-7.06mm;;margin-left:14.11mm;" align="justify"><span style="font-family:Wingdings;font-size:10pt">l</span><span style="font-family:나눔고딕;font-size:10pt">다른 기술적 지식 가진 모든 사람이 참여하는 개방형 플랫폼</span></p><p style="line-height:108%;margin-bottom:2.82mm;;text-indent:-7.06mm;;margin-left:14.11mm;" align="justify"><span style="font-family:Wingdings;font-size:10pt">l</span><span style="font-family:나눔고딕;font-size:10pt">지속 가능한 수익 기반 모델</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;조금 더 실용적인 측면에서, 우리는 실용적인 실험, 희소성, 수집성 및 대체할 수 없는 토큰을 활ㄹ용하여 블록체인 분야에서 혁신을 준비하고 있습니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;스마트 계약과 암호화폐의 transaction을 실질적인 적용을 통하여, 우리는 일반 소비자들에게 분산 원장 기술에 대한 기본적인 능숙함을 부여할 것입니다. 마찬가지로, 금융 분야 이외에도 블록체인 기술이 유용하게 사용 될 수 있다는 것을 보여줘서, 공공의 블록체인에 대한 이해를 도울 것입니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:14pt;font-weight:bold">1. Motivation</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;크립토키티를 개발하는 과정에서, 우리는 블록 체인의 대중적 인식과 다음과 같은 문제들이 이 기술의 잠재력에 어떻게 해가 될 수 있는지에 대해 동기 부여를 받았다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;1) 블록 체인 기술에 대한 일반인들의 이해는 제한되어 있으며, 일반적으로 관심사는 헤드 라인에 등장하는 암호 화폐와 관련이 있습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;2) 모든 ICO는 강력한 자금 조달 수단이지만, 모델의 남용과 실제 사용 사례의 부족으로 인해, 그들이 권한을 부여해야 할 기술에 불신을 심어 주고 있습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;이러한 두 가지 이슈는 더 큰 문제에 기여합니다. 즉, 블록 체인 기술로 의미 있는 혁신이 부족하다는 점입니다. 이를 위해 우리의 제품은, 이러한 광범위한 문제를 해결할 뿐 아니라 실질적으로 다음을 탐색하여 공간 내에서 혁신을 실현하고자 합니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;3) 윤리 경영 디지털 희소성, 디지털 수집 가능하지 않은 토큰 및 비유동 토큰.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:14pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:11pt;font-weight:bold">1.1 블록체인 기술에 대한 공공의 인식</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;분산 원장 기술은 인터넷 이후 정보화 시대의 가장 큰 혁명이 될 잠재력을 가지고 있습니다. 그것의 잠재적인 응용 분야는 다양하고 그것의 영향은 많은 산업 전반에 미칩니다. 하지만, 특히 대중 소비자들의 마음 속에 널리 퍼진 블록하인 기술의 일반적인 개념은 호기심에 쌓여 있습니다 </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;기존의 블록 체인 프로젝트는 전형적으로 그들의 청중을 초기 투자가나 고도로 전문화된 지식이나 관심사를 가진 상대적으로 작은 규모의 사람들로 제한합니다. 그럼에도 불구하고, 이러한 프로젝트의 대부분은 개념이거나 진행 중인 것들입니다 : 그것들의 실용적인 제품은 모호하게 남아 있습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:11pt;font-weight:bold">1.2 블록체인을 활용한 실용적이고 지속가능한 어플리케이션</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;최초의 ICO는 그들이 블록 체인 프로젝트에 사용 가능한 자금 조달 모델이라는 것을 입증해 왔습니다. 그러나 이 모델은 벤처 투자가의 영향권 밖에 있는 투자가들에게 자금을 제공하기 위한 의도를 가지고 있지만, 다른 대상에게는 장애물이 될 수 있습니다. 더욱 우려되는 것은 ICO가 불신 속에서 행해졌다는 것입니다. 이러한 토큰 판매는 사기에 지나지 않으며, 이는 토큰과 관련된 모델, 프로젝트 및 기술에 대한 불신을 불러일으킵니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;헤드라인에 등장하는 암호화폐의 초점의 변화와 금융 산업에 지장을 줄 수 있다는 점과 관련해, 블록 체인 기술의 혁신은 상대적으로 어렵습니다. 마찬가지로, "암호화폐"라는 개념은 보통 소비자들의 머리 위로 지나가는데, 그들은 단순한 교역과 투자를 넘어서는 블록 체인 기술의 의미를 이해하지 못 합니다. 새로운 개발이 어느 정도 대중의 관심을 따를 것이라는 것은 이해할 수 있지만, 그것은 단기적으로나 장기적으로 블록 체인 혁신을 제한할 수 있습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:11pt;font-weight:bold">1.3 디지털 희소성을 통한 의미있는 혁신적인 블록체인 기술</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;마지막으로, 계속 "미해결 상태"로 남아 있는 실질적인 실험 영역은 디지털 부족과 디지털 수집 가능성의 개념이다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;월드 오브 워크래프트 골드 농부에서부터 Steam 플랫폼 온라인 시장에 이르기까지 디지털 상품들은 현실적인 가치를 지니고 있습니다. 그러나 이러한 틈새 시장 인스턴스는 비디오 게임에 제한되어 있고 보안이나 보호 기능이 없습니다. 생태계와 더 큰 규모의 경제에 영향을 미치는 해킹, 부정 행위, 개발 업자들의 수많은 사례가 있었습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;디지털 수집은 엄청난 잠재력을 지니고 있지만 세가지 주요 이유로 인해 성공한 것으로 입증되지 못 했습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;- 중앙 발행 기관</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;디지털 수집 품을 만들어 발행하고 가장 희귀하거나 인기 있는 수집 품을 식별하면, 창작자가 더 이상 만들지 못하도록 막는 것은 아무것도 없습니다. 이렇게 하면 원래 수집 가능한 값이 작아지고 잠재적으로 쓸모 없게 됩니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;- 공급 업체 의존성</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;디지털 수집 가능 여부는 발행 권한의 존재 여부에 따라 결정됩니다. 디지털 수집기를 만들고 만든 이가 더 이상 존재하지 않는다고 말하면 디지털 수집기도 더 이상 존재하지 않게 됩니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;- 기능 부족</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;수집품들은 목적 때문에 인기가 있습니다. 예술이 좋은 예입니다: 사람들이 그것을 모으고, 그것은 많은 돈의 가치가 있고, 그것은 아름다움의 물건으로서 벽에 걸어 둠으로써 목적을 제공합니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;현재의 디지털 수집기는 사용 목적과 기능이 없습니다. 이는 Cryptopunk와 같은 디지털 수집 품을 통해 입증된 최초의 관심사지만 그러한 관심은 빠르게 줄어들었습니다. 우리는 이것이 부분적으로 그들의 기능 부족 때문이라고 믿습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;이전의 사례가 이러한 문제에 취약하지 않은 유일한 이유는 이들의 대형 사용자 기반, 대형 개발 업체 형태의 중앙 당국, 그리고 이들의 비디오 게임 응용 프로그램을 통한 각각의 "기능" 때문입니다. 이러한 플랫폼의 크기, 범위 및 장기적인 배경은 공급 업체 관련 우려를 완화시킬 수 있지만, 해결되지는 않습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;이러한 문제들이 존재하기 때문에, 사람들은 이 틈새 시장 사례들을 제외하고는 디지털 수집 품을 투자하려 하지 않습니다. 디지털 수집가가 물리적 수집가와 같은 방식으로 그 가치를 보유하는 경우, 이 문제는 제거되고 완전히 새로운 수집 세계가 도래할 것입니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:14pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:14pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:14pt;font-weight:bold">2. The Product </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;크립토키티는 이더리움 블록체인 기반의 디지털이고 수집할 수 있다. 크립토키티는 구매될 수도 있고, 다른 사람에게 이더를 이용하여 팔 수도 있습니다. 또, 크립토키티는 다양한 특성을 가지거나 다양한 레벨의 귀여움을 가지고 있는 새로운 크립토키티를 생성하기 위하여 길러질 수도 있습니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;출시 시, 50,000마리의 "Gen0"(0세대) 고양이(일반적으로 "Clock Cats"로 불림)가 Ethereum Blockchain에 스마트 계약으로 저장될 것입니다. 이러한 시계 고양이들은 15분마다 한마리의 고양이 비율로 스마트 계약을 통해 자동적으로 배포될 것입니다. 고양이 한마리는 경매에 붙여질 것입니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;암호는 모양이 독특하고, 스마트 계약에 저장된 변경할 수 없는 유전자에 의해 결정된 뚜렷한 시각적인 모양이 있습니다. 고양이를 기를 수 있다는 것이, 단순히 디지털 수집가를 의미하는 것은 아닙니다. 크립토키티는 이더리움 블록체인 안에서 새로운 크립토키티를 만들거나 거래할 수 있는, 흥미롭고 자급 자족이 가능한 커뮤니티입니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;두 크립토키티는 그들의 형질을 이용하여, 유전자가 결합된 새로운 크립토키티를 낳을 수 있습니다. 결과를 기대하는 것은 흥미롭고 크립토키티의 새롭고 희귀한 유전체의 생성 가능성은 무한합니다. 각각의 새끼 고양이 한쌍에서, 한 마리의 고양이는 암컷으로서 새끼를 다시 낳기 전에 회복 기간을 가질 것입니다. 두번째 고양이는 새끼 고양이를 품는데, 그 동안 다른 짝 짓기를 할 수가 없습니다. 크립토키티가 번식할 수 있는 횟수에는 제한이 없지만, 회복 기간과 임신 기간은 그들이 짝짓기를 더 많이 할 수록 증가합니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:11pt;font-weight:bold">2.1 Education through gamification </span><span style="font-family:나눔고딕;font-size:10pt;font-weight:bold">(gamification : 기업이 의도하는 활동에 사용자의 참여를 유도하기 위해 게임과 무관한 웹 사이트나 애플리케이션에서 게임과 연관된 개념을 활용하는 것)</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;크립토키티의 핵심 게임 기술은 암호화폐 및 스마트 계약과 관련된 작업에 연관이 있습니다. 그렇게 함으로써, 이전의 난해한 개념들을 정상화하고 사용자들은 기본적으로 기술에 기본적인 개념을 알게 됩니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;블록체인은 새로운 기술이기 때문에 사용자가 이상적인 것으로 간주하는 것보다 더 많은 장애물이 있습니다. 실행 시 사용자는 ether가 포함 된 MetaMask 지갑이 필요합니다. 그러나, 우리는 MetaMask의 대안을 로그인 솔루션으로 변경하고, 그 뿐 아니라 전통적인 통화를 이더로 전환하는 지름길을 찾을 계획입니다. 현재로서는 프로세스를 최대한 쉽게 진행할 수 있도록 간단한 가이드를 마련했습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:11pt;font-weight:bold">2.2 열정적인 인식과 폭 넓은 관심</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;크립토키티라는 브랜드는 소비자들이 매우 접근하기 쉽습니다. 다채로운 팔레트, 귀여운 고양이 인형, 그리고 고양이 유머를 사용함으로써, 전형적으로 활기 없는 B2B에 의해 지배되는 공간에서 돋보이게 되었습니다. 몇 가지 구체적인 실험을 제외하고는 높은 가치 투자자 또는 암호 전문가를 초월한 블록 체인 프로젝트가 거의 없습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;크립토키티 마케팅 계획은 다양한 커뮤니티(예 : 유명한 고양이, 기술 당국 등)의 영향력을 활용하여, 커스텀 아트가 있는 크립토키티인 "Fancy Cats"에 대한 맞춤 예술을 디자인합니다. 이것은 잠재 고객을 확대하고 새로운 사용자를 크립토키티에 소개하는 또 다른 기회입니다. 또한, 각 Fancy Cat 공동 작업, 릴리스 및 검색과 관련된 장기적인 컨텐츠 마케팅 터치 포인트를 만듭니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:11pt;font-weight:bold">2.3 검증된 역학 및 실제 테스트</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;스마트 계약과 관련된 주요 도전 과제는 그들의 불변 성질입니다. 신뢰할 수 없는 거래와 보안에 힘을 실어 주는 것과 같은 개념이 스마트 계약 결함을 명백하게 치명적인 것으로 만듭니다. 기존의 소프트웨어 프로젝트는 핵심 문제를 반복하거나 해결할 수 있지만, 블록체인 프로젝트는 일단 시작되면 이 프로젝트의 스마트 계약을 편집할 수 없습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;이를 위해 우리가 조사하고 있는 경제 및 수익 모델은 좋든 나쁘든 인위적으로 영향을 받아서는 안 됩니다. 이러한 점을 염두에 두고, 제품의 역학을 철저히 테스트하고 탐구하는 것이 중요했습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;프로젝트와 프로젝트의 배후에 있는 기술에 대한 신뢰성을 확보하기 위해서는 개념 증명이 필요하다는 점을 유념할 필요가 있습니다. 우리는 "기본 제공" 접근 방식을 최소 실행 가능 제품에 한정하였습니다(이 경우에는 최소 사용자).</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;우리는 전 세계에서 가장 큰 이더리움 해커톤인 ETHWaterloo에서 개념과 초기 구조를 테스트했습니다. 이러한 정보는 초기 커뮤니티와 제품 옹호자를 만드는 데 도움이 되었습니다. 또한 우리 게임의 핵심 구조를 가장 잘 활용하는 방법에 대한 통찰력을 제공했습니다. (우리팀은 해커톤에서 Hackathon에서 우승했다.)</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;한달 후에, 우리는 우리의 모회사인 AxiomZen사에 초기 "베타" 스마트 계약을 체결했습니다. 유감스럽게도, 계약에 치명적인 결함이 있어서 우리는 계약을 파기했습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;그리고 나서 우리는 조기에 closed 베타 버전에 접근하기 위해 스마트 계약을 시작했습니다. 이 버전은 3시간 동안 크립토키티를 closed 베타 런칭 후, 네트워크 상의 세번째로 가장 활성화된 Ethereum 프로젝트로 뛰어 올랐습니다. 사육 가격에 대한 사소한 변동이 그 다음 주에 안정적인 출발을 보장했다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:11pt;font-weight:bold">2.4 지속 가능한 수익 모델</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;ICO를 추구하는 대신에, 크립토키티는 지속 가능한 수익 모델로 운영됩니다. 우리는 그것의 시장에서 이루어지는 각 거래의 적은 비율(3.75%)의 수수료 받고 있습니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;크립토키티 플랫폼의 다른 사용자와 같이, 우리의 고양이 판매로부터 수입을 받는다. 하지만, 이러한 고양이 판매는 암호기/고양이 스마트 계약을 통해 매 15분마다 출시되는 50,000개의 “시계 고양이”에 제한되어 있습니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;“시계 고양이”의 가격은 지난 5번의 암호 해독 고양이 판매의 평균 가격에 50%를 더한 값에 의해 결정됩니다. 그것들은 시계 경매에 의해 팔리고, 그것들의 실제 평가는 시장의 생태계에 의해 결정될 것입니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:11pt;font-weight:bold">2.5 암시적인 기술을 통한 혁신</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;암호화는 호환되지 않는 토큰 프로토콜인 ERC-721을 개발하여 디지털 희소성과 디지털 수집을 위한 실질적인 활용 사례를 제공합니다. (ERC-20 : 분할 가능하고, 동등한 가치를 가진 것이 존재합니다. 화폐에 잘 맞는 구조 // ERC-721 : 분할 할 수 없고, 동등한 가치를 가진 것이 존재하지 않습니다. 각각은 유일하다. 크립토키티 같은 각각의 다른 고양이를 생산할 때 필요합니다.)</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">2.5.1 분리 불가능한 토큰</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;일반적으로 블록 체인의 토큰은 대체 가능합니다(ERC-20). 모든 토큰의 가치는 동일하며 현금과 마찬가지로 어떤 토큰을 받는지 중요하지 않습니다. 이 때문에 블록 체인은 특정 토큰 대신 토큰 수를 추적합니다. 이것은 주식이나 통화 같은 것들에 잘 적용되지만 크립토키티는 유전적으로 독특하고 번식 할 수 있기 때문에 대체 할 수 없는 토큰 환경을 만들어야했습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;이를 위해 우리는 블록 체인에서 비대체 가능 자산의 거래 및 소유에 대한 표준인 비 대체 가능 토큰에 대한 ERC-721 프로토콜을 개척했습니다. 이 프로토콜을 사용하여 크립토키티는 고유 항목을 찾아 볼 수 있는 인터페이스와 강력한 스마트 계약을 제공하여 양 당사자가 동의하면 트랜잭션 (번식)을 수행합니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">2.5.2 내림차순 시계 경매</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;암호 장치를 만드는 동안, 우리는 위조 불가능한 토큰을 경매할 방법을 찾아야 했습니다. 각 크립토키티는 유전적으로 독특해서, 각 토큰의 가치가 다르기 때문에 블록스킨에 있는 토큰을 판매하는 현재의 과정은 실패합니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;크립토키티가 이더리움 블록체인에서 실행되기 때문에, 전형적인 경매(시간이 갈 수록 입찰가가 늘어나는 경매)는 시간이 지나도 효과가 없어, 그들의 제안을 증가시킬 수 있습니다. 이더리움 블록체인은 각 거래가 gas 요금을 지불하도록 네트워크에 배치되어 있는 것을 요구합니다. 사용자 환경이 열악하기 때문에, 우리는 체인 상의 거래를 줄일 방법을 찾아야 했습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;이것을 완화하기 위해, 우리는 하강 경매를 만들었습니다. 판매자는 높은 공개 입찰, 최소 마감 입찰 및 경매 날짜를 선택합니다. 구매자들은 다른 누군가가 그들 앞에서 그것을 사지 않는 한, 그들이 판매되고 있는 크립토키티의 가치에 부합하는 가격을 구매하는 구매를 통해 그들의 스펙트럼에 따라 선택할 수 있습니다. 구매자들은 그들이 구매를 끝낼 때 gas를 지불하고 판매자는 경매를 시작하기 위해 gas을 지불합니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;같은 과정이 번식에도 사용됩니다. 크립토키티 소유자는 최대 시링 입찰, 최소 마감 입찰 및 경매 일정에 따라 고양이를 이용할 수 있는 장소에 배치할 수 있다. 자신의 고양이를 기르고 싶은 주인들은 암컷 고양이를 선택하고 그들이 기르고 싶은 암컷 고양이와 관련된 현재의 하강 시계 경매 입찰가를 지불함으로써 그렇게 할 수 있습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;동일한 과정이 번식에도 사용됩니다. 크립토키티 소유주는 조상을 위한 최대 개점 입찰, 최소 마감 입찰 및 경매 기간을 선택하여 조상에게 고양이를 배치 할 수 있습니다. 고양이를 키우고 싶은 소유자는 조상을 선택하고 번식하고 싶은 조상과와 관련된 현재 내림차순 경매 입찰을 지불 할 수 있습니다</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:11pt;font-weight:bold">결론 : 야옹이의 미래</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;우리 팀은 잠재적인 블록 체인의 미래를 믿지만, 대중의 상태와 방향에 대하여 실망했습니다. 진정으로 우리는 교육, 접근 가능한 유저의 경험, 실용적인 어플리케이션은 더 이상 채택되지 않는 요소라고 확신한다. 우리는 암호 해독제, 러플릿(ET.aterloo Hackathon에서의 우리의 승리 프로젝트)및 우리 팀의 프로젝트에 대한 어떤 미래의 Blockphain과도 이 믿음을 전달하기 위해 노력한다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;우리는 블록체인 기술로 혁신을 일으킬 수 있는 많은 기회를 보고 있습니다. 크립토키티를 사용하여, 우리는 디지털 희소성을 탐험하고 있습니다. 이는 재미는 있지만 과소평과 된 개념으로, 블록체인이 </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;크립토 키티는 이더리움 블록체인에 만들어진 세계 최초의 게임입니다. 이를 통해 일상적인 소비자는 블록 체인을 쉽게 접근할 수 있고, 우리는 암호 화폐와 블록 체인 기술을 널리 보급하는 데 한 걸음 더 가까이 다가갈 수 있습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;우리의 유치한 제목의 "catifesto"에서 우리는 미래를 바꾸고 싶지는 않지만, 차라리 미래에 대해 더 재미 있게 만들고 싶다고 말합니다. 하지만, 그것은 사실이 아닙니다. 우리의 게임이 블록 체인의 미래를 바꿀 수 있다고 생각합니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;우리는 크립토키티가 빠른 성공을 거둘 것이라고 확신할 수도 없고, 순식간에 일어날 수도 없는 일이라고 확신할 수도 없습니다. 블록 체인 (blockchain)과 관련된 모든 것들처럼, 미래는 유동적입니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;" align="justify"><span style="font-family:나눔고딕;font-size:10pt">&nbsp;그러나 우리는 몇 가지 것을 믿습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;;text-indent:-7.06mm;;margin-left:14.11mm;" align="justify"><span style="font-family:Wingdings;font-size:10pt">l</span><span style="font-family:나눔고딕;font-size:10pt">블록 체인의 잠재력을 믿습니다. </span></p><p style="line-height:108%;margin-bottom:2.82mm;;text-indent:-7.06mm;;margin-left:14.11mm;" align="justify"><span style="font-family:Wingdings;font-size:10pt">l</span><span style="font-family:나눔고딕;font-size:10pt">이 제품을 믿습니다.</span></p><p style="line-height:108%;margin-bottom:2.82mm;;text-indent:-7.06mm;;margin-left:14.11mm;" align="justify"><span style="font-family:Wingdings;font-size:10pt">l</span><span style="font-family:나눔고딕;font-size:10pt">우리는 우리 팀을 믿습니다. </span></p><p><style>
+v\:*
+{behavior:url(#default#VML);}
+o\:*
+{behavior:url(#default#VML);}
+w\:*
+{behavior:url(#default#VML);}
+.shape
+{behavior:url(#default#VML);}
+</style>
+
+
+<!--StartFragment-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--EndFragment-->
+
+<!--polaris office 4305 --></p><p style="line-height:108%;margin-bottom:2.82mm;;text-indent:-7.06mm;;margin-left:14.11mm;" align="justify"><span style="font-family:Wingdings;font-size:10pt">l</span><span style="font-family:나눔고딕;font-size:10pt">우리는 커뮤니티를 믿습니다.</span></p></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
+    <br><footer class="article__footer"><meta itemprop="dateModified" content="2018-04-10T00:00:00+09:00"><!-- start custom article footer snippet -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-9601240193039960"
+     data-ad-slot="7045115963"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
+    <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer><div class="article__section-navigator clearfix"><div class="previous"><span>PREVIOUS</span><a href="/android/2018/04/07/032920.html">Android 에서 Opencv 설치하고 간단한 예제 실행해보기!!</a></div><div class="next"><span>NEXT</span><a href="/android/2018/04/11/162008.html">Android Opencv 를 활용한 얼굴 인식하기 </a></div></div></div>
+
+</div>
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
+
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
+      });
+      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
+    });
+  });
+})();
+</script></div><br>
+                      <section class="page__comments d-print-none"><!-- start custom comments snippet -->
+<style>
+    .fb-comments iframe{
+        width: 100% !important;
+    }
+</style>
+
+<!-- facebook script  -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://hellogohn.com/post_one272" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet --></div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+      </a><li title="Follow me on Github.">
+        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/melonicedlatte" target="_blank">
+          <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+        </a>
+      </li></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Easy is Perfect 2019,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer></div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"><script>
+(function () {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    // search panel
+    var search = (window.search || (window.search = {}));
+    var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
+      true : window.useDefaultSearchBox ;
+
+    var $searchModal = $('.js-page-search-modal');
+    var $searchToggle = $('.js-search-toggle');
+    var searchModal = $searchModal.modal({ onChange: handleModalChange, hideWhenWindowScroll: true });
+    var modalVisible = false;
+    search.searchModal = searchModal;
+
+    var $searchBox = null;
+    var $searchInput = null;
+    var $searchClear = null;
+
+    function getModalVisible() {
+      return modalVisible;
+    }
+    search.getModalVisible = getModalVisible;
+
+    function handleModalChange(visible) {
+      modalVisible = visible;
+      if (visible) {
+        search.onShow && search.onShow();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+      } else {
+        search.onShow && search.onHide();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        setTimeout(function() {
+          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          search.clear && search.clear();
+          window.pageAsideAffix && window.pageAsideAffix.refresh();
+        }, 400);
+      }
+    }
+
+    $searchToggle.on('click', function() {
+      modalVisible ? searchModal.hide() : searchModal.show();
+    });
+    // Char Code: 83  S, 191 /
+    $(window).on('keyup', function(e) {
+      if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
+        modalVisible || searchModal.show();
+      }
+    });
+
+    if (useDefaultSearchBox) {
+      $searchBox = $('.js-search-box');
+      $searchInput = $searchBox.children('input');
+      $searchClear = $searchBox.children('.js-icon-clear');
+      search.getSearchInput = function() {
+        return $searchInput.get(0);
+      };
+      search.getVal = function() {
+        return $searchInput.val();
+      };
+      search.setVal = function(val) {
+        $searchInput.val(val);
+      };
+
+      $searchInput.on('focus', function() {
+        $(this).addClass('focus');
+      });
+      $searchInput.on('blur', function() {
+        $(this).removeClass('focus');
+      });
+      $searchInput.on('input', window.throttle(function() {
+        var val = $(this).val();
+        if (val === '' || typeof val !== 'string') {
+          search.clear && search.clear();
+        } else {
+          $searchBox.addClass('not-empty');
+          search.onInputNotEmpty && search.onInputNotEmpty(val);
+        }
+      }, 400));
+      $searchClear.on('click', function() {
+        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        search.clear && search.clear();
+      });
+    }
+  });
+})();
+</script><div class="search search--dark">
+  <div class="main">
+    <div class="search__header">Search</div>
+    <div class="search-bar">
+      <div class="search-box js-search-box">
+        <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
+        <input type="text" />
+        <div class="search-box__icon-clear js-icon-clear">
+          <a><i class="fas fa-times"></i></a>
+        </div>
+      </div>
+      <button class="button button--theme-dark button--pill search__cancel js-search-toggle">
+        Cancel</button>
+    </div>
+    <div class="search-result js-search-result"></div>
+  </div>
+</div>
+<script>var SOURCES = window.TEXT_VARIABLES.sources;
+var PAHTS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+  var search = (window.search || (window.search = {}));
+  var searchData = window.TEXT_SEARCH_DATA ? initData(window.TEXT_SEARCH_DATA) : {};
+
+  function memorize(f) {
+    var cache = {};
+    return function () {
+      var key = Array.prototype.join.call(arguments, ',');
+      if (key in cache) return cache[key];
+      else return cache[key] = f.apply(this, arguments);
+    };
+  }
+
+  function initData(data) {
+    var _data = [], i, j, key, keys, cur;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i], _data[key] = [];
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        cur.title = window.decodeUrl(cur.title);
+        cur.url = window.decodeUrl(cur.url);
+        _data[key].push(cur);
+      }
+    }
+    return _data;
+  }
+
+  /// search
+  function searchByQuery(query) {
+    var i, j, key, keys, cur, _title, result = {};
+    keys = Object.keys(searchData);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      for (j = 0; j < searchData[key].length; j++) {
+        cur = searchData[key][j], _title = cur.title;
+        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+          && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          if (result[key] === undefined) {
+            result[key] = [];
+          }
+          result[key].push(cur);
+        }
+      }
+    }
+    return result;
+  }
+
+  var renderHeader = memorize(function(header) {
+    return $('<p class="search-result__header">' + header + '</p>');
+  });
+
+  var renderItem = function(index, title, url) {
+    return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
+  };
+
+  function render(data) {
+    if (!data) { return null; }
+    var $root = $('<ul></ul>'), i, j, key, keys, cur, itemIndex = 0;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      $root.append(renderHeader(key));
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        $root.append(renderItem(itemIndex++, cur.title, cur.url));
+      }
+    }
+    return $root;
+  }
+
+  // search box
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+
+  function clear() {
+    $result.html(null);
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+  }
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
+
+  search.clear = clear;
+  search.onInputNotEmpty = onInputNotEmpty;
+
+  function updateResultItems() {
+    lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
+    activeIndex >= 0 && $resultItems.eq(activeIndex).addClass('active');
+  }
+
+  function moveActiveIndex(direction) {
+    var itemsCount = $resultItems ? $resultItems.length : 0;
+    if (itemsCount > 1) {
+      lastActiveIndex = activeIndex;
+      if (direction === 'up') {
+        activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
+      } else if (direction === 'down') {
+        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+      }
+      updateResultItems();
+    }
+  }
+
+  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
+  $(window).on('keyup', function(e) {
+    var modalVisible = search.getModalVisible && search.getModalVisible();
+    if (modalVisible) {
+      if (e.which === 38) {
+        modalVisible && moveActiveIndex('up');
+      } else if (e.which === 40) {
+        modalVisible && moveActiveIndex('down');
+      } else if (e.which === 13) {
+        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    }
+  });
+
+  $result.on('mouseover', '.search-result__item > a', function() {
+    var itemIndex = $(this).parent().data('index');
+    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+  });
+});
+</script></div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    toc = $tocRoot.toc({
+      selectors: TOC_SELECTOR,
+      container: $articleContent,
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    affix = $pageAside.affix({
+      offsetBottom: $pageFooter.outerHeight(),
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      scroll: hasSidebar ? $('.js-page-main').children() : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+    window.pageAsideAffix = affix;
+  });
+})();
+</script>
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>
