@@ -345,6 +345,28 @@
               <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
 
 <!-- end custom main top snippet --><article itemscope itemtype="http://schema.org/WebPage"><header style="display:none;"><h1>Home</h1></header><meta itemprop="headline" content="Home"><meta itemprop="author" content="melonicedlatte"/><div class="js-article-content"><div class="layout--articles"><div class="article-list items items--divided"><article class="item"><div class="item__content">
+          <header><a href="/datascience/2017/10/12/222159.html"><h3 itemprop="headline" class="item__header">[R studio] 콘솔 창에서 출력 할 때, 한글이 출력되지 않는 문제 해결 </h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody"># 메타데이터 붙이기
+name &lt;- c("갑","을","병","정")
+gender &lt;- c(2,1,1,2)
+mydata &lt;- data.frame(name, gender)
+attr(mydata$name, "what the variable means") &lt;- "응답자의 이름"
+mydata$name
+
+attr(mydata$gender, "what the value means") &lt;- "응답자의 성별"
+
+myvalues &lt;- gender
+for (i in 1:length(gender)){
+  myvalues[i] &lt;- ifelse(gender[i]==1, "남성", "여성")
+}
+
+m...</div><p><a href="/datascience/2017/10/12/222159.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=DataScience">DataScience</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Oct 12, 2017</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-10-12T00:00:00+09:00">
+    <meta itemprop="keywords" content="DataScience"></div>
+      </article><article class="item"><div class="item__content">
           <header><a href="/etc/2017/10/12/195449.html"><h3 itemprop="headline" class="item__header">정규 분포에 대한 쉬운 개념 설명과 시각화</h3></a></header>
           <div class="item__description"><div class="article__content" itemprop="description articleBody">정규 분포에 대한 내용은 많이 사용되지만, 제대로 개념 확립이 되던 부분이 아니라서 제대로 정리 해 보았습니다.&nbsp;고등학교 때 배우지만, 시험 보기에 급급하여 제대로 배우지 않고, 수식만 외워서 수능때도 적용했던 기억이 납니다.&nbsp;정규분포위키백과, 우리 모두의 백과사전.확률론과&nbsp;통계학에서,&nbsp;정규분포(正規分布,&nbsp;영어:&nbsp;normal distribution) 또는&nbsp;가우스 분포(Gauß分布,&nbsp;영어:&nbsp;Gaussian distribution)는&nbsp;연속 확률 분포의 하나이다. 정규분포는 수집된 자료의 분포를&nbsp;근사하는 데에 자주 사용되며...</div><p><a href="/etc/2017/10/12/195449.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
@@ -422,16 +444,8 @@
             </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Oct 02, 2017</span>
             </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-10-02T00:00:00+09:00">
     <meta itemprop="keywords" content="Database"></div>
-      </article><article class="item"><div class="item__content">
-          <header><a href="/web/2017/09/30/121839.html"><h3 itemprop="headline" class="item__header">[Ruby on Rails] 웹에디터 Summernote 사용시 서버로 로컬 이미지 업로드후 삽입</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">- Summernote 는 좋은 에디터입니다.&nbsp;상당히 이용하기 편리하면서, 클립보드에 있는 이미지도 복사되는 좋은 구조이지요.&nbsp;기존까지 약 140개의 글은 이미지 업로드를 이미지를 코드화 해서 넣었습니다.&nbsp;기존의 소스 코드를 보면 아래와 같이 data:image/&nbsp; &nbsp;와 같은 형태로 이루어져있습니다.&nbsp;지금은 사진 폴더를 따로 관리할 필요가 없이, 하나의 데이터베이스만 있으면 되고,다른 ajax 를 통한 서버와의 통신이 필요 없습니다.&nbsp;하지만, 지금 같은 이미지 코드화 같은 경우에는 DB 사이즈가 너무 커지고 불러오는 속도가 너무 느린 단점이 있습니다.&...</div><p><a href="/web/2017/09/30/121839.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Web">Web</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Sep 30, 2017</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-09-30T00:00:00+09:00">
-    <meta itemprop="keywords" content="Web"></div>
       </article></div>
-</div><div class="layout--home"><div class="pagination"><p>342 post articles, 35 pages.</p>
+</div><div class="layout--home"><div class="pagination"><p>343 post articles, 35 pages.</p>
     <div class="pagination__menu">
       <ul class="menu menu--nowrap"><li><a class="button button--secondary button--circle" href="/page22">
             <i class="fas fa-angle-left"></i>
@@ -464,6 +478,7 @@
     }
 </style>
 
+<br/>
 <!-- facebook script  -->
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
