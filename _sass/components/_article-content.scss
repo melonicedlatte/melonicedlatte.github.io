@@ -72,12 +72,12 @@
     }
   }
   code {
-    padding: .15em map-get($spacers, 2);
+    padding: .2em map-get($spacers, 2);
     background-color: $text-background-color;
     border-radius: map-get($base, border-radius);
     font-weight: 700;
     color: #ff4900	;
-    font-size : .95em;
+    font-size : .9em;
     font-family: auto;
     span {
       padding: 0;
