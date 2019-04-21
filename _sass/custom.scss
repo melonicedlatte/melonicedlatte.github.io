@@ -1,3 +1,14 @@
 /* start custom scss snippet */
-
+.img_center{
+    display: block;
+    margin: 0 auto;
+}
+.text_center{
+    text-align: center;
+}
+.caption{
+    display: block;
+    font-size : map-get($base, font-size-sm);
+    text-align: center;
+}
 /* end custom scss snippet */
