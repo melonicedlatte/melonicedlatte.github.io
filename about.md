@@ -1,5 +1,5 @@
 ---
-layout: article
+layout: page
 titles:
   en      : &EN       About
   en-GB   : *EN
@@ -20,7 +20,7 @@ key: page-about
 
 ![TeXt Theme](/assets/images/logo/chihuahua.jpg)
 
-### {{ site.description }}
+**{{ site.description }}** :smiley: :heart: :exclamation:
 
 <br><br>
 
