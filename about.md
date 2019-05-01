@@ -20,12 +20,12 @@ key: page-about
 
 ![TeXt Theme](/assets/images/logo/chihuahua.jpg)
 
-__{{ site.description }}__ :smiley: :heart: :exclamation:
+{{ site.description }}!! :smiley: :heart:
 
 <br><br>
 
 ## Features
 
-| `email` |  [melonicedlatte@gmail.com]()| 
+| __email__ |  [melonicedlatte@gmail.com]() | 
 | --- |  --- | 
-| `github` |  [melonicedlatte](https://github.com/melonicedlatte){:target="_blank"}| 
+| __github__ |  [melonicedlatte](https://github.com/melonicedlatte){:target="_blank"}| 
