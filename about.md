@@ -25,7 +25,14 @@ key: page-about
 <br><br>
 
 ## Features
-
+<!-- 
 | __email__ |  [melonicedlatte@gmail.com]() | 
 | --- |  --- | 
-| __github__ |  [melonicedlatte](https://github.com/melonicedlatte){:target="_blank"}| 
+| __github__ |  [melonicedlatte](https://github.com/melonicedlatte){:target="_blank"}|  -->
+
+|-----------------+-----------------|
+|  kind |  content   |
+|-----------------|---------------|
+| email           | [melonicedlatte@gmail.com]()      |
+| github          | [melonicedlatte](https://github.com/melonicedlatte){:target="_blank"}     |
+|-----------------+------------|
