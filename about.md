@@ -20,7 +20,7 @@ key: page-about
 
 ![TeXt Theme](/assets/images/logo/chihuahua.jpg)
 
-**{{ site.description }}** :smiley: :heart: :exclamation:
+__{{ site.description }}__ :smiley: :heart: :exclamation:
 
 <br><br>
 
