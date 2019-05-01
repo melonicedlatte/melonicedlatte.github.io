@@ -27,5 +27,5 @@ key: page-about
 ## Features
 
 | **email :** |  [melonicedlatte@gmail.com]() |
-| --- |  --- |
+| ---:|  --- |
 | **github :** |  [melonicedlatte](https://github.com/melonicedlatte){:target="_blank"}|
