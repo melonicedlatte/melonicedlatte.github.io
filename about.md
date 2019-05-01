@@ -25,14 +25,21 @@ key: page-about
 <br><br>
 
 ## Features
-<!-- 
-| __email__ |  [melonicedlatte@gmail.com]() | 
-| --- |  --- | 
-| __github__ |  [melonicedlatte](https://github.com/melonicedlatte){:target="_blank"}|  -->
 
+|제목|내용|설명|
+|------|---|---|
+|테스트1|테스트2|테스트3|
+|테스트1|테스트2|테스트3|
+|테스트1|테스트2|테스트3|
+
+| __email__ |  [melonicedlatte@gmail.com]() |
+| --- |  --- |
+| __github__ |  [melonicedlatte](https://github.com/melonicedlatte){:target="_blank"}|
+
+<!-- 
 |-----------------+-----------------|
 |  kind |  content   |
 |-----------------|---------------|
 | email           | [melonicedlatte@gmail.com]()      |
 | github          | [melonicedlatte](https://github.com/melonicedlatte){:target="_blank"}     |
-|-----------------+------------|
+|-----------------+------------| -->
