@@ -1,64 +1,494 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-04-22T00:02:43+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Easy is Perfect</title><subtitle>Want to make some good product for world
-</subtitle><author><name>melonicedlatte</name><email>melonicedlatte@gmail.com</email></author><entry><title type="html">MIT 공대생들이 만든 저렴한 가격의 로봇 음식점</title><link href="http://localhost:4000/news/2019/04/21/155300.html" rel="alternate" type="text/html" title="MIT 공대생들이 만든 저렴한 가격의 로봇 음식점" /><published>2019-04-21T00:00:00+09:00</published><updated>2019-04-21T00:00:00+09:00</updated><id>http://localhost:4000/news/2019/04/21/155300</id><content type="html" xml:base="http://localhost:4000/news/2019/04/21/155300.html">[비싼 음식에 지친 MIT 공대생들이 만든 로봇 식당](https://toozajournal.tistory.com/817?fbclid=IwAR2wjvHKMxpVTnTEC2i6EucT7zpoJBRs6g0RkseyfAi34YCDEBFeu7XzTr4)
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-05-05T17:46:07+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Easy is Perfect</title><subtitle>Want to make some good product for world
+</subtitle><author><name>melonicedlatte</name><email>melonicedlatte@gmail.com</email></author><entry><title type="html">화면 UI가 너무 작게 나올 때, 윈도우 해상도 지원되지 않는 앱 사용하기</title><link href="http://localhost:4000/etc/2019/05/05/011800.html" rel="alternate" type="text/html" title="화면 UI가 너무 작게 나올 때, 윈도우 해상도 지원되지 않는 앱 사용하기" /><published>2019-05-05T00:00:00+09:00</published><updated>2019-05-05T00:00:00+09:00</updated><id>http://localhost:4000/etc/2019/05/05/011800</id><content type="html" xml:base="http://localhost:4000/etc/2019/05/05/011800.html">&lt;h2 id=&quot;화면-ui가-너무-작게-출력되는-문제&quot;&gt;화면 UI가 너무 작게 출력되는 문제&lt;/h2&gt;
 
-위의 링크에서 재미있는 회사에 대한 정보를 얻었습니다. MIT 공대생들이 비싼 음식 값에 지쳐서 직접 로봇을 이용한 식당을 만든 것입니다. 저한테 상당히 인상 깊은 스타트업이라 포스팅을 하게 되었습니다.
+&lt;p&gt;저 같은 경우에는 영상 편집 프로그램 다빈치 리졸브(Davinch Reslove)를 이용해보다가 화면이 너무 작게 출력되는 현상을 겪었습니다. 서피스 4에서 살펴보는데 너무 작게 보여서 글자가 거의 보이지 않았습니다. 앱 자체에서 지원하는 것을 찾아보려고 했는데, 찾기가 너무 어려웠습니다.&lt;/p&gt;
 
-## 문제점
+&lt;p&gt;그래서 윈도우 자체에서 앱을 조절할 수 있는 방법이 있지 않을까? 하고 찾아보던 도중 &lt;a href=&quot;https://www.clien.net/service/board/lecture/11899869&quot;&gt;https://www.clien.net/service/board/lecture/11899869&lt;/a&gt; 해당 홈페이지에서 좋은 정보를 찾았습니다.&lt;/p&gt;
 
-![Image](/assets/images/20190421/in-n-out-1.jpg){:.rounded.img_center}
-**미국의 in&amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다**{:.caption}
+&lt;p&gt;정확한 원인은 윈도우에서 고해상도(HiDPI)가 제대로 지원되지 않는 앱의 경우 화면이 아주 작게 표시되는 것이었습니다. 원인은 해당 앱에서 &lt;strong&gt;‘이 앱은 고해상도 지원 잘됩니다’&lt;/strong&gt;라고 윈도우에 알려주는데, 실제는 아닌 것입니다.&lt;/p&gt;
 
-### 미국의 비싼 음식값
+&lt;p&gt;그래서 &lt;strong&gt;이 앱을 고해상도가 적용이 안된다고&lt;/strong&gt; 구식앱으로 간주되게 해서 결과적으로는 앱이 윈도우의 기본 기능으로 스케일링돼서 크게 표시되게 하는 방법이 있습니다.&lt;/p&gt;
 
-미국의 음식 값은 매우 비쌉니다. 우리나라 음식점에서는 6~8천원 대에 형성되지만 미국에서는 기본적으로 10~14$ 정도로 음식점 가격이 형성되어 있습니다. 물론, 이 가격은 보편적인 음식점의 가격이고 햄버거나 편의점 같은 곳에서 사는 음식은 더 저렴하지만 맨날 이런 음식을 먹을 수는 없겠죠.
+&lt;h2 id=&quot;문제-해결-과정&quot;&gt;문제 해결 과정&lt;/h2&gt;
 
-또, 식당에서 직접 먹으면 미국에서는 tip 문화때문에 10~15%의 팁을 더 내야합니다. (take out일 경우는 아니지만요.) 계산표에 나온 음식 값에 세금에 
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;윈도우 키 + R&lt;/code&gt; 을 눌러서 regedit로 레지스트리 편집기를 연다
+&lt;img src=&quot;/assets/images/20190505/registry_setting.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;regedit setting&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HKEY_LOCAL_MACHINE &amp;gt; SOFTWARE &amp;gt; Microsoft &amp;gt; Windows &amp;gt; CurrentVersion &amp;gt; SideBySide&lt;/code&gt; 에서 우클릭해서 새로 만들기&amp;gt; DWORD (32 bit) 를 선택하고 &lt;code class=&quot;highlighter-rouge&quot;&gt;PreferExternalManifest&lt;/code&gt;라는 값을 만든다&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PreferExternalManifest&lt;/code&gt; 를 우클릭 &amp;gt; 수정해서 값을 1로 하고 10진법으로 선택후 저장한 뒤, 레지스트리 편집기를 닫는다&lt;/li&gt;
+  &lt;li&gt;아래 파일을 다운로드 받는다
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/assets/download_files/manifest.txt&quot; download=&quot;&quot;&gt;manifest.txt 파일 다운로드 클릭!&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;스케일링을 적용하고 싶은 앱의 실행파일과 같은 폴더에 위 파일 &lt;code class=&quot;highlighter-rouge&quot;&gt;manifest.txt&lt;/code&gt;을 복사한다. (바로가기 아이콘일 경우에는 오른쪽 마우스를 누르고 &lt;code class=&quot;highlighter-rouge&quot;&gt;파일 위치 열기&lt;/code&gt;를 실행합니다.)
+&lt;img src=&quot;/assets/images/20190505/manifest_file.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;manifest 이름 변경하기&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;manifest.txt&lt;/code&gt;를 실행파일 이름에 맞춰서 이름을 다음과 같이 변경한다
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;실행파일명.확장자.manifest&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;예) XXX.exe 프로그램의 경우 XXX.exe.manifest (txt 확장자는 제거합니다. 위의 이미지를 참고해주세요)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;평소처럼 앱을 실행하면 앱이 커집니다.&lt;/li&gt;
+&lt;/ol&gt;
 
-미국의 대학생이 시급이 높다고 해도 물가가 높으니 우리나라 대학생과 동일하게 비싼 밥값은 부담이 될 것입니다. 이런 상황에서 로봇을 이용한 식당을 MIT 공대생 4명이 만들어 창업했습니다.
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190505/bigger_program.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;크기 조정이 성공한 다빈치 리졸브&lt;/strong&gt;&lt;/p&gt;
 
-## 문제 해결
+&lt;p&gt;위와 같이 성공하면 앱 크기가 키워져서 보기 편해집니다. 이걸 해결하려고 구글링을 몇 시간 했는데, 이렇게 하니 간단히 해결되네요.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Etc" /><category term="Etc" /><summary type="html">화면 UI가 너무 작게 출력되는 문제 저 같은 경우에는 영상 편집 프로그램 다빈치 리졸브(Davinch Reslove)를 이용해보다가 화면이 너무 작게 출력되는 현상을 겪었습니다. 서피스 4에서 살펴보는데 너무 작게 보여서 글자가 거의 보이지 않았습니다. 앱 자체에서 지원하는 것을 찾아보려고 했는데, 찾기가 너무 어려웠습니다. 그래서 윈도우 자체에서 앱을 조절할 수 있는 방법이 있지 않을까? 하고 찾아보던 도중 https://www.clien.net/service/board/lecture/11899869 해당 홈페이지에서 좋은 정보를 찾았습니다. 정확한 원인은 윈도우에서 고해상도(HiDPI)가 제대로 지원되지 않는 앱의 경우 화면이 아주 작게 표시되는 것이었습니다. 원인은 해당 앱에서 ‘이 앱은 고해상도 지원 잘됩니다’라고 윈도우에 알려주는데, 실제는 아닌 것입니다. 그래서 이 앱을 고해상도가 적용이 안된다고 구식앱으로 간주되게 해서 결과적으로는 앱이 윈도우의 기본 기능으로 스케일링돼서 크게 표시되게 하는 방법이 있습니다. 문제 해결 과정 윈도우 키 + R 을 눌러서 regedit로 레지스트리 편집기를 연다 regedit setting HKEY_LOCAL_MACHINE &amp;gt; SOFTWARE &amp;gt; Microsoft &amp;gt; Windows &amp;gt; CurrentVersion &amp;gt; SideBySide 에서 우클릭해서 새로 만들기&amp;gt; DWORD (32 bit) 를 선택하고 PreferExternalManifest라는 값을 만든다 PreferExternalManifest 를 우클릭 &amp;gt; 수정해서 값을 1로 하고 10진법으로 선택후 저장한 뒤, 레지스트리 편집기를 닫는다 아래 파일을 다운로드 받는다 manifest.txt 파일 다운로드 클릭! 스케일링을 적용하고 싶은 앱의 실행파일과 같은 폴더에 위 파일 manifest.txt을 복사한다. (바로가기 아이콘일 경우에는 오른쪽 마우스를 누르고 파일 위치 열기를 실행합니다.) manifest 이름 변경하기 manifest.txt를 실행파일 이름에 맞춰서 이름을 다음과 같이 변경한다 실행파일명.확장자.manifest 예) XXX.exe 프로그램의 경우 XXX.exe.manifest (txt 확장자는 제거합니다. 위의 이미지를 참고해주세요) 평소처럼 앱을 실행하면 앱이 커집니다. 크기 조정이 성공한 다빈치 리졸브 위와 같이 성공하면 앱 크기가 키워져서 보기 편해집니다. 이걸 해결하려고 구글링을 몇 시간 했는데, 이렇게 하니 간단히 해결되네요.</summary></entry><entry><title type="html">강화학습 MDP와 벨만 방정식 기본 개념</title><link href="http://localhost:4000/machinelearning/2019/05/05/142000.html" rel="alternate" type="text/html" title="강화학습 MDP와 벨만 방정식 기본 개념" /><published>2019-05-05T00:00:00+09:00</published><updated>2019-05-05T00:00:00+09:00</updated><id>http://localhost:4000/machinelearning/2019/05/05/142000</id><content type="html" xml:base="http://localhost:4000/machinelearning/2019/05/05/142000.html">&lt;h2 id=&quot;mdpmarkov-decision-process&quot;&gt;MDP(Markov Decision Process)&lt;/h2&gt;
 
-### 로봇을 이용한 창업
+&lt;p&gt;강화학습은 &lt;strong&gt;순차적으로 진행되는 일&lt;/strong&gt;에서 행동을 결정해야 합니다. 이를 &lt;strong&gt;수학적으로 결정한 것이 MDP&lt;/strong&gt; 입니다. 모든 것을 수치화하여 수학적으로 결정해야만 컴퓨터가 판단할 수 있습니다.&lt;/p&gt;
 
-&lt;div&gt;{%- include extensions/youtube.html id='9LqqcDL99UA' -%}&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;구성 요소 : 상태, 행동, 보상함수, 상태 변환 확률, 감가율, 정책&lt;/li&gt;
+&lt;/ul&gt;
 
-**4명의 공대생이 창업한 spyce 회사 소개 영상**{:.caption}
+&lt;p&gt;문제를 잘 정의해야 강화학습 컴퓨터인 agent 가 제대로 학습할 수 있습니다.&lt;/p&gt;
 
-[spyce 홈페이지](https://www.spyce.com/)에 들어가면 회사에 대한 소개와 메뉴 같은 정보들을 얻을 수 있습니다. 
+&lt;h3 id=&quot;상태&quot;&gt;상태&lt;/h3&gt;
 
-![Image](/assets/images/20190421/spyce_menu.PNG){:.rounded.img_center}
-**미국의 in&amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다**{:.caption}
+&lt;p&gt;상태 S는 에이전트가 &lt;strong&gt;관찰 가능한 상태의 집합&lt;/strong&gt;입니다.&lt;br /&gt;
+ex) 체스에서 말들의 좌표, 축구 게임에서 선수 캐릭터들이 공을 가지고 있는지 아닌지의 여부 등&lt;/p&gt;
 
-메뉴는 위의 3개 말고도 여러 가지가 있습니다. 이런 음식들이 전부 7.5$에 판매되고 있었습니다. 미국 다른 식당과 비교해 보면 꽤나 저렴한 편입니다.
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;S = \{ (x_1, y_1), (x_2, y_2), \cdots, (x_n, y_n) \}&lt;/script&gt;
 
-&lt;div&gt;{%- include extensions/youtube.html id='9LqqcDL99UA' -%}&lt;/div&gt;
+&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;상태의 집합&lt;/strong&gt;&lt;/p&gt;
 
-**유투버가 리뷰한 sypce 매장. 실제 어떻게 서비스가 진행되는지 확인할 수 있다.**{:.caption}
+&lt;p&gt;시간 t 일때의 상태를 $S_t$ 라고 합니다. 시간 $t$ 일 때, 체스 말이 $(3, 5)$에 있다면 아래와 같이 표현할 수 있습니다.&lt;/p&gt;
 
-위의 유투버가 올린 영상을 보면 꽤나 많은 부분이 자동화되고 깨끗하게 조리가 잘 되는 것을 확인할 수 있었습니다.
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_t = (3, 5)&lt;/script&gt;
 
-## 후기
+&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;$S_t$ 에서의 (3,5) 상태 표시&lt;/strong&gt;&lt;/p&gt;
 
-제가 개인적으로 생각하는 서비스의 후기는 아래와 같습니다.
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_t = s&lt;/script&gt;
 
-### 서비스의 장점
+&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;$S_t$ 에서의 상태 $s$&lt;/strong&gt;&lt;/p&gt;
 
-- `가격이 기존 식당 대비 저렴합니다.` 동일 퀄리티의 음식에서는 기존 식당 대비 더 저렴한 가격을 받습니다.
-- `위생적으로 매우 깨끗합니다.` 다른 식당에서 발생하는 교차 오염과 같은 문제는 발생할 여지가 적습니다. 자동화된 시스템에서 재료를 넣는 곳에 재료만 넣어두면 조리되는 방식이기 때문에, 해당 부분만 깨끗하게 관리하면 다른 식당보다 비교적 위생 관리가 잘 되는 것 같습니다.
-- `음식에 퀄리티가 꽤나 높습니다.` takeout 음식은 대부분 fastfood 인 경우가 많은데, 야채가 많이 들어간 음식을 판매한다는 점에서 건강에 더 좋을 것 같습니다. 또한, 쉐프가 음식을 관리하여 정량화된 재료를 좋은 맛으로 제공할 수 있는 것 같습니다. 
+&lt;p&gt;상태는 &lt;strong&gt;어떤 집합 안에서 뽑을 때마다 달라질 수 있는 확률변수&lt;/strong&gt; 입니다.&lt;/p&gt;
 
-### 서비스의 개선해야할 점
+&lt;h3 id=&quot;행동&quot;&gt;행동&lt;/h3&gt;
 
-- `아직 모든 부분이 자동화 되지 않았습니다.` 아직 재료 관리나 재료 손질은 직원의 몫인 것 같습니다. 또, 영상을 보면 인력이 꽤나 많이 필요한 것 같이 보여집니다. 인건비는 결국 가격에 영향을 크게 주는 요소입니다. 완벽한 자동화는 아직 되지 않았지만 자동화가 완성되고 서비스가 좀 더 정착되면 훨씬 더 저렴한 가격에 서비스를 제공할 수 있을 것으로 보여집니다.
-- `가격이 정말 매력적으로 저렴한 것 같지 않습니다.` 위에서 언급한 것처럼 아직 자동화가 완벽하지 않기 때문에, 아직 가격이 꽤나 나가는 것 같습니다. 또, subway 같은 takeout 음식점과 제가 비교해본 바로는 큰 차이가 없어보입니다. 가격이 7.5$ 보다 조금 더 저렴해야 메리트가 있을 것 같습니다.
+&lt;p&gt;에이전트가 상태 $S_t$ 에서 할 수 있는 가능한 행동의 집합은 $A$ 입니다. $A_t$는 시간 $t$에 집합 A에서 선택한 행동입니다.&lt;/p&gt;
 
-### 느낀 점
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;A_t = a&lt;/script&gt;
 
-먼저 든 느낌은 미국의 MIT 대학생들은 열정적으로 굉장한 기술력을 가지고 뭔가를 만드는데, 저는 대학생 때 저걸 만들 엄두가 나지도 않고 불안정 하다는 느낌 때문에 저런 것을 시도해보지 못한 것이 그들과 나의 큰 차이인 것 같습니다.
+&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;$A_t$ 에서의 행동 $a$&lt;/strong&gt;&lt;/p&gt;
 
-자동화와 관련된 식당을 국내에 만들어 보고 싶다는 생각은 크지만 기술적으로 어떻게 대처해야 할 지에 대하여 전혀 감이 오지 않는 것 같습니다. 저 학생들도 얼마나 기술적인 능력이 있었는지는 잘 모르겠지만, **시도 하면 할 수 있다**라는 마인드를 가지고 부족한 기술력을 커버하면서 창업에 뛰어들었을 것이라고 생각합니다.
+&lt;p&gt;만약, 달리거나 뛰는 행동 중에서 고를 수 있다면 집합 $A$는 아래와 같이 표현할 수 있습니다.&lt;/p&gt;
 
-국내에도 저런 식당이 하루 빨리 만들어졌으면 좋겠습니다. 기회가 되면 저도 만들어보고 싶지만 저런 로봇을 어떻게 만들어야 될지는 감이 잘 오지 않네요...</content><author><name>melonicedlatte</name></author><category term="News" /><category term="News" /><summary type="html">비싼 음식에 지친 MIT 공대생들이 만든 로봇 식당 위의 링크에서 재미있는 회사에 대한 정보를 얻었습니다. MIT 공대생들이 비싼 음식 값에 지쳐서 직접 로봇을 이용한 식당을 만든 것입니다. 저한테 상당히 인상 깊은 스타트업이라 포스팅을 하게 되었습니다. 문제점 미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다 미국의 비싼 음식값 미국의 음식 값은 매우 비쌉니다. 우리나라 음식점에서는 6~8천원 대에 형성되지만 미국에서는 기본적으로 10~14$ 정도로 음식점 가격이 형성되어 있습니다. 물론, 이 가격은 보편적인 음식점의 가격이고 햄버거나 편의점 같은 곳에서 사는 음식은 더 저렴하지만 맨날 이런 음식을 먹을 수는 없겠죠. 또, 식당에서 직접 먹으면 미국에서는 tip 문화때문에 10~15%의 팁을 더 내야합니다. (take out일 경우는 아니지만요.) 계산표에 나온 음식 값에 세금에 미국의 대학생이 시급이 높다고 해도 물가가 높으니 우리나라 대학생과 동일하게 비싼 밥값은 부담이 될 것입니다. 이런 상황에서 로봇을 이용한 식당을 MIT 공대생 4명이 만들어 창업했습니다. 문제 해결 로봇을 이용한 창업 4명의 공대생이 창업한 spyce 회사 소개 영상 spyce 홈페이지에 들어가면 회사에 대한 소개와 메뉴 같은 정보들을 얻을 수 있습니다. 미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다 메뉴는 위의 3개 말고도 여러 가지가 있습니다. 이런 음식들이 전부 7.5$에 판매되고 있었습니다. 미국 다른 식당과 비교해 보면 꽤나 저렴한 편입니다. 유투버가 리뷰한 sypce 매장. 실제 어떻게 서비스가 진행되는지 확인할 수 있다. 위의 유투버가 올린 영상을 보면 꽤나 많은 부분이 자동화되고 깨끗하게 조리가 잘 되는 것을 확인할 수 있었습니다. 후기 제가 개인적으로 생각하는 서비스의 후기는 아래와 같습니다. 서비스의 장점 가격이 기존 식당 대비 저렴합니다. 동일 퀄리티의 음식에서는 기존 식당 대비 더 저렴한 가격을 받습니다. 위생적으로 매우 깨끗합니다. 다른 식당에서 발생하는 교차 오염과 같은 문제는 발생할 여지가 적습니다. 자동화된 시스템에서 재료를 넣는 곳에 재료만 넣어두면 조리되는 방식이기 때문에, 해당 부분만 깨끗하게 관리하면 다른 식당보다 비교적 위생 관리가 잘 되는 것 같습니다. 음식에 퀄리티가 꽤나 높습니다. takeout 음식은 대부분 fastfood 인 경우가 많은데, 야채가 많이 들어간 음식을 판매한다는 점에서 건강에 더 좋을 것 같습니다. 또한, 쉐프가 음식을 관리하여 정량화된 재료를 좋은 맛으로 제공할 수 있는 것 같습니다. 서비스의 개선해야할 점 아직 모든 부분이 자동화 되지 않았습니다. 아직 재료 관리나 재료 손질은 직원의 몫인 것 같습니다. 또, 영상을 보면 인력이 꽤나 많이 필요한 것 같이 보여집니다. 인건비는 결국 가격에 영향을 크게 주는 요소입니다. 완벽한 자동화는 아직 되지 않았지만 자동화가 완성되고 서비스가 좀 더 정착되면 훨씬 더 저렴한 가격에 서비스를 제공할 수 있을 것으로 보여집니다. 가격이 정말 매력적으로 저렴한 것 같지 않습니다. 위에서 언급한 것처럼 아직 자동화가 완벽하지 않기 때문에, 아직 가격이 꽤나 나가는 것 같습니다. 또, subway 같은 takeout 음식점과 제가 비교해본 바로는 큰 차이가 없어보입니다. 가격이 7.5$ 보다 조금 더 저렴해야 메리트가 있을 것 같습니다. 느낀 점 먼저 든 느낌은 미국의 MIT 대학생들은 열정적으로 굉장한 기술력을 가지고 뭔가를 만드는데, 저는 대학생 때 저걸 만들 엄두가 나지도 않고 불안정 하다는 느낌 때문에 저런 것을 시도해보지 못한 것이 그들과 나의 큰 차이인 것 같습니다. 자동화와 관련된 식당을 국내에 만들어 보고 싶다는 생각은 크지만 기술적으로 어떻게 대처해야 할 지에 대하여 전혀 감이 오지 않는 것 같습니다. 저 학생들도 얼마나 기술적인 능력이 있었는지는 잘 모르겠지만, 시도 하면 할 수 있다라는 마인드를 가지고 부족한 기술력을 커버하면서 창업에 뛰어들었을 것이라고 생각합니다. 국내에도 저런 식당이 하루 빨리 만들어졌으면 좋겠습니다. 기회가 되면 저도 만들어보고 싶지만 저런 로봇을 어떻게 만들어야 될지는 감이 잘 오지 않네요…</summary></entry><entry><title type="html">텀블러를 공짜로 빌려주고 씻어주는 회사 베셀 웍스(Vessel Works)</title><link href="http://localhost:4000/news/2019/04/21/222700.html" rel="alternate" type="text/html" title="텀블러를 공짜로 빌려주고 씻어주는 회사 베셀 웍스(Vessel Works)" /><published>2019-04-21T00:00:00+09:00</published><updated>2019-04-21T00:00:00+09:00</updated><id>http://localhost:4000/news/2019/04/21/222700</id><content type="html" xml:base="http://localhost:4000/news/2019/04/21/222700.html">&lt;p&gt;베셀 웍스(Vessel Works)는 텀블러를 공유하는 회사입니다. 텀블러를 어떻게 공유하나 싶지만 직접 서비스를 살펴보니 아주 괜찮은 서비스라고 생각되었습니다.&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;A = \{ run, walk \}&lt;/script&gt;
+
+&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;$A$ 에서 가능한 행동의 집합 $a$&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;보상함수&quot;&gt;보상함수&lt;/h3&gt;
+
+&lt;p&gt;보상은 에이전트가 학습할 수 있는 &lt;strong&gt;유일한 정보&lt;/strong&gt;로서 환경이 에이전트에게 주는 정보입니다. 시간 $t$에서 상태가 $S_t = s$이고, 행동이 $A_t = a$일 때, 에이전트가 받을 보상은 아래와 같습니다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;R^a_s = E[R_{t+1} \enspace|\enspace S_t = s, A_t = a]&lt;/script&gt;
+
+&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;보상함수의 정의&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;보상함수는 시간 $t$일 때, 받을 보상에 대한 기댓값 $E$입니다. 기댓값은 실제 값이 아니라 &lt;strong&gt;예측 값&lt;/strong&gt;입니다. 환경에 따라서 &lt;strong&gt;같은 상태에서 같은 행동을 해도 다른 보상을 받을 수 있기 때문에 기댓값으로 표현&lt;/strong&gt;합니다.&lt;/p&gt;
+
+&lt;p&gt;에이전트의 행동 시간은 $t$이지만, 보상을 받는 시점은 $t + 1$ 입니다. 행동을 하고 나서야 비로소 보상을 알 수 있기 때문입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;상태-변환-확률&quot;&gt;상태 변환 확률&lt;/h3&gt;
+
+&lt;h3 id=&quot;감가율&quot;&gt;감가율&lt;/h3&gt;
+
+&lt;h3 id=&quot;정책&quot;&gt;정책&lt;/h3&gt;
+
+&lt;h2 id=&quot;가치함수&quot;&gt;가치함수&lt;/h2&gt;
+
+&lt;h3 id=&quot;큐함수&quot;&gt;큐함수&lt;/h3&gt;
+
+&lt;h2 id=&quot;벨만-방정식&quot;&gt;벨만 방정식&lt;/h2&gt;
+
+&lt;h3 id=&quot;벨만-기대-방정식&quot;&gt;벨만 기대 방정식&lt;/h3&gt;
+
+&lt;h3 id=&quot;벨만-최적-방정식&quot;&gt;벨만 최적 방정식&lt;/h3&gt;</content><author><name>melonicedlatte</name></author><category term="MachineLearning" /><category term="MachineLearning" /><summary type="html">MDP(Markov Decision Process) 강화학습은 순차적으로 진행되는 일에서 행동을 결정해야 합니다. 이를 수학적으로 결정한 것이 MDP 입니다. 모든 것을 수치화하여 수학적으로 결정해야만 컴퓨터가 판단할 수 있습니다. 구성 요소 : 상태, 행동, 보상함수, 상태 변환 확률, 감가율, 정책 문제를 잘 정의해야 강화학습 컴퓨터인 agent 가 제대로 학습할 수 있습니다. 상태 상태 S는 에이전트가 관찰 가능한 상태의 집합입니다. ex) 체스에서 말들의 좌표, 축구 게임에서 선수 캐릭터들이 공을 가지고 있는지 아닌지의 여부 등 상태의 집합 시간 t 일때의 상태를 $S_t$ 라고 합니다. 시간 $t$ 일 때, 체스 말이 $(3, 5)$에 있다면 아래와 같이 표현할 수 있습니다. $S_t$ 에서의 (3,5) 상태 표시 $S_t$ 에서의 상태 $s$ 상태는 어떤 집합 안에서 뽑을 때마다 달라질 수 있는 확률변수 입니다. 행동 에이전트가 상태 $S_t$ 에서 할 수 있는 가능한 행동의 집합은 $A$ 입니다. $A_t$는 시간 $t$에 집합 A에서 선택한 행동입니다. $A_t$ 에서의 행동 $a$ 만약, 달리거나 뛰는 행동 중에서 고를 수 있다면 집합 $A$는 아래와 같이 표현할 수 있습니다. $A$ 에서 가능한 행동의 집합 $a$ 보상함수 보상은 에이전트가 학습할 수 있는 유일한 정보로서 환경이 에이전트에게 주는 정보입니다. 시간 $t$에서 상태가 $S_t = s$이고, 행동이 $A_t = a$일 때, 에이전트가 받을 보상은 아래와 같습니다. 보상함수의 정의 보상함수는 시간 $t$일 때, 받을 보상에 대한 기댓값 $E$입니다. 기댓값은 실제 값이 아니라 예측 값입니다. 환경에 따라서 같은 상태에서 같은 행동을 해도 다른 보상을 받을 수 있기 때문에 기댓값으로 표현합니다. 에이전트의 행동 시간은 $t$이지만, 보상을 받는 시점은 $t + 1$ 입니다. 행동을 하고 나서야 비로소 보상을 알 수 있기 때문입니다. 상태 변환 확률 감가율 정책 가치함수 큐함수 벨만 방정식 벨만 기대 방정식 벨만 최적 방정식</summary></entry><entry><title type="html">우주를 이끄는 민간 기업 등장에 대한 이야기</title><link href="http://localhost:4000/tech/2019/05/03/213700.html" rel="alternate" type="text/html" title="우주를 이끄는 민간 기업 등장에 대한 이야기" /><published>2019-05-03T00:00:00+09:00</published><updated>2019-05-03T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/05/03/213700</id><content type="html" xml:base="http://localhost:4000/tech/2019/05/03/213700.html">&lt;h2 id=&quot;우주선은-누가-쏘는가&quot;&gt;우주선은 누가 쏘는가&lt;/h2&gt;
+
+&lt;h3 id=&quot;기존의-패러다임은-정부의-주도&quot;&gt;기존의 패러다임은 정부의 주도&lt;/h3&gt;
+
+&lt;p&gt;미국, 러시아와 같은 나라들은 우수한 항공 기술을 가지고 있고, 이미 오래전에 달에 사람을 보냈습니다. 우리나라가 경제적으로 매우 어려울 때, 이미 선진화된 기술을 이용하여 우주산업에 진출하였습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190503/nasaLogo-570x450.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;미국 항공우주국(NASA)의 로고&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;NASA는 세계를 대표하는 우주 산업을 이끄는 정부기관입니다. NASA는 미국의 국가 기관으로서 우주 계획 및 장기적인 일반 항공 연구 등을 실행하고 있습니다. 달에 사람을 보내는 것도 위성을 보내는 것 이외에 우리가 모르는 수 많은 우주 산업을 이끌어 가고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190503/kari_logo.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;한국항공우주연구원(KARI)의 로고&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;한국항공우주연구원(KARI)는 과학기술정보통신부 산하 항공우주 과학기술 관련 기타공공기관 재단법인으로 우주항공기술 개발, 항공공학의 발전과 기술 개발 및 보급을 하고 있습니다. &lt;strong&gt;한국형 우주 발사체 나로호&lt;/strong&gt;를 러시아와 협력하여 만든 적이 있습니다. 현재는 &lt;strong&gt;누리&lt;/strong&gt;라는 명칭을 가진 한국형 발사체가 나로호와는 다르게 우리나라에서 &lt;strong&gt;독자 개발중&lt;/strong&gt;이며 2021년 첫 발사가 예정되어 있습니다. 안타깝게도 우리나라의 항공 기술은 타 선진국들과 비교해보면 상당히 뒤져있습니다. 아직은 많이 노력해야 할 단계입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;왜-정부가-주도하는가&quot;&gt;왜 정부가 주도하는가&lt;/h3&gt;
+
+&lt;p&gt;우주선을 발사하기 위해서는 천문학적인 비용이듭니다. 그래서 모든 국가에서 정부 주도로 우주산업을 이끌어왔었습니다. 민간 기업은 이런 국가 기관에 부품을 납품하는 역할을 하는 정도였고, 주도적인 역할은 할 수 없었습니다. 문제는 역시 &lt;strong&gt;비용&lt;/strong&gt;입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;민간-기업에서의-우주산업-도전&quot;&gt;민간 기업에서의 우주산업 도전&lt;/h2&gt;
+
+&lt;h3 id=&quot;스페이스-x-의-등장&quot;&gt;스페이스 X 의 등장&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190503/Elon_Musk_Royal_Society.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;새로운 시도를 계속해서 하는 경이로운 인물 앨론 머스크&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;엘론 머스크가 설립한 미국의 민간 우주기업. ISS&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 보급 및 상용 인공위성 발사를 주 업무로 하며, 화성 유인 탐사 및 정착을 목표로 하고 있습니다. 정부만이 할 수 있다고 생각되던 우주항공산업을 &lt;strong&gt;민간 기업에서 조금 더 효율적으로 할 수 있지 않을까?&lt;/strong&gt;하는 엘론 머스크의 발상에서 시작되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190503/spacex-logo.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;민간 우주선 기업을 선도하고 있는 스페이스 X&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;앨론 머스크는 테슬라, openAI&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; , 솔라시티, 더 보링 컴퍼니&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; 와 같은 혁신적인 기업들을 만드는 놀라운 창업가입니다. 그는 여러 가치있는 회사를 만들었지만, 그 중에서 가장 놀랍다고 생각하는 것은 바로 &lt;strong&gt;스페이스 X&lt;/strong&gt;입니다.&lt;/p&gt;
+
+&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
+  &lt;iframe src=&quot;https://www.youtube.com/embed/OtIMeAt2lTY?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;스페이스 X의 &lt;strong&gt;팰컨 헤비&lt;/strong&gt; 발사 영상을 찍은 내셔널 지오그래픽의 다큐멘터리입니다. 우주선을 만들고 직접 그 현장에서 발사되고 복귀하는 모습을 보면 꽤나 감동적일 것 같습니다. 우주선이 처음으로 복귀할 수 있게 만든 걸 보면, 스페이스X에서 앞으로 무엇을 더 할 수 있을 지 기대가 됩니다.&lt;/p&gt;
+
+&lt;p&gt;다큐멘터리의 마지막에서 그는 아래와 같은 말을 합니다. 이런 생각을 할 수 있는게 놀랍기만 하고 본받고 싶습니다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;이런게 살아갈 이유가 되는 거에요. 단순히 당면한 문제들만 해결하며 살아갈 게 아니라, 삶의 이유를 찾아야 하죠. 펼쳐질 삶과 미래에 대해 걱정해야 되요. 화성은 제게 그런 의미에요.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;스페이스 X를 자신의 전 재산을 쏟아가면서 도전하고 &lt;strong&gt;엄청난 리스크를 감수하면서 성공&lt;/strong&gt;까지 했다는 점에서 이 시대에 둘도 없는 기업가라고 생각합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;스페이스-x-가-한-일&quot;&gt;스페이스 X 가 한 일&lt;/h3&gt;
+
+&lt;p&gt;다시 스페이스 X 얘기로 돌아가서, 스페이스 X가 한 일들이 무엇이 있는지 정리해보았습니다. 실패하는 경우도 많습니다. 하지만 아래의 성공 사례들이 매우 많은 걸로 봐서는 꽤나 안정화된 상태인 것 같습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2010년 12월 8일에 Dragon이 재진입 후 회수까지 성공하면서 &lt;code class=&quot;highlighter-rouge&quot;&gt;발사부터 귀환까지 모든 기술을 갖춘 최초의 민간기업&lt;/code&gt;으로 자리잡았다.&lt;/li&gt;
+  &lt;li&gt;2012년에는 세계 최초의 상용 우주선 발사로 &lt;code class=&quot;highlighter-rouge&quot;&gt;ISS에 드래곤을 도킹&lt;/code&gt;시켰다.&lt;/li&gt;
+  &lt;li&gt;2015년 12월 팰컨 9 로켓으로 위성을 궤도진입시킨 뒤 추진체 로켓을 그대로 회수하는 데 &lt;code class=&quot;highlighter-rouge&quot;&gt;인류 역사상 최초로 성공&lt;/code&gt;하였다.&lt;/li&gt;
+  &lt;li&gt;2016년 4월 팰컨 9 로켓의 &lt;code class=&quot;highlighter-rouge&quot;&gt;해상 회수&lt;/code&gt;에 인류 역사상 최초로 성공하였다.&lt;/li&gt;
+  &lt;li&gt;2016년 4월 말 미국 공군으로부터 8천 270만 달러 상당의 GPS 발사계약을 따냈다. 거대하지만 폐쇄적이던 국방부 계약 시장의 문을 연건 사업상으로 큰 의미가 있다.&lt;/li&gt;
+  &lt;li&gt;2017년 3월 30일에 1년 전 ISS보급 미션을 위해 발사됐다 대서양에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;회수된 1단 로켓을 재사용해 인공위성을 정지궤도에 올려놓는 새로운 미션을 수행&lt;/code&gt;하는 데 성공했다.&lt;/li&gt;
+  &lt;li&gt;2018년 12월 4일, 팰컨 9 블록 5의 세번째 재발사가 이루어졌고 1단 로켓 회수 역시 성공하였다. &lt;code class=&quot;highlighter-rouge&quot;&gt;사상 최초의 로켓 3번째 재발사&lt;/code&gt;이다. 17개국의 소형 위성 64기를 궤도에 올리는 임무였는데 여기에는 한국이 개발한 차세대소형위성 1호도 포함되어 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그 이외에 우주관광, 화성과 달에 사람 보내기 등 다양한 미래 계획들을 하고 있는 놀라운 회사입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;블루-오리진&quot;&gt;블루 오리진&lt;/h3&gt;
+
+&lt;p&gt;그런데 &lt;strong&gt;스페이스 X만 민간 우주기업인가?&lt;/strong&gt; 하는 질문에 대한 대답은 &lt;code class=&quot;highlighter-rouge&quot;&gt;NO&lt;/code&gt;입니다. 아마존의 설립자인 &lt;strong&gt;제프 베조스&lt;/strong&gt;가 설립한 이 회사는, 낮은 비용과 높은 신뢰성의 로켓으로 개개인이 우주에 접근할수 있는 기술을 목표로 하고 있습니다.&lt;/p&gt;
+
+&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
+  &lt;iframe src=&quot;https://www.youtube.com/embed/51QUQwlNRz4?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;블루 오리진도 &lt;strong&gt;스페이스 X&lt;/strong&gt;와 같이 민간 우주선 업체로 많은 역할을 하고 있습니다. 제프 베조스도 혁신적인 일을 많이 하기로 유명한데, 아마존에서 머무른 것이 아니라 우주 산업에 까지 뛰어든 것이 놀랍습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;요약&quot;&gt;요약&lt;/h2&gt;
+
+&lt;p&gt;국내에도 많은 기업들이 이러한 일들을 했으면 좋겠지만, 아직 시기상조인 것 같습니다. 기술적 뒷받침이나 투자, 경제규모 같은 여러가지 문제들이 장벽이라고 생각합니다. 국가기관에서도 성공하지 못한 내용에 대하여 기업이 뛰어들기 어려울 것입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;일단 국가 주도로 많이 뒤쳐져있는 우주 산업에 대한 격차를 따라 잡고, 앞으로 기업체에서도 많은 도전을 할 수 있게 되면 좋겠습니다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;출처&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;위키피디아&lt;/li&gt;
+  &lt;li&gt;나무위키&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;ISS&lt;/strong&gt; : International Space Station의 약자로 국제 우주정거장을 뜻한다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;openAI&lt;/strong&gt; : 인공지능 기술의 특허와 지식을 대중에게 공개함으로써 독점을 방지하여 인공지능의 안전한 발전을 위해 만들어졌다. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;더 보링 컴퍼니&lt;/strong&gt; : 도로 위 교통체증을 해결하기 위해 지하에 도로를 뚫어 차량을 실은 플랫폼을 이동시키는 서비스를 개발하는 회사. 이 터널을 이용하면 평소 6시간 걸리던 거리를 30분만에 갈 수 있다고 한다. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">우주선은 누가 쏘는가 기존의 패러다임은 정부의 주도 미국, 러시아와 같은 나라들은 우수한 항공 기술을 가지고 있고, 이미 오래전에 달에 사람을 보냈습니다. 우리나라가 경제적으로 매우 어려울 때, 이미 선진화된 기술을 이용하여 우주산업에 진출하였습니다. 미국 항공우주국(NASA)의 로고 NASA는 세계를 대표하는 우주 산업을 이끄는 정부기관입니다. NASA는 미국의 국가 기관으로서 우주 계획 및 장기적인 일반 항공 연구 등을 실행하고 있습니다. 달에 사람을 보내는 것도 위성을 보내는 것 이외에 우리가 모르는 수 많은 우주 산업을 이끌어 가고 있습니다. 한국항공우주연구원(KARI)의 로고 한국항공우주연구원(KARI)는 과학기술정보통신부 산하 항공우주 과학기술 관련 기타공공기관 재단법인으로 우주항공기술 개발, 항공공학의 발전과 기술 개발 및 보급을 하고 있습니다. 한국형 우주 발사체 나로호를 러시아와 협력하여 만든 적이 있습니다. 현재는 누리라는 명칭을 가진 한국형 발사체가 나로호와는 다르게 우리나라에서 독자 개발중이며 2021년 첫 발사가 예정되어 있습니다. 안타깝게도 우리나라의 항공 기술은 타 선진국들과 비교해보면 상당히 뒤져있습니다. 아직은 많이 노력해야 할 단계입니다. 왜 정부가 주도하는가 우주선을 발사하기 위해서는 천문학적인 비용이듭니다. 그래서 모든 국가에서 정부 주도로 우주산업을 이끌어왔었습니다. 민간 기업은 이런 국가 기관에 부품을 납품하는 역할을 하는 정도였고, 주도적인 역할은 할 수 없었습니다. 문제는 역시 비용입니다. 민간 기업에서의 우주산업 도전 스페이스 X 의 등장 새로운 시도를 계속해서 하는 경이로운 인물 앨론 머스크 엘론 머스크가 설립한 미국의 민간 우주기업. ISS1 보급 및 상용 인공위성 발사를 주 업무로 하며, 화성 유인 탐사 및 정착을 목표로 하고 있습니다. 정부만이 할 수 있다고 생각되던 우주항공산업을 민간 기업에서 조금 더 효율적으로 할 수 있지 않을까?하는 엘론 머스크의 발상에서 시작되었습니다. 민간 우주선 기업을 선도하고 있는 스페이스 X 앨론 머스크는 테슬라, openAI2 , 솔라시티, 더 보링 컴퍼니3 와 같은 혁신적인 기업들을 만드는 놀라운 창업가입니다. 그는 여러 가치있는 회사를 만들었지만, 그 중에서 가장 놀랍다고 생각하는 것은 바로 스페이스 X입니다. 스페이스 X의 팰컨 헤비 발사 영상을 찍은 내셔널 지오그래픽의 다큐멘터리입니다. 우주선을 만들고 직접 그 현장에서 발사되고 복귀하는 모습을 보면 꽤나 감동적일 것 같습니다. 우주선이 처음으로 복귀할 수 있게 만든 걸 보면, 스페이스X에서 앞으로 무엇을 더 할 수 있을 지 기대가 됩니다. 다큐멘터리의 마지막에서 그는 아래와 같은 말을 합니다. 이런 생각을 할 수 있는게 놀랍기만 하고 본받고 싶습니다. 이런게 살아갈 이유가 되는 거에요. 단순히 당면한 문제들만 해결하며 살아갈 게 아니라, 삶의 이유를 찾아야 하죠. 펼쳐질 삶과 미래에 대해 걱정해야 되요. 화성은 제게 그런 의미에요. 스페이스 X를 자신의 전 재산을 쏟아가면서 도전하고 엄청난 리스크를 감수하면서 성공까지 했다는 점에서 이 시대에 둘도 없는 기업가라고 생각합니다. 스페이스 X 가 한 일 다시 스페이스 X 얘기로 돌아가서, 스페이스 X가 한 일들이 무엇이 있는지 정리해보았습니다. 실패하는 경우도 많습니다. 하지만 아래의 성공 사례들이 매우 많은 걸로 봐서는 꽤나 안정화된 상태인 것 같습니다. 2010년 12월 8일에 Dragon이 재진입 후 회수까지 성공하면서 발사부터 귀환까지 모든 기술을 갖춘 최초의 민간기업으로 자리잡았다. 2012년에는 세계 최초의 상용 우주선 발사로 ISS에 드래곤을 도킹시켰다. 2015년 12월 팰컨 9 로켓으로 위성을 궤도진입시킨 뒤 추진체 로켓을 그대로 회수하는 데 인류 역사상 최초로 성공하였다. 2016년 4월 팰컨 9 로켓의 해상 회수에 인류 역사상 최초로 성공하였다. 2016년 4월 말 미국 공군으로부터 8천 270만 달러 상당의 GPS 발사계약을 따냈다. 거대하지만 폐쇄적이던 국방부 계약 시장의 문을 연건 사업상으로 큰 의미가 있다. 2017년 3월 30일에 1년 전 ISS보급 미션을 위해 발사됐다 대서양에서 회수된 1단 로켓을 재사용해 인공위성을 정지궤도에 올려놓는 새로운 미션을 수행하는 데 성공했다. 2018년 12월 4일, 팰컨 9 블록 5의 세번째 재발사가 이루어졌고 1단 로켓 회수 역시 성공하였다. 사상 최초의 로켓 3번째 재발사이다. 17개국의 소형 위성 64기를 궤도에 올리는 임무였는데 여기에는 한국이 개발한 차세대소형위성 1호도 포함되어 있다. 그 이외에 우주관광, 화성과 달에 사람 보내기 등 다양한 미래 계획들을 하고 있는 놀라운 회사입니다. 블루 오리진 그런데 스페이스 X만 민간 우주기업인가? 하는 질문에 대한 대답은 NO입니다. 아마존의 설립자인 제프 베조스가 설립한 이 회사는, 낮은 비용과 높은 신뢰성의 로켓으로 개개인이 우주에 접근할수 있는 기술을 목표로 하고 있습니다. 블루 오리진도 스페이스 X와 같이 민간 우주선 업체로 많은 역할을 하고 있습니다. 제프 베조스도 혁신적인 일을 많이 하기로 유명한데, 아마존에서 머무른 것이 아니라 우주 산업에 까지 뛰어든 것이 놀랍습니다. 요약 국내에도 많은 기업들이 이러한 일들을 했으면 좋겠지만, 아직 시기상조인 것 같습니다. 기술적 뒷받침이나 투자, 경제규모 같은 여러가지 문제들이 장벽이라고 생각합니다. 국가기관에서도 성공하지 못한 내용에 대하여 기업이 뛰어들기 어려울 것입니다. 일단 국가 주도로 많이 뒤쳐져있는 우주 산업에 대한 격차를 따라 잡고, 앞으로 기업체에서도 많은 도전을 할 수 있게 되면 좋겠습니다. 출처 위키피디아 나무위키 ISS : International Space Station의 약자로 국제 우주정거장을 뜻한다. &amp;#8617; openAI : 인공지능 기술의 특허와 지식을 대중에게 공개함으로써 독점을 방지하여 인공지능의 안전한 발전을 위해 만들어졌다. &amp;#8617; 더 보링 컴퍼니 : 도로 위 교통체증을 해결하기 위해 지하에 도로를 뚫어 차량을 실은 플랫폼을 이동시키는 서비스를 개발하는 회사. 이 터널을 이용하면 평소 6시간 걸리던 거리를 30분만에 갈 수 있다고 한다. &amp;#8617;</summary></entry><entry><title type="html">윈도우 10 검은 화면에서 화면 밝기 어두워짐 해결</title><link href="http://localhost:4000/etc/2019/04/30/211100.html" rel="alternate" type="text/html" title="윈도우 10 검은 화면에서 화면 밝기 어두워짐 해결" /><published>2019-04-30T00:00:00+09:00</published><updated>2019-04-30T00:00:00+09:00</updated><id>http://localhost:4000/etc/2019/04/30/211100</id><content type="html" xml:base="http://localhost:4000/etc/2019/04/30/211100.html">&lt;p&gt;윈도우 10 에서 검은 화면과 흰 화면을 왔다 갔다 하면 화면 밝기가 자동으로 바뀌게 됩니다. 원하지 않은 설정일 경우 상당히 거슬릴 수 있는 자동 설정입니다. 이러한 설정을 없애고 동일한 밝기를 유지하려면 아래와 같은 설정이 필요합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;설정-방법&quot;&gt;설정 방법&lt;/h2&gt;
+
+&lt;h3 id=&quot;시작--작업-스케줄러-입력-후-클릭&quot;&gt;시작 &amp;gt; 작업 스케줄러 입력 후 클릭&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/scheduler.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;시작 버튼을 누르고 작업 스케줄러를 클릭합니다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;시작에 작업 스케줄러를 입력합니다. 그리고 클릭해줍니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;작업-스케줄러에서-microsoftwindowswindowscolorsystem-선택하기&quot;&gt;작업 스케줄러에서 Microsoft/Windows/WindowsColorSystem 선택하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/windowscolorsystem.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;Microsoft/Windows/WindowsColorSystem 선택&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;왼쪽 탭에서 Microsoft/Windows/WindowsColorSystem으로 들어갑니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;오른쪽-마우스를-누르고-사용안함-선택&quot;&gt;오른쪽 마우스를 누르고 사용안함 선택&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/not_using_color_system.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;오른쪽 마우스를 누르고 사용안함 선택&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Calibration 아이콘을 마우스 오른쪽 버튼을 클릭 한 후에 사용 안함을 선택합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;재부팅&quot;&gt;재부팅&lt;/h3&gt;
+
+&lt;p&gt;그 다음으로는 설정을 반영하기 위하여 재부팅이 필요합니다. 위와 같은 과정을 전부 거치면 화면이 바뀌더라도 밝기가 변하지 않게 됩니다.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Etc" /><category term="Etc" /><summary type="html">윈도우 10 에서 검은 화면과 흰 화면을 왔다 갔다 하면 화면 밝기가 자동으로 바뀌게 됩니다. 원하지 않은 설정일 경우 상당히 거슬릴 수 있는 자동 설정입니다. 이러한 설정을 없애고 동일한 밝기를 유지하려면 아래와 같은 설정이 필요합니다. 설정 방법 시작 &amp;gt; 작업 스케줄러 입력 후 클릭 시작 버튼을 누르고 작업 스케줄러를 클릭합니다. 시작에 작업 스케줄러를 입력합니다. 그리고 클릭해줍니다. 작업 스케줄러에서 Microsoft/Windows/WindowsColorSystem 선택하기 Microsoft/Windows/WindowsColorSystem 선택 왼쪽 탭에서 Microsoft/Windows/WindowsColorSystem으로 들어갑니다. 오른쪽 마우스를 누르고 사용안함 선택 오른쪽 마우스를 누르고 사용안함 선택 Calibration 아이콘을 마우스 오른쪽 버튼을 클릭 한 후에 사용 안함을 선택합니다. 재부팅 그 다음으로는 설정을 반영하기 위하여 재부팅이 필요합니다. 위와 같은 과정을 전부 거치면 화면이 바뀌더라도 밝기가 변하지 않게 됩니다.</summary></entry><entry><title type="html">기존 택시의 문제를 해결하려는 마카롱 택시의 등장</title><link href="http://localhost:4000/tech/2019/04/30/213600.html" rel="alternate" type="text/html" title="기존 택시의 문제를 해결하려는 마카롱 택시의 등장" /><published>2019-04-30T00:00:00+09:00</published><updated>2019-04-30T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/04/30/213600</id><content type="html" xml:base="http://localhost:4000/tech/2019/04/30/213600.html">&lt;h2 id=&quot;기존의-국내-상황&quot;&gt;기존의 국내 상황&lt;/h2&gt;
+
+&lt;h3 id=&quot;차량-공유-서비스와-택시-업계의-반발&quot;&gt;차량 공유 서비스와 택시 업계의 반발&lt;/h3&gt;
+
+&lt;p&gt;우버가 해외에서 활발하게 서비스를 진행 중이지만 국내에서는 아직도 차량 공유 서비스가 도입되지 않았습니다. 택시 업계의 반발이 거세었기 때문에 공유 차량 서비스가 도입되는 데 어려움을 겪고 있던 것입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;택시-업계의-문제점&quot;&gt;택시 업계의 문제점&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/taxi_cab.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;도로위의 택시&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;큰 문제점은 아래와 같습니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;서비스 퀄리티가 상대적으로 좋지 않습니다.&lt;/code&gt; 기존에 존재하던 서비스에서 시대가 많이 변했지만 큰 변화가 없습니다. 택시는 한 번 타고 나면 그 다음에 같은 손님과의 연동이 다시 이루어지지 않는 서비스이기 때문에 고객 관리에 대한 개념이 다소 부족합니다. 또, 기사님들에 대한 기존 택시 회사차원에서의 교육이 부족하여, 서비스 퀄리티가 상승하지 않고 있습니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;택시 회사들끼리의 차별점이 존재하지 않습니다.&lt;/code&gt; 택시 회사가 여러개라면 고객이 택시 회사를 골라서 서비스를 이용할 수 있습니다. 하지만, 현재는 모든 택시가 같은 모습을 하고 있기 때문에 차별점이 없어서 택시는 모두 하나로 취급됩니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;사납금 문제와 개인 사업자&lt;/code&gt; 사납금을 회사에 내야되기 때문에 기사님들은 자신의 이익을 생각해야만 하는 입장입니다. 기사님들은 월급을 받지 않고 자신이 운행한 만큼의 이익을 얻습니다. 이러한 환경에서는 기사님들은 거리에 대한 이익을 생각하지 않을 수 없습니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;공유-차량-서비스의-문제점&quot;&gt;공유 차량 서비스의 문제점&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/uber_logo.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;대표적인 공유 차량 서비스 우버&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;공유 차량 서비스 우버는 저도 미국에서 타봤지만 꽤나 편리하게 이용할 수 있고 저렴한 서비스입니다. 하지만 이런 서비스가 실제로 문제가 많습니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;우버 기사들의 수익은 굉장히 낮습니다.&lt;/code&gt; 택시와 비교해보면 굉장히 저렴한 서비스입니다. 하지만 비용이 저렴하다는 것은 기사들의 수입에도 직결됩니다. 우버와 리프트 드라이버의 순수입은 &lt;strong&gt;시간당 8.55 달러로 뉴욕 최저시급인 13달러에 못 미치는 수준&lt;/strong&gt;입니다. 기사들의 처우가 보장되지 않으면 공유 차량 서비스가 좋은 서비스라고 말할 수 없겠죠.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;기존 택시 기사들의 삶도 위협받는다.&lt;/code&gt; 위와 같이 우버가 더 저렴하기 때문에 소비자는 우버를 탑승합니다. 저도 미국에서 저렴한 우버를 이용했습니다. 또, 우버는 차량 규제가 없어 기사 수에 제한을 두지 않습니다. 따라서, 택시 기사들의 삶도 위협받았고 우버 기사들의 삶도 좋지 않은 문제를 가져 왔습니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;위와 같은 문제들은 결국 &lt;strong&gt;서비스 퀄리티의 하락&lt;/strong&gt;을 가져오고 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;문제점-요약&quot;&gt;문제점 요약&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;공유 차량 서비스는 마냥 좋은 서비스가 아닙니다.&lt;/strong&gt; &lt;strong&gt;긱 이코노미&lt;/strong&gt;&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 에 대한 많은 비판들이 또 전해지고 있습니다. 국내에서는 택시회사의 파업문제나 카카오 카풀의 도입에 차질이 전해진다는 기사를 많이 볼 수 있지만, 실제 공유 서비스에도 문제는 많습니다.&lt;/p&gt;
+
+&lt;p&gt;탑승객, 기사님에게 서로 이득인 서비스는 없을까요?? 이러한 문제를 해결하고자 마카롱 택시가 등장했고, 흥미가 가는 서비스라 포스팅해보았습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;마카롱-택시의-등장&quot;&gt;마카롱 택시의 등장&lt;/h2&gt;
+
+&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
+  &lt;iframe src=&quot;https://www.youtube.com/embed/ZgUZtGePN_8?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;마카롱 택시 토마토 TV 인터뷰&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;“다양한 서비스들은 다양한 브랜드를 가지고 있지만 택시만 한 브랜드다. 새로운 브랜드 택시를 만들겠다”라는 말을 인터뷰에서 전해주고 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;구체적-차별점&quot;&gt;구체적 차별점&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;40시간의 기사 교육 진행하여 처우와 환경 개선 노력.&lt;/code&gt; 서비스 퀄리티를 위하여 교육을 지속적으로 도입한다고 합니다. 쇼퍼&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; 라는 개념을 도입하여 전문화된 기사 서비스를 제공합니다. 선발을 엄격하게 하고, 응급처치와 마인드 교육, 장비 교육을 진행합니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;자체적인 어플 서비스와 AI를 활용한 효율적인 운행과 편리한 서비스.&lt;/code&gt; 기존 택시 회사들은 택시 업계에서 쓸 좋은 어플리케이션들을 도입하지 못하였습니다. 결국 카카오 택시가 먼저 도입되어 택시 서비스의 퀄리티를 높혀주는 역할을 하였습니다. 마카롱 택시는 자사의 서비스를 강화하기 위하여 직접 개발한다고 합니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;사납금 폐지, 월급제 도입.&lt;/code&gt; 회사는 편하지만 사납금이 있으면 먼 거리를 가고자 하는 마음이 생길 수 밖에 없다고 합니다. 이는 서비스 퀄리티에 치명적입니다. 짧은 거리를 싫어하게 되고 승차 거부에 대한 유혹을 저버릴 수 없습니다. 실적 압박이 덜 하고, 승차거부를 막고, 안전 운행 수단을 만들기 위하여 필요합니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/macarong_taxi.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;마카롱 택시 이미지. 차별화된 이미지와 깔끔함이 좋아 보입니다. (출처 : kst모빌리티)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;향후-계획&quot;&gt;향후 계획&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;택시의 가동률이 높아야 되는데 현재 택시는 60% 정도의 가동률을 보여준다고 합니다. 10대 중 4대는 운행을 못하고 놀고 있는 것입니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;100%의 가동률을 위하여 기사님들의 자부심을 심어주고 처우개선이 필요&lt;/code&gt;하다고 판단하고 노력한다고 합니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;예약 서비스와 데이터를 분석&lt;/code&gt;하여 최적의 운행을 통하여 더 나은 수익화를 추구합니다.&lt;/li&gt;
+  &lt;li&gt;똑같이 손님을 태워도 여러 &lt;code class=&quot;highlighter-rouge&quot;&gt;다른 서비스를 제공하여 (예약비 추가, 샌드위치 배달 등) 추가 수익을 추구&lt;/code&gt;합니다.&lt;/li&gt;
+  &lt;li&gt;전기 택시 및 수소 택시로 전환하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;연료비를 절약&lt;/code&gt;합니다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;요약&quot;&gt;요약&lt;/h2&gt;
+
+&lt;p&gt;택시 업계의 자체 발전을 위해서라도 &lt;strong&gt;새로운 서비스&lt;/strong&gt;가 들어와야 한다고 개인적으로 생각합니다. 정부도 효율적으로 택시회사를 운영하고 관리하지 못한 문제점이 있지만, 택시회사 자체로도 경쟁력을 키우지 못했습니다.&lt;/p&gt;
+
+&lt;p&gt;현재 제도와 서비스에서는 소비자와 기사님이 모두 만족할 수 없는 서비스라고 생각합니다. 소비자에게는 좋지 않은 고객 응대와 승차 거부, 기사님에게는 사납금과 개인 사업자 신분의 고려해야 할 많은 사항들이 있습니다. 또한, 위에서 언급한 것처럼 공유 차량 서비스도 마냥 좋은 서비스는 아닙니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 시점에서 서비스 차별화를 실행하려는 마카롱 택시 서비스가 기대됩니다. 고객들은 &lt;strong&gt;택시를 싫어해서 공유 차량 서비스를 원하는 것이 아니라, 택시 회사의 서비스 만족도가 낮아서 새로운 서비스를 원하는 것이라고 생각합니다.&lt;/strong&gt; 택시 서비스가 새롭게 바뀌면 고객들은 우버가 들어오지 않아도, 카카오 카풀이 도입되지 않아도 만족할 것입니다.&lt;/p&gt;
+
+&lt;p&gt;마카롱 택시가 향후 어떤 역할을 하고 어떤 서비스를 제공할지 궁금합니다. 많은 문제점을 불러 일으키지 않고 &lt;strong&gt;경쟁력을 갖추면서 고객과 기사님에게 서로 좋은 서비스&lt;/strong&gt;를 제공할 수 있었으면 좋겠습니다. 문제점이 없지는 않겠지만 기존보다 좋은 서비스를 제공할 수 있을 것 같아서 기대됩니다.&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;긱 이코노미&lt;/strong&gt; : ‘긱’(Gig)이란 단어는 ‘일시적인 일’이라는 의미다. 긱 이코노미는 기업들이 필요에 따라 단기 계약직이나 임시직으로 인력을 충원하는 것을 의미한다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;쇼퍼&lt;/strong&gt; : 마카롱 택시에서는 기사님보다 한 단계 높게 기사님을 부르는 직함으로 부르고자 도입. 전문적인 운송 서비스를 제공하는 직함. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">기존의 국내 상황 차량 공유 서비스와 택시 업계의 반발 우버가 해외에서 활발하게 서비스를 진행 중이지만 국내에서는 아직도 차량 공유 서비스가 도입되지 않았습니다. 택시 업계의 반발이 거세었기 때문에 공유 차량 서비스가 도입되는 데 어려움을 겪고 있던 것입니다. 택시 업계의 문제점 도로위의 택시 큰 문제점은 아래와 같습니다. 서비스 퀄리티가 상대적으로 좋지 않습니다. 기존에 존재하던 서비스에서 시대가 많이 변했지만 큰 변화가 없습니다. 택시는 한 번 타고 나면 그 다음에 같은 손님과의 연동이 다시 이루어지지 않는 서비스이기 때문에 고객 관리에 대한 개념이 다소 부족합니다. 또, 기사님들에 대한 기존 택시 회사차원에서의 교육이 부족하여, 서비스 퀄리티가 상승하지 않고 있습니다. 택시 회사들끼리의 차별점이 존재하지 않습니다. 택시 회사가 여러개라면 고객이 택시 회사를 골라서 서비스를 이용할 수 있습니다. 하지만, 현재는 모든 택시가 같은 모습을 하고 있기 때문에 차별점이 없어서 택시는 모두 하나로 취급됩니다. 사납금 문제와 개인 사업자 사납금을 회사에 내야되기 때문에 기사님들은 자신의 이익을 생각해야만 하는 입장입니다. 기사님들은 월급을 받지 않고 자신이 운행한 만큼의 이익을 얻습니다. 이러한 환경에서는 기사님들은 거리에 대한 이익을 생각하지 않을 수 없습니다. 공유 차량 서비스의 문제점 대표적인 공유 차량 서비스 우버 공유 차량 서비스 우버는 저도 미국에서 타봤지만 꽤나 편리하게 이용할 수 있고 저렴한 서비스입니다. 하지만 이런 서비스가 실제로 문제가 많습니다. 우버 기사들의 수익은 굉장히 낮습니다. 택시와 비교해보면 굉장히 저렴한 서비스입니다. 하지만 비용이 저렴하다는 것은 기사들의 수입에도 직결됩니다. 우버와 리프트 드라이버의 순수입은 시간당 8.55 달러로 뉴욕 최저시급인 13달러에 못 미치는 수준입니다. 기사들의 처우가 보장되지 않으면 공유 차량 서비스가 좋은 서비스라고 말할 수 없겠죠. 기존 택시 기사들의 삶도 위협받는다. 위와 같이 우버가 더 저렴하기 때문에 소비자는 우버를 탑승합니다. 저도 미국에서 저렴한 우버를 이용했습니다. 또, 우버는 차량 규제가 없어 기사 수에 제한을 두지 않습니다. 따라서, 택시 기사들의 삶도 위협받았고 우버 기사들의 삶도 좋지 않은 문제를 가져 왔습니다. 위와 같은 문제들은 결국 서비스 퀄리티의 하락을 가져오고 있습니다. 문제점 요약 공유 차량 서비스는 마냥 좋은 서비스가 아닙니다. 긱 이코노미1 에 대한 많은 비판들이 또 전해지고 있습니다. 국내에서는 택시회사의 파업문제나 카카오 카풀의 도입에 차질이 전해진다는 기사를 많이 볼 수 있지만, 실제 공유 서비스에도 문제는 많습니다. 탑승객, 기사님에게 서로 이득인 서비스는 없을까요?? 이러한 문제를 해결하고자 마카롱 택시가 등장했고, 흥미가 가는 서비스라 포스팅해보았습니다. 마카롱 택시의 등장 마카롱 택시 토마토 TV 인터뷰 “다양한 서비스들은 다양한 브랜드를 가지고 있지만 택시만 한 브랜드다. 새로운 브랜드 택시를 만들겠다”라는 말을 인터뷰에서 전해주고 있습니다. 구체적 차별점 40시간의 기사 교육 진행하여 처우와 환경 개선 노력. 서비스 퀄리티를 위하여 교육을 지속적으로 도입한다고 합니다. 쇼퍼2 라는 개념을 도입하여 전문화된 기사 서비스를 제공합니다. 선발을 엄격하게 하고, 응급처치와 마인드 교육, 장비 교육을 진행합니다. 자체적인 어플 서비스와 AI를 활용한 효율적인 운행과 편리한 서비스. 기존 택시 회사들은 택시 업계에서 쓸 좋은 어플리케이션들을 도입하지 못하였습니다. 결국 카카오 택시가 먼저 도입되어 택시 서비스의 퀄리티를 높혀주는 역할을 하였습니다. 마카롱 택시는 자사의 서비스를 강화하기 위하여 직접 개발한다고 합니다. 사납금 폐지, 월급제 도입. 회사는 편하지만 사납금이 있으면 먼 거리를 가고자 하는 마음이 생길 수 밖에 없다고 합니다. 이는 서비스 퀄리티에 치명적입니다. 짧은 거리를 싫어하게 되고 승차 거부에 대한 유혹을 저버릴 수 없습니다. 실적 압박이 덜 하고, 승차거부를 막고, 안전 운행 수단을 만들기 위하여 필요합니다. 마카롱 택시 이미지. 차별화된 이미지와 깔끔함이 좋아 보입니다. (출처 : kst모빌리티) 향후 계획 택시의 가동률이 높아야 되는데 현재 택시는 60% 정도의 가동률을 보여준다고 합니다. 10대 중 4대는 운행을 못하고 놀고 있는 것입니다. 100%의 가동률을 위하여 기사님들의 자부심을 심어주고 처우개선이 필요하다고 판단하고 노력한다고 합니다. 예약 서비스와 데이터를 분석하여 최적의 운행을 통하여 더 나은 수익화를 추구합니다. 똑같이 손님을 태워도 여러 다른 서비스를 제공하여 (예약비 추가, 샌드위치 배달 등) 추가 수익을 추구합니다. 전기 택시 및 수소 택시로 전환하여 연료비를 절약합니다. 요약 택시 업계의 자체 발전을 위해서라도 새로운 서비스가 들어와야 한다고 개인적으로 생각합니다. 정부도 효율적으로 택시회사를 운영하고 관리하지 못한 문제점이 있지만, 택시회사 자체로도 경쟁력을 키우지 못했습니다. 현재 제도와 서비스에서는 소비자와 기사님이 모두 만족할 수 없는 서비스라고 생각합니다. 소비자에게는 좋지 않은 고객 응대와 승차 거부, 기사님에게는 사납금과 개인 사업자 신분의 고려해야 할 많은 사항들이 있습니다. 또한, 위에서 언급한 것처럼 공유 차량 서비스도 마냥 좋은 서비스는 아닙니다. 이러한 시점에서 서비스 차별화를 실행하려는 마카롱 택시 서비스가 기대됩니다. 고객들은 택시를 싫어해서 공유 차량 서비스를 원하는 것이 아니라, 택시 회사의 서비스 만족도가 낮아서 새로운 서비스를 원하는 것이라고 생각합니다. 택시 서비스가 새롭게 바뀌면 고객들은 우버가 들어오지 않아도, 카카오 카풀이 도입되지 않아도 만족할 것입니다. 마카롱 택시가 향후 어떤 역할을 하고 어떤 서비스를 제공할지 궁금합니다. 많은 문제점을 불러 일으키지 않고 경쟁력을 갖추면서 고객과 기사님에게 서로 좋은 서비스를 제공할 수 있었으면 좋겠습니다. 문제점이 없지는 않겠지만 기존보다 좋은 서비스를 제공할 수 있을 것 같아서 기대됩니다. 긱 이코노미 : ‘긱’(Gig)이란 단어는 ‘일시적인 일’이라는 의미다. 긱 이코노미는 기업들이 필요에 따라 단기 계약직이나 임시직으로 인력을 충원하는 것을 의미한다. &amp;#8617; 쇼퍼 : 마카롱 택시에서는 기사님보다 한 단계 높게 기사님을 부르는 직함으로 부르고자 도입. 전문적인 운송 서비스를 제공하는 직함. &amp;#8617;</summary></entry><entry><title type="html">LG 스마트폰 공장 해외 이전과 LG 유저가 생각하는 LG 스마트폰의 아쉬운 점</title><link href="http://localhost:4000/tech/2019/04/29/002000.html" rel="alternate" type="text/html" title="LG 스마트폰 공장 해외 이전과 LG 유저가 생각하는 LG 스마트폰의 아쉬운 점" /><published>2019-04-29T00:00:00+09:00</published><updated>2019-04-29T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/04/29/002000</id><content type="html" xml:base="http://localhost:4000/tech/2019/04/29/002000.html">&lt;h2 id=&quot;lg-스마트폰의-공장-해외-이전&quot;&gt;LG 스마트폰의 공장 해외 이전&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190429/lg_logo.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center image--xl&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;lg 전자의 로고&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;LG 전자가 국내 스마트폰 생산 공장인 평택 공장의 문을 닫는다고 한다. 설비의 대부분은 베트남으로 이동할 예정이다. 700명이 넘는 생산 인력은 26일부터 LG의 다른 사업부로 이동하거나 아니면 희망퇴직을 하게 된다.&lt;/p&gt;
+
+&lt;p&gt;LG 전자의 휴대폰 실적이 지속적으로 좋지 않은 것은 안타까운 일이다. 국내 기업이 전부 잘 되었으면 좋겠지만 기업은 경쟁에서 살아남아야 하는 환경에 항상 놓여있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;누적된-적자&quot;&gt;누적된 적자&lt;/h3&gt;
+
+&lt;p&gt;LG 전자의 해외 이전 이유는 역시 적자이다. 3조가 넘은 적자는 다른 사업부의 영업이익으로 감당해오고 있었지만, 기업 입장에서 지속적으로 적자만 나오는 사업부는 유지하기 어렵다. 그럼에도 &lt;strong&gt;스마트폰을 포기할 수 없기 때문에&lt;/strong&gt; 공장을 해외로 옮겨서 다양한 비용을 감소하여 적자 폭을 줄여보려는 전략을 선택한 것 같다.&lt;/p&gt;
+
+&lt;h3 id=&quot;베트남의-인건비&quot;&gt;베트남의 인건비&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190429/vitenam_street.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;베트남 거리&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;베트남으로 LG 전자의 스마트폰 공장이 이전하는 이유는 해당 국가의 정부 지원도 있겠지만 역시나 인건비가 가장 큰 이유일 것이다. LG 전자 스마트폰 공장이 있는 하이퐁의 2019년 최저임금은 월 418만동, 우리돈으로 약 21만원이다. 고급 엔지니어는 약 35만~50만원 수준이다.&lt;/p&gt;
+
+&lt;p&gt;국내 인건비와 비교가 되지 않는 비용인 것이다. 적자 폭을 줄이려면 이것 저것 모든 비용을 줄여야 하는데 그 중 가장 큰 선택이 인건비일 것이다. 이러한 상황 속에서도 기존 인원들의 대규모 해고 같은 일 없이 무난하게 넘어가는 듯 하여, 기존부터 준비는 잘 한 것 같다. 대규모 해고는 기업의 이미지나 주가 같은 것에도 영향이 클 것인데 상대적으로 이 부분은 잘 넘어간 것 같다.&lt;/p&gt;
+
+&lt;h3 id=&quot;후회되는-lg-전자의-과거-선택&quot;&gt;후회되는 LG 전자의 과거 선택&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;LG 전자는 피처폰에서 스마트폰으로 전환할 때 기회를 놓쳤고, 3G에서 4G로 전환될 때는 다시 시장 지위를 높였던 기억이 있다. 최근 수년 동안은 과도한 기술 혁신을 시도하다 신뢰를 잃기도 했다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;올해 초 LG 전자 스마트폰 사업 신임 사장 자리에 앉은 권봉석 모바일커뮤니케이션(MC) 사업본부장이 지난 2월 취임 후 열린 첫 기자간담회에서 한 말이라고 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;스마트폰으로 전환할 때 기회를 놓쳤다 -&amp;gt; 스마트폰의 시장성을 알아 보지 못하고 기존 시장에 안주한 것&lt;/li&gt;
+  &lt;li&gt;3G에서 4G로 전환 될 때 -&amp;gt;  LG전자 스마트폰 중 처음으로 누적 판매량 1,000만대를 돌파하며 &lt;strong&gt;휴대폰 명가의 부활&lt;/strong&gt; 이라는 소리를 들은 때. MC 사업본부는 G3가 나온 2014년 3,161억원의 흑자를 기록했다.&lt;/li&gt;
+  &lt;li&gt;과도한 기술 혁신 -&amp;gt; G5의 모듈 같은 소비자가 원하지 않는 새로운 시도&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;권봉석 MC 사업본부장의 말은 위와 같이 해석된다. 휴대폰의 강자 LG가 고꾸라지고 노키아는 망하기까지 한 것을 보면 시장과 기업이 얼마나 끈끈하게 연결되어 있는지 느껴지는 것 같다. 현재는 삼성의 무선사업부가 가장 인기가 많은데 불과 몇 년 전만 해도 LG 무선사업부가 신입사원들에게 인기가 많았을 것이라고 생각하면 상상이 되지 않는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;스마트폰의 전환&lt;/strong&gt; 기회를 놓친 것이 가장 큰 실수이고, 다양한 시도를 했지만 성공 하지 못한 것은 아쉬운 것 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;lg-전자의-휴대폰&quot;&gt;LG 전자의 휴대폰&lt;/h2&gt;
+
+&lt;h3 id=&quot;굳건한-양강-구도&quot;&gt;굳건한 양강 구도&lt;/h3&gt;
+
+&lt;p&gt;국내 시장에서 보면 사실상 Apple vs 삼성의 양강 구도라고 봐도 무방할 정도로 LG 폰을 사용하는 사람을 보기 어렵다.&lt;/p&gt;
+
+&lt;h3 id=&quot;lg-휴대폰을-쓰면서-느낀-점&quot;&gt;LG 휴대폰을 쓰면서 느낀 점&lt;/h3&gt;
+
+&lt;p&gt;나는 기존에 삼성폰에서 시작하여 애플폰을 거쳐 G2에서 G6를 사용하고 있다. 사실 원래 성격이 불편함을 잘 못 느끼는 것도 있지만 크게 다른 핸드폰들과 비교하여 뒤진다는 생각도 들지는 않았다. 기본은 한다는 생각 정도를 가지고 사용했다. &lt;strong&gt;“괜찮다”&lt;/strong&gt; 이런 느낌이다.&lt;/p&gt;
+
+&lt;p&gt;나는 뽑기운이 좋은지 물건을 잘 사용하는지는 모르겠지만 크게 문제가 있었던 적이 거의 없었다. 뽑기를 잘못하여 안 좋은 핸드폰을 직접 사용한 사람이라면 모르겠지만 여러 뉴스 댓글에서 볼 수 있는 무작정 LG폰 까기 댓글은 지금은 맞지 않는 것 같다.&lt;/p&gt;
+
+&lt;h3 id=&quot;시장에서의-이미지&quot;&gt;시장에서의 이미지&lt;/h3&gt;
+
+&lt;p&gt;사실 소비자들로 하여금 현재 LG 폰을 써야할 이유를 설명하기가 어렵다. 최근 S10의 행보나 폴더블을 살펴보면 삼성의 기술이 약간식 더 빠르게 나가고 있는 느낌을 준다. 삼성의 S 시리즈에서는 사실 큰 차별점을 느끼기가 어려웠지만 S10에서 다른 회사들이 선보이지 못한 기술을 잘 선보였다고 생각한다.&lt;/p&gt;
+
+&lt;p&gt;실제 LG가 폴더블을 구현할 수 있고 없고의 문제가 아니라 시장에서의 이미지는 적어도 그렇게 보인다는 것이다. LG 폰을 써야 할 이유보다는 쓰지 않아야 할 이유를 대기가 더 쉽다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190429/question-mark.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;lg 폰을 왜 써야 할까에 대해 말할 수 있을까&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;이해가 1도 안되는 제품 네이밍.&lt;/code&gt; 이건 다른 곳에서 본 적이 없는 내용이지만 나는 항상 느끼는 점이다. LG 가 가전에서는 꽤나 잘 나가고 있고, 노트북 &lt;strong&gt;그램&lt;/strong&gt; 도 매우 좋은 이미지를 가지고 있다. &lt;strong&gt;gram&lt;/strong&gt; 이라는 네이밍 자체가 가볍다는 느낌을 주면서, 기억하기도 쉽고 거부감도 없으며 짧다. 네이밍을 굉장히 잘했다고 느껴진다. 하지만 LG의 현재 스마트폰 네이밍은 전혀 이해가 되지 않는다. G 시리즈와 V 시리즈는 이름에서 주는 임팩트가 전혀 없고, 뭔지도 모르겠다. 다른 회사들에서는 &lt;strong&gt;갤럭시&lt;/strong&gt;, &lt;strong&gt;아이폰&lt;/strong&gt; 과 같이 어떤 이름이 앞에 들어가고 그 다음 알파벳과 숫자로 모델명을 표기한다. 그런데 LG는 그냥 G, V, Q다. 그리고 뒤에 인공지능 이름 ThinQ를 붙이는데, 왜 붙이는지 사실 잘 모르겠다. 솔직히 애플 삼성의 스마트폰도 인공지능이라는 기술을 보여주긴 하지만 빅스비와 시리가 아직 역할을 하는 것은 거의 없다. 지금 LG는 &lt;strong&gt;그램&lt;/strong&gt; 과 같은 좋은 네이밍이 필요하고 생각된다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;적용된 다양한 기술들. 필요없지 않나요.&lt;/code&gt; 다양한 기술들이 이번 핸드폰에 적용되었지만 굳이 왜 이렇게 많은 기술들을 더 넣어서 단가를 늘렸는지 의문이다. 가장 먼저 떠오르는 정맥 인식. 정맥 인식을 왜 굳이 넣었을까 싶다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;가격이 크게 저렴하지 않다.&lt;/code&gt; 단말기 출고가를 비교해 보면, 그 가격이면 삼성을 몇 만원 더주면 살 수 있다. 삼성이 더 낫다는 이미지가 형성된 지금 소비자들은 삼성을 고를 수 밖에 없다. 나도 왠지 삼성을 고를 것 같다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;대부분의 핸드폰은 할부를 통해서 구매가 되고 아직 국내에서는 단말기 구매를 하는 사람이 적다.&lt;/code&gt; 할부를 하면 가격적인 차이가 더 적게 느껴진다. 예시로 한 달에 5천원이면 24개월이면 12만원 정도 차이가 나지만, 12만원이라는 느낌이 잘 들지 않는다. 또, 한 번에 내는 것 보다 부담이 덜하다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;스마트폰 회사에서의 다양한 라인업을 가진 스마트폰들이 많다.&lt;/code&gt; 아싸리 삼성이 S10과 노트만 만들면 모르겠지만 A시리즈 같은 중가형이나 더 저렴한 저가형 모델도 생산한다. 아래와 같은 가격대라면 애매한 플래그십을 만들어버리면 양 극단으로 소비자가 몰릴 것이다.
+    &lt;blockquote&gt;
+      &lt;p&gt;삼성 플래그십 핸드폰 &amp;lt; - LG 스마트폰 - &amp;gt; 삼성 저가형 핸드폰&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;특별한 차별점이 없다.&lt;/code&gt; 삼성의 갤럭시 노트는 펜이 내장되어 있기 때문에 매니아층이 좋아하고 잘 쓰는 제품이다. LG는 그러한 제품군이 없기 때문에 매니아도 끌어올 수가 없다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;요약&quot;&gt;요약&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190429/board.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;다음 lg 폰을 기대해보자&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;LG 폰이 잘 되었으면 좋겠다는 생각에 아쉬움이 든다. &lt;code class=&quot;highlighter-rouge&quot;&gt;괜찮지만 써야 할 이유를 찾기는 어렵다.&lt;/code&gt; 이제 시도는 좋지만 소비자가 원하는 기술 위주로 적용하고 차별점을 내세워야 될 것 같다. 음향쪽으로 과하지 않게 차별점을 주려는 시도는 좋다고 생각한다. 비대칭전력으로 비교우위를 점해야 되지 않을까라는 생각이 든다.&lt;/p&gt;
+
+&lt;p&gt;필요없는 기능은 다 빼고 플래그십의 가격을 더 낮춰서 판매하고, 노트처럼 차별점이 있는 제품을 만들어 보는 것도 좋을 것 같다. 다양한 시도를 하는 모습은 많이 보여줬기 때문에 이런 시도도 잘 할수 있을 것 같다. 방향만 잘 잡으면 될 것 같다.&lt;/p&gt;
+
+&lt;p&gt;하루 빨리 적자 폭을 줄이고 다시 흑자를 내는 효자 산업으로 자리 잡기를 바란다. &lt;strong&gt;&lt;em&gt;그리고 이름 좀 이쁘게 하나 지어주세요&lt;/em&gt;&lt;/strong&gt; :smiley:&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">LG 스마트폰의 공장 해외 이전 lg 전자의 로고 LG 전자가 국내 스마트폰 생산 공장인 평택 공장의 문을 닫는다고 한다. 설비의 대부분은 베트남으로 이동할 예정이다. 700명이 넘는 생산 인력은 26일부터 LG의 다른 사업부로 이동하거나 아니면 희망퇴직을 하게 된다. LG 전자의 휴대폰 실적이 지속적으로 좋지 않은 것은 안타까운 일이다. 국내 기업이 전부 잘 되었으면 좋겠지만 기업은 경쟁에서 살아남아야 하는 환경에 항상 놓여있다. 누적된 적자 LG 전자의 해외 이전 이유는 역시 적자이다. 3조가 넘은 적자는 다른 사업부의 영업이익으로 감당해오고 있었지만, 기업 입장에서 지속적으로 적자만 나오는 사업부는 유지하기 어렵다. 그럼에도 스마트폰을 포기할 수 없기 때문에 공장을 해외로 옮겨서 다양한 비용을 감소하여 적자 폭을 줄여보려는 전략을 선택한 것 같다. 베트남의 인건비 베트남 거리 베트남으로 LG 전자의 스마트폰 공장이 이전하는 이유는 해당 국가의 정부 지원도 있겠지만 역시나 인건비가 가장 큰 이유일 것이다. LG 전자 스마트폰 공장이 있는 하이퐁의 2019년 최저임금은 월 418만동, 우리돈으로 약 21만원이다. 고급 엔지니어는 약 35만~50만원 수준이다. 국내 인건비와 비교가 되지 않는 비용인 것이다. 적자 폭을 줄이려면 이것 저것 모든 비용을 줄여야 하는데 그 중 가장 큰 선택이 인건비일 것이다. 이러한 상황 속에서도 기존 인원들의 대규모 해고 같은 일 없이 무난하게 넘어가는 듯 하여, 기존부터 준비는 잘 한 것 같다. 대규모 해고는 기업의 이미지나 주가 같은 것에도 영향이 클 것인데 상대적으로 이 부분은 잘 넘어간 것 같다. 후회되는 LG 전자의 과거 선택 LG 전자는 피처폰에서 스마트폰으로 전환할 때 기회를 놓쳤고, 3G에서 4G로 전환될 때는 다시 시장 지위를 높였던 기억이 있다. 최근 수년 동안은 과도한 기술 혁신을 시도하다 신뢰를 잃기도 했다. 올해 초 LG 전자 스마트폰 사업 신임 사장 자리에 앉은 권봉석 모바일커뮤니케이션(MC) 사업본부장이 지난 2월 취임 후 열린 첫 기자간담회에서 한 말이라고 한다. 스마트폰으로 전환할 때 기회를 놓쳤다 -&amp;gt; 스마트폰의 시장성을 알아 보지 못하고 기존 시장에 안주한 것 3G에서 4G로 전환 될 때 -&amp;gt; LG전자 스마트폰 중 처음으로 누적 판매량 1,000만대를 돌파하며 휴대폰 명가의 부활 이라는 소리를 들은 때. MC 사업본부는 G3가 나온 2014년 3,161억원의 흑자를 기록했다. 과도한 기술 혁신 -&amp;gt; G5의 모듈 같은 소비자가 원하지 않는 새로운 시도 권봉석 MC 사업본부장의 말은 위와 같이 해석된다. 휴대폰의 강자 LG가 고꾸라지고 노키아는 망하기까지 한 것을 보면 시장과 기업이 얼마나 끈끈하게 연결되어 있는지 느껴지는 것 같다. 현재는 삼성의 무선사업부가 가장 인기가 많은데 불과 몇 년 전만 해도 LG 무선사업부가 신입사원들에게 인기가 많았을 것이라고 생각하면 상상이 되지 않는다. 스마트폰의 전환 기회를 놓친 것이 가장 큰 실수이고, 다양한 시도를 했지만 성공 하지 못한 것은 아쉬운 것 같다. LG 전자의 휴대폰 굳건한 양강 구도 국내 시장에서 보면 사실상 Apple vs 삼성의 양강 구도라고 봐도 무방할 정도로 LG 폰을 사용하는 사람을 보기 어렵다. LG 휴대폰을 쓰면서 느낀 점 나는 기존에 삼성폰에서 시작하여 애플폰을 거쳐 G2에서 G6를 사용하고 있다. 사실 원래 성격이 불편함을 잘 못 느끼는 것도 있지만 크게 다른 핸드폰들과 비교하여 뒤진다는 생각도 들지는 않았다. 기본은 한다는 생각 정도를 가지고 사용했다. “괜찮다” 이런 느낌이다. 나는 뽑기운이 좋은지 물건을 잘 사용하는지는 모르겠지만 크게 문제가 있었던 적이 거의 없었다. 뽑기를 잘못하여 안 좋은 핸드폰을 직접 사용한 사람이라면 모르겠지만 여러 뉴스 댓글에서 볼 수 있는 무작정 LG폰 까기 댓글은 지금은 맞지 않는 것 같다. 시장에서의 이미지 사실 소비자들로 하여금 현재 LG 폰을 써야할 이유를 설명하기가 어렵다. 최근 S10의 행보나 폴더블을 살펴보면 삼성의 기술이 약간식 더 빠르게 나가고 있는 느낌을 준다. 삼성의 S 시리즈에서는 사실 큰 차별점을 느끼기가 어려웠지만 S10에서 다른 회사들이 선보이지 못한 기술을 잘 선보였다고 생각한다. 실제 LG가 폴더블을 구현할 수 있고 없고의 문제가 아니라 시장에서의 이미지는 적어도 그렇게 보인다는 것이다. LG 폰을 써야 할 이유보다는 쓰지 않아야 할 이유를 대기가 더 쉽다. lg 폰을 왜 써야 할까에 대해 말할 수 있을까 이해가 1도 안되는 제품 네이밍. 이건 다른 곳에서 본 적이 없는 내용이지만 나는 항상 느끼는 점이다. LG 가 가전에서는 꽤나 잘 나가고 있고, 노트북 그램 도 매우 좋은 이미지를 가지고 있다. gram 이라는 네이밍 자체가 가볍다는 느낌을 주면서, 기억하기도 쉽고 거부감도 없으며 짧다. 네이밍을 굉장히 잘했다고 느껴진다. 하지만 LG의 현재 스마트폰 네이밍은 전혀 이해가 되지 않는다. G 시리즈와 V 시리즈는 이름에서 주는 임팩트가 전혀 없고, 뭔지도 모르겠다. 다른 회사들에서는 갤럭시, 아이폰 과 같이 어떤 이름이 앞에 들어가고 그 다음 알파벳과 숫자로 모델명을 표기한다. 그런데 LG는 그냥 G, V, Q다. 그리고 뒤에 인공지능 이름 ThinQ를 붙이는데, 왜 붙이는지 사실 잘 모르겠다. 솔직히 애플 삼성의 스마트폰도 인공지능이라는 기술을 보여주긴 하지만 빅스비와 시리가 아직 역할을 하는 것은 거의 없다. 지금 LG는 그램 과 같은 좋은 네이밍이 필요하고 생각된다. 적용된 다양한 기술들. 필요없지 않나요. 다양한 기술들이 이번 핸드폰에 적용되었지만 굳이 왜 이렇게 많은 기술들을 더 넣어서 단가를 늘렸는지 의문이다. 가장 먼저 떠오르는 정맥 인식. 정맥 인식을 왜 굳이 넣었을까 싶다. 가격이 크게 저렴하지 않다. 단말기 출고가를 비교해 보면, 그 가격이면 삼성을 몇 만원 더주면 살 수 있다. 삼성이 더 낫다는 이미지가 형성된 지금 소비자들은 삼성을 고를 수 밖에 없다. 나도 왠지 삼성을 고를 것 같다. 대부분의 핸드폰은 할부를 통해서 구매가 되고 아직 국내에서는 단말기 구매를 하는 사람이 적다. 할부를 하면 가격적인 차이가 더 적게 느껴진다. 예시로 한 달에 5천원이면 24개월이면 12만원 정도 차이가 나지만, 12만원이라는 느낌이 잘 들지 않는다. 또, 한 번에 내는 것 보다 부담이 덜하다. 스마트폰 회사에서의 다양한 라인업을 가진 스마트폰들이 많다. 아싸리 삼성이 S10과 노트만 만들면 모르겠지만 A시리즈 같은 중가형이나 더 저렴한 저가형 모델도 생산한다. 아래와 같은 가격대라면 애매한 플래그십을 만들어버리면 양 극단으로 소비자가 몰릴 것이다. 삼성 플래그십 핸드폰 &amp;lt; - LG 스마트폰 - &amp;gt; 삼성 저가형 핸드폰 특별한 차별점이 없다. 삼성의 갤럭시 노트는 펜이 내장되어 있기 때문에 매니아층이 좋아하고 잘 쓰는 제품이다. LG는 그러한 제품군이 없기 때문에 매니아도 끌어올 수가 없다. 요약 다음 lg 폰을 기대해보자 LG 폰이 잘 되었으면 좋겠다는 생각에 아쉬움이 든다. 괜찮지만 써야 할 이유를 찾기는 어렵다. 이제 시도는 좋지만 소비자가 원하는 기술 위주로 적용하고 차별점을 내세워야 될 것 같다. 음향쪽으로 과하지 않게 차별점을 주려는 시도는 좋다고 생각한다. 비대칭전력으로 비교우위를 점해야 되지 않을까라는 생각이 든다. 필요없는 기능은 다 빼고 플래그십의 가격을 더 낮춰서 판매하고, 노트처럼 차별점이 있는 제품을 만들어 보는 것도 좋을 것 같다. 다양한 시도를 하는 모습은 많이 보여줬기 때문에 이런 시도도 잘 할수 있을 것 같다. 방향만 잘 잡으면 될 것 같다. 하루 빨리 적자 폭을 줄이고 다시 흑자를 내는 효자 산업으로 자리 잡기를 바란다. 그리고 이름 좀 이쁘게 하나 지어주세요 :smiley:</summary></entry><entry><title type="html">MIT 공대생들이 만든 저렴한 가격의 로봇 음식점</title><link href="http://localhost:4000/tech/2019/04/21/155300.html" rel="alternate" type="text/html" title="MIT 공대생들이 만든 저렴한 가격의 로봇 음식점" /><published>2019-04-21T00:00:00+09:00</published><updated>2019-04-21T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/04/21/155300</id><content type="html" xml:base="http://localhost:4000/tech/2019/04/21/155300.html">&lt;p&gt;&lt;a href=&quot;https://toozajournal.tistory.com/817?fbclid=IwAR2wjvHKMxpVTnTEC2i6EucT7zpoJBRs6g0RkseyfAi34YCDEBFeu7XzTr4&quot;&gt;비싼 음식에 지친 MIT 공대생들이 만든 로봇 식당&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 링크에서 재미있는 회사에 대한 정보를 얻었습니다. MIT 공대생들이 비싼 음식 값에 지쳐서 직접 로봇을 이용한 식당을 만든 것입니다. 저한테 상당히 인상 깊은 스타트업이라 포스팅을 하게 되었습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;문제점&quot;&gt;문제점&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/in-n-out-1.jpg&quot; alt=&quot;Image&quot; class=&quot;rounded img_center&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;미국의-비싼-음식값&quot;&gt;미국의 비싼 음식값&lt;/h3&gt;
+
+&lt;p&gt;미국의 음식 값은 매우 비쌉니다. 우리나라 음식점에서는 6~8천원 대에 형성되지만 미국에서는 기본적으로 10~14$ 정도로 음식점 가격이 형성되어 있습니다. 물론, 이 가격은 보편적인 음식점의 가격이고 햄버거나 편의점 같은 곳에서 사는 음식은 더 저렴하지만 맨날 이런 음식을 먹을 수는 없겠죠.&lt;/p&gt;
+
+&lt;p&gt;또, 식당에서 직접 먹으면 미국에서는 tip 문화때문에 10~15%의 팁을 더 내야합니다. (take out일 경우는 아니지만요.) 계산표에 나온 음식 값에 세금도 더 추가됩니다.&lt;/p&gt;
+
+&lt;p&gt;미국의 대학생이 시급이 높다고 해도 물가가 높으니 우리나라 대학생과 동일하게 비싼 밥값은 부담이 될 것입니다. 이런 상황에서 로봇을 이용한 식당을 MIT 공대생 4명이 만들어 창업했습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;문제-해결&quot;&gt;문제 해결&lt;/h2&gt;
+
+&lt;h3 id=&quot;로봇을-이용한-창업&quot;&gt;로봇을 이용한 창업&lt;/h3&gt;
+
+&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
+  &lt;iframe src=&quot;https://www.youtube.com/embed/9LqqcDL99UA?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;4명의 공대생이 창업한 spyce 회사 소개 영상&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.spyce.com/&quot;&gt;spyce 홈페이지&lt;/a&gt;에 들어가면 회사에 대한 소개와 메뉴 같은 정보들을 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/spyce_menu.PNG&quot; alt=&quot;Image&quot; class=&quot;rounded img_center&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;메뉴는 위의 3개 말고도 여러 가지가 있습니다. 이런 음식들이 전부 7.5$에 판매되고 있었습니다. 미국 다른 식당과 비교해 보면 꽤나 저렴한 편입니다.&lt;/p&gt;
+
+&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
+  &lt;iframe src=&quot;https://www.youtube.com/embed/9LqqcDL99UA?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;유투버가 리뷰한 sypce 매장. 실제 어떻게 서비스가 진행되는지 확인할 수 있다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 유투버가 올린 영상을 보면 꽤나 많은 부분이 자동화되고 깨끗하게 조리가 잘 되는 것을 확인할 수 있었습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;후기&quot;&gt;후기&lt;/h2&gt;
+
+&lt;p&gt;제가 개인적으로 생각하는 서비스의 후기는 아래와 같습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;서비스의-장점&quot;&gt;서비스의 장점&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;가격이 기존 식당 대비 저렴합니다.&lt;/code&gt; 동일 퀄리티의 음식에서는 기존 식당 대비 더 저렴한 가격을 받습니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;위생적으로 매우 깨끗합니다.&lt;/code&gt; 다른 식당에서 발생하는 교차 오염과 같은 문제는 발생할 여지가 적습니다. 자동화된 시스템에서 재료를 넣는 곳에 재료만 넣어두면 조리되는 방식이기 때문에, 해당 부분만 깨끗하게 관리하면 다른 식당보다 비교적 위생 관리가 잘 되는 것 같습니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;음식에 퀄리티가 꽤나 높습니다.&lt;/code&gt; takeout 음식은 대부분 fastfood 인 경우가 많은데, 야채가 많이 들어간 음식을 판매한다는 점에서 건강에 더 좋을 것 같습니다. 또한, 쉐프가 음식을 관리하여 정량화된 재료를 좋은 맛으로 제공할 수 있는 것 같습니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;서비스의-개선해야할-점&quot;&gt;서비스의 개선해야할 점&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;아직 모든 부분이 자동화 되지 않았습니다.&lt;/code&gt; 아직 재료 관리나 재료 손질은 직원의 몫인 것 같습니다. 또, 영상을 보면 인력이 꽤나 많이 필요한 것 같이 보여집니다. 인건비는 결국 가격에 영향을 크게 주는 요소입니다. 완벽한 자동화는 아직 되지 않았지만 자동화가 완성되고 서비스가 좀 더 정착되면 훨씬 더 저렴한 가격에 서비스를 제공할 수 있을 것으로 보여집니다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;가격이 정말 매력적으로 저렴한 것 같지 않습니다.&lt;/code&gt; 위에서 언급한 것처럼 아직 자동화가 완벽하지 않기 때문에, 아직 가격이 꽤나 나가는 것 같습니다. 또, subway 같은 takeout 음식점과 제가 비교해본 바로는 큰 차이가 없어보입니다. 가격이 7.5$ 보다 조금 더 저렴해야 메리트가 있을 것 같습니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;느낀-점&quot;&gt;느낀 점&lt;/h3&gt;
+
+&lt;p&gt;먼저 든 느낌은 미국의 MIT 대학생들은 열정적으로 굉장한 기술력을 가지고 뭔가를 만드는데, 저는 대학생 때 저걸 만들 엄두가 나지도 않고 불안정 하다는 느낌 때문에 저런 것을 시도해보지 못한 것이 그들과 나의 큰 차이인 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;자동화와 관련된 식당을 국내에 만들어 보고 싶다는 생각은 크지만 기술적으로 어떻게 대처해야 할 지에 대하여 전혀 감이 오지 않는 것 같습니다. 저 학생들도 얼마나 기술적인 능력이 있었는지는 잘 모르겠지만, &lt;strong&gt;시도 하면 할 수 있다&lt;/strong&gt;라는 마인드를 가지고 부족한 기술력을 커버하면서 창업에 뛰어들었을 것이라고 생각합니다.&lt;/p&gt;
+
+&lt;p&gt;국내에도 저런 식당이 하루 빨리 만들어졌으면 좋겠습니다. 기회가 되면 저도 만들어보고 싶지만 저런 로봇을 어떻게 만들어야 될지는 감이 잘 오지 않네요…&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">비싼 음식에 지친 MIT 공대생들이 만든 로봇 식당 위의 링크에서 재미있는 회사에 대한 정보를 얻었습니다. MIT 공대생들이 비싼 음식 값에 지쳐서 직접 로봇을 이용한 식당을 만든 것입니다. 저한테 상당히 인상 깊은 스타트업이라 포스팅을 하게 되었습니다. 문제점 미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다 미국의 비싼 음식값 미국의 음식 값은 매우 비쌉니다. 우리나라 음식점에서는 6~8천원 대에 형성되지만 미국에서는 기본적으로 10~14$ 정도로 음식점 가격이 형성되어 있습니다. 물론, 이 가격은 보편적인 음식점의 가격이고 햄버거나 편의점 같은 곳에서 사는 음식은 더 저렴하지만 맨날 이런 음식을 먹을 수는 없겠죠. 또, 식당에서 직접 먹으면 미국에서는 tip 문화때문에 10~15%의 팁을 더 내야합니다. (take out일 경우는 아니지만요.) 계산표에 나온 음식 값에 세금도 더 추가됩니다. 미국의 대학생이 시급이 높다고 해도 물가가 높으니 우리나라 대학생과 동일하게 비싼 밥값은 부담이 될 것입니다. 이런 상황에서 로봇을 이용한 식당을 MIT 공대생 4명이 만들어 창업했습니다. 문제 해결 로봇을 이용한 창업 4명의 공대생이 창업한 spyce 회사 소개 영상 spyce 홈페이지에 들어가면 회사에 대한 소개와 메뉴 같은 정보들을 얻을 수 있습니다. 미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다 메뉴는 위의 3개 말고도 여러 가지가 있습니다. 이런 음식들이 전부 7.5$에 판매되고 있었습니다. 미국 다른 식당과 비교해 보면 꽤나 저렴한 편입니다. 유투버가 리뷰한 sypce 매장. 실제 어떻게 서비스가 진행되는지 확인할 수 있다. 위의 유투버가 올린 영상을 보면 꽤나 많은 부분이 자동화되고 깨끗하게 조리가 잘 되는 것을 확인할 수 있었습니다. 후기 제가 개인적으로 생각하는 서비스의 후기는 아래와 같습니다. 서비스의 장점 가격이 기존 식당 대비 저렴합니다. 동일 퀄리티의 음식에서는 기존 식당 대비 더 저렴한 가격을 받습니다. 위생적으로 매우 깨끗합니다. 다른 식당에서 발생하는 교차 오염과 같은 문제는 발생할 여지가 적습니다. 자동화된 시스템에서 재료를 넣는 곳에 재료만 넣어두면 조리되는 방식이기 때문에, 해당 부분만 깨끗하게 관리하면 다른 식당보다 비교적 위생 관리가 잘 되는 것 같습니다. 음식에 퀄리티가 꽤나 높습니다. takeout 음식은 대부분 fastfood 인 경우가 많은데, 야채가 많이 들어간 음식을 판매한다는 점에서 건강에 더 좋을 것 같습니다. 또한, 쉐프가 음식을 관리하여 정량화된 재료를 좋은 맛으로 제공할 수 있는 것 같습니다. 서비스의 개선해야할 점 아직 모든 부분이 자동화 되지 않았습니다. 아직 재료 관리나 재료 손질은 직원의 몫인 것 같습니다. 또, 영상을 보면 인력이 꽤나 많이 필요한 것 같이 보여집니다. 인건비는 결국 가격에 영향을 크게 주는 요소입니다. 완벽한 자동화는 아직 되지 않았지만 자동화가 완성되고 서비스가 좀 더 정착되면 훨씬 더 저렴한 가격에 서비스를 제공할 수 있을 것으로 보여집니다. 가격이 정말 매력적으로 저렴한 것 같지 않습니다. 위에서 언급한 것처럼 아직 자동화가 완벽하지 않기 때문에, 아직 가격이 꽤나 나가는 것 같습니다. 또, subway 같은 takeout 음식점과 제가 비교해본 바로는 큰 차이가 없어보입니다. 가격이 7.5$ 보다 조금 더 저렴해야 메리트가 있을 것 같습니다. 느낀 점 먼저 든 느낌은 미국의 MIT 대학생들은 열정적으로 굉장한 기술력을 가지고 뭔가를 만드는데, 저는 대학생 때 저걸 만들 엄두가 나지도 않고 불안정 하다는 느낌 때문에 저런 것을 시도해보지 못한 것이 그들과 나의 큰 차이인 것 같습니다. 자동화와 관련된 식당을 국내에 만들어 보고 싶다는 생각은 크지만 기술적으로 어떻게 대처해야 할 지에 대하여 전혀 감이 오지 않는 것 같습니다. 저 학생들도 얼마나 기술적인 능력이 있었는지는 잘 모르겠지만, 시도 하면 할 수 있다라는 마인드를 가지고 부족한 기술력을 커버하면서 창업에 뛰어들었을 것이라고 생각합니다. 국내에도 저런 식당이 하루 빨리 만들어졌으면 좋겠습니다. 기회가 되면 저도 만들어보고 싶지만 저런 로봇을 어떻게 만들어야 될지는 감이 잘 오지 않네요…</summary></entry><entry><title type="html">텀블러를 공짜로 빌려주고 씻어주는 회사 베셀 웍스(Vessel Works)</title><link href="http://localhost:4000/tech/2019/04/21/222700.html" rel="alternate" type="text/html" title="텀블러를 공짜로 빌려주고 씻어주는 회사 베셀 웍스(Vessel Works)" /><published>2019-04-21T00:00:00+09:00</published><updated>2019-04-21T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/04/21/222700</id><content type="html" xml:base="http://localhost:4000/tech/2019/04/21/222700.html">&lt;p&gt;베셀 웍스(Vessel Works)는 텀블러를 공유하는 회사입니다. 텀블러를 어떻게 공유하나 싶지만 직접 서비스를 살펴보니 아주 괜찮은 서비스라고 생각되었습니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;문제점&quot;&gt;문제점&lt;/h2&gt;
 
@@ -66,12 +496,12 @@
 
 &lt;p&gt;요즈음 가장 이슈가 되고 있는 문제는 바로 &lt;strong&gt;플라스틱 문제&lt;/strong&gt; 입니다. 플라스틱은 만들기 편하고 가격이 저렴하여 다양한 분야에서 많이 사용되어 왔습니다. 하지만, 일회용으로 사용하는 경우가 많다 보니 전부 쓰레기가 되었습니다. 이런 플라스틱으로 99%가 구성된 한반도 7배 규모의 쓰레기섬이 북태평양에 만들어져있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/pixabay_glass.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center cell width_40&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/pixabay_glass.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_40&quot; /&gt;
 &lt;strong class=&quot;caption&quot;&gt;쓰레기가 바다에 쌓이고 있다&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;문제-해결을-스타트업-시작&quot;&gt;문제 해결을 스타트업 시작&lt;/h3&gt;
+&lt;h3 id=&quot;문제-해결을-위한-스타트업-시작&quot;&gt;문제 해결을 위한 스타트업 시작&lt;/h3&gt;
 
 &lt;p&gt;이러한 문제를 해결하기 위해서, 우리나라도 카페에서는 일회용 플라스틱 컵을 매장 내에서 사용할 수 없게 하는 등 국가적인 차원에서의 해결책도 나오고 있습니다. 하지만, 테이크아웃을 하는 사람들은 텀블러를 가지고 다니기 어렵기 때문에 플라스틱 컵을 많이 사용합니다. 베셀웍스는 이런 문제를 해결하기 위하여 나온 스타트업입니다.&lt;/p&gt;
 
@@ -133,224 +563,73 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;베셀웍스는 &lt;code class=&quot;highlighter-rouge&quot;&gt;우리는 빠르게 변하는 삶을 더 낫게 하는 선택을 하는 기회를
-제공한다&lt;/code&gt; 라고 말합니다. 베셀웍스의 서비스와 비전은 __기업가정신__을 잘 활용하고 있는 사례라고 볼 수 있습니다. 단순히 돈을 버는 것뿐만 아니라 다양한 가치들을 함께 제공하고 있습니다. 현재는 매우 작은 곳에서 서비스되고 있지만 점차 확장되어 플라스틱 쓰레기를 줄이는데 큰 역할을 할 것이라고 기대됩니다.&lt;/p&gt;
+&lt;p&gt;베셀웍스는 &lt;code class=&quot;highlighter-rouge&quot;&gt;우리는 빠르게 변하는 삶을 더 낫게 하는 선택을 하는 기회를 제공한다&lt;/code&gt; 라고 말합니다. 베셀웍스의 서비스와 비전은 &lt;strong&gt;기업가 정신&lt;/strong&gt;을 잘 활용하고 있는 사례라고 볼 수 있습니다. 단순히 돈을 버는 것뿐만 아니라 다양한 가치들을 함께 제공하고 있습니다. 현재는 매우 작은 곳에서 서비스되고 있지만 점차 확장되어 플라스틱 쓰레기를 줄이는데 큰 역할을 할 것이라고 기대됩니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;출처&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;vessel works facebook&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>melonicedlatte</name></author><category term="News" /><category term="News" /><summary type="html">베셀 웍스(Vessel Works)는 텀블러를 공유하는 회사입니다. 텀블러를 어떻게 공유하나 싶지만 직접 서비스를 살펴보니 아주 괜찮은 서비스라고 생각되었습니다. 문제점 플라스틱 쓰레기 요즈음 가장 이슈가 되고 있는 문제는 바로 플라스틱 문제 입니다. 플라스틱은 만들기 편하고 가격이 저렴하여 다양한 분야에서 많이 사용되어 왔습니다. 하지만, 일회용으로 사용하는 경우가 많다 보니 전부 쓰레기가 되었습니다. 이런 플라스틱으로 99%가 구성된 한반도 7배 규모의 쓰레기섬이 북태평양에 만들어져있습니다. 쓰레기가 바다에 쌓이고 있다 문제 해결을 스타트업 시작 이러한 문제를 해결하기 위해서, 우리나라도 카페에서는 일회용 플라스틱 컵을 매장 내에서 사용할 수 없게 하는 등 국가적인 차원에서의 해결책도 나오고 있습니다. 하지만, 테이크아웃을 하는 사람들은 텀블러를 가지고 다니기 어렵기 때문에 플라스틱 컵을 많이 사용합니다. 베셀웍스는 이런 문제를 해결하기 위하여 나온 스타트업입니다. 문제 해결 베셀 웍스 로고 서비스 구조 베셀웍스는 공유 스쿠터의 모델처럼 공유 텀블러 모델을 적용시킨 스타트업입니다. 베셀웍스의 이용 단계는 다음과 같습니다. 앱으로 베셀웍스와 계약을 맺은 카페를 찾는다. 음료를 주문한 뒤에 베셀웍스 텀블러에 받는다. 텀블러에 새겨진 QR 코드를 인식하고 텀블러를 가지고 나간다. 5일안에 베셀웍스와 계약 맺은 카페나 반납기계(키오스크)에 반납한다. 베셀웍스 직원들이 컵을 수거하여 세척한 후에 다시 카페에 비치한다. 베셀 웍스 텀블러에 커피를 따르는 모습 수익 구조 소비자에게 돈을 받지 않으면 베셀웍스는 어떻게 해서 수익을 낼까요? 바로 계약을 맺은 카페에게 받습니다. 카페는 1개의 일회용 컵에 소요되는 비용인 10센트 정도를 베셀웍스에 내고 1개의 텀블러를 사용합니다. 카페는 거의 비슷한 비용을 내고 환경보호에 동참하고 있다는 이미지를 고객에게 제공할 수 있습니다. 키오스크 이미지 후기 장점 환경 보존. 기존에 카페에 있는 컵을 사용하면 물과 인건비가 들지만, 베셀웍스의 서비스를 사용하면 그러한 불편함도 해소됩니다. 소비자는 베셀웍스의 텀블러를 이용하여 테이크아웃도 손쉽게 할 수 있고, 환경보호에 동참할 수 있습니다. 테이크 아웃 가능. 국내에서 시행되는 매장 내 일회용컵 사용 금지는 상당히 불편한 점이 있습니다. 먹다가 나가려면 결국 일회용 컵을 써야되기 때문입니다. 베셀 웍스 서비스를 이용하면 이러한 문제를 해결할 수 있습니다. 단점 서비스가 아직 상용화되었다고 보기 어렵다. 2018년 11월에 처음 공유서비스를 시작하여 현재는 미국 콜로라도의 일부 카페에만 서비스를 진행하고 있습니다. 아직은 서비스 상용화가 되지 않은 것이 문제입니다. 서비스 자체의 수익성이 유지 가능할 지 의문입니다. 적은 비용을 받고 운송비와 세척비, 인건비 등을 모두 충당할 수 있어야 하는데 큰 수익을 내기 힘들 것 같습니다. 종합 베셀웍스는 새로운 서비스로 기존에 없었던 시장을 창출했을 뿐만 아니라, 환경 보호까지 하는 가치도 생성했습니다. 굉장히 좋은 아이디어인 것 같습니다. QR코드와 텀블러 베셀웍스는 우리는 빠르게 변하는 삶을 더 낫게 하는 선택을 하는 기회를 제공한다 라고 말합니다. 베셀웍스의 서비스와 비전은 __기업가정신__을 잘 활용하고 있는 사례라고 볼 수 있습니다. 단순히 돈을 버는 것뿐만 아니라 다양한 가치들을 함께 제공하고 있습니다. 현재는 매우 작은 곳에서 서비스되고 있지만 점차 확장되어 플라스틱 쓰레기를 줄이는데 큰 역할을 할 것이라고 기대됩니다. 출처 vessel works facebook</summary></entry><entry><title type="html">Listen error unable to monitor directories for changes</title><link href="http://localhost:4000/computer/2019/04/20/023600.html" rel="alternate" type="text/html" title="Listen error unable to monitor directories for changes" /><published>2019-04-20T00:00:00+09:00</published><updated>2019-04-20T00:00:00+09:00</updated><id>http://localhost:4000/computer/2019/04/20/023600</id><content type="html" xml:base="http://localhost:4000/computer/2019/04/20/023600.html">## problem
+&lt;/ul&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">베셀 웍스(Vessel Works)는 텀블러를 공유하는 회사입니다. 텀블러를 어떻게 공유하나 싶지만 직접 서비스를 살펴보니 아주 괜찮은 서비스라고 생각되었습니다. 문제점 플라스틱 쓰레기 요즈음 가장 이슈가 되고 있는 문제는 바로 플라스틱 문제 입니다. 플라스틱은 만들기 편하고 가격이 저렴하여 다양한 분야에서 많이 사용되어 왔습니다. 하지만, 일회용으로 사용하는 경우가 많다 보니 전부 쓰레기가 되었습니다. 이런 플라스틱으로 99%가 구성된 한반도 7배 규모의 쓰레기섬이 북태평양에 만들어져있습니다. 쓰레기가 바다에 쌓이고 있다 문제 해결을 위한 스타트업 시작 이러한 문제를 해결하기 위해서, 우리나라도 카페에서는 일회용 플라스틱 컵을 매장 내에서 사용할 수 없게 하는 등 국가적인 차원에서의 해결책도 나오고 있습니다. 하지만, 테이크아웃을 하는 사람들은 텀블러를 가지고 다니기 어렵기 때문에 플라스틱 컵을 많이 사용합니다. 베셀웍스는 이런 문제를 해결하기 위하여 나온 스타트업입니다. 문제 해결 베셀 웍스 로고 서비스 구조 베셀웍스는 공유 스쿠터의 모델처럼 공유 텀블러 모델을 적용시킨 스타트업입니다. 베셀웍스의 이용 단계는 다음과 같습니다. 앱으로 베셀웍스와 계약을 맺은 카페를 찾는다. 음료를 주문한 뒤에 베셀웍스 텀블러에 받는다. 텀블러에 새겨진 QR 코드를 인식하고 텀블러를 가지고 나간다. 5일안에 베셀웍스와 계약 맺은 카페나 반납기계(키오스크)에 반납한다. 베셀웍스 직원들이 컵을 수거하여 세척한 후에 다시 카페에 비치한다. 베셀 웍스 텀블러에 커피를 따르는 모습 수익 구조 소비자에게 돈을 받지 않으면 베셀웍스는 어떻게 해서 수익을 낼까요? 바로 계약을 맺은 카페에게 받습니다. 카페는 1개의 일회용 컵에 소요되는 비용인 10센트 정도를 베셀웍스에 내고 1개의 텀블러를 사용합니다. 카페는 거의 비슷한 비용을 내고 환경보호에 동참하고 있다는 이미지를 고객에게 제공할 수 있습니다. 키오스크 이미지 후기 장점 환경 보존. 기존에 카페에 있는 컵을 사용하면 물과 인건비가 들지만, 베셀웍스의 서비스를 사용하면 그러한 불편함도 해소됩니다. 소비자는 베셀웍스의 텀블러를 이용하여 테이크아웃도 손쉽게 할 수 있고, 환경보호에 동참할 수 있습니다. 테이크 아웃 가능. 국내에서 시행되는 매장 내 일회용컵 사용 금지는 상당히 불편한 점이 있습니다. 먹다가 나가려면 결국 일회용 컵을 써야되기 때문입니다. 베셀 웍스 서비스를 이용하면 이러한 문제를 해결할 수 있습니다. 단점 서비스가 아직 상용화되었다고 보기 어렵다. 2018년 11월에 처음 공유서비스를 시작하여 현재는 미국 콜로라도의 일부 카페에만 서비스를 진행하고 있습니다. 아직은 서비스 상용화가 되지 않은 것이 문제입니다. 서비스 자체의 수익성이 유지 가능할 지 의문입니다. 적은 비용을 받고 운송비와 세척비, 인건비 등을 모두 충당할 수 있어야 하는데 큰 수익을 내기 힘들 것 같습니다. 종합 베셀웍스는 새로운 서비스로 기존에 없었던 시장을 창출했을 뿐만 아니라, 환경 보호까지 하는 가치도 생성했습니다. 굉장히 좋은 아이디어인 것 같습니다. QR코드와 텀블러 베셀웍스는 우리는 빠르게 변하는 삶을 더 낫게 하는 선택을 하는 기회를 제공한다 라고 말합니다. 베셀웍스의 서비스와 비전은 기업가 정신을 잘 활용하고 있는 사례라고 볼 수 있습니다. 단순히 돈을 버는 것뿐만 아니라 다양한 가치들을 함께 제공하고 있습니다. 현재는 매우 작은 곳에서 서비스되고 있지만 점차 확장되어 플라스틱 쓰레기를 줄이는데 큰 역할을 할 것이라고 기대됩니다. 출처 vessel works facebook</summary></entry><entry><title type="html">Listen error unable to monitor directories for changes</title><link href="http://localhost:4000/programming/2019/04/20/023600.html" rel="alternate" type="text/html" title="Listen error unable to monitor directories for changes" /><published>2019-04-20T00:00:00+09:00</published><updated>2019-04-20T00:00:00+09:00</updated><id>http://localhost:4000/programming/2019/04/20/023600</id><content type="html" xml:base="http://localhost:4000/programming/2019/04/20/023600.html">&lt;h2 id=&quot;problem&quot;&gt;problem&lt;/h2&gt;
 
-~~~ bash
-FATAL: Listen error: unable to monitor directories for changes.  
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FATAL: Listen error: unable to monitor directories &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;changes.  
 Visit https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers  
-for info on how to fix this.
-~~~
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;info on how to fix this.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-This problem is mount of inotify watchers.
+&lt;p&gt;This problem is mount of inotify watchers.&lt;/p&gt;
 
-What is Inotify? [https://en.wikipedia.org/wiki/Inotify](https://en.wikipedia.org/wiki/Inotify)
+&lt;p&gt;What is Inotify? &lt;a href=&quot;https://en.wikipedia.org/wiki/Inotify&quot;&gt;https://en.wikipedia.org/wiki/Inotify&lt;/a&gt;&lt;/p&gt;
 
-&gt; Inotify (inode notify) is a Linux kernel subsystem that acts to extend filesystems to notice changes to the filesystem, and report those changes to applications. It replaces an earlier facility, dnotify, which had similar goals.  
-One major use is in desktop search utilities like Beagle, where its functionality permits reindexing of changed files without scanning the filesystem for changes every few minutes, which would be very inefficient.
+&lt;blockquote&gt;
+  &lt;p&gt;Inotify (inode notify) is a Linux kernel subsystem that acts to extend filesystems to notice changes to the filesystem, and report those changes to applications. It replaces an earlier facility, dnotify, which had similar goals.&lt;br /&gt;
+One major use is in desktop search utilities like Beagle, where its functionality permits reindexing of changed files without scanning the filesystem for changes every few minutes, which would be very inefficient.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-Inotify can also be used to automatically update directory views, reload configuration files, log changes, backup, synchronize, and upload.
+&lt;p&gt;Inotify can also be used to automatically update directory views, reload configuration files, log changes, backup, synchronize, and upload.&lt;/p&gt;
 
-We have to increase mount!! 
+&lt;p&gt;We have to increase mount!!&lt;/p&gt;
 
-## solve
+&lt;h2 id=&quot;solve&quot;&gt;solve&lt;/h2&gt;
 
-You can find this solution in this link.
-[https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers](https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers)
+&lt;p&gt;You can find this solution in this link.
+&lt;a href=&quot;https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers&quot;&gt;https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers&lt;/a&gt;&lt;/p&gt;
 
-If you are running Debian, RedHat, or another similar Linux distribution, run the following in a terminal:
+&lt;p&gt;If you are running Debian, RedHat, or another similar Linux distribution, run the following in a terminal:&lt;/p&gt;
 
-~~~ bash
-echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf &amp;&amp; sudo sysctl -p
-~~~
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;fs.inotify.max_user_watches&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;524288 | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;tee &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/sysctl.conf &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;sysctl &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-If you are running ArchLinux, run the following command instead (see here for why):
+&lt;p&gt;If you are running ArchLinux, run the following command instead (see here for why):&lt;/p&gt;
 
-~~~ bash
-echo fs.inotify.max_user_watches=524288 | sudo tee /etc/sysctl.d/40-max-user-watches.conf &amp;&amp; sudo sysctl --system
-~~~
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;fs.inotify.max_user_watches&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;524288 | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;tee /etc/sysctl.d/40-max-user-watches.conf &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;sysctl &lt;span class=&quot;nt&quot;&gt;--system&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-Then paste it in your terminal and press on enter to run it.</content><author><name>melonicedlatte</name></author><category term="Computer" /><category term="Computer" /><summary type="html">problem FATAL: Listen error: unable to monitor directories for changes. Visit https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers for info on how to fix this. This problem is mount of inotify watchers. What is Inotify? https://en.wikipedia.org/wiki/Inotify Inotify (inode notify) is a Linux kernel subsystem that acts to extend filesystems to notice changes to the filesystem, and report those changes to applications. It replaces an earlier facility, dnotify, which had similar goals. One major use is in desktop search utilities like Beagle, where its functionality permits reindexing of changed files without scanning the filesystem for changes every few minutes, which would be very inefficient. Inotify can also be used to automatically update directory views, reload configuration files, log changes, backup, synchronize, and upload. We have to increase mount!! solve You can find this solution in this link. https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers If you are running Debian, RedHat, or another similar Linux distribution, run the following in a terminal: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf &amp;amp;&amp;amp; sudo sysctl -p If you are running ArchLinux, run the following command instead (see here for why): echo fs.inotify.max_user_watches=524288 | sudo tee /etc/sysctl.d/40-max-user-watches.conf &amp;amp;&amp;amp; sudo sysctl --system Then paste it in your terminal and press on enter to run it.</summary></entry><entry><title type="html">GitHub, 원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기</title><link href="http://localhost:4000/computer/2019/04/20/031700.html" rel="alternate" type="text/html" title="GitHub, 원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기" /><published>2019-04-20T00:00:00+09:00</published><updated>2019-04-20T00:00:00+09:00</updated><id>http://localhost:4000/computer/2019/04/20/031700</id><content type="html" xml:base="http://localhost:4000/computer/2019/04/20/031700.html">## 문제
-github를 사용하다 보면 이전에 불필요한 파일이 올라갈 때가 있습니다. 이럴 때, 이전에 올라간 파일을 github에서도 제거를 하고 싶은데, 파일만 지우고 commit 을 하게 되면 이전 commit 에서 해당 문제점을 확인할 수 있습니다.  
+&lt;p&gt;Then paste it in your terminal and press on enter to run it.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Programming" /><category term="Programming" /><summary type="html">problem FATAL: Listen error: unable to monitor directories for changes. Visit https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers for info on how to fix this. This problem is mount of inotify watchers. What is Inotify? https://en.wikipedia.org/wiki/Inotify Inotify (inode notify) is a Linux kernel subsystem that acts to extend filesystems to notice changes to the filesystem, and report those changes to applications. It replaces an earlier facility, dnotify, which had similar goals. One major use is in desktop search utilities like Beagle, where its functionality permits reindexing of changed files without scanning the filesystem for changes every few minutes, which would be very inefficient. Inotify can also be used to automatically update directory views, reload configuration files, log changes, backup, synchronize, and upload. We have to increase mount!! solve You can find this solution in this link. https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers If you are running Debian, RedHat, or another similar Linux distribution, run the following in a terminal: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf &amp;amp;&amp;amp; sudo sysctl -p If you are running ArchLinux, run the following command instead (see here for why): echo fs.inotify.max_user_watches=524288 | sudo tee /etc/sysctl.d/40-max-user-watches.conf &amp;amp;&amp;amp; sudo sysctl --system Then paste it in your terminal and press on enter to run it.</summary></entry><entry><title type="html">GitHub, 원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기</title><link href="http://localhost:4000/programming/2019/04/20/031700.html" rel="alternate" type="text/html" title="GitHub, 원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기" /><published>2019-04-20T00:00:00+09:00</published><updated>2019-04-20T00:00:00+09:00</updated><id>http://localhost:4000/programming/2019/04/20/031700</id><content type="html" xml:base="http://localhost:4000/programming/2019/04/20/031700.html">&lt;h2 id=&quot;문제&quot;&gt;문제&lt;/h2&gt;
+&lt;p&gt;github를 사용하다 보면 이전에 불필요한 파일이 올라갈 때가 있습니다. 이럴 때, 이전에 올라간 파일을 github에서도 제거를 하고 싶은데, 파일만 지우고 commit 을 하게 되면 이전 commit 에서 해당 문제점을 확인할 수 있습니다.&lt;/p&gt;
 
-문제가 있는 파일을 모두 제거해야 하는데 이럴때에는 아래와 같은 해결 방법을 사용합니다. 기본적인 내용은 아래의 내용을 참조해서 포스팅했습니다. 저는 Git에 내장된 filter-branch툴을 사용하는 방법만 포스팅하고,다른 방법으로는 BFG Repo-Cleaner를 사용하는 방법이 있습니다. 
-[http://minsone.github.io/git/github-advanced-remove-sensitive-data](http://minsone.github.io/git/github-advanced-remove-sensitive-data)
+&lt;p&gt;문제가 있는 파일을 모두 제거해야 하는데 이럴때에는 아래와 같은 해결 방법을 사용합니다. 기본적인 내용은 아래의 내용을 참조해서 포스팅했습니다. 저는 Git에 내장된 filter-branch툴을 사용하는 방법만 포스팅하고,다른 방법으로는 BFG Repo-Cleaner를 사용하는 방법이 있습니다. 
+&lt;a href=&quot;http://minsone.github.io/git/github-advanced-remove-sensitive-data&quot;&gt;http://minsone.github.io/git/github-advanced-remove-sensitive-data&lt;/a&gt;&lt;/p&gt;
 
-## 해결방법
-가령 비밀번호가 들어간 파일이라던가 폴더 전체를 제거해야 하는 경우가 있습니다. 
+&lt;h2 id=&quot;해결방법&quot;&gt;해결방법&lt;/h2&gt;
+&lt;p&gt;가령 비밀번호가 들어간 파일이라던가 폴더 전체를 제거해야 하는 경우가 있습니다.&lt;/p&gt;
 
-### 파일
-~~~ bash
-$ git filter-branch --force --index-filter \
-  'git rm --cached --ignore-unmatch 파일명' \
-  --prune-empty --tag-name-filter cat -- --all
-~~~
+&lt;h3 id=&quot;파일&quot;&gt;파일&lt;/h3&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git filter-branch &lt;span class=&quot;nt&quot;&gt;--force&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--index-filter&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;s1&quot;&gt;'git rm --cached --ignore-unmatch 파일명'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--prune-empty&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--tag-name-filter&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-### 디렉토리
-~~~ bash
-$ git filter-branch --force --index-filter \
-  'git rm -r --cached --ignore-unmatch 폴더명' \
-  --prune-empty --tag-name-filter cat -- --all
-~~~
+&lt;h3 id=&quot;디렉토리&quot;&gt;디렉토리&lt;/h3&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git filter-branch &lt;span class=&quot;nt&quot;&gt;--force&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--index-filter&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;s1&quot;&gt;'git rm -r --cached --ignore-unmatch 폴더명'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;--prune-empty&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--tag-name-filter&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-이렇게 되면 로컬에 있는 저장소에 있는 이전 commit 들에서 파일이나 폴더가 전부 제거됩니다. 
+&lt;p&gt;이렇게 되면 로컬에 있는 저장소에 있는 이전 commit 들에서 파일이나 폴더가 전부 제거됩니다.&lt;/p&gt;
 
-### 원격 저장소에 반영하기
-~~~ bash
-$ git add *
-$ git commit -m &quot;delete before files&quot;
-$ git push origin master --force
-~~~
+&lt;h3 id=&quot;원격-저장소에-반영하기&quot;&gt;원격 저장소에 반영하기&lt;/h3&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git add &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;delete before files&quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push origin master &lt;span class=&quot;nt&quot;&gt;--force&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-그 이후, 위와 같이 push 명령어에서 --force 를 추가하여 push 해주면 원격 저장소에서도 잘 반영됩니다.</content><author><name>melonicedlatte</name></author><category term="Computer" /><category term="Computer" /><summary type="html">문제 github를 사용하다 보면 이전에 불필요한 파일이 올라갈 때가 있습니다. 이럴 때, 이전에 올라간 파일을 github에서도 제거를 하고 싶은데, 파일만 지우고 commit 을 하게 되면 이전 commit 에서 해당 문제점을 확인할 수 있습니다. 문제가 있는 파일을 모두 제거해야 하는데 이럴때에는 아래와 같은 해결 방법을 사용합니다. 기본적인 내용은 아래의 내용을 참조해서 포스팅했습니다. 저는 Git에 내장된 filter-branch툴을 사용하는 방법만 포스팅하고,다른 방법으로는 BFG Repo-Cleaner를 사용하는 방법이 있습니다. http://minsone.github.io/git/github-advanced-remove-sensitive-data 해결방법 가령 비밀번호가 들어간 파일이라던가 폴더 전체를 제거해야 하는 경우가 있습니다. 파일 $ git filter-branch --force --index-filter \ 'git rm --cached --ignore-unmatch 파일명' \ --prune-empty --tag-name-filter cat -- --all 디렉토리 $ git filter-branch --force --index-filter \ 'git rm -r --cached --ignore-unmatch 폴더명' \ --prune-empty --tag-name-filter cat -- --all 이렇게 되면 로컬에 있는 저장소에 있는 이전 commit 들에서 파일이나 폴더가 전부 제거됩니다. 원격 저장소에 반영하기 $ git add * $ git commit -m &quot;delete before files&quot; $ git push origin master --force 그 이후, 위와 같이 push 명령어에서 –force 를 추가하여 push 해주면 원격 저장소에서도 잘 반영됩니다.</summary></entry><entry><title type="html">강화학습에 대한 기본적인 개념</title><link href="http://localhost:4000/machinelearning/2019/04/20/091700.html" rel="alternate" type="text/html" title="강화학습에 대한 기본적인 개념" /><published>2019-04-20T00:00:00+09:00</published><updated>2019-04-20T00:00:00+09:00</updated><id>http://localhost:4000/machinelearning/2019/04/20/091700</id><content type="html" xml:base="http://localhost:4000/machinelearning/2019/04/20/091700.html">## 강화학습의 개념
-
-&lt;div&gt;{%- include extensions/youtube.html id='3TciIbGUYUg' -%}&lt;/div&gt;
-
-&lt;!-- &lt;iframe width=&quot;665&quot; height=&quot;554&quot; src=&quot;https://www.youtube.com/embed/3TciIbGUYUg&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt; --&gt;
-
-강화학습으로 자동차를 제어하는 영상입니다. 어떻게 자동차가 자기 스스로 주행하는 방법을 학습할 수 있을까요? (실제 자동차 운전에서는 안전 문제때문에 강화 학습을 잘 적용하지 않는 것으로 알고 있습니다. 영상은 게임이기 때문에, 수없이 많은 시도를 할 수 있어 강화학습이 가능합니다.)
-
-아래에서 강화학습에 대하여 알아보겠습니다.
-
-### 스키너의 강화 연구
-
-스키너의 강화 연구는 강화학습 이야기가 나오면 항상 나오는 이야기입니다. 스키너의 강화 연구는 아래와 같은 이야기입니다.
-
-1. 굶긴 쥐를 지렛대를 누르게 되면 먹이가 나오게 되는 상자에 넣습니다.
-2. 아무 것도 모르는 쥐가 이곳 저곳 돌아다니다가 지렛대를 눌러 먹이를 받습니다.
-3. 지렛대의 원리를 파악하지 못한 쥐는 왜 나오는지 모르고 다시 아무곳이나 돌아다닙니다.
-4. 돌아다니다가 지렛대를 계속 누르면서 먹이를 받고, 지렛대와 먹이와의 상관관계를 학습하게 됩니다.
-
-### 지도학습? 비지도학습? 강화학습?
-
-- 지도학습 : 정답을 알고 있는 데이터로 컴퓨터를 학습.
-- 비지도학습 : 정답이 없는 데이터를 학습.
-- 강화학습 : 보상(행위자가 선택한 행동에 대한 환경의 반응)을 통해 학습. 자신의 행동과 행동의 결과를 보상을 통해 어떠한 행동을 해야 할 지 학습.
-
-## 어디에 강화 학습을 적용할 수 있을까?
-
-### 순차적 행동 결정 문제
-
-`순차적 행동 결정 문제`란 결정을 순차적으로 내려야 하는 문제에 적용됩니다. 체스나 장기같은 게임은 한 말이 움직이고 나서야 그 다음에 다음 말을 움직일 수 있는 순차적 행동 결정 문제 중 한 가지입니다.
-
-#### 순차적 행동 결정 문제의 구성 요소
-
-강화학습을 통해 학습하는 행위자, 컴퓨터를 agent 라고 합니다.
-
-- 상태 : agent의 정적, 동적인 정보
-  - 예) 축구 선수 위치, 축구 공의 속도
-- 행동 : agent가 취할 수 있는 행동
-  - 예) 축구 선수의 이동, 축구 선수의 슈팅 여부
-- 보상 : 행위를 했을 때, 얻을 수 있는 값. 보상이 최대가 되게 하는 정책을 찾아야 함. 
-  - 예) 득점시 100점, 실책시 -10점 등
-- 정책 : agent가 보상을 얻으려면 행동을 해야 한다. agent는 주어진 상태에 어떤 행동을 해야할 지 알야아 한다. 즉, agent의 모든 상태에 대해 agent가 어떤 행동을 해야 하는지 정해 놓은 것.
-
-이러한 4가지 구성 요소들을 `MDP`라고 합니다.</content><author><name>melonicedlatte</name></author><category term="MachineLearning" /><category term="MachineLearning" /><summary type="html">강화학습의 개념 강화학습으로 자동차를 제어하는 영상입니다. 어떻게 자동차가 자기 스스로 주행하는 방법을 학습할 수 있을까요? (실제 자동차 운전에서는 안전 문제때문에 강화 학습을 잘 적용하지 않는 것으로 알고 있습니다. 영상은 게임이기 때문에, 수없이 많은 시도를 할 수 있어 강화학습이 가능합니다.) 아래에서 강화학습에 대하여 알아보겠습니다. 스키너의 강화 연구 스키너의 강화 연구는 강화학습 이야기가 나오면 항상 나오는 이야기입니다. 스키너의 강화 연구는 아래와 같은 이야기입니다. 굶긴 쥐를 지렛대를 누르게 되면 먹이가 나오게 되는 상자에 넣습니다. 아무 것도 모르는 쥐가 이곳 저곳 돌아다니다가 지렛대를 눌러 먹이를 받습니다. 지렛대의 원리를 파악하지 못한 쥐는 왜 나오는지 모르고 다시 아무곳이나 돌아다닙니다. 돌아다니다가 지렛대를 계속 누르면서 먹이를 받고, 지렛대와 먹이와의 상관관계를 학습하게 됩니다. 지도학습? 비지도학습? 강화학습? 지도학습 : 정답을 알고 있는 데이터로 컴퓨터를 학습. 비지도학습 : 정답이 없는 데이터를 학습. 강화학습 : 보상(행위자가 선택한 행동에 대한 환경의 반응)을 통해 학습. 자신의 행동과 행동의 결과를 보상을 통해 어떠한 행동을 해야 할 지 학습. 어디에 강화 학습을 적용할 수 있을까? 순차적 행동 결정 문제 순차적 행동 결정 문제란 결정을 순차적으로 내려야 하는 문제에 적용됩니다. 체스나 장기같은 게임은 한 말이 움직이고 나서야 그 다음에 다음 말을 움직일 수 있는 순차적 행동 결정 문제 중 한 가지입니다. 순차적 행동 결정 문제의 구성 요소 강화학습을 통해 학습하는 행위자, 컴퓨터를 agent 라고 합니다. 상태 : agent의 정적, 동적인 정보 예) 축구 선수 위치, 축구 공의 속도 행동 : agent가 취할 수 있는 행동 예) 축구 선수의 이동, 축구 선수의 슈팅 여부 보상 : 행위를 했을 때, 얻을 수 있는 값. 보상이 최대가 되게 하는 정책을 찾아야 함. 예) 득점시 100점, 실책시 -10점 등 정책 : agent가 보상을 얻으려면 행동을 해야 한다. agent는 주어진 상태에 어떤 행동을 해야할 지 알야아 한다. 즉, agent의 모든 상태에 대해 agent가 어떤 행동을 해야 하는지 정해 놓은 것. 이러한 4가지 구성 요소들을 MDP라고 합니다.</summary></entry><entry><title type="html">블루투스 이어폰이 PC와 연결이 잘 되지 않을때 설정하기</title><link href="http://localhost:4000/computer/2019/04/15/202400.html" rel="alternate" type="text/html" title="블루투스 이어폰이 PC와 연결이 잘 되지 않을때 설정하기" /><published>2019-04-15T00:00:00+09:00</published><updated>2019-04-15T00:00:00+09:00</updated><id>http://localhost:4000/computer/2019/04/15/202400</id><content type="html" xml:base="http://localhost:4000/computer/2019/04/15/202400.html">## 문제점
-
-에어팟을 시작으로 무선 블루투스 이어폰은 현재 많은 사람들이 사용하고 있습니다. 핸드폰에서는 연결이 매우 잘 되지만 컴퓨터에서는 상대적으로 잘 되지 않습니다.
-
-제가 사용하는 서피스 프로 4 노트북에서도 상대적으로 잘 연결이 안 되는 문제가 있었습니다. 항상 처음 연결할 때, 연결이 제대로 잘 되지 않고 5초 간격으로 컴퓨터와 연결했다가 끊어졌다가를 반복했습니다.
-
-저는 QCY-t1s 이어폰을 이용하여 여러 가지를 시도하였고, 현재는 이어폰과 연결을 시도하면 바로 잘 되게 되었습니다.
-
-### 문제점 정리
-
-- 블루투스 기기가 PC에서 소리가 나지 않으면 자동으로 끊김
-- 항상 처음 연결할 때, 연결이 제대로 잘 되지 않고 5초 간격으로 컴퓨터와 연결했다가 끊어졌다가를 반복
-
-&lt;br/&gt;
-
-## 해결하기
-
-저는 아래와 같은 방법으로 문제를 해결했습니다. 아래의 링크에서 참조했습니다. 저한테도 잘 맞는 방법이었습니다.
-
-&gt; [https://s2obi.tistory.com/21](https://s2obi.tistory.com/21)
-
-### 설정 1
-
-1. 장치 관리자를 열어줍니다.
-   - 시작 -&gt; 실행 -&gt; compmgmt.msc -&gt; 장치 관리자
-   - 시작 -&gt; 오른쪽 마우스 -&gt; 장치 관리자
-2. 블루투스 장비를 컴퓨터에 연결한 후 장치 관리자의 휴먼 인터페이스 장치에 들어갑니다.
-3. 항목에서 Bluetooth 저에너지 GATT 준수 HID 장치의 속성에 들어갑니다.
-4. 전원 관리 탭에 들어간 후 &quot;전원을 절약하기 위해 컴퓨터가 이 장치를 끌 수 있음&quot;를 체크 해제하고 확인을 누릅니다.
-
-### 설정 2
-
-1. 제어판에서 관리 도구의 서비스 항목을 실행합니다.
-   - 시작 -&gt; 실행 -&gt; services.msc
-2. &quot;Bluetooth 지원 서비스&quot;, &quot;Bluetooth 오디오 게이트웨이 서비스&quot; 항목의 속성에 들어가 시작 유형을 자동으로 설정하고 서비스를 재시작해줍니다.
-
-블루투스에서 직접 이어폰의 &quot;전원을 절약하기 위해 컴퓨터가 이 장치를 끌 수 있음&quot; 옵션은 없어서 위와 같이 해주고 재부팅 해주니 기존과 비교하여 상대적으로 잘 동작했습니다.</content><author><name>melonicedlatte</name></author><category term="Computer" /><category term="Computer" /><summary type="html">문제점 에어팟을 시작으로 무선 블루투스 이어폰은 현재 많은 사람들이 사용하고 있습니다. 핸드폰에서는 연결이 매우 잘 되지만 컴퓨터에서는 상대적으로 잘 되지 않습니다. 제가 사용하는 서피스 프로 4 노트북에서도 상대적으로 잘 연결이 안 되는 문제가 있었습니다. 항상 처음 연결할 때, 연결이 제대로 잘 되지 않고 5초 간격으로 컴퓨터와 연결했다가 끊어졌다가를 반복했습니다. 저는 QCY-t1s 이어폰을 이용하여 여러 가지를 시도하였고, 현재는 이어폰과 연결을 시도하면 바로 잘 되게 되었습니다. 문제점 정리 블루투스 기기가 PC에서 소리가 나지 않으면 자동으로 끊김 항상 처음 연결할 때, 연결이 제대로 잘 되지 않고 5초 간격으로 컴퓨터와 연결했다가 끊어졌다가를 반복 해결하기 저는 아래와 같은 방법으로 문제를 해결했습니다. 아래의 링크에서 참조했습니다. 저한테도 잘 맞는 방법이었습니다. https://s2obi.tistory.com/21 설정 1 장치 관리자를 열어줍니다. 시작 -&amp;gt; 실행 -&amp;gt; compmgmt.msc -&amp;gt; 장치 관리자 시작 -&amp;gt; 오른쪽 마우스 -&amp;gt; 장치 관리자 블루투스 장비를 컴퓨터에 연결한 후 장치 관리자의 휴먼 인터페이스 장치에 들어갑니다. 항목에서 Bluetooth 저에너지 GATT 준수 HID 장치의 속성에 들어갑니다. 전원 관리 탭에 들어간 후 “전원을 절약하기 위해 컴퓨터가 이 장치를 끌 수 있음”를 체크 해제하고 확인을 누릅니다. 설정 2 제어판에서 관리 도구의 서비스 항목을 실행합니다. 시작 -&amp;gt; 실행 -&amp;gt; services.msc “Bluetooth 지원 서비스”, “Bluetooth 오디오 게이트웨이 서비스” 항목의 속성에 들어가 시작 유형을 자동으로 설정하고 서비스를 재시작해줍니다. 블루투스에서 직접 이어폰의 “전원을 절약하기 위해 컴퓨터가 이 장치를 끌 수 있음” 옵션은 없어서 위와 같이 해주고 재부팅 해주니 기존과 비교하여 상대적으로 잘 동작했습니다.</summary></entry><entry><title type="html">Github 속도 느릴 때 해결 방법</title><link href="http://localhost:4000/computer/2019/04/06/223900.html" rel="alternate" type="text/html" title="Github 속도 느릴 때 해결 방법" /><published>2019-04-06T00:00:00+09:00</published><updated>2019-04-06T00:00:00+09:00</updated><id>http://localhost:4000/computer/2019/04/06/223900</id><content type="html" xml:base="http://localhost:4000/computer/2019/04/06/223900.html">## 문제점
-
-Github를 사용하다보면 비정상적으로 속도가 느린 경우가 있습니다. 
-
-~~~ bash
-$ git pull
-warning: no common commits
-remote: Enumerating objects: 5241, done.
-remote: Counting objects: 100% (5241/5241), done.
-remote: Compressing objects: 100% (2145/2145), done.
-Rceiving objects:  35% (1880/5241), 140.32 MiB | 56.00 KiB/s
-~~~
-
-위와 같이 git pull 명령어를 입력했는데, 다운로드 속도가 약 56KB가 나왔습니다. 실제 사용하고 있는 인터넷의 속도는 1Gbps 정도로 굉장히 빠른데, 너무나도 느린 수치입니다.
-
-&lt;br&gt;
-
-## 해결 방법 발견
-
-이 경우는 `해외 서버 때문이 아닐까?` 라는 정도로 생각하고 기존까지는 그냥 사용해왔었는데, 너무 느려서 다운로드를 받는데 지장이 생기고 작업에 착오가 생겨서 찾아보던 중에 해결법을 찾아내었습니다.
-
-[https://blog.humminglab.io/github-through-proxy/](https://blog.humminglab.io/github-through-proxy/) 링크에서 이러한 문제를 해결하는 방법을 찾을 수 있었습니다.
-
-&gt; 미국과 같이 해외로 나가는 경우는 통신 사업자가 어떤 광케이블을 계약해서 사용하느냐에 따라 속도가 제각각이 된다. 인터넷 제공 업체를 마음대로 바꿀 수 없는 상황에서, GitHub로 작업은 해야 한다면 해결 방안 중 하나가 proxy를 사용하여 다른 망을 사용하여 나가도록 하는 것이다. 
-
-라는 멘트를 발견했습니다.
-
-&gt; `프록시 서버`는 클라이언트가 자신을 통해서 다른 네트워크 서비스에 간접적으로 접속할 수 있게 해 주는 컴퓨터나 응용 프로그램을 가리킨다. 서버와 클라이언트 사이에서 중계기로서 대리로 통신을 수행하는 기능을 가리켜 '프록시', 그 중계 기능을 하는 것을 프록시 서버라고 부른다 *by 위키백과*
-
-프록시 서버를 변경하여 다른 네트워크에 접속할 수 있는 경로를 변경해줘서 속도를 올리는 방법이었습니다.
-
-&lt;br&gt;
-
-## 해결하기
-
-[https://www.socks-proxy.net/](https://www.socks-proxy.net/) 저는 이 링크에서 proxy 서버를 찾았습니다. 위에 언급한 블로그에서 사용한 링크들은 전부 잘 동작하지 않았습니다. 응답이 좋은 순서대로 하나씩 적용하면서 사용할 수 있는 proxy를 고르면 된다고 합니다. 
-
-![Alt text](/assets/images/20190406/proxy_capture.PNG)
-
-제가 입력한 링크에서 Korea로 검색하면 아래와 같이 나오게 됩니다. 
-
-~~~ bash
-$ git config --global http.https://github.com.proxy socks4://112.218.169.189:4145
-$ git pull origin master
-warning: no common commits
-remote: Enumerating objects: 5241, done.
-remote: Counting objects: 100% (5241/5241), done.
-remote: Compressing objects: 100% (2145/2145), done.
-remote: Total 5241 (delta 150), reused 5241 (delta 150), pack-reused 0
-Receiving objects: 100% (5241/5241), 313.81 MiB | 846.00 KiB/s, done.
-Resolving deltas: 100% (150/150), done.
-~~~
-
-위와 같은 명령어를 입력하여 pull을 진행하니 다운로드 속도가 대략 1MiB/s 가 나왔습니다. 10배 이상의 속도 진전이 있었습니다. (위에서는 313.81Mib 로 나오지만 다운 받을 때는 1MiB/s 정도 나왔습니다. 뒤의 속도는 평균 속도인 것으로 추측됩니다.) 
-
-이렇게 다운로드 하니 암이 치료되고 다운로드는 금방 끝났습니다. proxy 주소가 들어갈 때마다 바뀌는 것 같으니 항상 github의 config 를 위의 명령어로 바꿔주어야 하지만 속도는 빨라지니 .. 일단은 사용해야겠습니다. 더 좋은 방법이 있으면 댓글로 알려주세요~
-
-이 해결법을 보면서 느낀 점은 `아직도 지식이 많이 부족하구나` 라는 것입니다. 문제를 해결하려면 `전반적인 컴퓨터 지식`이 훨씬 더 많이 필요한 것 같습니다. 단순히 git을 사용하는 것 뿐 아니라 네트워크 적인 지식과 서버와 관련된 지식까지 총체적으로 아직은 갈 길이 멀은 것 같습니다.</content><author><name>melonicedlatte</name></author><category term="Computer" /><category term="Computer" /><summary type="html">문제점 Github를 사용하다보면 비정상적으로 속도가 느린 경우가 있습니다. $ git pull warning: no common commits remote: Enumerating objects: 5241, done. remote: Counting objects: 100% (5241/5241), done. remote: Compressing objects: 100% (2145/2145), done. Rceiving objects: 35% (1880/5241), 140.32 MiB | 56.00 KiB/s 위와 같이 git pull 명령어를 입력했는데, 다운로드 속도가 약 56KB가 나왔습니다. 실제 사용하고 있는 인터넷의 속도는 1Gbps 정도로 굉장히 빠른데, 너무나도 느린 수치입니다. 해결 방법 발견 이 경우는 해외 서버 때문이 아닐까? 라는 정도로 생각하고 기존까지는 그냥 사용해왔었는데, 너무 느려서 다운로드를 받는데 지장이 생기고 작업에 착오가 생겨서 찾아보던 중에 해결법을 찾아내었습니다. https://blog.humminglab.io/github-through-proxy/ 링크에서 이러한 문제를 해결하는 방법을 찾을 수 있었습니다. 미국과 같이 해외로 나가는 경우는 통신 사업자가 어떤 광케이블을 계약해서 사용하느냐에 따라 속도가 제각각이 된다. 인터넷 제공 업체를 마음대로 바꿀 수 없는 상황에서, GitHub로 작업은 해야 한다면 해결 방안 중 하나가 proxy를 사용하여 다른 망을 사용하여 나가도록 하는 것이다. 라는 멘트를 발견했습니다. 프록시 서버는 클라이언트가 자신을 통해서 다른 네트워크 서비스에 간접적으로 접속할 수 있게 해 주는 컴퓨터나 응용 프로그램을 가리킨다. 서버와 클라이언트 사이에서 중계기로서 대리로 통신을 수행하는 기능을 가리켜 ‘프록시’, 그 중계 기능을 하는 것을 프록시 서버라고 부른다 by 위키백과 프록시 서버를 변경하여 다른 네트워크에 접속할 수 있는 경로를 변경해줘서 속도를 올리는 방법이었습니다. 해결하기 https://www.socks-proxy.net/ 저는 이 링크에서 proxy 서버를 찾았습니다. 위에 언급한 블로그에서 사용한 링크들은 전부 잘 동작하지 않았습니다. 응답이 좋은 순서대로 하나씩 적용하면서 사용할 수 있는 proxy를 고르면 된다고 합니다. 제가 입력한 링크에서 Korea로 검색하면 아래와 같이 나오게 됩니다. $ git config --global http.https://github.com.proxy socks4://112.218.169.189:4145 $ git pull origin master warning: no common commits remote: Enumerating objects: 5241, done. remote: Counting objects: 100% (5241/5241), done. remote: Compressing objects: 100% (2145/2145), done. remote: Total 5241 (delta 150), reused 5241 (delta 150), pack-reused 0 Receiving objects: 100% (5241/5241), 313.81 MiB | 846.00 KiB/s, done. Resolving deltas: 100% (150/150), done. 위와 같은 명령어를 입력하여 pull을 진행하니 다운로드 속도가 대략 1MiB/s 가 나왔습니다. 10배 이상의 속도 진전이 있었습니다. (위에서는 313.81Mib 로 나오지만 다운 받을 때는 1MiB/s 정도 나왔습니다. 뒤의 속도는 평균 속도인 것으로 추측됩니다.) 이렇게 다운로드 하니 암이 치료되고 다운로드는 금방 끝났습니다. proxy 주소가 들어갈 때마다 바뀌는 것 같으니 항상 github의 config 를 위의 명령어로 바꿔주어야 하지만 속도는 빨라지니 .. 일단은 사용해야겠습니다. 더 좋은 방법이 있으면 댓글로 알려주세요~ 이 해결법을 보면서 느낀 점은 아직도 지식이 많이 부족하구나 라는 것입니다. 문제를 해결하려면 전반적인 컴퓨터 지식이 훨씬 더 많이 필요한 것 같습니다. 단순히 git을 사용하는 것 뿐 아니라 네트워크 적인 지식과 서버와 관련된 지식까지 총체적으로 아직은 갈 길이 멀은 것 같습니다.</summary></entry><entry><title type="html">Jekyll front matter not work and print out in html view</title><link href="http://localhost:4000/computer/2019/03/23/162100.html" rel="alternate" type="text/html" title="Jekyll front matter not work and print out in html view" /><published>2019-03-23T00:00:00+09:00</published><updated>2019-03-23T00:00:00+09:00</updated><id>http://localhost:4000/computer/2019/03/23/162100</id><content type="html" xml:base="http://localhost:4000/computer/2019/03/23/162100.html">If Jekyll front matter not work and print out in html view, i recommend you have to remake your file.
-
-In my case, I copy `.html` file and just change extension to `.md`.
-And after that, jekyll can't not recognize my front matter and print in html.
-
-Make file new and choose extension `.md`. 
-
-And this solution will not work, you have to go [this link stack overflow](https://stackoverflow.com/questions/42351219/jekyll-frontmatter-appearing-on-my-website-and-not-inserting-properly-into-my-de).</content><author><name>melonicedlatte</name></author><category term="Computer" /><category term="Computer" /><summary type="html">If Jekyll front matter not work and print out in html view, i recommend you have to remake your file. In my case, I copy .html file and just change extension to .md. And after that, jekyll can’t not recognize my front matter and print in html. Make file new and choose extension .md. And this solution will not work, you have to go this link stack overflow.</summary></entry><entry><title type="html">gem install Jekyll bundles 명령어 입력시 발생하는 오류 해결하기</title><link href="http://localhost:4000/web/2019/03/16/032628.html" rel="alternate" type="text/html" title="gem install Jekyll bundles 명령어 입력시 발생하는 오류 해결하기 " /><published>2019-03-16T00:00:00+09:00</published><updated>2019-03-16T00:00:00+09:00</updated><id>http://localhost:4000/web/2019/03/16/032628</id><content type="html" xml:base="http://localhost:4000/web/2019/03/16/032628.html">&lt;pre&gt;Building native extensions. This could take a while...&lt;br&gt;ERROR:&amp;nbsp; Error installing jekyll:&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; ERROR: Failed to build gem native extension.&lt;br&gt;&amp;nbsp; &amp;nbsp; current directory: /var/lib/gems/2.5.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser&lt;br&gt;/usr/bin/ruby2.5 -r ./siteconf20190316-12768-1kxw7w6.rb extconf.rb&lt;br&gt;creating Makefile&lt;br&gt;current directory: /var/lib/gems/2.5.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser&lt;br&gt;make &quot;DESTDIR=&quot; clean&lt;br&gt;sh: 1: make: not found&lt;br&gt;current directory: /var/lib/gems/2.5.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser&lt;br&gt;make &quot;DESTDIR=&quot;&lt;br&gt;sh: 1: make: not found&lt;br&gt;make failed, exit code 127&lt;br&gt;Gem files will remain installed in /var/lib/gems/2.5.0/gems/http_parser.rb-0.6.0 for inspection.&lt;br&gt;Results logged to /var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/http_parser.rb-0.6.0/gem_make.out&lt;br&gt;Successfully installed bundler-2.0.1&lt;br&gt;Parsing documentation for bundler-2.0.1&lt;br&gt;Done installing documentation for bundler after 6 seconds&lt;br&gt;1 gem installed&lt;/pre&gt;&lt;p&gt;Jekyll 을 이용하여 요새 github 블로그를 만드는 개발자가 많아지고 있다.&lt;br&gt;위와 같은 에러 메세지를 출력하면서 설치가 되지 않는 경우가 있다.&amp;nbsp;&lt;br&gt;위와 같은 에러가 발생하면 아래와 같은 명령어를 입력해보자.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;blockquote&gt;sudo apt-get install build-essential&lt;/blockquote&gt;&lt;blockquote&gt;sudo apt install ruby-dev make gcc&lt;/blockquote&gt;&lt;blockquote&gt;sudo apt-get install ruby-dev&lt;/blockquote&gt;&lt;p&gt;위의 3가지 명령어를 입력해서 해결해보자.&lt;br&gt;가장 위의 명령어 순서대로 중요도인 것 같지만 전부 다 입력해서 해결했다. (이래서 docker를 쓰나보다. 다시 공부를 해야겠다..)&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Web" /><category term="Web" /><summary type="html">Building native extensions. This could take a while...ERROR:&amp;nbsp; Error installing jekyll:&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; ERROR: Failed to build gem native extension.&amp;nbsp; &amp;nbsp; current directory: /var/lib/gems/2.5.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser/usr/bin/ruby2.5 -r ./siteconf20190316-12768-1kxw7w6.rb extconf.rbcreating Makefilecurrent directory: /var/lib/gems/2.5.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parsermake &quot;DESTDIR=&quot; cleansh: 1: make: not foundcurrent directory: /var/lib/gems/2.5.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parsermake &quot;DESTDIR=&quot;sh: 1: make: not foundmake failed, exit code 127Gem files will remain installed in /var/lib/gems/2.5.0/gems/http_parser.rb-0.6.0 for inspection.Results logged to /var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/http_parser.rb-0.6.0/gem_make.outSuccessfully installed bundler-2.0.1Parsing documentation for bundler-2.0.1Done installing documentation for bundler after 6 seconds1 gem installedJekyll 을 이용하여 요새 github 블로그를 만드는 개발자가 많아지고 있다.위와 같은 에러 메세지를 출력하면서 설치가 되지 않는 경우가 있다.&amp;nbsp;위와 같은 에러가 발생하면 아래와 같은 명령어를 입력해보자.sudo apt-get install build-essentialsudo apt install ruby-dev make gccsudo apt-get install ruby-dev위의 3가지 명령어를 입력해서 해결해보자.가장 위의 명령어 순서대로 중요도인 것 같지만 전부 다 입력해서 해결했다. (이래서 docker를 쓰나보다. 다시 공부를 해야겠다..)</summary></entry><entry><title type="html">[error solve] /var/lib/gems/2.5.0/gems/nokogiri-1.10</title><link href="http://localhost:4000/computer/2019/03/16/163027.html" rel="alternate" type="text/html" title="[error solve] /var/lib/gems/2.5.0/gems/nokogiri-1.10" /><published>2019-03-16T00:00:00+09:00</published><updated>2019-03-16T00:00:00+09:00</updated><id>http://localhost:4000/computer/2019/03/16/163027</id><content type="html" xml:base="http://localhost:4000/computer/2019/03/16/163027.html">&lt;div class=&quot;colorscripter-code&quot; style=&quot;color:#f0f0f0; font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important; overflow:auto&quot;&gt;&lt;table class=&quot;colorscripter-code-table&quot; style=&quot;margin:0; padding:0; border:none; background-color:#272727; border-radius:4px;&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px; border-right:2px solid #4f4f4f&quot;&gt;&lt;div style=&quot;margin:0; padding:0; word-break:normal; text-align:right; color:#aaa; font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; line-height:130%&quot;&gt;&lt;div style=&quot;line-height:130%&quot;&gt;1&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;2&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;3&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;4&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;5&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;6&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;7&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;8&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;9&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;10&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;11&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;12&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;13&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;14&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;15&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;16&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;17&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;18&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;19&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;20&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;21&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;22&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;23&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;24&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;25&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;26&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;27&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;28&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;29&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;30&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;31&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;32&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;33&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;34&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;35&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;36&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;37&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;38&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;39&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;40&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;41&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;42&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;43&lt;/div&gt;&lt;div style=&quot;line-height:130%&quot;&gt;44&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;td style=&quot;padding:6px 0&quot;&gt;&lt;div style=&quot;margin:0; padding:0; color:#f0f0f0; font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; line-height:130%&quot;&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;Building&amp;nbsp;native&amp;nbsp;extensions.&amp;nbsp;This&amp;nbsp;could&amp;nbsp;take&amp;nbsp;a&amp;nbsp;while...&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;ERROR:&amp;nbsp;&amp;nbsp;Error&amp;nbsp;installing&amp;nbsp;nokogiri:&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ERROR:&amp;nbsp;Failed&amp;nbsp;to&amp;nbsp;build&amp;nbsp;gem&amp;nbsp;native&amp;nbsp;extension.&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;current&amp;nbsp;directory:&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;var&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;lib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;gems&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;5.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;gems&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;nokogiri&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;1.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;10.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;ext&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;nokogiri&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;usr&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;bin&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;ruby2.&lt;span style=&quot;color:#c10aff&quot;&gt;5&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;I&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;usr&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;local&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;lib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;site_ruby&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;5.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;0&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;r&amp;nbsp;.&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;siteconf20190316&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;3942&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;1d1t3tz.rb&amp;nbsp;extconf.rb&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;checking&amp;nbsp;&lt;span style=&quot;color:#ff3399&quot;&gt;if&lt;/span&gt;&amp;nbsp;the&amp;nbsp;C&amp;nbsp;compiler&amp;nbsp;accepts&amp;nbsp;...&amp;nbsp;yes&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;Building&amp;nbsp;nokogiri&amp;nbsp;using&amp;nbsp;packaged&amp;nbsp;libraries.&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;Using&amp;nbsp;mini_portile&amp;nbsp;version&amp;nbsp;&lt;span style=&quot;color:#c10aff&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;4.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;0&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;checking&amp;nbsp;&lt;span style=&quot;color:#ff3399&quot;&gt;for&lt;/span&gt;&amp;nbsp;gzdopen()&amp;nbsp;in&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;lz...&amp;nbsp;no&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;zlib&amp;nbsp;is&amp;nbsp;missing;&amp;nbsp;necessary&amp;nbsp;&lt;span style=&quot;color:#ff3399&quot;&gt;for&lt;/span&gt;&amp;nbsp;building&amp;nbsp;libxml2&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;*&lt;/span&gt;&amp;nbsp;extconf.rb&amp;nbsp;failed&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;*&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;*&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;Could&amp;nbsp;not&amp;nbsp;create&amp;nbsp;Makefile&amp;nbsp;due&amp;nbsp;to&amp;nbsp;some&amp;nbsp;reason,&amp;nbsp;probably&amp;nbsp;lack&amp;nbsp;of&amp;nbsp;necessary&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;libraries&amp;nbsp;and&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;or&amp;nbsp;headers.&amp;nbsp;&amp;nbsp;Check&amp;nbsp;the&amp;nbsp;mkmf.log&amp;nbsp;file&amp;nbsp;&lt;span style=&quot;color:#ff3399&quot;&gt;for&lt;/span&gt;&amp;nbsp;more&amp;nbsp;details.&amp;nbsp;&amp;nbsp;You&amp;nbsp;may&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;need&amp;nbsp;configuration&amp;nbsp;options.&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;Provided&amp;nbsp;configuration&amp;nbsp;options:&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;with&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;opt&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;dir&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;without&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;opt&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;dir&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;with&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;opt&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;include&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;without&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;opt&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;include&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;=&lt;/span&gt;${opt&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;dir}&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;include&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;with&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;opt&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;lib&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;without&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;opt&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;lib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;=&lt;/span&gt;${opt&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;dir}&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;lib&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;with&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;make&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;prog&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;without&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;make&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;prog&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;srcdir&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;=&lt;/span&gt;.&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;curdir&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;ruby&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;usr&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;bin&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;$(RUBY_BASE_NAME)&lt;span style=&quot;color:#c10aff&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;5&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;help&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;clean&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;use&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;system&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;libraries&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;enable&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;static&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;disable&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;static&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;with&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;zlib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;dir&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;without&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;zlib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;dir&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;with&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;zlib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;include&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;without&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;zlib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;include&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;=&lt;/span&gt;${zlib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;dir}&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;include&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;with&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;zlib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;lib&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;without&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;zlib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;lib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;=&lt;/span&gt;${zlib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;dir}&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;lib&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;enable&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;cross&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;build&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;disable&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;cross&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;build&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;To&amp;nbsp;see&amp;nbsp;why&amp;nbsp;this&amp;nbsp;extension&amp;nbsp;failed&amp;nbsp;to&amp;nbsp;compile,&amp;nbsp;please&amp;nbsp;check&amp;nbsp;the&amp;nbsp;mkmf.log&amp;nbsp;which&amp;nbsp;can&amp;nbsp;be&amp;nbsp;found&amp;nbsp;here:&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;&amp;nbsp;&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;var&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;lib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;gems&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;5.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;extensions&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;x86_64&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;linux&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;5.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;nokogiri&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;1.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;10.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;mkmf.log&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;extconf&amp;nbsp;failed,&amp;nbsp;exit&amp;nbsp;code&amp;nbsp;&lt;span style=&quot;color:#c10aff&quot;&gt;1&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;Gem&amp;nbsp;files&amp;nbsp;will&amp;nbsp;remain&amp;nbsp;installed&amp;nbsp;in&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;var&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;lib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;gems&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;5.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;gems&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;nokogiri&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;1.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;10.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;1&lt;/span&gt;&amp;nbsp;&lt;span style=&quot;color:#ff3399&quot;&gt;for&lt;/span&gt;&amp;nbsp;inspection.&lt;/div&gt;&lt;div style=&quot;padding:0 6px; white-space:pre; line-height:130%&quot;&gt;Results&amp;nbsp;logged&amp;nbsp;to&amp;nbsp;&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;var&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;lib&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;gems&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;5.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;extensions&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;x86_64&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;linux&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;5.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;nokogiri&lt;span style=&quot;color:#0086b3&quot;&gt;&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;1.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;10.&lt;/span&gt;&lt;span style=&quot;color:#c10aff&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#ff3399&quot;&gt;/&lt;/span&gt;gem_make.out&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;td style=&quot;vertical-align:bottom; padding:0 2px 4px 0&quot;&gt;&lt;a href=&quot;http://colorscripter.com/info#e&quot; target=&quot;_blank&quot; style=&quot;text-decoration:none; color:white&quot;&gt;&lt;span style=&quot;font-size:9px; word-break:normal; background-color:#4f4f4f; color:white; border-radius:10px; padding:1px&quot;&gt;cs&lt;/span&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
-
-&lt;br&gt; 
-&lt;p&gt;If you see this error, you can solve problem using this command.&lt;br&gt;You have to install zlib.&lt;/p&gt;&lt;p&gt;&lt;blockquote&gt;sudo apt-get install zlib1g-dev&lt;br&gt;&lt;/blockquote&gt;&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Computer" /><category term="Computer" /><summary type="html">1234567891011121314151617181920212223242526272829303132333435363738394041424344Building&amp;nbsp;native&amp;nbsp;extensions.&amp;nbsp;This&amp;nbsp;could&amp;nbsp;take&amp;nbsp;a&amp;nbsp;while...ERROR:&amp;nbsp;&amp;nbsp;Error&amp;nbsp;installing&amp;nbsp;nokogiri:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ERROR:&amp;nbsp;Failed&amp;nbsp;to&amp;nbsp;build&amp;nbsp;gem&amp;nbsp;native&amp;nbsp;extension.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;current&amp;nbsp;directory:&amp;nbsp;/var/lib/gems/2.5.0/gems/nokogiri-1.10.1/ext/nokogiri/usr/bin/ruby2.5&amp;nbsp;-I&amp;nbsp;/usr/local/lib/site_ruby/2.5.0&amp;nbsp;-r&amp;nbsp;./siteconf20190316-3942-1d1t3tz.rb&amp;nbsp;extconf.rbchecking&amp;nbsp;if&amp;nbsp;the&amp;nbsp;C&amp;nbsp;compiler&amp;nbsp;accepts&amp;nbsp;...&amp;nbsp;yesBuilding&amp;nbsp;nokogiri&amp;nbsp;using&amp;nbsp;packaged&amp;nbsp;libraries.Using&amp;nbsp;mini_portile&amp;nbsp;version&amp;nbsp;2.4.0checking&amp;nbsp;for&amp;nbsp;gzdopen()&amp;nbsp;in&amp;nbsp;-lz...&amp;nbsp;nozlib&amp;nbsp;is&amp;nbsp;missing;&amp;nbsp;necessary&amp;nbsp;for&amp;nbsp;building&amp;nbsp;libxml2***&amp;nbsp;extconf.rb&amp;nbsp;failed&amp;nbsp;***Could&amp;nbsp;not&amp;nbsp;create&amp;nbsp;Makefile&amp;nbsp;due&amp;nbsp;to&amp;nbsp;some&amp;nbsp;reason,&amp;nbsp;probably&amp;nbsp;lack&amp;nbsp;of&amp;nbsp;necessarylibraries&amp;nbsp;and/or&amp;nbsp;headers.&amp;nbsp;&amp;nbsp;Check&amp;nbsp;the&amp;nbsp;mkmf.log&amp;nbsp;file&amp;nbsp;for&amp;nbsp;more&amp;nbsp;details.&amp;nbsp;&amp;nbsp;You&amp;nbsp;mayneed&amp;nbsp;configuration&amp;nbsp;options.Provided&amp;nbsp;configuration&amp;nbsp;options:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--with-opt-dir&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--without-opt-dir&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--with-opt-include&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--without-opt-include=${opt-dir}/include&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--with-opt-lib&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--without-opt-lib=${opt-dir}/lib&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--with-make-prog&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--without-make-prog&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--srcdir=.&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--curdir&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--ruby=/usr/bin/$(RUBY_BASE_NAME)2.5&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--help&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--clean&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--use-system-libraries&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--enable-static&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--disable-static&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--with-zlib-dir&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--without-zlib-dir&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--with-zlib-include&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--without-zlib-include=${zlib-dir}/include&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--with-zlib-lib&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--without-zlib-lib=${zlib-dir}/lib&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--enable-cross-build&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;--disable-cross-buildTo&amp;nbsp;see&amp;nbsp;why&amp;nbsp;this&amp;nbsp;extension&amp;nbsp;failed&amp;nbsp;to&amp;nbsp;compile,&amp;nbsp;please&amp;nbsp;check&amp;nbsp;the&amp;nbsp;mkmf.log&amp;nbsp;which&amp;nbsp;can&amp;nbsp;be&amp;nbsp;found&amp;nbsp;here:&amp;nbsp;&amp;nbsp;/var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/nokogiri-1.10.1/mkmf.logextconf&amp;nbsp;failed,&amp;nbsp;exit&amp;nbsp;code&amp;nbsp;1Gem&amp;nbsp;files&amp;nbsp;will&amp;nbsp;remain&amp;nbsp;installed&amp;nbsp;in&amp;nbsp;/var/lib/gems/2.5.0/gems/nokogiri-1.10.1&amp;nbsp;for&amp;nbsp;inspection.Results&amp;nbsp;logged&amp;nbsp;to&amp;nbsp;/var/lib/gems/2.5.0/extensions/x86_64-linux/2.5.0/nokogiri-1.10.1/gem_make.outcs If you see this error, you can solve problem using this command.You have to install zlib.sudo apt-get install zlib1g-dev</summary></entry></feed>
+&lt;p&gt;그 이후, 위와 같이 push 명령어에서 –force 를 추가하여 push 해주면 원격 저장소에서도 잘 반영됩니다.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Programming" /><category term="Programming" /><summary type="html">문제 github를 사용하다 보면 이전에 불필요한 파일이 올라갈 때가 있습니다. 이럴 때, 이전에 올라간 파일을 github에서도 제거를 하고 싶은데, 파일만 지우고 commit 을 하게 되면 이전 commit 에서 해당 문제점을 확인할 수 있습니다. 문제가 있는 파일을 모두 제거해야 하는데 이럴때에는 아래와 같은 해결 방법을 사용합니다. 기본적인 내용은 아래의 내용을 참조해서 포스팅했습니다. 저는 Git에 내장된 filter-branch툴을 사용하는 방법만 포스팅하고,다른 방법으로는 BFG Repo-Cleaner를 사용하는 방법이 있습니다. http://minsone.github.io/git/github-advanced-remove-sensitive-data 해결방법 가령 비밀번호가 들어간 파일이라던가 폴더 전체를 제거해야 하는 경우가 있습니다. 파일 $ git filter-branch --force --index-filter \ 'git rm --cached --ignore-unmatch 파일명' \ --prune-empty --tag-name-filter cat -- --all 디렉토리 $ git filter-branch --force --index-filter \ 'git rm -r --cached --ignore-unmatch 폴더명' \ --prune-empty --tag-name-filter cat -- --all 이렇게 되면 로컬에 있는 저장소에 있는 이전 commit 들에서 파일이나 폴더가 전부 제거됩니다. 원격 저장소에 반영하기 $ git add * $ git commit -m &quot;delete before files&quot; $ git push origin master --force 그 이후, 위와 같이 push 명령어에서 –force 를 추가하여 push 해주면 원격 저장소에서도 잘 반영됩니다.</summary></entry></feed>

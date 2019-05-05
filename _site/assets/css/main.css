@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 figure.highlight::before { color: #8e908c !important; background-color: #f7f7f7 !important; }
 
 pre.lineno { color: #8e908c !important; }
@@ -411,14 +412,14 @@ pre.lineno { color: #8e908c !important; }
 html { font-size: 16px; -webkit-text-size-adjust: 100%; /* 1 */ }
 @media print { html { font-size: 14px; } }
 
-body { padding: 0; margin: 0; font: 400 1rem/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+body { padding: 0; margin: 0; font: 400 1rem/1.6 "Nanum Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
 body ::-moz-selection { background: rgba(252, 77, 80, 0.5); }
 body ::-webkit-selection { background: rgba(252, 77, 80, 0.5); }
 body ::selection { background: rgba(252, 77, 80, 0.5); }
 
 h1, h2, h3, h4, h5, h6, p, hr, blockquote, figure, pre, .highlighter-rouge, ul, ol, dl, table, .footnotes { padding: 0; margin: 0.5rem 0; }
 
-input, textarea, select, button { font: 400 1rem/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #222; }
+input, textarea, select, button { font: 400 1rem/1.6 "Nanum Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #222; }
 
 h1, h2, h3, h4, h5, h6, strong { font-weight: 700; }
 
@@ -1630,10 +1631,14 @@ body, html, .root, .layout--page { height: 100%; }
 
 .text_center { text-align: center; }
 
-.caption { display: block; font-size: 0.85rem; text-align: center; }
+.caption { display: block; font-size: 0.85rem; text-align: center; margin-bottom: 2em; }
 
 .width_25 { width: 25em; }
 
 .width_40 { width: 40em; }
+
+.MJXc-display { font-size: 1.3em !important; margin-bottom: -0.5em !important; }
+
+.mathjax_caption { display: block; text-align: center; margin-bottom: 2em; }
 
 /* end custom scss snippet */

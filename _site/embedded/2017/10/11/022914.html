@@ -1,0 +1,1056 @@
+<!DOCTYPE html><html lang="en">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>[맥에서 AVR 개발하기] 터미널에 명령어들을 입력해서 소스코드를 컴파일하고 .hex 파일을 개발보드로 넣기 [진행중....] - Easy is Perfect</title>
+
+<meta name="description" content="AVR Studio 는 윈도우 환경에서만 제공되는 avr 개발 환경입니다. 맥 OS에서 개발하는 방법을 알아보기 위해서 구글링을 했고, 시행 착오를 겪어 포스팅을 하고 있습니다. 이미 잘 정리된 글이 있어서 참고하여 포스팅하겠습니다 이전 설치 필요 프로그램 : Xcode- 툴체인 ...">
+<link rel="canonical" href="http://localhost:4000/embedded/2017/10/11/022914.html"><link rel="alternate" type="application/rss+xml" title="Easy is Perfect" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/logo.svg"><link rel="icon" sizes="32x32" href="/assets/images/logo/logo.svg"><link rel="icon" sizes="16x16" href="/assets/images/logo/logo.svg"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/images/logo/logo.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/images/logo/logo.svg">
+
+<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/images/logo/logo.svg">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" ><!-- start custom head snippets -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-9601240193039960",
+          enable_page_level_ads: true
+     });
+</script>
+<!-- end custom head snippets --><script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.decodeUrl = function(str) {
+    return str ? decodeURIComponent(str.replace(/\+/g, '%20')) : '';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.4',
+      sources: {
+        font_awesome: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn1.lncld.net/static/js/3.4.1/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3,h4'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script></head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport has-aside cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="270.054px" height="270.054px" viewBox="0 0 270.054 270.054" style="enable-background:new 0 0 270.054 270.054;"
+	 xml:space="preserve">
+<g>
+	<g>
+		<path d="M266.639,78.803c-9.4-1.7-18.9-2.2-28.4-3c8.8-8,16.699-16.7,21.5-27.9c1.6-3.7-0.2-8.6-4.9-8.5
+			c-12.4,0.3-24.4,3-36.3,6.6c-45.7-56.9-107.8,34-155.2,87.4c-0.8-5-2.3-10-3.2-14c-2.4-10.3-6.9-24.2-18.6-26.8
+			c-12.4-2.7-16.8,9.9-16,19.6c0.2,2.9,0.8,5.9,1.5,8.8c-5.2-4.3-10.8-7.4-16.8-7.9c-9.6-0.8-10.9,11.2-10,17.8
+			c1.3,10.1,10.7,35.6,23.6,41.6c1,2.9,3.7,5.3,7,4c0.3-0.1,0.5-0.3,0.8-0.4c8.2,9.601,26.9,9.601,38.1,11
+			c14.7,1.801,29.8,2.4,44.9,2.301c-4.7,16.6-3,44,14.4,52.399c2.6,1.3,6.6-1.6,4.4-4.399c-11-14.801-16.3-29.5-15.2-48
+			c12.5-0.2,25.1-0.9,37.4-2c-5.301,16.8,2.899,45.5,23.899,45.399c4,0,6.101-6,2.101-7.899c-8.101-3.801-14.301-6-18.101-15
+			c-3.101-7.5-2.5-15.2-2.5-23.101c3.2-0.3,6.3-0.6,9.5-1c48.3-5.5,75.101-41.3,71.3-82.799c0.5,0.1,1,0,1.5-0.2
+			c9.4-3.6,16.1-9.4,24.2-15.2C270.838,85.603,271.238,79.703,266.639,78.803z M45.238,106.403c7.8,11.2,4.8,25.5,8.6,37.399
+			c-1.4,1.4-2.7,2.8-4,4.101c0-0.7-0.2-1.4-0.7-2.101c-4.3-6.2-7.3-13.7-9.9-20.6c-1.9-5-3.3-10.2-3.9-15.5
+			C34.638,101.803,41.138,100.403,45.238,106.403z M27.438,165.403c-9.1-5.9-15.1-24-16.8-31.2c-0.8-3.2-3.1-12.4,1.7-11
+			c11.8,3.6,22.3,19.399,29.6,28.3c0.8,1,1.8,1.4,2.8,1.4C38.438,158.602,32.738,162.903,27.438,165.403z M157.438,176.403
+			c-40.799,4.1-80.299,3-120.399-2.801c56.5-28.3,72.2-115,136-132.299c21.5-5.8,38.5,14.4,48.8,34.3c-0.199,0.2-0.4,0.4-0.6,0.5
+			c-4.1,3.5-0.301,8.9,3.9,9.4c0.5,0.1,1,0.1,1.399,0.1c1.8,4.4,3.399,8.6,4.399,12.2
+			C245.538,147.002,196.838,172.403,157.438,176.403z"/>
+		<path d="M192.438,63.903c-1.799-1.2-4-0.5-5.5,0.7c-3.1,2.5-2.6,7-2.899,10.6c-0.3,2.6-1.101,5.4-2.2,7.8
+			c-1.1,2.3-2.1,3.6-3.9,5.2c-0.899,0.8-1.699,1.2-3.199,1.6c-0.1,0-0.7,0-1.2,0c0.2-0.1-0.601-0.3-0.899-0.3
+			c-0.701-0.4-1.301-1-1.601-1.8c-2.2-5.5,0.3-12,1.899-17.2c1.301-4.3-4.899-6.8-7.1-3c-4,6.8-6.8,15.6-4.5,23.5
+			c1.7,6,7.301,10.3,13.6,10c6.801-0.3,12.301-4.9,15.9-10.3c2.2-3.3,3.5-7.3,4.301-11.2
+			C196.238,74.503,197.538,67.403,192.438,63.903z"/>
+		<path d="M180.738,131.303c-5.301-2.5-11.6,4.2-6.6,8.6c6.6,6,9.5,13.3,0.199,18.5c-13.6,7.6-20.699-15.101-22.4-23.9
+			c-1.199-6.5-10.299-4.3-10.899,1.5c0,0.1,0,0.2,0,0.3c-1-2.899-4.101-5-7.6-3.2c-0.5,0.3-1,0.6-1.6,0.9
+			c-7.9,4.599-27.3,13.599-26.2-1.7c1.1-15.9,21.8-12.5,31.299-8.6c3.9,1.6,6-4.4,2.701-6.5c-16.201-10.2-42.201-8-44.701,15.1
+			c-0.8,7.299,2.8,14.799,9.8,17.799c4.5,1.9,9.3,2,14,1.101c-1.3,5.7,0.2,11.5,6.5,15.8c11.199,7.7,18.4-1.2,22.6-11.8
+			c6.6,11.8,17.301,20.1,32.301,13.1C195.338,161.002,196.438,138.602,180.738,131.303z M131.238,157.903c-7.2-4,2.5-12.4,6.6-15
+			c0.301-0.2,0.6-0.301,0.9-0.5c0.699-0.4,1.199-1,1.699-1.5C139.238,148.302,136.639,160.903,131.238,157.903z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+<a title="Want to make some good product for world
+" href="/">Easy is Perfect</a></div><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/archive">Archive</a></li><li class="navigation__item"><a href="/about">About</a></li><li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet --><article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>[맥에서 AVR 개발하기] 터미널에 명령어들을 입력해서 소스코드를 컴파일하고 .hex 파일을 개발보드로 넣기 [진행중....]</h1></header><span class="split-space">&nbsp;</span>
+          <a class="edit-on-github"
+            title="Edit on Github"
+            href="https://github.com/melonicedlatte/melonicedlatte.github.io/tree/master/_posts/2017-10-11-022914.html"
+            target="_blank">
+            <i class="far fa-edit"></i></a></div><meta itemprop="headline" content="[맥에서 AVR 개발하기] 터미널에 명령어들을 입력해서 소스코드를 컴파일하고 .hex 파일을 개발보드로 넣기 [진행중....]"><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Embedded">Embedded</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Oct 11, 2017</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-10-11T00:00:00+09:00">
+    <meta itemprop="keywords" content="Embedded"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-9601240193039960"
+     data-ad-slot="2929900697"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><p>AVR Studio 는 윈도우 환경에서만 제공되는 avr 개발 환경입니다. <br>맥 OS에서 개발하는 방법을 알아보기 위해서 구글링을 했고, 시행 착오를 겪어 포스팅을 하고 있습니다. <br><br>이미 잘 정리된 글이 있어서 참고하여 포스팅하겠습니다 </p><p>이전 설치 필요 프로그램 : Xcode</p><p><br></p><p><br></p><p><br></p><p><span style="font-size: 24px;"><span style="font-size: 36px;">- 툴체인 소스 다운로드 </span><br><br><span style="font-size: 18px;">그런데 툴체인이 뭘까요?? 용어 정리를 하고 갑시다.<br></span></span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto;"><span style="font-size: 18px; font-family: 굴림;"><b>툴체인(Toolchain)</b></span><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">의 설명에 앞서 툴체인의 필요 목적에 대해서 알아보자</span><span style="font-size: 18px;">.</span></span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto;"><span style="font-size: 12pt; font-family: 굴림;"><br></span></p><p></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto; text-align: center; clear: none; float: none;"><span class="imageblock" style="display: inline-block; width: 500px; height: auto; max-width: 100%;"><span data-url="http://cfile6.uf.tistory.com/attach/241BA04754B78E011566B1" data-lightbox="lightbox"></span></span><img src="/system/uploads/images/000/000/337/original/image.png?1507647608" style="width: 701.667px; height: 265.68px;"></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto;"><span style="font-size: 12pt; font-family: 굴림;"><br></span></p><p class="1" align="center" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto; text-align: center;"><v:shapetype id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f"><v:stroke joinstyle="miter"><v:formulas><v:f eqn="if lineDrawn pixelLineWidth 0"><v:f eqn="sum @0 1 0"><v:f eqn="sum 0 0 @1"><v:f eqn="prod @2 1 2"><v:f eqn="prod @3 21600 pixelWidth"><v:f eqn="prod @3 21600 pixelHeight"><v:f eqn="sum @0 0 1"><v:f eqn="prod @6 1 2"><v:f eqn="prod @7 21600 pixelWidth"><v:f eqn="sum @8 21600 0"><v:f eqn="prod @7 21600 pixelHeight"><v:f eqn="sum @10 21600 0"></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:f></v:formulas><v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"><o:lock v:ext="edit" aspectratio="t"></o:lock></v:path></v:stroke></v:shapetype><v:shape id="그림_x0020_2" o:spid="_x0000_i1025" type="#_x0000_t75" style="width: 282pt; height: 112.5pt; visibility: visible;"><v:imagedata src="file:///C:UsersYONGJEONAppDataLocalTempmsohtmlclip1clip_image001.png" o:title=""></v:imagedata></v:shape><span style="font-size: 12pt; font-family: 굴림;"></span></p><p class="1" align="center" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto; text-align: center;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">[</span><span class="Apple-converted-space" style="font-size: 18px;"> </span></span><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">그림</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">1 ] Host and Target System</span></span></p><p class="1" align="center" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto; text-align: center;"><span style="font-size: 18px; font-family: 굴림;"> </span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-size-adjust: auto; text-indent: 12pt;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">임베디드 시스템을 개발을 위해서는 대부분</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">[</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">그림</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">1 ]</span><span style="font-size: 18px;">처럼</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><b><span style="background-color: rgb(247, 198, 206);"><span style="font-size: 18px;">호스트 시스템</span><span style="font-size: 18px;">(Host System)</span></span><span style="font-size: 18px;">과 <span style="background-color: rgb(214, 239, 214);">타겟 시스템</span></span><span style="font-size: 18px; background-color: rgb(214, 239, 214);">(Target System)</span><span style="font-size: 18px;">으로 구성</span></b><span style="font-size: 18px;">된다</span><span style="font-size: 18px;">.</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><b><span style="font-size: 18px; background-color: rgb(247, 198, 206);">호스트 시스템</span></b><span style="font-size: 18px;">은 실질적인 <span style="background-color: rgb(247, 198, 206);">임베디드 시스템을 개발하는 환경</span>으로</span><span style="font-size: 18px;">,</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">이는 임베디드 시스템의 하드웨어의 제한적인 성능 때문에 큰 용량의 저장장치를 가지고 있지 않기 때문이다</span><span style="font-size: 18px;">.</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">그래서 상대적으로 <span style="background-color: rgb(247, 198, 206);">성능이 좋은 호스트 시스템을 구축하여 타겟 시스템에서 동작 가능한 프로그램을 만드</span>는데 <span style="background-color: rgb(247, 198, 206);">이것을</span></span><span class="Apple-converted-space" style="font-size: 18px; background-color: rgb(247, 198, 206);"> </span></span><span style="font-size: 12pt; font-family: 굴림; background-color: rgb(247, 198, 206);"><span style="font-size: 18px;">교차 컴파일</span><span style="font-size: 18px;">(Cross compile)</span></span><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">이라고 한다</span><span style="font-size: 18px;">.</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">여기서</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><b><span style="font-size: 18px; background-color: rgb(214, 239, 214);">타겟 시스템</span></b><span style="font-size: 18px;">이란 <span style="background-color: rgb(214, 239, 214);">실질적인 임베디드 시스템이 동작되는 환경</span>을 말한다</span><span style="font-size: 18px;">.</span></span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto;"><span style="font-size: 18px; font-family: 굴림;"> </span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-size-adjust: auto; text-indent: 11.8pt;"><span style="font-size: 12pt; font-family: 굴림;"><b><span style="font-size: 18px;">툴체인</span><span style="font-size: 18px;">(Toolchain)</span></b></span><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">이란<span style="background-color: rgb(214, 239, 214);"> 타겟 시스템에</span>서 동작하는 프로그램 개발에 필요한 <span style="background-color: rgb(247, 198, 206);">호스트 시스템의 소프트웨어들 또는 개발 환경을 통칭</span>하기도 한다</span><span style="font-size: 18px;">.</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">조금 더 자세하게 설명하면 <span style="background-color: rgb(247, 198, 206);">소스 코드를 컴파일하고 빌드하여 바이너리 실행 파일을 생성하는데 필요한 각종 유틸리티 및 라이브러리의 모음</span>이다</span><span style="font-size: 18px;">.</span></span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-size-adjust: auto; text-indent: 12pt;"><span style="font-size: 18px; font-family: 굴림;"> </span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-size-adjust: auto; text-indent: 12pt;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">툴체인의 기본적인 구성 요소는 다음과 같다</span><span style="font-size: 18px;">.</span></span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; margin-left: 38pt; padding: 0px; text-size-adjust: auto; text-indent: -18pt;"><span style="color: rgb(102, 102, 102); font-family: 굴림; font-size: 12pt;"><span style="font-size: 18px;">-</span><span style="font-stretch: normal; font-size: 7pt; line-height: normal; font-family: "Times New Roman";"><span style="font-size: 18px;">     </span><span class="Apple-converted-space" style="font-size: 18px;"> </span></span></span><span style="color: rgb(102, 102, 102); font-family: 굴림; font-size: 18px;">Assembler   ( </span><font color="#666666" face="굴림"><span style="font-size: 18px;">어셈블리 언어를 기계어로 번역해 주는 프로그램.  </span></font><span style="color: rgb(102, 102, 102); font-family: 굴림; font-size: 18px; text-indent: -18pt;"> )</span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; margin-left: 38pt; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-size-adjust: auto; text-indent: -18pt;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">-</span><span style="font-stretch: normal; font-size: 7pt; line-height: normal; font-family: "Times New Roman";"><span style="font-size: 18px;">     </span><span class="Apple-converted-space" style="font-size: 18px;"> </span></span></span><span style="font-size: 18px; font-family: 굴림;">Linker          ( </span><b style="color: rgb(34, 34, 34); font-family: sans-serif;">링커</b><span style="color: rgb(34, 34, 34); font-family: sans-serif;">(linker) 또는</span><span style="color: rgb(34, 34, 34); font-family: sans-serif;"> </span><b style="color: rgb(34, 34, 34); font-family: sans-serif;">링크 에디터</b><span style="color: rgb(34, 34, 34); font-family: sans-serif;">(link editor)는</span><span style="color: rgb(34, 34, 34); font-family: sans-serif;"> </span><a href="https://ko.wikipedia.org/wiki/%EC%BB%B4%ED%93%A8%ED%84%B0_%EA%B3%BC%ED%95%99" title="컴퓨터 과학" style="font-family: sans-serif; background: none rgb(255, 255, 255); text-decoration-line: none; color: rgb(11, 0, 128);">컴퓨터 과학</a><span style="color: rgb(34, 34, 34); font-family: sans-serif;">에서</span><span style="color: rgb(34, 34, 34); font-family: sans-serif;"> </span><a href="https://ko.wikipedia.org/wiki/%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC" title="컴파일러" style="font-family: sans-serif; background: none rgb(255, 255, 255); text-decoration-line: none; color: rgb(11, 0, 128);">컴파일러</a><span style="color: rgb(34, 34, 34); font-family: sans-serif;">가 만들어낸 하나 이상의</span><span style="color: rgb(34, 34, 34); font-family: sans-serif;"> </span><a href="https://ko.wikipedia.org/wiki/%EB%AA%A9%EC%A0%81_%ED%8C%8C%EC%9D%BC" title="목적 파일" style="font-family: sans-serif; background: none rgb(255, 255, 255); text-decoration-line: none; color: rgb(11, 0, 128);">목적 파일</a><span style="color: rgb(34, 34, 34); font-family: sans-serif;">을 가져와 이를 단일</span><span style="color: rgb(34, 34, 34); font-family: sans-serif;"> </span><a href="https://ko.wikipedia.org/wiki/%EC%8B%A4%ED%96%89_%ED%8C%8C%EC%9D%BC" title="실행 파일" style="font-family: sans-serif; background: none rgb(255, 255, 255); text-decoration-line: none; color: rgb(11, 0, 128);">실행</a><span style="color: rgb(34, 34, 34); font-family: sans-serif;"> </span><span style="color: rgb(34, 34, 34); font-family: sans-serif;">프로그램으로 병합하는</span><span style="color: rgb(34, 34, 34); font-family: sans-serif;"> </span><a href="https://ko.wikipedia.org/wiki/%EC%BB%B4%ED%93%A8%ED%84%B0_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8" title="컴퓨터 프로그램" style="font-family: sans-serif; background: none rgb(255, 255, 255); text-decoration-line: none; color: rgb(11, 0, 128);">프로그램</a><span style="color: rgb(34, 34, 34); font-family: sans-serif;">이다. </span><span style="font-family: 굴림; font-size: 18px; text-indent: -18pt;">)</span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; margin-left: 38pt; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-size-adjust: auto; text-indent: -18pt;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">-</span><span style="font-stretch: normal; font-size: 7pt; line-height: normal; font-family: "Times New Roman";"><span style="font-size: 18px;">     </span><span class="Apple-converted-space" style="font-size: 18px;"> </span></span></span><span style="font-size: 18px; font-family: 굴림;">C Compiler</span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; margin-left: 38pt; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-size-adjust: auto; text-indent: -18pt;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">-</span><span style="font-stretch: normal; font-size: 7pt; line-height: normal; font-family: "Times New Roman";"><span style="font-size: 18px;">     </span><span class="Apple-converted-space" style="font-size: 18px;"> </span></span></span><span style="font-size: 18px; font-family: 굴림;">C Library</span></p><p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-size-adjust: auto;"></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;">등이 있다</span><span style="font-size: 18px;">.</span></span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;"><br></span></span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;"><br></span></span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto;"><span style="font-size: 12pt; font-family: 굴림;"><span style="font-size: 18px;"><br></span></span></p><p class="1" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; color: rgb(102, 102, 102); font-family: "Spoqa Han Sans", sans-serif; font-size: 14px; text-indent: 0cm; text-size-adjust: auto;"><br></p><p><span style="font-size: 24px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">1) Binary Utilies 소스 다운로드</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">바이너리 유틸리티(binutils)는 <span style="background-color: rgb(255, 239, 198);">여러 종류의 오브젝트 파일 형식을 조작하기 위한 프로그램 도구 모음</span>으로서 어셈블러, 링커등을 포함하고 있습니다. binutils는 일반적으로 gcc, make, gdb와 함께 사용됩니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">binutils의 최신버전은</span><span class="Apple-converted-space" style="font-size: 18px;"> </span><a href="http://ftp.gnu.org/gnu/binutils/" target="_blank" class="tx-link" style="text-decoration-line: none; color: rgb(51, 102, 153);"><span style="font-size: 18px;">http://ftp.gnu.org/gnu/binutils/</span></a><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">에서 확인할 수 있습니다.<br></span><span style="font-size: 18px;"><br></span></p><blockquote><span style="font-size: 18px;">$ curl -O ftp://gcc.gnu.org/pub/binutils/releases/binutils-2.24.tar.bz2</span></blockquote><p></p><p><img src="/system/uploads/images/000/000/332/original/image.png?1507646917" style="width: 1118px;"><br></p><p><br></p><p><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">2) GCC 컴파일러 소스 다운로드</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">gcc는 GNU(GNU is Not Unix) 프로젝트의 프리웨어 컴파일러 입니다. C언어 뿐만 아니라 C++, Objective-C, Pascal, Ada등의 다양한 언어를 지원합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px; line-height: 1.5;">최신버전은</span><span style="font-size: 18px; line-height: 1.5;"> </span><a href="http://ftp.gnu.org/gnu/gcc/" target="_blank" class="tx-link" style="text-decoration-line: none; color: rgb(51, 102, 153); font-size: 9pt; line-height: 1.5;"><span style="font-size: 18px;">http://ftp.gnu.org/gnu/gcc/</span></a><span style="font-size: 18px; line-height: 1.5;"> </span><span style="font-size: 18px; line-height: 1.5;">에서 확인할 수 있습니다.<br></span><span style="font-size: 18px;"><br></span></p><blockquote><span style="font-size: 18px;">$ curl -O </span><a href="ftp://gcc.gnu.org/pub/gcc/releases/gcc-4.6.4/gcc-core-4.6.4.tar.bz2"><span style="font-size: 18px;">ftp://gcc.gnu.org/pub/gcc/releases/gcc-4.6.4/gcc-core-4.6.4.tar.bz2<br></span></a><span style="font-size: 18px;">$ curl -O </span><span style="font-size: 18px;"><a href="ftp://gcc.gnu.org/pub/gcc/releases/gcc-4.6.4/gcc-g++-4.6.4.tar.bz2">ftp://gcc.gnu.org/pub/gcc/releases/gcc-4.6.4/gcc-g++-4.6.4.tar.bz2</a></span></blockquote><p></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span><img src="/system/uploads/images/000/000/333/original/image.png?1507647058" style="width: 1118px;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">- 여기서 부터 터미널 색을 바꾸겠습니다. <br><br></span><img src="/system/uploads/images/000/000/334/original/image.png?1507647177" style="width: 1118px;"><span style="font-size: 18px;"><br><br><br><br><br></span></p><p><span style="font-size: 18px;"> </span><span style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 18px;">3) AVR 라이브러리 소스 다운로드</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">avr-libc의 공식 사이트는 </span><a href="http://savannah.nongnu.org/projects/avr-libc/" target="_blank" class="tx-link" style="text-decoration-line: none; color: rgb(51, 102, 153);"><span style="font-size: 18px;">http://savannah.nongnu.org/projects/avr-libc/</span></a><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">이며,</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">최신버전은 </span><a href="http://download.savannah.gnu.org/releases/avr-libc/" target="_blank" class="tx-link" style="text-decoration-line: none; color: rgb(51, 102, 153);"><span style="font-size: 18px;">http://download.savannah.gnu.org/releases/avr-libc/</span></a><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">에서 확인할 수 있습니다.<br></span><span style="font-size: 18px;"><br><br></span></p><blockquote><span style="font-size: 18px;">$ curl -O http://download.savannah.gnu.org/releases/avr-libc/avr-libc-1.8.0.tar.bz2</span></blockquote><p></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br><br>위의 다운로드 사이트는 현재 접속은 되지만 다운로드는 불가능 합니다. 하지만 다음의 미러 사이트에서 다운받을 수 있습니다.<br></span><span style="font-size: 18px;"><br><br></span></p><blockquote><span style="font-size: 18px;">$ curl -O http://mirror.lihnidos.org/GNU/savannah/avr-lib/avr-libc-1.8.0.tar.bz2</span></blockquote><p></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/335/original/image.png?1507647242" style="width: 1118px;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br><br><br><br><br><br>4) Debugger 소스 다운로드</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">    최신버전은 </span><a href="https://sourceware.org/gdb/" target="_blank" class="tx-link" style="text-decoration-line: none; color: rgb(51, 102, 153);"><span style="font-size: 18px;">https://sourceware.org/gdb/</span></a><span class="Apple-converted-space" style="font-size: 18px;"> </span><span style="font-size: 18px;">에서 확인할 수 있습니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><blockquote><span style="font-size: 18px;">$ curl -O ftp://sourceware.org/pub/gdb/releases/gdb-7.7.tar.bz2</span></blockquote><p></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">  </span><img src="/system/uploads/images/000/000/336/original/image.png?1507647285" style="width: 1118px;"></p><p><br></p><p><br></p><p><br></p><p><span style="font-size: 24px;">- 환경설정</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">우선 크로스 컴파일러 툴체인을 만들기 전에 다음과 같이 컴파일 환경설정을 합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">크로스 컴파일러의 위치를 prefix라는 환경변수로 설정합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">일반적인 사용자 설치 파일은 /usr/local 아래에 설치하지만 필자의 경우는 /opt 아래에 설치합니다. 어느 위치이건 관계 없습니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-family: Menlo; font-size: 18px;">$ export target=avr</span></blockquote><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px; font-family: Menlo;">$ export prefix=/opt/$target</span></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">크로스 컴파일러가 위치할 디렉토리를 만듭니다. (수퍼유저 권한으로 디렉토리를 만들므로 비밀번호 필요)</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">$ sudo mkdir -p $prefix/bin </span></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">크로스 컴파일러의 실행파일이 있는 디렉토리 위치를 PATH로 설정합니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">$ export PATH=$prefix/bin:$PATH </span></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="http://hellogohn.com/system/uploads/images/000/000/339/original/image.png?1507650151" style="font-size: 12px; width: 399.677px; height: 157.704px;"></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">앞에서 한 컴파일 환경설정은 일시적인 설정입니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">그러므로 터미널을 종료했다 다시 시작하거나, 다른 터미널을 실행시키면 앞에서 한 환경설정이 적용되지 않습니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">터미널을 실행시킬 때 마다 위의 환경설정이 항상 적용되는것을 원한다면 사용자 홈 디렉토리의 .bash_profile 파일에 다음을 추가하면 됩니다.</span></p><blockquote class="tx-quote-tistory" style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">$ gedit ~/.bash_profile</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">$ export target=avr</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">$ export prefix=/opt/$target</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"></p><p style="margin-top: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">$ export PATH=$prefix/bin:$PATH</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br><br><span style="font-size: 18px;">저는 gedit 을 이용해서 수정했습니다.</span><br><br><img src="/system/uploads/images/000/000/340/original/image.png?1507650333" style="width: 508.677px; height: 44.2328px;"> </p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/341/original/image.png?1507650405" style="width: 460.677px; height: 119.639px;"><span style="font-family: Menlo; font-size: 18px;"></span><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px; line-height: 1.5;">이제 새로 터미널을 실행할 때마다 환경설정이 적용된 것을 확인할 수 있습니다.</span></p><blockquote class="tx-quote-tistory" style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">$ env</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">TERM_PROGRAM=Apple_Terminal</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">SHELL=/bin/bash</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="color: rgb(255, 0, 0); font-size: 18px;">PATH=</span><span style="color: rgb(255, 0, 0);"><span style="font-size: 18px;">/o</span><span style="font-size: 18px;">pt/avr/bin</span></span><span style="font-size: 18px;">:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="color: rgb(255, 0, 0); font-size: 18px;">prefix=/opt/avr</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; font-size: 11px; line-height: normal; font-family: Menlo;"><span style="color: rgb(255, 0, 0); font-size: 18px;">target=avr</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p><br></p><p><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 24px;"><b>- 툴체인 컴파일</b></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">1) Binary Utility 컴파일</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">다운받은 압축파일을 풉니다. </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><blockquote><span style="font-size: 18px;">$ tar -jxf binutils-2.24.tar.bz2</span></blockquote><p></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일할 폴더를 만듭니다. </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><blockquote><span style="font-size: 18px;">$ cd binutils-2.24 </span></blockquote><p></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">$ mkdir build-$target </span></blockquote><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">$ cd build-$target</span></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/342/original/image.png?1507650761" style="width: 865.677px; height: 100.66px;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일 환경을 설정하기 위하여 comfigure를 실행시킵니다.<br></span><span style="font-size: 18px;"><br></span></p><blockquote><span style="font-size: 18px;">$ ../configure --target=$target --prefix=$prefix --disable-nls --disable-shared --disable-threads --with-gcc --with-gnu-as --with-gnu-ld</span></blockquote><p></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span><img src="/system/uploads/images/000/000/343/original/image.png?1507650811" style="width: 1118px;"></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일을 합니다. <br></span><span style="font-size: 18px;"><br></span></p><blockquote><span style="font-size: 18px;">$ make</span></blockquote><p></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/344/original/image.png?1507650833" style="width: 801.495px; height: 581.406px;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br><br><br><br><br>만일 다음과 같은 에러가 나온다면</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><strong><span style="font-size: 18px;">../../gas/as.c:977:24: </span></strong><span style="color: rgb(195, 55, 32); font-size: 18px;"><strong>error: </strong></span><strong><span style="font-size: 18px;">'sbrk' is deprecated [-Werror,-Wdeprecated-declarations]</span></strong></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">  char *lim = (char *) sbrk (0);</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo; color: rgb(52, 189, 38);"><strong><span style="font-size: 18px;">                       ^</span></strong></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><strong><span style="font-size: 18px;">/usr/include/unistd.h:582:7: note: </span></strong><span style="font-size: 18px;">'sbrk' declared here</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">void    *sbrk(int);</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo; color: rgb(52, 189, 38);"><strong><span style="font-size: 18px;">         ^</span></strong></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><strong><span style="font-size: 18px;">../../gas/as.c:1146:25: </span></strong><span style="color: rgb(195, 55, 32); font-size: 18px;"><strong>error: </strong></span><strong><span style="font-size: 18px;">'sbrk' is deprecated [-Werror,-Wdeprecated-declarations]</span></strong></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">  start_sbrk = (char *) sbrk (0);</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo; color: rgb(52, 189, 38);"><strong><span style="font-size: 18px;">                        ^</span></strong></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><strong><span style="font-size: 18px;">/usr/include/unistd.h:582:7: note: </span></strong><span style="font-size: 18px;">'sbrk' declared here</span></p><p style="margin-top: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">void    *sbrk(int);</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/345/original/image.png?1507650957" style="width: 1118px;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">Makefile에서 CFLAGS를 찾아 다음과 같이 수정합니다. (이 에러를 해결하기 위해 몇일을 고생하였습니다).</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">$ vi Makefile</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;"> </span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;"> </span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">.</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">.</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">.</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;"> </span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;"> </span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">//CFLAGS = -g -O2</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">CFLAGS = -g -O2 -Wno-error=deprecated-declarations</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;"> </span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">.</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">.</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">.</span></em></p><p style="margin-top: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;"> </span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/347/original/image.png?1507651047" style="width: 451.677px; height: 52.1793px;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/346/original/image.png?1507651017" style="font-size: 12px; width: 819.677px; height: 101.91px;"><span style="font-size: 18px;"> </span><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br><br>에러가 없이 모든 컴파일이 완료되면 설치를 합니다.</span><br></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ sudo make install</span></p><p><span style="font-size: 18px;">$ cd ../..</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span><img src="http://hellogohn.com/system/uploads/images/000/000/348/original/image.png?1507651188" style="font-size: 12px; width: 893.592px; height: 337.295px;"><br><br><br><br><br><br><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br>2) AVR Cross Compiler 컴파일 </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">다운받은 압축파일을 풉니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ tar -jxf gcc-core-4.6.4.tar.bz2</span></p><p><span style="font-size: 18px;">$ tar -jxf gcc-g++-4.6.4.tar.bz2</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span><img src="/system/uploads/images/000/000/349/original/image.png?1507651267" style="width: 652.358px; height: 81.1886px;"></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일할 폴더를 만듭니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ cd gcc-4.6.4</span></p><p><span style="font-size: 18px;">$ mkdir build-$target</span></p><p><span style="font-size: 18px;">$ cd build-$target </span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/350/original/image.png?1507651354" style="width: 551.677px; height: 88.8066px;"><span style="font-size: 18px;"><br><br><br><br><br> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일 환경설정을 합니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">$ ../configure --target=$target --prefix=$prefix --disable-nls --disable-shared --disable-threads --with-gcc --with-gnu-ld --with-gnu-as --with-dwarf2 --enable-languages=c,c++ --disable-libssp -v</span></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/351/original/image.png?1507651393" style="width: 1118px;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><div class="txc-textbox" style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto; border: 1px solid rgb(203, 203, 203); padding: 10px;"><p><span style="font-size: 18px;">내용 추가: 2014.09.16</span></p><p><span style="font-size: 9pt; line-height: 1.5;"><br></span></p><p><span style="font-size: 18px; line-height: 1.5;">만일 다음과 같은 에러가 발생한다면 </span></p><p><span style="font-size: 18px; line-height: 1.5;">gmp나 mpfr, mpc중 하나가(또는 모두) 설치가 안된것이므로 해당 패키지를 설치해야 합니다.</span></p><blockquote class="tx-quote-tistory"><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">.</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">.</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><em><span style="font-size: 18px;">.</span></em></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;"> </span></p><p><span style="font-size: 18px;">checking for objdir... .libs</span></p><p><span style="font-size: 18px;">checking for the correct version of gmp.h... no</span></p><p><span style="color: rgb(255, 0, 0); font-size: 18px;">configure: error: Building GCC requires GMP 4.2+, MPFR 2.3.1+ and MPC 0.8.0+.</span></p><p><span style="font-size: 18px;">Try the --with-gmp, --with-mpfr and/or --with-mpc options to specify</span></p><p><span style="font-size: 18px;">their locations. Source code for these libraries can be found at</span></p><p><span style="font-size: 18px;">their respective hosting sites as well as at</span></p><p><span style="font-size: 18px;">ftp://gcc.gnu.org/pub/gcc/infrastructure/. See also</span></p><p><span style="font-size: 18px;">http://gcc.gnu.org/install/prerequisites.html for additional info. If</span></p><p><span style="font-size: 18px;">you obtained GMP, MPFR and/or MPC from a vendor distribution package,</span></p><p><span style="font-size: 18px;">make sure that you have installed both the libraries and the header</span></p><p><span style="font-size: 18px;">files. They may be located in separate packages.</span></p></blockquote><div><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><br></p><p><span style="font-size: 18px; line-height: 1.5;">맥에서의 패키지 설치는 </span><span style="font-size: 18px; line-height: 1.5;">Homebrew나 MacPort와 같은 패키지 관리자를 사용하여 설치할 수 있습니다.</span></p><p><span style="font-size: 18px; line-height: 1.5;">참고로 Homebrew에서는 다음과 같이 설치하면 됩니다.</span></p></div><blockquote class="tx-quote-tistory"><p><span style="font-size: 18px;"># brew install gmp</span></p><p><span style="font-size: 18px;"># brew install mpfr</span></p><p><span style="font-size: 18px;"># brew install libmpc</span></p></blockquote><div><br><img src="/system/uploads/images/000/000/352/original/image.png?1507651510" style="width: 752.845px; height: 255.528px;"><br><br></div><div><img src="/system/uploads/images/000/000/353/original/image.png?1507651547" style="width: 970.687px; height: 120.685px;"></div><div><br></div><div><img src="/system/uploads/images/000/000/354/original/image.png?1507651582" style="width: 1118px;"><br></div><div><br><br></div><div><br></div><div><span style="font-size: 18px;">Homebrew에 대한 자세한 사용법은 다음에서 확인할 수 있습니다.</span></div><div><br></div><blockquote class="tx-quote-tistory"><a href="http://macworld.hjsong.net/76" target="_blank" class="tx-link" style="color: rgb(51, 102, 153);"><span style="font-size: 18px;">맥에서 패키지를 관리하자 Homebrew</span></a></blockquote><div><br></div></div><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br><br>컴파일 및 설치를 합니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ make</span></p><p><span style="font-size: 18px;">$ sudo make install</span></p><p><span style="font-size: 18px;">$ cd ../..</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/355/original/image.png?1507651626" style="width: 835.683px; height: 384.205px;"><br><br><br><br><img src="/system/uploads/images/000/000/356/original/image.png?1507652364" style="width: 1118px;"><br><span style="font-size: 18px;"><br><br><br><br><br><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px; background-color: rgb(247, 198, 206);">어마어마하게 오래동안 설치하는군요....</span><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일러가 정상적으로 설치 되었는지 확인합니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">$ avr-gcc —-version</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">avr-gcc (GCC) 4.6.4</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">Copyright (C) 2011 Free Software Foundation, Inc.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">This is free software; see the source for copying conditions.  There is NO</span></p><p style="margin-top: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/357/original/image.png?1507652772" style="width: 935.677px; height: 136.418px;"><br><span style="font-size: 18px;"><br><br><br><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">3) Library 컴파일</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">다운받은 압축파일을 풉니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ tar -jxf avr-libc-1.8.0.tar.bz2</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> <br></span><img src="/system/uploads/images/000/000/359/original/image.png?1507654941" style="width: 855.141px; height: 93.3159px;"><span style="font-size: 18px;"><br><br></span></p><p style="text-size-adjust: auto;"><font color="#666666" face="Dotum, Verdana, AppleGothic, sans-serif"><span style="font-size: 18px;">저같은 경우 압축 해제 에러가 나서 아래의 링크에 가서 다운받아서 다시 압축을 풀었습니다. <br></span></font><a href="http://download-mirror.savannah.gnu.org/releases/avr-libc/old-releases/">http://download-mirror.savannah.gnu.org/releases/avr-libc/old-releases/</a><br><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일할 폴더를 만듭니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ cd avr-libc-1.8.0</span></p><p><span style="font-size: 18px;">$ mkdir build-$target</span></p><p><span style="font-size: 18px;">$ cd build-$target</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일 환경설정을 합니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ ../configure --prefix=$prefix --build=`../config.guess` --host=$target</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/358/original/image.png?1507654775" style="width: 1118px;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일 및 설치를 합니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ make</span></p><p><span style="font-size: 18px;">$ sudo make install</span></p><p><span style="font-size: 18px;">$ cd ../..</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span><img src="/system/uploads/images/000/000/361/original/image.png?1507655022" style="width: 645.677px; height: 163.441px;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">4) Debugger 컴파일</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">다운받은 압축파일을 풉니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ tar -jxf gdb-7.7.tar.bz2</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일할 폴더를 만듭니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ cd gdb-7.7</span></p><p><span style="font-size: 18px;">$ mkdir build-$target</span></p><p><span style="font-size: 18px;">$ cd build-$target</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><div style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><p><span style="font-size: 18px;">컴파일 환경설정을 합니다.</span></p><blockquote><p><span style="font-size: 18px;">$ ../configure --target=$target --prefix=$prefix --disable-nls</span></p></blockquote><p><span style="font-size: 18px;"> </span><img src="/system/uploads/images/000/000/360/original/image.png?1507654983" style="width: 1118px;"></p><p><span style="font-size: 18px;">컴파일 및 설치를 합니다.</span></p><blockquote><p><span style="font-size: 18px;">$ make</span></p><p><span style="font-size: 18px;">$ sudo make install</span></p><p><span style="font-size: 18px;">$ cd ../..</span></p></blockquote><p><img src="/system/uploads/images/000/000/362/original/image.png?1507655257" style="width: 50%;"><span style="font-size: 18px;"> </span></p></div><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br><br><br><br>5) 바이너리 축소</span><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일한 바이너리 파일의 용량을 줄이고 로딩 속도를 빠리게 하기 위하여 바이너리를 축소 합니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p><span style="font-size: 18px;">$ sudo strip $prefix/bin/*</span></p><p><span style="font-size: 18px;">$ sudo strip $prefix/$target/bin/*</span></p><p><span style="font-size: 18px;">$ sudo strip $prefix/libexec/gcc/$target/4.2.2/*</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"></p><p><br style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p><br></p><p><br></p><p><span style="font-size: 36px;">- 개발 프로그램 설치하기 </span></p><p> </p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">설치된 툴체인을 사용하여 개발된 프로그램을 컴파일해 보도록 하겠습니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">우선 프로젝트에 맞는 AVR 프로그램을 개발합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">예를 들어 초음파 거리측정을 하는 프로그램을 개발했다고 가정합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">Project 이름은 SonicCalc 입니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><span style="font-size: 18px;">SonicCalc.h SonicCalc.c</span><p><span style="font-size: 18px;">ExtInt.h ExtInt.c</span></p><p><span style="font-size: 18px;">TimerInt.h TimerInt.c</span></p><p><span style="font-size: 18px;">UART.h UART.c</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">필자는 프로그램을 모듈별로 파일을 분리하여 개발합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">파일의 이름에서 보듯이 SonicCalc는 초음파 거리 계산을 하는 모듈이며 메인 모듈입니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">ExtInt는 외부 인터럽트 모듈, TimerInt는 타이머 인터럽트 모듈, UART는 시리얼 통신 모듈을 의미합니다. </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">- 빌드폴더 만들기</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">소스가 있는 프로젝트 폴더에서 컴파일해도 무관하지만, 필자는 object 파일 등이 소스와 함께 존재하는 것이 별로 좋아하지 않으므로 빌드 폴더를 만들어서 사용합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><span style="font-size: 18px;">$ mkdir build</span><p><span style="font-size: 18px;">$ cd build</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><img src="/system/uploads/images/000/000/363/original/image.png?1507655815" style="width: 439.677px; height: 105.312px;"><br></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"><br></span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">- Makefile 만들기</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">그럼 컴파일을 하기 위한 Makefile을 만듭니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">Makefile은 직접 만들어도 되지만 여러가지 옵션들을 고민하면서 만들어야 하므로 공부를 좀 해야 합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">그래서 가장 쉬운 방법으로 윈도우즈의 AVR Studio에서 자동으로 만들어주는 Makefile을 가지고 왔습니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">윈도우즈의 AVR Studio를 사용하여 만든 프로젝트 폴더 아래의 default 폴더를 보면 Makefile이 있습니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">이 Makefile을 복사해 온 후, 파일에서 Target MCU와 PROJECT, 컴파일 할 소스등을 수정하면 됩니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">(아래의 Makefile은 필자의 개발 환경에 맞는 설정들이며 사용자에 따라 다를 수 있습니다).</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><div><span style="font-size: 18px;">$ vi Makefile</span></div><div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">###############################################################################</span></div><div><span style="font-size: 18px;"># Makefile for the project </span><span style="color: rgb(255, 38, 0); font-size: 18px;">SonicCalc</span></div><div><span style="font-size: 18px;">###############################################################################</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## General Flags</span></div><div><span style="font-size: 18px;">PROJECT = </span><span style="color: rgb(255, 38, 0); font-size: 18px;">SonicCalc</span></div><div><span style="font-size: 18px;">MCU = </span><span style="color: rgb(255, 38, 0); font-size: 18px;">atmega128</span></div><div><span style="font-size: 18px;">TARGET = </span><span style="color: rgb(255, 38, 0); font-size: 18px;">SonicCalc</span><span style="font-size: 18px;">.elf</span></div><div><span style="font-size: 18px;">CC = avr-gcc</span></div><div><span style="font-size: 18px;">CPP = avr-g++</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Options common to compile, link and assembly rules</span></div><div><span style="font-size: 18px;">COMMON = -mmcu=$(MCU)</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Compile options common for all C compilation units.</span></div><div><span style="font-size: 18px;">CFLAGS = $(COMMON)</span></div><div><span style="font-size: 18px;">CFLAGS += -Wall -gdwarf-2 -std=gnu99 -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums</span></div><div><span style="font-size: 18px;">CFLAGS += -MD -MP -MT $(*F).o -MF dep/$(@F).d</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Assembly specific flags</span></div><div><span style="font-size: 18px;">ASMFLAGS = $(COMMON)</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">ASMFLAGS += $(CFLAGS)</span></div><div><span style="font-size: 18px;">ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Linker flags</span></div><div><span style="font-size: 18px;">LDFLAGS = $(COMMON)</span></div><div><span style="font-size: 18px;">LDFLAGS +=  -Wl,-Map=SonicComm.map</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Intel Hex file production flags</span></div><div><span style="font-size: 18px;">HEX_FLASH_FLAGS = -R .eeprom -R .fuse -R .lock -R .signature</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">HEX_EEPROM_FLAGS = -j .eeprom</span></div><div><span style="font-size: 18px;">HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"</span></div><div><span style="font-size: 18px;">HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Libraries</span></div><div><span style="font-size: 18px;">LIBS = -lm -lprintf_flt</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Objects that must be built in order to link</span></div><div><span style="font-size: 18px;">OBJECTS = </span><span style="color: rgb(255, 38, 0);"><span style="font-size: 18px;">SonicCalc.o ExtInt.o TimerInt.o</span><span style="font-size: 18px;"> UART.o</span></span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Objects explicitly added by the user</span></div><div><span style="font-size: 18px;">LINKONLYOBJECTS =</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Build</span></div><div><span style="font-size: 18px;">all: $(TARGET) </span><span style="color: rgb(255, 38, 0); font-size: 18px;">SonicCalc.hex SonicCalc.eep SonicCalc.lss</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Compile</span></div><div><span style="color: rgb(255, 38, 0); font-size: 18px;">SonicCalc.o: ../SonicCalc.c</span></div><div><span style="font-size: 18px;">        $(CC) $(INCLUDES) $(CFLAGS) -c  $<</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="color: rgb(255, 38, 0); font-size: 18px;">ExtInt.o: ../ExtInt.c</span></div><div><span style="font-size: 18px;">        $(CC) $(INCLUDES) $(CFLAGS) -c  $<</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="color: rgb(255, 38, 0); font-size: 18px;">TimerInt.o: ../TimerInt.c</span></div><div><span style="font-size: 18px;">        $(CC) $(INCLUDES) $(CFLAGS) -c  $<</span></div><div><div><span style="font-size: 18px;"> </span></div><div><span style="color: rgb(255, 38, 0); font-size: 18px;">UART.o: ../UART.c</span></div><div><span style="font-size: 18px;">        $(CC) $(INCLUDES) $(CFLAGS) -c  $<</span></div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">##Link</span></div><div><span style="font-size: 18px;">$(TARGET): $(OBJECTS)</span></div><div><span style="font-size: 18px;">         $(CC) $(LDFLAGS) $(OBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(TARGET)</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">%.hex: $(TARGET)</span></div><div><span style="font-size: 18px;">        avr-objcopy -O ihex $(HEX_FLASH_FLAGS)  $< $@</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">%.eep: $(TARGET)</span></div><div><span style="font-size: 18px;">        -avr-objcopy $(HEX_EEPROM_FLAGS) -O ihex $< $@ || exit 0</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">%.lss: $(TARGET)</span></div><div><span style="font-size: 18px;">        avr-objdump -h -S $< > $@</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Clean target</span></div><div><span style="font-size: 18px;">.PHONY: clean</span></div><div><span style="font-size: 18px;">clean:</span></div><div><span style="font-size: 18px;">        -rm -rf $(OBJECTS) </span><span style="color: rgb(255, 38, 0); font-size: 18px;">SonicCalc.elf dep/* SonicCalc.hex SonicCalc.eep SonicCalc.lss SonicCalc.map</span></div><div><span style="font-size: 18px;"> </span></div><div><span style="font-size: 18px;">## Other dependencies</span></div><div><span style="font-size: 18px;">-include $(shell mkdir dep 2>NUL) $(wildcard dep/*)</span></div></div></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">4. 컴파일 하기</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">Makefile을 만들었으면 이제 프로젝트 소스를 컴파일 합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일을 단순히 make 명령을 입력하는 것으로 끝납니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><span style="font-size: 18px;">$ make</span></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">컴파일 과정에서 에러가 발생하면 에러를 확인하고 소스를 수정합니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">에러가 없이 컴파일이 완료되었습니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">.</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">avr-gcc  -mmcu=atmega8 -Wall -gdwarf-2 -std=gnu99 -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -MD -MP -MT SonicCalc.o -MF dep/SonicCalc.o.d  -c  ../SonicCalc.c</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">avr-gcc  -mmcu=atmega8 -Wall -gdwarf-2 -std=gnu99 -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -MD -MP -MT ExtInt.o -MF dep/ExtInt.o.d  -c  ../ExtInt.c</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">avr-gcc  -mmcu=atmega8 -Wall -gdwarf-2 -std=gnu99 -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -MD -MP -MT TimerInt.o -MF dep/TimerInt.o.d  -c  ../TimerInt.c</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">avr-gcc  -mmcu=atmega8 -Wall -gdwarf-2 -std=gnu99 -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -MD -MP -MT UART.o -MF dep/UART.o.d  -c  ../UART.c</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">avr-gcc -mmcu=atmega8 -Wl,-Map=SonicComm.map SonicComm.o UART.o ExtInt.o TimerInt.o Utility.o EEPROM.o SPI.o    -lm -lprintf_flt  -o SonicComm.elf</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">avr-objcopy -O ihex -R .eeprom -R .fuse -R .lock -R .signature  SonicComm.elf SonicComm.hex</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">avr-objcopy -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O ihex SonicComm.elf SonicComm.eep || exit 0</span></p><p style="margin-top: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">avr-objdump -h -S SonicComm.elf > SonicComm.lss</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">에러가 없이 컴파일이 완료되면 다음과 같이 컴파일 후 생성된 결과 파일들을 확인할 수 있습니다.</span></p><blockquote style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; font-style: normal; text-size-adjust: auto;"><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">$ ls</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">NUL             SonicCalc.elf   SonicCalc.map   UART.o          ExtInt.o</span></p><p style="margin-top: 0px; margin-bottom: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">SonicCalc.hex   SonicCalc.o     Makefile        SonicCalc.eep   SonicCalc.lss</span></p><p style="margin-top: 0px; font-size: 11px; font-family: Menlo;"><span style="font-size: 18px;">TimerInt.o      dep</span></p></blockquote><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">AVR 툴체인을 사용하여 개발된 소스의 컴파일을 완료하였습니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">이제 컴파일 결과로 생성된 .hex 파일을 타겟 보드에 다운로드 하면 됩니다.</span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;"> </span></p><p style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><span style="font-size: 18px;">다음에는 이렇게 생성된 HEX 파일을 다운로드 하기위한 ISP 드라이버 설치 방법에 대하여 알아보도록 하겠습니다.</span></p><br style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><br style="color: rgb(102, 102, 102); font-family: Dotum, Verdana, AppleGothic, sans-serif; font-size: 12px; text-size-adjust: auto;"><p style="text-size-adjust: auto;"><font color="#666666" face="Dotum, Verdana, AppleGothic, sans-serif"><span style="font-size: 18px; background-color: rgb(40, 91, 158);"> </span></font><span style="color: rgb(0, 0, 0); font-family: "Jeju Gothic", "Nanum Gothic Coding", "KoPub Batang", "Nanum Gothic", serif; font-size: 18px;"> </span><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p>- 출처 -<br><a href="http://macworld.hjsong.net/73">http://macworld.hjsong.net/73</a><a href="http://macworld.hjsong.net/73"></a><br><a href="http://leeyongjeon.tistory.com/entry/툴체인Toolchain이란">http://leeyongjeon.tistory.com/entry/툴체인Toolchain이란</a><br><a href="https://ko.wikipedia.org/wiki/%EB%A7%81%EC%BB%A4_(%EC%BB%B4%ED%93%A8%ED%8C%85)">https://ko.wikipedia.org/wiki/%EB%A7%81%EC%BB%A4_(%EC%BB%B4%ED%93%A8%ED%8C%85)</a><br><br></p></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
+    <br><footer class="article__footer"><meta itemprop="dateModified" content="2017-10-11T00:00:00+09:00"><!-- start custom article footer snippet -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-9601240193039960"
+     data-ad-slot="7045115963"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
+    <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer><div class="article__section-navigator clearfix"><div class="previous"><span>PREVIOUS</span><a href="/softwareengineering/2017/10/09/201555.html">[소프트웨어공학] SW 개발 산출물 작성 가이드</a></div><div class="next"><span>NEXT</span><a href="/embedded/2017/10/11/103615.html">[맥에서 AVR 개발하기] 통합프로그램 CrossPack를 사용하여 avr 개발하기 [jkit-128-1//atmega 128]</a></div></div></div>
+
+</div>
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
+
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
+      });
+      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
+    });
+  });
+})();
+</script></div><br>
+                      <section class="page__comments d-print-none"><!-- start custom comments snippet -->
+<style>
+    .fb-comments iframe{
+        width: 100% !important;
+    }
+</style>
+
+<br/>
+<!-- facebook script  -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://hellogohn.com/post_one154" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet --></div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+      </a><li title="Follow me on Github.">
+        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/melonicedlatte" target="_blank">
+          <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+        </a>
+      </li></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Easy is Perfect 2019,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer></div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"><script>
+(function () {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    // search panel
+    var search = (window.search || (window.search = {}));
+    var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
+      true : window.useDefaultSearchBox ;
+
+    var $searchModal = $('.js-page-search-modal');
+    var $searchToggle = $('.js-search-toggle');
+    var searchModal = $searchModal.modal({ onChange: handleModalChange, hideWhenWindowScroll: true });
+    var modalVisible = false;
+    search.searchModal = searchModal;
+
+    var $searchBox = null;
+    var $searchInput = null;
+    var $searchClear = null;
+
+    function getModalVisible() {
+      return modalVisible;
+    }
+    search.getModalVisible = getModalVisible;
+
+    function handleModalChange(visible) {
+      modalVisible = visible;
+      if (visible) {
+        search.onShow && search.onShow();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+      } else {
+        search.onShow && search.onHide();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        setTimeout(function() {
+          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          search.clear && search.clear();
+          window.pageAsideAffix && window.pageAsideAffix.refresh();
+        }, 400);
+      }
+    }
+
+    $searchToggle.on('click', function() {
+      modalVisible ? searchModal.hide() : searchModal.show();
+    });
+    // Char Code: 83  S, 191 /
+    $(window).on('keyup', function(e) {
+      if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
+        modalVisible || searchModal.show();
+      }
+    });
+
+    if (useDefaultSearchBox) {
+      $searchBox = $('.js-search-box');
+      $searchInput = $searchBox.children('input');
+      $searchClear = $searchBox.children('.js-icon-clear');
+      search.getSearchInput = function() {
+        return $searchInput.get(0);
+      };
+      search.getVal = function() {
+        return $searchInput.val();
+      };
+      search.setVal = function(val) {
+        $searchInput.val(val);
+      };
+
+      $searchInput.on('focus', function() {
+        $(this).addClass('focus');
+      });
+      $searchInput.on('blur', function() {
+        $(this).removeClass('focus');
+      });
+      $searchInput.on('input', window.throttle(function() {
+        var val = $(this).val();
+        if (val === '' || typeof val !== 'string') {
+          search.clear && search.clear();
+        } else {
+          $searchBox.addClass('not-empty');
+          search.onInputNotEmpty && search.onInputNotEmpty(val);
+        }
+      }, 400));
+      $searchClear.on('click', function() {
+        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        search.clear && search.clear();
+      });
+    }
+  });
+})();
+</script><div class="search search--dark">
+  <div class="main">
+    <div class="search__header">Search</div>
+    <div class="search-bar">
+      <div class="search-box js-search-box">
+        <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
+        <input type="text" />
+        <div class="search-box__icon-clear js-icon-clear">
+          <a><i class="fas fa-times"></i></a>
+        </div>
+      </div>
+      <button class="button button--theme-dark button--pill search__cancel js-search-toggle">
+        Cancel</button>
+    </div>
+    <div class="search-result js-search-result"></div>
+  </div>
+</div>
+<script>var SOURCES = window.TEXT_VARIABLES.sources;
+var PAHTS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+  var search = (window.search || (window.search = {}));
+  var searchData = window.TEXT_SEARCH_DATA ? initData(window.TEXT_SEARCH_DATA) : {};
+
+  function memorize(f) {
+    var cache = {};
+    return function () {
+      var key = Array.prototype.join.call(arguments, ',');
+      if (key in cache) return cache[key];
+      else return cache[key] = f.apply(this, arguments);
+    };
+  }
+
+  function initData(data) {
+    var _data = [], i, j, key, keys, cur;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i], _data[key] = [];
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        cur.title = window.decodeUrl(cur.title);
+        cur.url = window.decodeUrl(cur.url);
+        _data[key].push(cur);
+      }
+    }
+    return _data;
+  }
+
+  /// search
+  function searchByQuery(query) {
+    var i, j, key, keys, cur, _title, result = {};
+    keys = Object.keys(searchData);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      for (j = 0; j < searchData[key].length; j++) {
+        cur = searchData[key][j], _title = cur.title;
+        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+          && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          if (result[key] === undefined) {
+            result[key] = [];
+          }
+          result[key].push(cur);
+        }
+      }
+    }
+    return result;
+  }
+
+  var renderHeader = memorize(function(header) {
+    return $('<p class="search-result__header">' + header + '</p>');
+  });
+
+  var renderItem = function(index, title, url) {
+    return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
+  };
+
+  function render(data) {
+    if (!data) { return null; }
+    var $root = $('<ul></ul>'), i, j, key, keys, cur, itemIndex = 0;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      $root.append(renderHeader(key));
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        $root.append(renderItem(itemIndex++, cur.title, cur.url));
+      }
+    }
+    return $root;
+  }
+
+  // search box
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+
+  function clear() {
+    $result.html(null);
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+  }
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
+
+  search.clear = clear;
+  search.onInputNotEmpty = onInputNotEmpty;
+
+  function updateResultItems() {
+    lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
+    activeIndex >= 0 && $resultItems.eq(activeIndex).addClass('active');
+  }
+
+  function moveActiveIndex(direction) {
+    var itemsCount = $resultItems ? $resultItems.length : 0;
+    if (itemsCount > 1) {
+      lastActiveIndex = activeIndex;
+      if (direction === 'up') {
+        activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
+      } else if (direction === 'down') {
+        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+      }
+      updateResultItems();
+    }
+  }
+
+  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
+  $(window).on('keyup', function(e) {
+    var modalVisible = search.getModalVisible && search.getModalVisible();
+    if (modalVisible) {
+      if (e.which === 38) {
+        modalVisible && moveActiveIndex('up');
+      } else if (e.which === 40) {
+        modalVisible && moveActiveIndex('down');
+      } else if (e.which === 13) {
+        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    }
+  });
+
+  $result.on('mouseover', '.search-result__item > a', function() {
+    var itemIndex = $(this).parent().data('index');
+    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+  });
+});
+</script></div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    toc = $tocRoot.toc({
+      selectors: TOC_SELECTOR,
+      container: $articleContent,
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    affix = $pageAside.affix({
+      offsetBottom: $pageFooter.outerHeight(),
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      scroll: hasSidebar ? $('.js-page-main').children() : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+    window.pageAsideAffix = affix;
+  });
+})();
+</script>
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>
