@@ -20,8 +20,13 @@
 .width_40{
     width : 40em;
 }
-.custom_mathjax_display{
+.MJXc-display{
     font-size: 1.3em;
     margin-bottom: -0.5em;
+}
+.mathjax_caption{
+    display: block;
+    text-align: center;
+    margin-bottom: 2em;
 }
 /* end custom scss snippet */
