@@ -18,7 +18,7 @@
 ##############################
 text_skin: default # "default" (default), "dark", "forest", "ocean", "chocolate", "orange"
 highlight_theme: default # "default" (default), "tomorrow", "tomorrow-night", "tomorrow-night-eighties", "tomorrow-night-blue", "tomorrow-night-bright"
-url     : # the base hostname & protocol for your site e.g. https://www.someone.com
+url     : http://melonicedlatte.com # the base hostname & protocol for your site e.g. https://www.someone.com
 baseurl : # does not include hostname
 title   : Easy is Perfect
 description: > # this means to ignore newlines until "Language & timezone"
@@ -35,7 +35,7 @@ encoding: UTF-8
 author:
   type      : person # "person" (default), "organization"
   name      : melonicedlatte
-  url       : https://melonicedlatte.github.io
+  url       : http://melonicedlatte.com
   avatar    : /assets/images/logo/chihuahua # path or url of avatar image (square)
   bio       : Want to make some good product for world
   email     : melonicedlatte@gmail.com
