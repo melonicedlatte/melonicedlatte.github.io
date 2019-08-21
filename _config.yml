@@ -199,6 +199,8 @@ exclude:
   - /screenshots
   - /test
   - /vendor
+  - /assets
+  - /my_posts
 
 defaults:
   - scope:
