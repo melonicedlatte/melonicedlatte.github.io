@@ -199,7 +199,7 @@ exclude:
   - /screenshots
   - /test
   - /vendor
-  - /assets
+  - /assets/demo
   - /my_posts
 
 defaults:
