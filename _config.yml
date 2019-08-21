@@ -199,8 +199,7 @@ exclude:
   - /screenshots
   - /test
   - /vendor
-  - /assets/demo
-  - /my_posts
+  - /not_view
 
 defaults:
   - scope:
