@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>익스프롤러(IE) 에서 ajax 할 때, 한글깨짐과 이미지 전송시 오류 - Easy is Perfect</title>
 
-<meta name="description" content="http://melonicedlatte.com/post_one77위의 링크에서 익스프롤러를 위한 form 을 encoding 하는 방법을 기술했었습니다.&nbsp;위의 작업과 동시에 회사 프로그램에서 기존에는 이미지를 따로업로드 하고 글을 완성 시키는 형태로 게시판 작업을 했었는데요.다소 ...">
+<meta name="description" content="http://melonicedlatte.com/2017/05/09/011046.html위의 링크에서 익스프롤러를 위한 form 을 encoding 하는 방법을 기술했었습니다.&nbsp;위의 작업과 동시에 회사 프로그램에서 기존에는 이미지를 따로업로드 하고 글을 완성 시키는 형태로 ...">
 <link rel="canonical" href="http://localhost:4000/web/2017/05/22/223315.html"><link rel="alternate" type="application/rss+xml" title="Easy is Perfect" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/logo.svg"><link rel="icon" sizes="32x32" href="/assets/images/logo/logo.svg"><link rel="icon" sizes="16x16" href="/assets/images/logo/logo.svg"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/images/logo/logo.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/images/logo/logo.svg">
 
 <meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/images/logo/logo.svg">
@@ -339,7 +339,34 @@
   </header>
 </div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
 
-              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div>
+
+<br>
+
+<div class="aside-ads">
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="8003124357"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> -->
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- 블로그 우측 toc 세로형 -->
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="6348453211"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div></aside></div>
 
               <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
 
@@ -354,6 +381,7 @@
             </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>May 22, 2017</span>
             </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-05-22T00:00:00+09:00">
     <meta itemprop="keywords" content="Web"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -364,8 +392,10 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-<!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><p><a href="http://melonicedlatte.com/post_one77">http://melonicedlatte.com/post_one77</a><a href="http://melonicedlatte.com/post_one77" style="background-color: rgb(255, 255, 255);"></a><br>위의 링크에서 익스프롤러를 위한 form 을 encoding 하는 방법을 기술했었습니다.&nbsp;<br><br></p><p>위의 작업과 동시에 회사 프로그램에서 기존에는 이미지를 따로<br>업로드 하고 글을 완성 시키는 형태로 게시판 작업을 했었는데요.<br>다소 불편하다는 말이 나와서 한 번만 버튼을 누르면 전체 글이 완성되게 (이미지 업로드를 따로 하지 않게 )<br>프로그램을 수정하였습니다.&nbsp;</p><p>그런데 잘 돌아가던 프로그램이 잘 돌아가지 않더라구요.<br>원인을 살펴보았습니다.&nbsp;</p><p>원인은 사진을 <span style="background-color: rgb(255, 231, 156);">encoding</span> 하면 안된다는 것이었습니다.&nbsp;<br>사진 같은 경우에는 encoding 을 하면 아얘 </p><blockquote>$_FILES[~~~~]['name'];</blockquote><p>가 데이터가 없다고 합니다.&nbsp;<br>따라서&nbsp;<br></p><p>위의 링크에서 처럼 써 놓은 encode() 메소드를 빼니 아주 잘 사진이 올라가더라구요.&nbsp;</p><h3><font face="Courier New" style="background-color: rgb(255, 231, 156);"><u>'한글'</u> 은 인코딩 해서 보내야 하고, <u>'이미지'</u> 는 인코딩 하면 안됩니다.&nbsp;</font></h3><p><br></p><p>하지만 문제를 해결 하던 중 그냥 한글을 인코딩 하지 않아도 되는 곳도 있었습니다.<br>차이점이 무엇인지 발견하다가 문제를 발견 했습니다.&nbsp;</p><h3><font face="Courier New" style="background-color: rgb(255, 231, 156);">바로 익스프롤러는 post 로 보내면 아무런 이상없이 한글을 보내는 것입니다 !!!&nbsp;</font></h3><h3><font face="Courier New" style="background-color: rgb(255, 231, 156);">결론은 get 은 인코딩이 필요하고 post는 인코딩 없이 잘 보내는 것 같습니다.&nbsp;</font></h3><p>전 그냥 post 로 바꿨습니다.&nbsp;<br>정보 전송을 받을 때에는 그런데 get 으로 해도 이상 없더라구요.&nbsp;</p></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
+<br>
+<!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><p><a href="http://melonicedlatte.com/2017/05/09/011046.html">http://melonicedlatte.com/2017/05/09/011046.html</a><a href="http://melonicedlatte.com/2017/05/09/011046.html" style="background-color: rgb(255, 255, 255);"></a><br>위의 링크에서 익스프롤러를 위한 form 을 encoding 하는 방법을 기술했었습니다.&nbsp;<br><br></p><p>위의 작업과 동시에 회사 프로그램에서 기존에는 이미지를 따로<br>업로드 하고 글을 완성 시키는 형태로 게시판 작업을 했었는데요.<br>다소 불편하다는 말이 나와서 한 번만 버튼을 누르면 전체 글이 완성되게 (이미지 업로드를 따로 하지 않게 )<br>프로그램을 수정하였습니다.&nbsp;</p><p>그런데 잘 돌아가던 프로그램이 잘 돌아가지 않더라구요.<br>원인을 살펴보았습니다.&nbsp;</p><p>원인은 사진을 <span style="background-color: rgb(255, 231, 156);">encoding</span> 하면 안된다는 것이었습니다.&nbsp;<br>사진 같은 경우에는 encoding 을 하면 아얘 </p><blockquote>$_FILES[~~~~]['name'];</blockquote><p>가 데이터가 없다고 합니다.&nbsp;<br>따라서&nbsp;<br></p><p>위의 링크에서 처럼 써 놓은 encode() 메소드를 빼니 아주 잘 사진이 올라가더라구요.&nbsp;</p><h3><font face="Courier New" style="background-color: rgb(255, 231, 156);"><u>'한글'</u> 은 인코딩 해서 보내야 하고, <u>'이미지'</u> 는 인코딩 하면 안됩니다.&nbsp;</font></h3><p><br></p><p>하지만 문제를 해결 하던 중 그냥 한글을 인코딩 하지 않아도 되는 곳도 있었습니다.<br>차이점이 무엇인지 발견하다가 문제를 발견 했습니다.&nbsp;</p><h3><font face="Courier New" style="background-color: rgb(255, 231, 156);">바로 익스프롤러는 post 로 보내면 아무런 이상없이 한글을 보내는 것입니다 !!!&nbsp;</font></h3><h3><font face="Courier New" style="background-color: rgb(255, 231, 156);">결론은 get 은 인코딩이 필요하고 post는 인코딩 없이 잘 보내는 것 같습니다.&nbsp;</font></h3><p>전 그냥 post 로 바꿨습니다.&nbsp;<br>정보 전송을 받을 때에는 그런데 get 으로 해도 이상 없더라구요.&nbsp;</p></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
     <br><footer class="article__footer"><meta itemprop="dateModified" content="2017-05-22T00:00:00+09:00"><!-- start custom article footer snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -376,6 +406,7 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<br>
 <!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
     <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
       <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
@@ -421,14 +452,14 @@
 <br/>
 <!-- facebook script  -->
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://melonicedlatte.com/post_one87" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://hellogohn.com/post_one87" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
 
 <!-- end custom main bottom snippet --></div>
             </div></div></div><div class="page__footer d-print-none">
 <footer class="footer py-4 js-page-footer">
   <div class="main"><div itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
-  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="http://melonicedlatte.com"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="http://melonicedlatte.com"><li title="Send me an Email.">
       <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
         <i class="fas fa-envelope"></i>
       </a><li title="Follow me on Github.">

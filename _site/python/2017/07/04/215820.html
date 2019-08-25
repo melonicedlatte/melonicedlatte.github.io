@@ -339,7 +339,34 @@
   </header>
 </div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
 
-              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div>
+
+<br>
+
+<div class="aside-ads">
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="8003124357"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> -->
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- 블로그 우측 toc 세로형 -->
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="6348453211"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div></aside></div>
 
               <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
 
@@ -354,6 +381,7 @@
             </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Jul 04, 2017</span>
             </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-07-04T00:00:00+09:00">
     <meta itemprop="keywords" content="Python"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -364,6 +392,7 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<br>
 <!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><p style="color: rgb(51, 51, 51);">요즘 컴퓨터는 대부분 프로세스가 2개 이상인데, 멀티 프로세싱이 어느 정도의 효과를 가져오는지 궁금해서<br>개인적으로 메소드를 만들어서 체크해보았습니다.</p><p style="color: rgb(51, 51, 51);">사용한 컴퓨터는 듀얼코어입니다. (인텔 i3)</p><p style="color: rgb(51, 51, 51);"></p><p style="color: rgb(51, 51, 51);">getterID () 라는 함수는 웹에서 데이터를 크롤링하는 함수입니다.&nbsp;<br>시간을 측정하기 위해서 tqdm 라이브러리를 사용했습니다. &nbsp;</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">멀티 프로세스의 문법은 아래와 같습니다.&nbsp;</p><pre style="padding: 0px; margin-top: 15px; margin-bottom: 15px; line-height: 1.42857; background: rgb(255, 255, 255); border-width: initial; border-style: none; border-color: initial;"><code class="python" style="font-family: Consolas, Monaco, &quot;Lucida Console&quot;, &quot;Liberation Mono&quot;, &quot;DejaVu Sans Mono&quot;, &quot;Courier New&quot;, 맑은고딕, &quot;Malgun Gothic&quot;; padding: 0.5em; background: rgb(240, 240, 240); margin: 0px 2px; border: 1px solid rgb(234, 234, 234); display: block;"><span class="keyword" style="color: black; font-weight: bold;">from</span><font color="#000000"> multiprocessing </font><span class="keyword" style="color: black; font-weight: bold;">import</span><font color="#000000"> Process
 
 </font><span class="function"><span class="keyword" style="color: black; font-weight: bold;">def</span><font color="#000000"> </font><font color="#880000"><b>함수이름</b></font><span class="params" style="color: black;">(name)</span><font color="#000000">:</font></span><font color="#000000">
@@ -374,6 +403,7 @@
     p.start()
     p.join()</font></code></pre><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">- 멀티프로세스 사용 X&nbsp;</p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/147/original/image.png?1530191922" style="width: 459px;"></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">- 멀티프로세스 사용 O&nbsp;</p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/148/original/image.png?1530191933" style="width: 443px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">53번째 수행을 비교해보았습니다. (전부 다 실행하지는 않았습니다.)<br>멀티 프로세스를 사용한 쪽이 미묘하게, 경과시간과 남은 시간이 적게 남았습니다.&nbsp;<br></p><p style="color: rgb(51, 51, 51);"><br></p><div style="color: rgb(51, 51, 51); text-align: center;">&nbsp; [ 걸린 시간 &nbsp; &lt; &nbsp;남은 시간 ]</div><div style="color: rgb(51, 51, 51); text-align: center;">&nbsp; &nbsp; 01:12 &nbsp; &nbsp; &nbsp; &lt; &nbsp; &nbsp;2:43:51 &nbsp; &nbsp; VS &nbsp; &nbsp; &nbsp;01:06 &nbsp; &nbsp; &nbsp;&lt; &nbsp; &nbsp; 2:32:28</div><p style="color: rgb(51, 51, 51);"></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">다음으로는 엑셀을 읽어와서 원하는 단어 리스트에서 해당하는 단어가 있는 얘들만 뽑아서<br>파일을 만들어 주는 메소드입니다.&nbsp;</p><p style="color: rgb(51, 51, 51);">아래와 같이 사용했습니다. ( arg 대신 그냥 메소드 전체를 넣었습니다. )&nbsp;</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/149/original/image.png?1530191947" style="width: 911px;"></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">- 멀티프로세스 사용 X&nbsp;<br></p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/150/original/image.png?1530191967" style="width: 363px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">- 멀티프로세스 사용 O&nbsp;<br></p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/151/original/image.png?1530191974" style="width: 387px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">마지막 시간을 비교해보면&nbsp;</p><p style="color: rgb(51, 51, 51);"><br></p><div style="color: rgb(51, 51, 51); text-align: center;">&nbsp; [ 걸린 시간 &nbsp; &lt; &nbsp;남은 시간 ]</div><div style="color: rgb(51, 51, 51); text-align: center;">&nbsp; &nbsp; 34:15 &nbsp; &nbsp; &nbsp; &lt; &nbsp; 00:33 &nbsp; &nbsp; VS &nbsp; &nbsp; &nbsp;31:47 &nbsp; &nbsp; &nbsp;&lt; &nbsp; &nbsp; 00:30</div><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">다소 차이가 있지만(약 2분 30초), 큰 차이는 볼 수 없었습니다.<br>정확히 멀티 프로세스가 원인인지, 프로세스의 상태에 따른 오차인지는 잘 모르겠습니다.</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"></p><div style="color: rgb(51, 51, 51); text-align: center;">-출처-</div><div style="color: rgb(51, 51, 51); text-align: center;"><a href="https://wikidocs.net/3755"></a><a href="https://wikidocs.net/3755" style="background-color: rgb(255, 255, 255);">https://wikidocs.net/3755</a></div><p style="color: rgb(51, 51, 51);"><br></p></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
     <br><footer class="article__footer"><meta itemprop="dateModified" content="2017-07-04T00:00:00+09:00"><!-- start custom article footer snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -384,6 +414,7 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<br>
 <!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
     <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
       <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
@@ -429,14 +460,14 @@
 <br/>
 <!-- facebook script  -->
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://melonicedlatte.com/post_one110" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://hellogohn.com/post_one110" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
 
 <!-- end custom main bottom snippet --></div>
             </div></div></div><div class="page__footer d-print-none">
 <footer class="footer py-4 js-page-footer">
   <div class="main"><div itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
-  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="http://melonicedlatte.com"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="http://melonicedlatte.com"><li title="Send me an Email.">
       <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
         <i class="fas fa-envelope"></i>
       </a><li title="Follow me on Github.">

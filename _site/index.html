@@ -345,215 +345,159 @@
               <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
 
 <!-- end custom main top snippet --><article itemscope itemtype="http://schema.org/WebPage"><header style="display:none;"><h1>Home</h1></header><meta itemprop="headline" content="Home"><meta itemprop="author" content="melonicedlatte"/><div class="js-article-content"><div class="layout--articles"><div class="article-list items items--divided"><article class="item"><div class="item__content">
-          <header><a href="/machinelearning/2019/05/05/142000.html"><h3 itemprop="headline" class="item__header">강화학습 MDP와 벨만 방정식 기본 개념</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">MDP(Markov Decision Process)
+          <header><a href="/computerarchitecture/2019/08/23/164700.html"><h3 itemprop="headline" class="item__header">Fast Startup(빠른 시작)의 개념과 특징</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">What is Fast Startup?
 
-강화학습은 순차적으로 진행되는 일에서 행동을 결정해야 합니다. 이를 수학적으로 결정한 것이 MDP 입니다. 모든 것을 수치화하여 수학적으로 결정해야만 컴퓨터가 판단할 수 있습니다.
-
-
-  구성 요소 : 상태, 행동, 보상함수, 상태 변환 확률, 감가율, 정책
+특징 및 장점
 
 
-문제를 잘 정의해야 강화학습 컴퓨터인 agent 가 제대로 학습할 수 있습니다.
+Fast Startup vs Regular Boot
 
-상태
+윈도우 8/10 에서는 마이크로소프트에서 Fast Startup이라는 컴퓨터 부팅 방식을 지원합니다. Fast Startup은 cold boot와 절전 상태에서 전원을 키는 상태가 결합된 모드입니다. 윈도우 7 에서는 종료하는 동안 OS는 User session과 kenerl session을 종료합니다. 하지만, 윈도우 8 에서는 kernel session는 종료되지 않고, 절전 상태로 들어갑니다. 파일 사이즈가 매우 큰 완전 절전 상태와 다르게, kernel only or 0 Hibernation 데이...</div><p><a href="/computerarchitecture/2019/08/23/164700.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=ComputerArchitecture">ComputerArchitecture</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Aug 23, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-08-23T00:00:00+09:00">
+    <meta itemprop="keywords" content="ComputerArchitecture"></div>
+      </article><article class="item"><div class="item__content">
+          <header><a href="/computerarchitecture/2019/08/23/090300.html"><h3 itemprop="headline" class="item__header">컴퓨터 전원 상태 S0, S1 ... 과 Modern Standby 개념</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">컴퓨터 전원 상태
+전원 상태를 쉽게 설명하면 아래와 같이 설명할 수 있습니다. Sn에서 n에 해당하는 숫자가 커질수록 전원을 적게 사용합니다. 또, 정상 상태로 복구하는 시간도 오래 걸립니다.
 
-상태 S는 에이전트가 관찰 가능한 상태의 집합입니다.
-ex) 체스에서 말들의 좌표, 축구 게임에서 선수 캐릭터들이 공을 가지고 있는지 아닌지의 여부 등
+  S0 : 컴퓨터가 정상적으로 동작하는 활성 상태
+  S1 : 절전상태. CPU, 메모리 정보 유지. 모든 하드웨어 전력 공급하는 상태의 절전모드.
+  S2 : 절전상태. CPU 캐쉬와 시스템 캐쉬 사라짐. 프로세서 동작 멈춤.
+  S3 : 절전상태. 하드디스크나 SSD같은 보조기억장치가 메모리나 CPU 같은 주 기억장치의 정보를 보관.
+  S4 : 절전상태. 최대절전모드라고 불리며, 모든 장치의 전력이 차단된 상태. 절...</div><p><a href="/computerarchitecture/2019/08/23/090300.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=ComputerArchitecture">ComputerArchitecture</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Aug 23, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-08-23T00:00:00+09:00">
+    <meta itemprop="keywords" content="ComputerArchitecture"></div>
+      </article><article class="item"><div class="item__content">
+          <header><a href="/computerarchitecture/2019/08/19/152700.html"><h3 itemprop="headline" class="item__header">8b/10b encoding이란? 개념 정리</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">What is 8b/10b encoding?
+8b/10b는 8bit word를 10bit symbol에 mapping하여 만든 line code입니다. 즉, 8bit를 전송하기 위해서 10bit가 필요합니다. 이 mapping을 통하여 DC-balance와 bounded dispartiy를 달성하면서, 합리적인 clock recovery를 허용하는 충분한 상태 변화를 제공합니다.
+
+8b/10b code는 다양한 방법으로 구현될 수 있습니다. 예를 들면 설계할 때, 하드웨어 요구사항이나 DC-balance와 같은 특별한 파라미터들에 초점을 맞춰서 설계할 수도 있습니다.
+
+How it works for the IBM ...</div><p><a href="/computerarchitecture/2019/08/19/152700.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=ComputerArchitecture">ComputerArchitecture</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Aug 19, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-08-19T00:00:00+09:00">
+    <meta itemprop="keywords" content="ComputerArchitecture"></div>
+      </article><article class="item"><div class="item__content">
+          <header><a href="/machinelearning/2019/08/17/013500.html"><h3 itemprop="headline" class="item__header">Pytorch 설치하기</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">Pytorch 설치하기
+
+환경에 맞는 Pytorch 설치하기
 
 
+pytorch 사이트 main
 
-상태의 집합
+Pytorch 메인 페이지에서 스크롤하면, 다음 그림과 같은 설치 옵션을 선택할 수 있는 창이 있습니다. 현재 자신의 설정에 맞게 설정을 한 후에, Run this Command 에 나온 명령어를 복사한 후에 terminal에 입력하여 pytorch를 설치하세요.
 
-시간 t 일때의 상태를 $S_t$ 라고 합니...</div><p><a href="/machinelearning/2019/05/05/142000.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+아래와 같이 진행됩니다.
+
+(base) C:\Users\user&gt;conda install pytorch torchvision cpuonly -c pytorch
+WARNING: The conda.compat module is deprecated and w...</div><p><a href="/machinelearning/2019/08/17/013500.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
                 href="/archive.html?tag=MachineLearning">MachineLearning</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>May 05, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-05-05T00:00:00+09:00">
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Aug 17, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-08-17T00:00:00+09:00">
     <meta itemprop="keywords" content="MachineLearning"></div>
       </article><article class="item"><div class="item__content">
-          <header><a href="/etc/2019/05/05/011800.html"><h3 itemprop="headline" class="item__header">화면 UI가 너무 작게 나올 때, 윈도우 해상도 지원되지 않는 앱 사용하기</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">화면 UI가 너무 작게 출력되는 문제
-
-저 같은 경우에는 영상 편집 프로그램 다빈치 리졸브(Davinch Reslove)를 이용해보다가 화면이 너무 작게 출력되는 현상을 겪었습니다. 서피스 4에서 살펴보는데 너무 작게 보여서 글자가 거의 보이지 않았습니다. 앱 자체에서 지원하는 것을 찾아보려고 했는데, 찾기가 너무 어려웠습니다.
-
-그래서 윈도우 자체에서 앱을 조절할 수 있는 방법이 있지 않을까? 하고 찾아보던 도중 https://www.clien.net/service/board/lecture/11899869 해당 홈페이지에서 좋은 정보를 찾았습니다.
-
-정확한 원인은 윈도우에서 고해상도(HiDPI)가 제대로 지원되지...</div><p><a href="/etc/2019/05/05/011800.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+          <header><a href="/electronics/2019/08/14/092900.html"><h3 itemprop="headline" class="item__header">Signal에서 Assert & Deassert란?</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">Assert &amp; Deassert
+디지털 시그널의 assert 라는 용어는 신호가 inactive에서 actvie로 가는 것을 말합니다. deassert 라는 용어는 신호가 active에서 inactvie로 가는 것을 말합니다. 예를 들어, low active한 신호가 low 레벨로 가면 asserted라고 하고,  high-&gt;low로 가면 deassert라고 합니다.</div><p><a href="/electronics/2019/08/14/092900.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Etc">Etc</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>May 05, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-05-05T00:00:00+09:00">
-    <meta itemprop="keywords" content="Etc"></div>
+                href="/archive.html?tag=Electronics">Electronics</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Aug 14, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-08-14T00:00:00+09:00">
+    <meta itemprop="keywords" content="Electronics"></div>
       </article><article class="item"><div class="item__content">
-          <header><a href="/tech/2019/05/03/213700.html"><h3 itemprop="headline" class="item__header">우주를 이끄는 민간 기업 등장에 대한 이야기</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">우주선은 누가 쏘는가
+          <header><a href="/computerarchitecture/2019/07/04/110800.html"><h3 itemprop="headline" class="item__header">활성 상태 전원 관리(ASPM)란?</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">활성 상태 전원 관리(ASPM)
+활성 상태 전원 관리(ASPM)이란?
+활성 상태 전원 관리(ASPM, Active-State Power Management)는 PCIe 서브시스템의 전원 소비를 PCIe 연결로 접속된 장치가 사용중이 아닐 때 저전력 상태로 변경해서 절약하는 정책입니다. ASPM은 연결된 디바이스들의 전원 상태를 제어합니다.
 
-기존의 패러다임은 정부의 주도
-
-미국, 러시아와 같은 나라들은 우수한 항공 기술을 가지고 있고, 이미 오래전에 달에 사람을 보냈습니다. 우리나라가 경제적으로 매우 어려울 때, 이미 선진화된 기술을 이용하여 우주산업에 진출하였습니다.
-
-
-미국 항공우주국(NASA)의 로고
-
-NASA는 세계를 대표하는 우주 산업을 이끄는 정부기관입니다. NASA는 미국의 국가 기관으로서 우주 계획 및 장기적인 일반 항공 연구 등을 실행하고 있습니다. 달에 사람을 보내는 것도 위성을 보내는 것 이외에 우리가 모르는 수 많은 우주 산업을 이끌어 가고 있습니다.
-
-
-한국항공우주연구원(KARI)의 로고
-
-한국항공우주연구...</div><p><a href="/tech/2019/05/03/213700.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+만약, 하나의 장치는 전원 소비를 낮추려고 하고, 연결의 한쪽 끝에 있는 장치가 완전히 전원이 켜져있는 상태라고 하더라도, ASPM은 전력 소비를 줄여줍니다. (하나의 장치가 빠르게 전송하고 다른 장치는 빠르게 전송하지 않으면,  느린 장치의 속도에 맞춰서 전송하기 때문에 그런...</div><p><a href="/computerarchitecture/2019/07/04/110800.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Tech">Tech</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>May 03, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-05-03T00:00:00+09:00">
-    <meta itemprop="keywords" content="Tech"></div>
+                href="/archive.html?tag=ComputerArchitecture">ComputerArchitecture</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Jul 04, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-07-04T00:00:00+09:00">
+    <meta itemprop="keywords" content="ComputerArchitecture"></div>
       </article><article class="item"><div class="item__content">
-          <header><a href="/tech/2019/04/30/213600.html"><h3 itemprop="headline" class="item__header">기존 택시의 문제를 해결하려는 마카롱 택시의 등장</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">기존의 국내 상황
+          <header><a href="/computerarchitecture/2019/07/02/100700.html"><h3 itemprop="headline" class="item__header">콜드 부팅과 웜 부팅의 개념</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">부팅
 
-차량 공유 서비스와 택시 업계의 반발
-
-우버가 해외에서 활발하게 서비스를 진행 중이지만 국내에서는 아직도 차량 공유 서비스가 도입되지 않았습니다. 택시 업계의 반발이 거세었기 때문에 공유 차량 서비스가 도입되는 데 어려움을 겪고 있던 것입니다.
-
-택시 업계의 문제점
+  컴퓨터를 처음 켰을 때, 사용자가 작업을 할 수 있는 상태로 만드는 것
+  부팅 종류에 따라서 BIOS에서 POST1 검사단계를 거친 후에, BIOS는 MBR(Master Boot Record)를 읽어서 메모리에 올리고, MBR코드를 수행시킵니다. 이후, MBR에 포함된 부트로더에서 부팅이 가능한 파티션을 찾은 후에 OS를 수행시킵니다.
+  콜드 부팅과 웜 부팅이 존재함(부팅 대신 부트 라고도 하는 것 같습니다.)
 
 
-도로위의 택시
+콜드 부팅(Cold Boot)이란?
 
-큰 문제점은 아래와 같습니다.
-
-
-  서비스 퀄리티가 상대적으로 좋지 않습니다. 기존에 존재하던 서비스에서 시대가 많이 변했지만 큰 변화가 없습니다. 택시는 한 번 타고 나면 그 다음에 같은 손님과의 연동이 다시 이루어지지 않는 서비스이기 때문에 고객 관리에 대한 개념이 다소 부족합니다. 또, 기사님들에 대한 기존...</div><p><a href="/tech/2019/04/30/213600.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+  주요 부분에 전기가 통하지 않고, 전원이 모두 꺼져 있던 상태에서 전원 스위치를 눌러 컴퓨터를 다시 키는 것
+  POST 검사단계를 거침
+  컴퓨터...</div><p><a href="/computerarchitecture/2019/07/02/100700.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Tech">Tech</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Apr 30, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-04-30T00:00:00+09:00">
-    <meta itemprop="keywords" content="Tech"></div>
+                href="/archive.html?tag=ComputerArchitecture">ComputerArchitecture</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Jul 02, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-07-02T00:00:00+09:00">
+    <meta itemprop="keywords" content="ComputerArchitecture"></div>
       </article><article class="item"><div class="item__content">
-          <header><a href="/etc/2019/04/30/211100.html"><h3 itemprop="headline" class="item__header">윈도우 10 검은 화면에서 화면 밝기 어두워짐 해결</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">윈도우 10 에서 검은 화면과 흰 화면을 왔다 갔다 하면 화면 밝기가 자동으로 바뀌게 됩니다. 원하지 않은 설정일 경우 상당히 거슬릴 수 있는 자동 설정입니다. 이러한 설정을 없애고 동일한 밝기를 유지하려면 아래와 같은 설정이 필요합니다.
+          <header><a href="/semiconductor/2019/06/30/143800.html"><h3 itemprop="headline" class="item__header">반도체 EUV 공정의 개념과 필요한 이유</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">반도체 EUV
+EUV 공정이란?
+EUV 공정이란 반도체 공정 중 하나인 포토공정1에서 극자외선 파장의 광원을 활용한 제조공정을 말합니다. 반도체를 생산할 때, 웨이퍼(wafer)는 감광물질2로 코팅이 되고, 스캐너라고 하는 포토공정 설비로 들어가서 회로 패턴을 새겨 넣기 위해 레이저 광원을 웨이퍼에 투사하는 노광(photolithography) 작업을 진행합니다. 위의 과정을 모두 거쳐 반도체 위에 매우 작은 회로소자를 수업이 많이 생성하는데, 노광 작업에서 사용하는 레이저 광원의 파장이 줄어든 것이 기존 공정 대비 차이점입니다..
 
-설정 방법
-
-시작 &gt; 작업 스케줄러 입력 후 클릭
-
-
-시작 버튼을 누르고 작업 스케줄러를 클릭합니다.
-
-시작에 작업 스케줄러를 입력합니다. 그리고 클릭해줍니다.
-
-작업 스케줄러에서 Microsoft/Windows/WindowsColorSystem 선택하기
-
-
-Microsoft/Windows/WindowsColorSystem 선택
-
-왼쪽 탭에서 Microsoft/Window...</div><p><a href="/etc/2019/04/30/211100.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+EUV 기술이 필요한 이유?
+반도체 칩에 미세한 회로를 새겨 넣는 것은 회사의 경...</div><p><a href="/semiconductor/2019/06/30/143800.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Etc">Etc</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Apr 30, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-04-30T00:00:00+09:00">
-    <meta itemprop="keywords" content="Etc"></div>
+                href="/archive.html?tag=SemiConductor">SemiConductor</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Jun 30, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-06-30T00:00:00+09:00">
+    <meta itemprop="keywords" content="SemiConductor"></div>
       </article><article class="item"><div class="item__content">
-          <header><a href="/tech/2019/04/29/002000.html"><h3 itemprop="headline" class="item__header">LG 스마트폰 공장 해외 이전과 LG 유저가 생각하는 LG 스마트폰의 아쉬운 점</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">LG 스마트폰의 공장 해외 이전
+          <header><a href="/news/2019/06/29/222000.html"><h3 itemprop="headline" class="item__header">인텔 옵테인 메모리, 어떻게 쓸 수 있을까?</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">인텔 옵테인 메모리에 대한 분석 내용이 있어서 흥미가 생겨 읽어보았습니다. 자세한 사항은 아래의 링크를 확인해주세요. 엄청 상세히 포스팅 해주셨네요. 
+https://www.bodnara.co.kr/bbs/article.html?num=140317
+
+인텔 차세대 메모리 옵테인
 
 
-lg 전자의 로고
 
-LG 전자가 국내 스마트폰 생산 공장인 평택 공장의 문을 닫는다고 한다. 설비의 대부분은 베트남으로 이동할 예정이다. 700명이 넘는 생산 인력은 26일부터 LG의 다른 사업부로 이동하거나 아니면 희망퇴직을 하게 된다.
+인텔 옵테인 기술(Intel Optane Technology)은 차세대 메모리 기술입니다. 현재 많이 사용되는 DRAM은 속도는 빠르지만 전원공급이 중단되면 가지고 있는 데이터가 모두 사라집니다. HDD나 낸드 플래시인 SSD는 DRAM보다 느린 대신 전원이 꺼져도 데이터를 보존합니다.
 
-LG 전자의 휴대폰 실적이 지속적으로 좋지 않은 것은 안타까운 일이다. 국내 기업이 전부 잘 되었으면 좋겠지만 기업은 경쟁에서 살아남아야 하는 환경에 항상 놓여있다.
-
-누적된 적자
-
-LG 전자의 해외 이전 이유는 역시 적자이다. 3조가 넘은 적자는 다른 사업부의 영업이익으로 감당해오고 있었지만, 기업 입장에서 지속적으로 적자만 나오는 사업부는...</div><p><a href="/tech/2019/04/29/002000.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+이러한 상황에서 DRAM처럼 빠르고 SSD처럼 지...</div><p><a href="/news/2019/06/29/222000.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Tech">Tech</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Apr 29, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-04-29T00:00:00+09:00">
-    <meta itemprop="keywords" content="Tech"></div>
+                href="/archive.html?tag=News">News</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Jun 29, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-06-29T00:00:00+09:00">
+    <meta itemprop="keywords" content="News"></div>
       </article><article class="item"><div class="item__content">
-          <header><a href="/tech/2019/04/21/222700.html"><h3 itemprop="headline" class="item__header">텀블러를 공짜로 빌려주고 씻어주는 회사 베셀 웍스(Vessel Works)</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">베셀 웍스(Vessel Works)는 텀블러를 공유하는 회사입니다. 텀블러를 어떻게 공유하나 싶지만 직접 서비스를 살펴보니 아주 괜찮은 서비스라고 생각되었습니다.
-
-문제점
-
-플라스틱 쓰레기
-
-요즈음 가장 이슈가 되고 있는 문제는 바로 플라스틱 문제 입니다. 플라스틱은 만들기 편하고 가격이 저렴하여 다양한 분야에서 많이 사용되어 왔습니다. 하지만, 일회용으로 사용하는 경우가 많다 보니 전부 쓰레기가 되었습니다. 이런 플라스틱으로 99%가 구성된 한반도 7배 규모의 쓰레기섬이 북태평양에 만들어져있습니다.
-
-
-쓰레기가 바다에 쌓이고 있다
+          <header><a href="/news/2019/06/29/220000.html"><h3 itemprop="headline" class="item__header">LG전자 스타일로 5 출시 전 이미지 등장</h3></a></header>
+          <div class="item__description"><div class="article__content" itemprop="description articleBody">LG전자의 스타일로 5의 이미지가 나왔습니다. 아래와 같이 생겼습니다. 기존에 봤던 Q8과 동일한 디자인인 것 같습니다. 후면 단일 카메라, 지문인식 센서, 전면 카메라 정도의 기본 옵션 정도만 가진 제품입니다.
 
 
 
-문제 해결을 위한 스타트업 시작
+스타일러스는 상당히 아쉽습니다. 개인적으로 필기를 굉장히 좋아하는데 LG는 AES나 EMR 방식의 펜을 지원하지 않습니다. 다이소에서 구매한 터치펜으로 그리는 방식이라 너무 별로던데;; 제 생각에는 이 스타일러스 펜에 메리트가 있나 싶은 생각이 드네요.
 
-이러한 문제를 해결하기 위해서, 우리나라도 ...</div><p><a href="/tech/2019/04/21/222700.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
+
+
+출처
+
+
+  http://www.slashleaks.com/l/lg-stylo-5-black-color-render-image-leaked</div><p><a href="/news/2019/06/29/220000.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
               <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Tech">Tech</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Apr 21, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-04-21T00:00:00+09:00">
-    <meta itemprop="keywords" content="Tech"></div>
-      </article><article class="item"><div class="item__content">
-          <header><a href="/tech/2019/04/21/155300.html"><h3 itemprop="headline" class="item__header">MIT 공대생들이 만든 저렴한 가격의 로봇 음식점</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">비싼 음식에 지친 MIT 공대생들이 만든 로봇 식당
-
-위의 링크에서 재미있는 회사에 대한 정보를 얻었습니다. MIT 공대생들이 비싼 음식 값에 지쳐서 직접 로봇을 이용한 식당을 만든 것입니다. 저한테 상당히 인상 깊은 스타트업이라 포스팅을 하게 되었습니다.
-
-문제점
-
-
-미국의 in&amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다
-
-미국의 비싼 음식값
-
-미국의 음식 값은 매우 비쌉니다. 우리나라 음식점에서는 6~8천원 대에 형성되지만 미국에서는 기본적으로 10~14$ 정도로 음식점 가격이 형성되어 있습니다. 물론, 이 가격은 보편적인 음식점의 가격이고 햄버거나 편의점 같...</div><p><a href="/tech/2019/04/21/155300.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Tech">Tech</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Apr 21, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-04-21T00:00:00+09:00">
-    <meta itemprop="keywords" content="Tech"></div>
-      </article><article class="item"><div class="item__content">
-          <header><a href="/machinelearning/2019/04/20/091700.html"><h3 itemprop="headline" class="item__header">강화학습에 대한 기본적인 개념</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">강화학습의 개념
-
-
-  
-
-
-
-
-강화학습으로 자동차를 제어하는 영상입니다. 어떻게 자동차가 자기 스스로 주행하는 방법을 학습할 수 있을까요? (실제 자동차 운전에서는 안전 문제때문에 강화 학습을 잘 적용하지 않는 것으로 알고 있습니다. 영상은 게임이기 때문에, 수없이 많은 시도를 할 수 있어 강화학습이 가능합니다.)
-
-아래에서 강화학습에 대하여 알아보겠습니다.
-
-스키너의 강화 연구
-
-스키너의 강화 연구는 강화학습 이야기가 나오면 항상 나오는 이야기입니다. 스키너의 강화 연구는 아래와 같은 이야기입니다.
-
-
-  굶긴 쥐를 지렛대를 누르게 되면 먹이가 나오게 되는 상자에 넣습니다.
-  아무 것도 모르는 쥐가 이곳 저곳...</div><p><a href="/machinelearning/2019/04/20/091700.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=MachineLearning">MachineLearning</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Apr 20, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-04-20T00:00:00+09:00">
-    <meta itemprop="keywords" content="MachineLearning"></div>
-      </article><article class="item"><div class="item__content">
-          <header><a href="/programming/2019/04/20/031700.html"><h3 itemprop="headline" class="item__header">GitHub, 원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기</h3></a></header>
-          <div class="item__description"><div class="article__content" itemprop="description articleBody">문제
-github를 사용하다 보면 이전에 불필요한 파일이 올라갈 때가 있습니다. 이럴 때, 이전에 올라간 파일을 github에서도 제거를 하고 싶은데, 파일만 지우고 commit 을 하게 되면 이전 commit 에서 해당 문제점을 확인할 수 있습니다.
-
-문제가 있는 파일을 모두 제거해야 하는데 이럴때에는 아래와 같은 해결 방법을 사용합니다. 기본적인 내용은 아래의 내용을 참조해서 포스팅했습니다. 저는 Git에 내장된 filter-branch툴을 사용하는 방법만 포스팅하고,다른 방법으로는 BFG Repo-Cleaner를 사용하는 방법이 있습니다. 
-http://minsone.github.io/git/github-ad...</div><p><a href="/programming/2019/04/20/031700.html">Read more</a></p></div><div class="article__info clearfix"><ul class="left-col menu"><li>
-              <a class="button button--secondary button--pill button--sm"
-                href="/archive.html?tag=Programming">Programming</a>
-            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Apr 20, 2019</span>
-            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-04-20T00:00:00+09:00">
-    <meta itemprop="keywords" content="Programming"></div>
+                href="/archive.html?tag=News">News</a>
+            </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Jun 29, 2019</span>
+            </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2019-06-29T00:00:00+09:00">
+    <meta itemprop="keywords" content="News"></div>
       </article></div>
-</div><div class="layout--home"><div class="pagination"><p>348 post articles, 35 pages.</p>
+</div><div class="layout--home"><div class="pagination"><p>372 post articles, 38 pages.</p>
     <div class="pagination__menu">
       <ul class="menu menu--nowrap"><li><div class="button button--secondary button--circle disabled">
             <i class="fas fa-angle-left"></i>
@@ -565,8 +509,16 @@ http://minsone.github.io/git/github-ad...</div><p><a href="/programming/2019/04/
                   <a class="button button--secondary button--circle" href="/page3"><span>3</span></a>
                 </li><li>
                   <a class="button button--secondary button--circle" href="/page4"><span>4</span></a>
+                </li><li>
+                  <a class="button button--secondary button--circle" href="/page5"><span>5</span></a>
+                </li><li>
+                  <a class="button button--secondary button--circle" href="/page6"><span>6</span></a>
+                </li><li>
+                  <a class="button button--secondary button--circle" href="/page7"><span>7</span></a>
+                </li><li>
+                  <a class="button button--secondary button--circle" href="/page8"><span>8</span></a>
                 </li><li><span class="pagination__omit"><i class="fas fa-ellipsis-h"></i></span></li><li>
-                  <a class="button button--secondary button--circle" href="/page35"><span>35</span></a>
+                  <a class="button button--secondary button--circle" href="/page38"><span>38</span></a>
                 </li><li><a class="button button--secondary button--circle" href="/page2">
             <i class="fas fa-angle-right"></i>
           </a></li></ul>
@@ -595,8 +547,8 @@ http://minsone.github.io/git/github-ad...</div><p><a href="/programming/2019/04/
             </div></div></div><div class="page__footer d-print-none">
 <footer class="footer py-4 js-page-footer">
   <div class="main"><div itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
-  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="http://melonicedlatte.com"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="http://melonicedlatte.com"><li title="Send me an Email.">
       <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
         <i class="fas fa-envelope"></i>
       </a><li title="Follow me on Github.">

@@ -339,7 +339,34 @@
   </header>
 </div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
 
-              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div>
+
+<br>
+
+<div class="aside-ads">
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="8003124357"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> -->
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- 블로그 우측 toc 세로형 -->
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="6348453211"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div></aside></div>
 
               <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
 
@@ -354,6 +381,7 @@
             </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Mar 27, 2018</span>
             </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2018-03-27T00:00:00+09:00">
     <meta itemprop="keywords" content="Database"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -364,8 +392,10 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<br>
 <!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><p>Oracle 은 자체 DB 관리 프로그램으로 SQL Developer 를 제공한다.&nbsp;<br>CUI 환경에서만 하는 것이 불편할 때가 있으니, 같이 사용하는 것이 좋은 것 같아 항상 GUI 프로그램도 설치하는게 좋은 것 같다.&nbsp;<br><br><br><a href="http://www.oracle.com/technetwork/indexes/downloads/index.html#tools" style="background-color: rgb(255, 255, 255);">http://www.oracle.com/technetwork/indexes/downloads/index.html#tools</a>&nbsp;<br></p><p>위 링크에 접속해서 SQL Developer 을 선택하여 설치를 진행한다.&nbsp;</p><p><img src="/system/uploads/images/000/000/775/original/image.png?1522081091" style="width: 736px;"><br></p><p><br></p><p><br></p><p>원하는 버전을 선택하는 데 나는 리눅스를 선택했다.&nbsp;</p><p><img src="/system/uploads/images/000/000/776/original/image.png?1522081121" style="width: 894px;"><br></p><p><br></p><p><br></p><p>다운로드를 완료하면 압축을 해제해준다.&nbsp;<br>아래와 같은 파일들이 나오는데 터미널에서 해당 폴더까지 가서&nbsp;</p><p>./sqldeveloper.sh&nbsp;<br>를 터미널에서 입력한다.&nbsp;</p><p><img src="/system/uploads/images/000/000/777/original/image.png?1522081216" style="width: 604px;"><br></p><p><br></p><p><br></p><p>설치를 진행하려고 하지만 에러가 발생한다.&nbsp;</p><p>stored in <font color="#ce0000">경로</font>에 있는 경로의 파일을 수정해주면 된다.&nbsp;<br><br><blockquote>sudo vim /home/gohn/.sqldeveloper/17.4.1/product.conf</blockquote></p><p><img src="/system/uploads/images/000/000/778/original/image.png?1522082074" style="width: 1000px;"></p><p><br></p><p><br></p><p>명령어를 통해 보면 아래와 같은 텍스트를 확인 할 수 있는데,<br>아무곳이나 <font color="#ce0000">SetJavaHome 경로</font> 를 넣어준다.&nbsp;</p><p><img src="/system/uploads/images/000/000/782/original/image.png?1522082436" style="width: 774px;"><br></p><p><br></p><p><br></p><p><br></p><p>그러면 설치가 잘 진행되는 것을 확인 할 수 있다.&nbsp;</p><p><img src="/system/uploads/images/000/000/780/original/image.png?1522082172" style="width: 626px;"></p><p><br></p><p><br></p><p><br></p><p>중간에 아래와 같은 내용이 나오면 과감하게 '아니오' 를 눌러준다.&nbsp;</p><p><img src="/system/uploads/images/000/000/779/original/image.png?1522082162" style="width: 516px;"><br></p><p><br></p><p><br></p><p><br></p><p>다 설치되면 아래와 같이 SQL Developer 를 사용할 수 있다.&nbsp;</p><p><img src="/system/uploads/images/000/000/781/original/image.png?1522082221" style="width: 1118px;"><br></p><p><br></p><p><br></p><p>원하는 DB 에 접속하면 아래와 같이 나오게 된다.&nbsp;</p><p><img src="/system/uploads/images/000/000/783/original/image.png?1522082645" style="width: 320px;"><br></p><p><br></p><p>MSSQL 이랑은 뭔가 다른 느낌이다.&nbsp;사용법은 차차 포스팅 해야겠다.&nbsp;</p></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
     <br><footer class="article__footer"><meta itemprop="dateModified" content="2018-03-27T00:00:00+09:00"><!-- start custom article footer snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -376,6 +406,7 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<br>
 <!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
     <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
       <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
@@ -421,14 +452,14 @@
 <br/>
 <!-- facebook script  -->
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://melonicedlatte.com/post_one260" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://hellogohn.com/post_one260" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
 
 <!-- end custom main bottom snippet --></div>
             </div></div></div><div class="page__footer d-print-none">
 <footer class="footer py-4 js-page-footer">
   <div class="main"><div itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
-  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="http://melonicedlatte.com"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="http://melonicedlatte.com"><li title="Send me an Email.">
       <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
         <i class="fas fa-envelope"></i>
       </a><li title="Follow me on Github.">

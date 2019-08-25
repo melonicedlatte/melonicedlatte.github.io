@@ -1,635 +1,396 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-05-05T17:46:07+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Easy is Perfect</title><subtitle>Want to make some good product for world
-</subtitle><author><name>melonicedlatte</name><email>melonicedlatte@gmail.com</email></author><entry><title type="html">화면 UI가 너무 작게 나올 때, 윈도우 해상도 지원되지 않는 앱 사용하기</title><link href="http://localhost:4000/etc/2019/05/05/011800.html" rel="alternate" type="text/html" title="화면 UI가 너무 작게 나올 때, 윈도우 해상도 지원되지 않는 앱 사용하기" /><published>2019-05-05T00:00:00+09:00</published><updated>2019-05-05T00:00:00+09:00</updated><id>http://localhost:4000/etc/2019/05/05/011800</id><content type="html" xml:base="http://localhost:4000/etc/2019/05/05/011800.html">&lt;h2 id=&quot;화면-ui가-너무-작게-출력되는-문제&quot;&gt;화면 UI가 너무 작게 출력되는 문제&lt;/h2&gt;
-
-&lt;p&gt;저 같은 경우에는 영상 편집 프로그램 다빈치 리졸브(Davinch Reslove)를 이용해보다가 화면이 너무 작게 출력되는 현상을 겪었습니다. 서피스 4에서 살펴보는데 너무 작게 보여서 글자가 거의 보이지 않았습니다. 앱 자체에서 지원하는 것을 찾아보려고 했는데, 찾기가 너무 어려웠습니다.&lt;/p&gt;
-
-&lt;p&gt;그래서 윈도우 자체에서 앱을 조절할 수 있는 방법이 있지 않을까? 하고 찾아보던 도중 &lt;a href=&quot;https://www.clien.net/service/board/lecture/11899869&quot;&gt;https://www.clien.net/service/board/lecture/11899869&lt;/a&gt; 해당 홈페이지에서 좋은 정보를 찾았습니다.&lt;/p&gt;
-
-&lt;p&gt;정확한 원인은 윈도우에서 고해상도(HiDPI)가 제대로 지원되지 않는 앱의 경우 화면이 아주 작게 표시되는 것이었습니다. 원인은 해당 앱에서 &lt;strong&gt;‘이 앱은 고해상도 지원 잘됩니다’&lt;/strong&gt;라고 윈도우에 알려주는데, 실제는 아닌 것입니다.&lt;/p&gt;
-
-&lt;p&gt;그래서 &lt;strong&gt;이 앱을 고해상도가 적용이 안된다고&lt;/strong&gt; 구식앱으로 간주되게 해서 결과적으로는 앱이 윈도우의 기본 기능으로 스케일링돼서 크게 표시되게 하는 방법이 있습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;문제-해결-과정&quot;&gt;문제 해결 과정&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;윈도우 키 + R&lt;/code&gt; 을 눌러서 regedit로 레지스트리 편집기를 연다
-&lt;img src=&quot;/assets/images/20190505/registry_setting.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;regedit setting&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HKEY_LOCAL_MACHINE &amp;gt; SOFTWARE &amp;gt; Microsoft &amp;gt; Windows &amp;gt; CurrentVersion &amp;gt; SideBySide&lt;/code&gt; 에서 우클릭해서 새로 만들기&amp;gt; DWORD (32 bit) 를 선택하고 &lt;code class=&quot;highlighter-rouge&quot;&gt;PreferExternalManifest&lt;/code&gt;라는 값을 만든다&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PreferExternalManifest&lt;/code&gt; 를 우클릭 &amp;gt; 수정해서 값을 1로 하고 10진법으로 선택후 저장한 뒤, 레지스트리 편집기를 닫는다&lt;/li&gt;
-  &lt;li&gt;아래 파일을 다운로드 받는다
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;/assets/download_files/manifest.txt&quot; download=&quot;&quot;&gt;manifest.txt 파일 다운로드 클릭!&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;스케일링을 적용하고 싶은 앱의 실행파일과 같은 폴더에 위 파일 &lt;code class=&quot;highlighter-rouge&quot;&gt;manifest.txt&lt;/code&gt;을 복사한다. (바로가기 아이콘일 경우에는 오른쪽 마우스를 누르고 &lt;code class=&quot;highlighter-rouge&quot;&gt;파일 위치 열기&lt;/code&gt;를 실행합니다.)
-&lt;img src=&quot;/assets/images/20190505/manifest_file.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;manifest 이름 변경하기&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;manifest.txt&lt;/code&gt;를 실행파일 이름에 맞춰서 이름을 다음과 같이 변경한다
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;실행파일명.확장자.manifest&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;예) XXX.exe 프로그램의 경우 XXX.exe.manifest (txt 확장자는 제거합니다. 위의 이미지를 참고해주세요)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;평소처럼 앱을 실행하면 앱이 커집니다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190505/bigger_program.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;크기 조정이 성공한 다빈치 리졸브&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;위와 같이 성공하면 앱 크기가 키워져서 보기 편해집니다. 이걸 해결하려고 구글링을 몇 시간 했는데, 이렇게 하니 간단히 해결되네요.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Etc" /><category term="Etc" /><summary type="html">화면 UI가 너무 작게 출력되는 문제 저 같은 경우에는 영상 편집 프로그램 다빈치 리졸브(Davinch Reslove)를 이용해보다가 화면이 너무 작게 출력되는 현상을 겪었습니다. 서피스 4에서 살펴보는데 너무 작게 보여서 글자가 거의 보이지 않았습니다. 앱 자체에서 지원하는 것을 찾아보려고 했는데, 찾기가 너무 어려웠습니다. 그래서 윈도우 자체에서 앱을 조절할 수 있는 방법이 있지 않을까? 하고 찾아보던 도중 https://www.clien.net/service/board/lecture/11899869 해당 홈페이지에서 좋은 정보를 찾았습니다. 정확한 원인은 윈도우에서 고해상도(HiDPI)가 제대로 지원되지 않는 앱의 경우 화면이 아주 작게 표시되는 것이었습니다. 원인은 해당 앱에서 ‘이 앱은 고해상도 지원 잘됩니다’라고 윈도우에 알려주는데, 실제는 아닌 것입니다. 그래서 이 앱을 고해상도가 적용이 안된다고 구식앱으로 간주되게 해서 결과적으로는 앱이 윈도우의 기본 기능으로 스케일링돼서 크게 표시되게 하는 방법이 있습니다. 문제 해결 과정 윈도우 키 + R 을 눌러서 regedit로 레지스트리 편집기를 연다 regedit setting HKEY_LOCAL_MACHINE &amp;gt; SOFTWARE &amp;gt; Microsoft &amp;gt; Windows &amp;gt; CurrentVersion &amp;gt; SideBySide 에서 우클릭해서 새로 만들기&amp;gt; DWORD (32 bit) 를 선택하고 PreferExternalManifest라는 값을 만든다 PreferExternalManifest 를 우클릭 &amp;gt; 수정해서 값을 1로 하고 10진법으로 선택후 저장한 뒤, 레지스트리 편집기를 닫는다 아래 파일을 다운로드 받는다 manifest.txt 파일 다운로드 클릭! 스케일링을 적용하고 싶은 앱의 실행파일과 같은 폴더에 위 파일 manifest.txt을 복사한다. (바로가기 아이콘일 경우에는 오른쪽 마우스를 누르고 파일 위치 열기를 실행합니다.) manifest 이름 변경하기 manifest.txt를 실행파일 이름에 맞춰서 이름을 다음과 같이 변경한다 실행파일명.확장자.manifest 예) XXX.exe 프로그램의 경우 XXX.exe.manifest (txt 확장자는 제거합니다. 위의 이미지를 참고해주세요) 평소처럼 앱을 실행하면 앱이 커집니다. 크기 조정이 성공한 다빈치 리졸브 위와 같이 성공하면 앱 크기가 키워져서 보기 편해집니다. 이걸 해결하려고 구글링을 몇 시간 했는데, 이렇게 하니 간단히 해결되네요.</summary></entry><entry><title type="html">강화학습 MDP와 벨만 방정식 기본 개념</title><link href="http://localhost:4000/machinelearning/2019/05/05/142000.html" rel="alternate" type="text/html" title="강화학습 MDP와 벨만 방정식 기본 개념" /><published>2019-05-05T00:00:00+09:00</published><updated>2019-05-05T00:00:00+09:00</updated><id>http://localhost:4000/machinelearning/2019/05/05/142000</id><content type="html" xml:base="http://localhost:4000/machinelearning/2019/05/05/142000.html">&lt;h2 id=&quot;mdpmarkov-decision-process&quot;&gt;MDP(Markov Decision Process)&lt;/h2&gt;
-
-&lt;p&gt;강화학습은 &lt;strong&gt;순차적으로 진행되는 일&lt;/strong&gt;에서 행동을 결정해야 합니다. 이를 &lt;strong&gt;수학적으로 결정한 것이 MDP&lt;/strong&gt; 입니다. 모든 것을 수치화하여 수학적으로 결정해야만 컴퓨터가 판단할 수 있습니다.&lt;/p&gt;
-
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-25T20:26:58+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Easy is Perfect</title><subtitle>Want to make some good product for world
+</subtitle><author><name>melonicedlatte</name><email>melonicedlatte@gmail.com</email></author><entry><title type="html">컴퓨터 전원 상태 S0, S1 … 과 Modern Standby 개념</title><link href="http://localhost:4000/computerarchitecture/2019/08/23/090300.html" rel="alternate" type="text/html" title="컴퓨터 전원 상태 S0, S1 ... 과 Modern Standby 개념" /><published>2019-08-23T00:00:00+09:00</published><updated>2019-08-23T00:00:00+09:00</updated><id>http://localhost:4000/computerarchitecture/2019/08/23/090300</id><content type="html" xml:base="http://localhost:4000/computerarchitecture/2019/08/23/090300.html">&lt;h2 id=&quot;컴퓨터-전원-상태&quot;&gt;컴퓨터 전원 상태&lt;/h2&gt;
+&lt;p&gt;전원 상태를 쉽게 설명하면 아래와 같이 설명할 수 있습니다. Sn에서 n에 해당하는 &lt;strong&gt;숫자가 커질수록 전원을 적게 사용&lt;/strong&gt;합니다. 또, 정상 상태로 &lt;strong&gt;복구하는 시간도 오래 걸립니다.&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;구성 요소 : 상태, 행동, 보상함수, 상태 변환 확률, 감가율, 정책&lt;/li&gt;
+  &lt;li&gt;S0 : 컴퓨터가 정상적으로 동작하는 활성 상태&lt;/li&gt;
+  &lt;li&gt;S1 : 절전상태. CPU, 메모리 정보 유지. 모든 하드웨어 전력 공급하는 상태의 절전모드.&lt;/li&gt;
+  &lt;li&gt;S2 : 절전상태. CPU 캐쉬와 시스템 캐쉬 사라짐. 프로세서 동작 멈춤.&lt;/li&gt;
+  &lt;li&gt;S3 : 절전상태. 하드디스크나 SSD같은 보조기억장치가 메모리나 CPU 같은 주 기억장치의 정보를 보관.&lt;/li&gt;
+  &lt;li&gt;S4 : 절전상태. 최대절전모드라고 불리며, 모든 장치의 전력이 차단된 상태. 절전상태 해제까지 시간이 걸림.&lt;/li&gt;
+  &lt;li&gt;S5 : 컴퓨터 OFF. 컴퓨터 전원이 완전이 꺼진 상태.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;문제를 잘 정의해야 강화학습 컴퓨터인 agent 가 제대로 학습할 수 있습니다.&lt;/p&gt;
+&lt;h2 id=&quot;what-is-모던-스탠바이modern-standby&quot;&gt;What is 모던 스탠바이(Modern Standby)?&lt;/h2&gt;
+&lt;p&gt;Window 10에서는 모던 스탠바이(Modern Standby)라는 &lt;code class=&quot;highlighter-rouge&quot;&gt;전력 조정 모드&lt;/code&gt;가 존재합니다. 쉽게 이해하기 위해서는 스마트폰의 시스템 전원을 보면 됩니다. 스마트폰에서 전원 버튼을 누르면, 스마트폰 시스템은 절전 모드에 들어갑니다. 이런 경우, &lt;strong&gt;전원 버튼&lt;/strong&gt;을 누르거나 &lt;strong&gt;전화나 카톡&lt;/strong&gt;처럼 깨어나도록 설정한 &lt;strong&gt;이벤트가 발생&lt;/strong&gt;해야 절전 모드를 탈출합니다.&lt;/p&gt;
 
-&lt;h3 id=&quot;상태&quot;&gt;상태&lt;/h3&gt;
+&lt;p&gt;고성능의 PC나 서버에서는 계속 전원이 안정적으로 공급되기 때문에 전원에 대한 이슈가 없지만, 노트북과 같은 장치들은 장시간의 사용을 위하여 저전력 상태를 잘 안정적으로 유지해야합니다. 이러한 이유에서 Modern Standby가 등장했다고 보여집니다.&lt;/p&gt;
 
-&lt;p&gt;상태 S는 에이전트가 &lt;strong&gt;관찰 가능한 상태의 집합&lt;/strong&gt;입니다.&lt;br /&gt;
-ex) 체스에서 말들의 좌표, 축구 게임에서 선수 캐릭터들이 공을 가지고 있는지 아닌지의 여부 등&lt;/p&gt;
+&lt;p&gt;Modern Standby는 Windows 8.1의 Connected Standby 모드에서 확장된 모드이고, Connected Standby는 지원하지 않던 하드디스크, 하이브리드 디스크(SSD + HDD or SSHD), 네트워크 인터페이스(NIC)가 장착된 상태에서도 저전력을 지원합니다. Modern Standby는 &lt;code class=&quot;highlighter-rouge&quot;&gt;S0&lt;/code&gt; 저전력 대기 모델을 채택하였고, 저전력 상태에서 네트워크 활동을 제한하는 기존의 설정과 달리 &lt;strong&gt;네트워크 연결이 끊어지지 않습니다.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S = \{ (x_1, y_1), (x_2, y_2), \cdots, (x_n, y_n) \}&lt;/script&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;출처&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://support.lenovo.com/be/ko/solutions/ht507599&lt;/li&gt;
+  &lt;li&gt;https://docs.microsoft.com/en-us/windows-hardware/design/device-experiences/modern-standby&lt;/li&gt;
+  &lt;li&gt;https://zipi.me/246&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>melonicedlatte</name></author><category term="ComputerArchitecture" /><category term="ComputerArchitecture" /><summary type="html">컴퓨터 전원 상태 전원 상태를 쉽게 설명하면 아래와 같이 설명할 수 있습니다. Sn에서 n에 해당하는 숫자가 커질수록 전원을 적게 사용합니다. 또, 정상 상태로 복구하는 시간도 오래 걸립니다. S0 : 컴퓨터가 정상적으로 동작하는 활성 상태 S1 : 절전상태. CPU, 메모리 정보 유지. 모든 하드웨어 전력 공급하는 상태의 절전모드. S2 : 절전상태. CPU 캐쉬와 시스템 캐쉬 사라짐. 프로세서 동작 멈춤. S3 : 절전상태. 하드디스크나 SSD같은 보조기억장치가 메모리나 CPU 같은 주 기억장치의 정보를 보관. S4 : 절전상태. 최대절전모드라고 불리며, 모든 장치의 전력이 차단된 상태. 절전상태 해제까지 시간이 걸림. S5 : 컴퓨터 OFF. 컴퓨터 전원이 완전이 꺼진 상태. What is 모던 스탠바이(Modern Standby)? Window 10에서는 모던 스탠바이(Modern Standby)라는 전력 조정 모드가 존재합니다. 쉽게 이해하기 위해서는 스마트폰의 시스템 전원을 보면 됩니다. 스마트폰에서 전원 버튼을 누르면, 스마트폰 시스템은 절전 모드에 들어갑니다. 이런 경우, 전원 버튼을 누르거나 전화나 카톡처럼 깨어나도록 설정한 이벤트가 발생해야 절전 모드를 탈출합니다. 고성능의 PC나 서버에서는 계속 전원이 안정적으로 공급되기 때문에 전원에 대한 이슈가 없지만, 노트북과 같은 장치들은 장시간의 사용을 위하여 저전력 상태를 잘 안정적으로 유지해야합니다. 이러한 이유에서 Modern Standby가 등장했다고 보여집니다. Modern Standby는 Windows 8.1의 Connected Standby 모드에서 확장된 모드이고, Connected Standby는 지원하지 않던 하드디스크, 하이브리드 디스크(SSD + HDD or SSHD), 네트워크 인터페이스(NIC)가 장착된 상태에서도 저전력을 지원합니다. Modern Standby는 S0 저전력 대기 모델을 채택하였고, 저전력 상태에서 네트워크 활동을 제한하는 기존의 설정과 달리 네트워크 연결이 끊어지지 않습니다. 출처 https://support.lenovo.com/be/ko/solutions/ht507599 https://docs.microsoft.com/en-us/windows-hardware/design/device-experiences/modern-standby https://zipi.me/246</summary></entry><entry><title type="html">Fast Startup(빠른 시작)의 개념과 특징</title><link href="http://localhost:4000/computerarchitecture/2019/08/23/164700.html" rel="alternate" type="text/html" title="Fast Startup(빠른 시작)의 개념과 특징" /><published>2019-08-23T00:00:00+09:00</published><updated>2019-08-23T00:00:00+09:00</updated><id>http://localhost:4000/computerarchitecture/2019/08/23/164700</id><content type="html" xml:base="http://localhost:4000/computerarchitecture/2019/08/23/164700.html">&lt;h2 id=&quot;what-is-fast-startup&quot;&gt;What is Fast Startup?&lt;/h2&gt;
 
-&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;상태의 집합&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;특징-및-장점&quot;&gt;특징 및 장점&lt;/h3&gt;
 
-&lt;p&gt;시간 t 일때의 상태를 $S_t$ 라고 합니다. 시간 $t$ 일 때, 체스 말이 $(3, 5)$에 있다면 아래와 같이 표현할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/201908/4C1BC6ED-4F42-46C9-907B-82E42B6C19E0.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;Fast Startup vs Regular Boot&lt;/strong&gt;&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_t = (3, 5)&lt;/script&gt;
+&lt;p&gt;윈도우 8/10 에서는 마이크로소프트에서 &lt;strong&gt;Fast Startup&lt;/strong&gt;이라는 컴퓨터 부팅 방식을 지원합니다. Fast Startup은 cold boot와 절전 상태에서 전원을 키는 상태가 결합된 모드입니다. 윈도우 7 에서는 종료하는 동안 OS는 User session과 kenerl session을 종료합니다. 하지만, 윈도우 8 에서는 kernel session는 종료되지 않고, 절전 상태로 들어갑니다. 파일 사이즈가 매우 큰 완전 절전 상태와 다르게, &lt;code class=&quot;highlighter-rouge&quot;&gt;kernel only&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;0 Hibernation 데이터 파일&lt;/code&gt;을 가지기 때문에, &lt;strong&gt;사이즈가 매우 작습니다&lt;/strong&gt;. 그 결과, 디스크에 쓰는 시간이 매우 작아집니다. 부팅 때, 이 파일을 사용하면 &lt;strong&gt;시간적 이점이 생깁니다&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;$S_t$ 에서의 (3,5) 상태 표시&lt;/strong&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_t = s&lt;/script&gt;
-
-&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;$S_t$ 에서의 상태 $s$&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;상태는 &lt;strong&gt;어떤 집합 안에서 뽑을 때마다 달라질 수 있는 확률변수&lt;/strong&gt; 입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;행동&quot;&gt;행동&lt;/h3&gt;
-
-&lt;p&gt;에이전트가 상태 $S_t$ 에서 할 수 있는 가능한 행동의 집합은 $A$ 입니다. $A_t$는 시간 $t$에 집합 A에서 선택한 행동입니다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;A_t = a&lt;/script&gt;
-
-&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;$A_t$ 에서의 행동 $a$&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;만약, 달리거나 뛰는 행동 중에서 고를 수 있다면 집합 $A$는 아래와 같이 표현할 수 있습니다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;A = \{ run, walk \}&lt;/script&gt;
-
-&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;$A$ 에서 가능한 행동의 집합 $a$&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;보상함수&quot;&gt;보상함수&lt;/h3&gt;
-
-&lt;p&gt;보상은 에이전트가 학습할 수 있는 &lt;strong&gt;유일한 정보&lt;/strong&gt;로서 환경이 에이전트에게 주는 정보입니다. 시간 $t$에서 상태가 $S_t = s$이고, 행동이 $A_t = a$일 때, 에이전트가 받을 보상은 아래와 같습니다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;R^a_s = E[R_{t+1} \enspace|\enspace S_t = s, A_t = a]&lt;/script&gt;
-
-&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;보상함수의 정의&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;보상함수는 시간 $t$일 때, 받을 보상에 대한 기댓값 $E$입니다. 기댓값은 실제 값이 아니라 &lt;strong&gt;예측 값&lt;/strong&gt;입니다. 환경에 따라서 &lt;strong&gt;같은 상태에서 같은 행동을 해도 다른 보상을 받을 수 있기 때문에 기댓값으로 표현&lt;/strong&gt;합니다.&lt;/p&gt;
-
-&lt;p&gt;에이전트의 행동 시간은 $t$이지만, 보상을 받는 시점은 $t + 1$ 입니다. 행동을 하고 나서야 비로소 보상을 알 수 있기 때문입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;상태-변환-확률&quot;&gt;상태 변환 확률&lt;/h3&gt;
-
-&lt;h3 id=&quot;감가율&quot;&gt;감가율&lt;/h3&gt;
-
-&lt;h3 id=&quot;정책&quot;&gt;정책&lt;/h3&gt;
-
-&lt;h2 id=&quot;가치함수&quot;&gt;가치함수&lt;/h2&gt;
-
-&lt;h3 id=&quot;큐함수&quot;&gt;큐함수&lt;/h3&gt;
-
-&lt;h2 id=&quot;벨만-방정식&quot;&gt;벨만 방정식&lt;/h2&gt;
-
-&lt;h3 id=&quot;벨만-기대-방정식&quot;&gt;벨만 기대 방정식&lt;/h3&gt;
-
-&lt;h3 id=&quot;벨만-최적-방정식&quot;&gt;벨만 최적 방정식&lt;/h3&gt;</content><author><name>melonicedlatte</name></author><category term="MachineLearning" /><category term="MachineLearning" /><summary type="html">MDP(Markov Decision Process) 강화학습은 순차적으로 진행되는 일에서 행동을 결정해야 합니다. 이를 수학적으로 결정한 것이 MDP 입니다. 모든 것을 수치화하여 수학적으로 결정해야만 컴퓨터가 판단할 수 있습니다. 구성 요소 : 상태, 행동, 보상함수, 상태 변환 확률, 감가율, 정책 문제를 잘 정의해야 강화학습 컴퓨터인 agent 가 제대로 학습할 수 있습니다. 상태 상태 S는 에이전트가 관찰 가능한 상태의 집합입니다. ex) 체스에서 말들의 좌표, 축구 게임에서 선수 캐릭터들이 공을 가지고 있는지 아닌지의 여부 등 상태의 집합 시간 t 일때의 상태를 $S_t$ 라고 합니다. 시간 $t$ 일 때, 체스 말이 $(3, 5)$에 있다면 아래와 같이 표현할 수 있습니다. $S_t$ 에서의 (3,5) 상태 표시 $S_t$ 에서의 상태 $s$ 상태는 어떤 집합 안에서 뽑을 때마다 달라질 수 있는 확률변수 입니다. 행동 에이전트가 상태 $S_t$ 에서 할 수 있는 가능한 행동의 집합은 $A$ 입니다. $A_t$는 시간 $t$에 집합 A에서 선택한 행동입니다. $A_t$ 에서의 행동 $a$ 만약, 달리거나 뛰는 행동 중에서 고를 수 있다면 집합 $A$는 아래와 같이 표현할 수 있습니다. $A$ 에서 가능한 행동의 집합 $a$ 보상함수 보상은 에이전트가 학습할 수 있는 유일한 정보로서 환경이 에이전트에게 주는 정보입니다. 시간 $t$에서 상태가 $S_t = s$이고, 행동이 $A_t = a$일 때, 에이전트가 받을 보상은 아래와 같습니다. 보상함수의 정의 보상함수는 시간 $t$일 때, 받을 보상에 대한 기댓값 $E$입니다. 기댓값은 실제 값이 아니라 예측 값입니다. 환경에 따라서 같은 상태에서 같은 행동을 해도 다른 보상을 받을 수 있기 때문에 기댓값으로 표현합니다. 에이전트의 행동 시간은 $t$이지만, 보상을 받는 시점은 $t + 1$ 입니다. 행동을 하고 나서야 비로소 보상을 알 수 있기 때문입니다. 상태 변환 확률 감가율 정책 가치함수 큐함수 벨만 방정식 벨만 기대 방정식 벨만 최적 방정식</summary></entry><entry><title type="html">우주를 이끄는 민간 기업 등장에 대한 이야기</title><link href="http://localhost:4000/tech/2019/05/03/213700.html" rel="alternate" type="text/html" title="우주를 이끄는 민간 기업 등장에 대한 이야기" /><published>2019-05-03T00:00:00+09:00</published><updated>2019-05-03T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/05/03/213700</id><content type="html" xml:base="http://localhost:4000/tech/2019/05/03/213700.html">&lt;h2 id=&quot;우주선은-누가-쏘는가&quot;&gt;우주선은 누가 쏘는가&lt;/h2&gt;
-
-&lt;h3 id=&quot;기존의-패러다임은-정부의-주도&quot;&gt;기존의 패러다임은 정부의 주도&lt;/h3&gt;
-
-&lt;p&gt;미국, 러시아와 같은 나라들은 우수한 항공 기술을 가지고 있고, 이미 오래전에 달에 사람을 보냈습니다. 우리나라가 경제적으로 매우 어려울 때, 이미 선진화된 기술을 이용하여 우주산업에 진출하였습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190503/nasaLogo-570x450.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;미국 항공우주국(NASA)의 로고&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;NASA는 세계를 대표하는 우주 산업을 이끄는 정부기관입니다. NASA는 미국의 국가 기관으로서 우주 계획 및 장기적인 일반 항공 연구 등을 실행하고 있습니다. 달에 사람을 보내는 것도 위성을 보내는 것 이외에 우리가 모르는 수 많은 우주 산업을 이끌어 가고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190503/kari_logo.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;한국항공우주연구원(KARI)의 로고&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;한국항공우주연구원(KARI)는 과학기술정보통신부 산하 항공우주 과학기술 관련 기타공공기관 재단법인으로 우주항공기술 개발, 항공공학의 발전과 기술 개발 및 보급을 하고 있습니다. &lt;strong&gt;한국형 우주 발사체 나로호&lt;/strong&gt;를 러시아와 협력하여 만든 적이 있습니다. 현재는 &lt;strong&gt;누리&lt;/strong&gt;라는 명칭을 가진 한국형 발사체가 나로호와는 다르게 우리나라에서 &lt;strong&gt;독자 개발중&lt;/strong&gt;이며 2021년 첫 발사가 예정되어 있습니다. 안타깝게도 우리나라의 항공 기술은 타 선진국들과 비교해보면 상당히 뒤져있습니다. 아직은 많이 노력해야 할 단계입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;왜-정부가-주도하는가&quot;&gt;왜 정부가 주도하는가&lt;/h3&gt;
-
-&lt;p&gt;우주선을 발사하기 위해서는 천문학적인 비용이듭니다. 그래서 모든 국가에서 정부 주도로 우주산업을 이끌어왔었습니다. 민간 기업은 이런 국가 기관에 부품을 납품하는 역할을 하는 정도였고, 주도적인 역할은 할 수 없었습니다. 문제는 역시 &lt;strong&gt;비용&lt;/strong&gt;입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;민간-기업에서의-우주산업-도전&quot;&gt;민간 기업에서의 우주산업 도전&lt;/h2&gt;
-
-&lt;h3 id=&quot;스페이스-x-의-등장&quot;&gt;스페이스 X 의 등장&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190503/Elon_Musk_Royal_Society.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;새로운 시도를 계속해서 하는 경이로운 인물 앨론 머스크&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;엘론 머스크가 설립한 미국의 민간 우주기업. ISS&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 보급 및 상용 인공위성 발사를 주 업무로 하며, 화성 유인 탐사 및 정착을 목표로 하고 있습니다. 정부만이 할 수 있다고 생각되던 우주항공산업을 &lt;strong&gt;민간 기업에서 조금 더 효율적으로 할 수 있지 않을까?&lt;/strong&gt;하는 엘론 머스크의 발상에서 시작되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190503/spacex-logo.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;민간 우주선 기업을 선도하고 있는 스페이스 X&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;앨론 머스크는 테슬라, openAI&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; , 솔라시티, 더 보링 컴퍼니&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; 와 같은 혁신적인 기업들을 만드는 놀라운 창업가입니다. 그는 여러 가치있는 회사를 만들었지만, 그 중에서 가장 놀랍다고 생각하는 것은 바로 &lt;strong&gt;스페이스 X&lt;/strong&gt;입니다.&lt;/p&gt;
-
-&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
-  &lt;iframe src=&quot;https://www.youtube.com/embed/OtIMeAt2lTY?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;스페이스 X의 &lt;strong&gt;팰컨 헤비&lt;/strong&gt; 발사 영상을 찍은 내셔널 지오그래픽의 다큐멘터리입니다. 우주선을 만들고 직접 그 현장에서 발사되고 복귀하는 모습을 보면 꽤나 감동적일 것 같습니다. 우주선이 처음으로 복귀할 수 있게 만든 걸 보면, 스페이스X에서 앞으로 무엇을 더 할 수 있을 지 기대가 됩니다.&lt;/p&gt;
-
-&lt;p&gt;다큐멘터리의 마지막에서 그는 아래와 같은 말을 합니다. 이런 생각을 할 수 있는게 놀랍기만 하고 본받고 싶습니다.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;이런게 살아갈 이유가 되는 거에요. 단순히 당면한 문제들만 해결하며 살아갈 게 아니라, 삶의 이유를 찾아야 하죠. 펼쳐질 삶과 미래에 대해 걱정해야 되요. 화성은 제게 그런 의미에요.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;스페이스 X를 자신의 전 재산을 쏟아가면서 도전하고 &lt;strong&gt;엄청난 리스크를 감수하면서 성공&lt;/strong&gt;까지 했다는 점에서 이 시대에 둘도 없는 기업가라고 생각합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;스페이스-x-가-한-일&quot;&gt;스페이스 X 가 한 일&lt;/h3&gt;
-
-&lt;p&gt;다시 스페이스 X 얘기로 돌아가서, 스페이스 X가 한 일들이 무엇이 있는지 정리해보았습니다. 실패하는 경우도 많습니다. 하지만 아래의 성공 사례들이 매우 많은 걸로 봐서는 꽤나 안정화된 상태인 것 같습니다.&lt;/p&gt;
+&lt;h3 id=&quot;이슈-및-단점&quot;&gt;이슈 및 단점&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;2010년 12월 8일에 Dragon이 재진입 후 회수까지 성공하면서 &lt;code class=&quot;highlighter-rouge&quot;&gt;발사부터 귀환까지 모든 기술을 갖춘 최초의 민간기업&lt;/code&gt;으로 자리잡았다.&lt;/li&gt;
-  &lt;li&gt;2012년에는 세계 최초의 상용 우주선 발사로 &lt;code class=&quot;highlighter-rouge&quot;&gt;ISS에 드래곤을 도킹&lt;/code&gt;시켰다.&lt;/li&gt;
-  &lt;li&gt;2015년 12월 팰컨 9 로켓으로 위성을 궤도진입시킨 뒤 추진체 로켓을 그대로 회수하는 데 &lt;code class=&quot;highlighter-rouge&quot;&gt;인류 역사상 최초로 성공&lt;/code&gt;하였다.&lt;/li&gt;
-  &lt;li&gt;2016년 4월 팰컨 9 로켓의 &lt;code class=&quot;highlighter-rouge&quot;&gt;해상 회수&lt;/code&gt;에 인류 역사상 최초로 성공하였다.&lt;/li&gt;
-  &lt;li&gt;2016년 4월 말 미국 공군으로부터 8천 270만 달러 상당의 GPS 발사계약을 따냈다. 거대하지만 폐쇄적이던 국방부 계약 시장의 문을 연건 사업상으로 큰 의미가 있다.&lt;/li&gt;
-  &lt;li&gt;2017년 3월 30일에 1년 전 ISS보급 미션을 위해 발사됐다 대서양에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;회수된 1단 로켓을 재사용해 인공위성을 정지궤도에 올려놓는 새로운 미션을 수행&lt;/code&gt;하는 데 성공했다.&lt;/li&gt;
-  &lt;li&gt;2018년 12월 4일, 팰컨 9 블록 5의 세번째 재발사가 이루어졌고 1단 로켓 회수 역시 성공하였다. &lt;code class=&quot;highlighter-rouge&quot;&gt;사상 최초의 로켓 3번째 재발사&lt;/code&gt;이다. 17개국의 소형 위성 64기를 궤도에 올리는 임무였는데 여기에는 한국이 개발한 차세대소형위성 1호도 포함되어 있다.&lt;/li&gt;
+  &lt;li&gt;Fast Startup이 enabled 되어 있으면, regular shutdown을 하지 않습니다. 이 경우 시스템 update가 잘 이루어지지 않을 수 있습니다. &lt;strong&gt;하지만, &lt;code class=&quot;highlighter-rouge&quot;&gt;컴퓨터 다시 시작&lt;/code&gt;의 경우에는 Fast Startup이 적용되지 않습니다.&lt;/strong&gt; 따라서, 시스템 update가 이루어지면 종료하지 않고, 재시작을 하거나 cold shutdown을 수행할 수 있습니다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Fast Startup은 암호화된 디스크 이미지를 방해할 수 있습니다.&lt;/strong&gt; TrueCrypt와 같은 암호화된 프로그램의 사용자들은, 시스템이 종료되기 전에 mounted한 암호화된 드라이버들이 백업을 시작할 때, 자동으로 remount 한다고 보고했습니다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;절전을 지원하지 않는 시스템에서는 지원할 수 없습니다.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;빠른 시작을 사용하도록 설정된 컴퓨터를 종료하면 Windows(윈도우) 하드 디스크를 lock down 합니다. 이는 컴퓨터가 이중 부팅으로 구성되어 있으면 다른 운영 체제에서 액세스할 수 없다는 것을 의미합니다. 더욱이 다른 OS로 부팅한 다음 최대 절전 모드인 Windows(윈도우) 설치에서 사용하는 하드 디스크(또는 파티션)에 액세스하거나 변경하면 손상을 일으킬 수 있습니다. &lt;strong&gt;듀얼 부팅이라면 Fast Startup이나 최대 절전 모드를 전혀 사용하지 않는 것이 좋습니다.&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Fast Startup을 활성화시키고 컴퓨터를 종료할 때, BIOS/UEFI 설정에 진입하지 못할 수 있습니다. 컴퓨터가 최대 절전 상태에서는 전원이 완전하게 차단되지 않는데, 이러한 상태에서 &lt;strong&gt;BIOS/UEFI에 진입하는 것을 지원하지 않는 경우가 있습니다.&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;그 이외에 우주관광, 화성과 달에 사람 보내기 등 다양한 미래 계획들을 하고 있는 놀라운 회사입니다.&lt;/p&gt;
+&lt;h3 id=&quot;설정-방법&quot;&gt;설정 방법&lt;/h3&gt;
+&lt;p&gt;제어판 &amp;gt; 하드웨어 및 소리 &amp;gt; 전원 옵션 &amp;gt; 전원 단추 작동 설정 &amp;gt; &lt;strong&gt;빠른 시작 켜기 선택 or 해제&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;블루-오리진&quot;&gt;블루 오리진&lt;/h3&gt;
+&lt;hr /&gt;
 
-&lt;p&gt;그런데 &lt;strong&gt;스페이스 X만 민간 우주기업인가?&lt;/strong&gt; 하는 질문에 대한 대답은 &lt;code class=&quot;highlighter-rouge&quot;&gt;NO&lt;/code&gt;입니다. 아마존의 설립자인 &lt;strong&gt;제프 베조스&lt;/strong&gt;가 설립한 이 회사는, 낮은 비용과 높은 신뢰성의 로켓으로 개개인이 우주에 접근할수 있는 기술을 목표로 하고 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;출처&lt;/strong&gt;&lt;/p&gt;
 
-&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
-  &lt;iframe src=&quot;https://www.youtube.com/embed/51QUQwlNRz4?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://www.thewindowsclub.com/fast-startup-windows-8&lt;/li&gt;
+  &lt;li&gt;https://www.howtogeek.com/243901/the-pros-and-cons-of-windows-10s-fast-startup-mode/&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>melonicedlatte</name></author><category term="ComputerArchitecture" /><category term="ComputerArchitecture" /><summary type="html">What is Fast Startup? 특징 및 장점 Fast Startup vs Regular Boot 윈도우 8/10 에서는 마이크로소프트에서 Fast Startup이라는 컴퓨터 부팅 방식을 지원합니다. Fast Startup은 cold boot와 절전 상태에서 전원을 키는 상태가 결합된 모드입니다. 윈도우 7 에서는 종료하는 동안 OS는 User session과 kenerl session을 종료합니다. 하지만, 윈도우 8 에서는 kernel session는 종료되지 않고, 절전 상태로 들어갑니다. 파일 사이즈가 매우 큰 완전 절전 상태와 다르게, kernel only or 0 Hibernation 데이터 파일을 가지기 때문에, 사이즈가 매우 작습니다. 그 결과, 디스크에 쓰는 시간이 매우 작아집니다. 부팅 때, 이 파일을 사용하면 시간적 이점이 생깁니다. 이슈 및 단점 Fast Startup이 enabled 되어 있으면, regular shutdown을 하지 않습니다. 이 경우 시스템 update가 잘 이루어지지 않을 수 있습니다. 하지만, 컴퓨터 다시 시작의 경우에는 Fast Startup이 적용되지 않습니다. 따라서, 시스템 update가 이루어지면 종료하지 않고, 재시작을 하거나 cold shutdown을 수행할 수 있습니다. Fast Startup은 암호화된 디스크 이미지를 방해할 수 있습니다. TrueCrypt와 같은 암호화된 프로그램의 사용자들은, 시스템이 종료되기 전에 mounted한 암호화된 드라이버들이 백업을 시작할 때, 자동으로 remount 한다고 보고했습니다. 절전을 지원하지 않는 시스템에서는 지원할 수 없습니다. 빠른 시작을 사용하도록 설정된 컴퓨터를 종료하면 Windows(윈도우) 하드 디스크를 lock down 합니다. 이는 컴퓨터가 이중 부팅으로 구성되어 있으면 다른 운영 체제에서 액세스할 수 없다는 것을 의미합니다. 더욱이 다른 OS로 부팅한 다음 최대 절전 모드인 Windows(윈도우) 설치에서 사용하는 하드 디스크(또는 파티션)에 액세스하거나 변경하면 손상을 일으킬 수 있습니다. 듀얼 부팅이라면 Fast Startup이나 최대 절전 모드를 전혀 사용하지 않는 것이 좋습니다. Fast Startup을 활성화시키고 컴퓨터를 종료할 때, BIOS/UEFI 설정에 진입하지 못할 수 있습니다. 컴퓨터가 최대 절전 상태에서는 전원이 완전하게 차단되지 않는데, 이러한 상태에서 BIOS/UEFI에 진입하는 것을 지원하지 않는 경우가 있습니다. 설정 방법 제어판 &amp;gt; 하드웨어 및 소리 &amp;gt; 전원 옵션 &amp;gt; 전원 단추 작동 설정 &amp;gt; 빠른 시작 켜기 선택 or 해제 출처 https://www.thewindowsclub.com/fast-startup-windows-8 https://www.howtogeek.com/243901/the-pros-and-cons-of-windows-10s-fast-startup-mode/</summary></entry><entry><title type="html">8b/10b encoding이란? 개념 정리</title><link href="http://localhost:4000/computerarchitecture/2019/08/19/152700.html" rel="alternate" type="text/html" title="8b/10b encoding이란? 개념 정리" /><published>2019-08-19T00:00:00+09:00</published><updated>2019-08-19T00:00:00+09:00</updated><id>http://localhost:4000/computerarchitecture/2019/08/19/152700</id><content type="html" xml:base="http://localhost:4000/computerarchitecture/2019/08/19/152700.html">&lt;h2 id=&quot;what-is-8b10b-encoding&quot;&gt;What is 8b/10b encoding?&lt;/h2&gt;
+&lt;p&gt;8b/10b는 8bit word를 10bit symbol에 mapping하여 만든 line code입니다. 즉, 8bit를 전송하기 위해서 10bit가 필요합니다. 이 mapping을 통하여 DC-balance와 bounded dispartiy를 달성하면서, 합리적인 clock recovery를 허용하는 충분한 상태 변화를 제공합니다.&lt;/p&gt;
 
-&lt;p&gt;블루 오리진도 &lt;strong&gt;스페이스 X&lt;/strong&gt;와 같이 민간 우주선 업체로 많은 역할을 하고 있습니다. 제프 베조스도 혁신적인 일을 많이 하기로 유명한데, 아마존에서 머무른 것이 아니라 우주 산업에 까지 뛰어든 것이 놀랍습니다.&lt;/p&gt;
+&lt;p&gt;8b/10b code는 다양한 방법으로 구현될 수 있습니다. 예를 들면 설계할 때, 하드웨어 요구사항이나 DC-balance와 같은 특별한 파라미터들에 초점을 맞춰서 설계할 수도 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;how-it-works-for-the-ibm-code&quot;&gt;How it works for the IBM code&lt;/h2&gt;
+&lt;p&gt;위에서 언급한 것처럼, 8b/10b는 8bit word를 10bit symbol에 mapping하여 만든 line code입니다. low data 5개는 6-bit group으로 encode되며(5b/6b), top 3 bit는 4-bit group으로 encode됩니다(3b/4b). 이러한 code group은 10-bit symbol로 결합됩니다.&lt;/p&gt;
 
-&lt;h2 id=&quot;요약&quot;&gt;요약&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;data symbol&lt;/strong&gt;은 x가 0-31, y가 0-7이고, &lt;strong&gt;D.x.y&lt;/strong&gt;로 언급됩니다. 8b/10b encoding의 Standard에서는 data symbol 대신 전송할 수 있는 12개의 &lt;strong&gt;special symbol(혹은 control characters)&lt;/strong&gt;를 정의하고 있습니다. 이러한 special symbol들은 start-of-frame, end-of-frame, link idle, skip and similar link-level conditions들에 사용됩니다. 10-bit symbol을 정의하는데 사용하기 위하여 special symbol(i.e. “comma symbol”)이 필요하고, &lt;strong&gt;K.x.y&lt;/strong&gt;의 형태를 가집니다.&lt;/p&gt;
 
-&lt;p&gt;국내에도 많은 기업들이 이러한 일들을 했으면 좋겠지만, 아직 시기상조인 것 같습니다. 기술적 뒷받침이나 투자, 경제규모 같은 여러가지 문제들이 장벽이라고 생각합니다. 국가기관에서도 성공하지 못한 내용에 대하여 기업이 뛰어들기 어려울 것입니다.&lt;/p&gt;
+&lt;p&gt;8b/10b encoding는 8-bit word를 위하여 10-bit를 사용하기 때문에, 존재할 수 있는 1024개의($ 2 ^ {10} $) code에서 아래와 같은 경우의 케이스의 code를 제외 할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;일단 국가 주도로 많이 뒤쳐져있는 우주 산업에 대한 격차를 따라 잡고, 앞으로 기업체에서도 많은 도전을 할 수 있게 되면 좋겠습니다.&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;5개 이상의 연속된 bit가 존재함&lt;/li&gt;
+  &lt;li&gt;모든 0과 1의 총 합의 차가 2보다 큼&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;또, 8-bit로 구현할 수 있는 256개의 word 중 일부는 두 가지 다른 방식으로 인코딩 될 수 있습니다. 이런 alternative encoding 방식을 사용하면, serial data stream에서 long-term DC-balance를 달성할 수 있습니다. 이는 Data stream이 high-pass 특성을 가진 채널에서 사용할 수 있게 합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;출처&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;encoding-tables&quot;&gt;Encoding tables&lt;/h3&gt;
+&lt;p&gt;아래에 나오는 표들을 보면 A는 최하위 비트이고, H는 최상위 비트입니다. extra bit는 i,j입니다. (a, b, c, d, e, &lt;strong&gt;i&lt;/strong&gt;, f, g, h, &lt;strong&gt;j&lt;/strong&gt;) 5b/6b 다음에 3b/4b 이 오는 형태입니다. 이러한 구조는 “comma codes”의 special bit sequence의 유일성을 보장합니다.&lt;/p&gt;
 
+&lt;p&gt;0과 1이 전송되는 stream에서의 residual effect는 running disparity(RD)로 유지되고, slew effect는 encoding 선택에 의하여 균형을 이룹니다.&lt;/p&gt;
+
+&lt;p&gt;5b/6b 코드와 3b/4b 코드는 쌍을 이루는 disparity code입니다. 각각은 0과 1의 개수가 동일하거나 2개 차이가 납니다. 0이 아닌 disparty(disparty = 1 count - 0 count), 즉 $ \pm 2$가 사용되면, positive &amp;amp; negative dispartiy endocing을 선택해야 합니다. 표를 살펴보면 RD가 $\pm 2$가 들어온 경우에 계속해서 바뀌는 것을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;running-disparity&quot;&gt;Running disparity&lt;/h3&gt;
+&lt;p&gt;8b/10b 코딩은 DC-free이다. 이것은 오랜 시간을 두고 신호를 살펴보면 0과 1의 비율이 정확히 50% 라는 것입니다. 이러한 조건을 달성하기 위해서는, 전송되는 0과 1의 숫자가 항상 $ \pm 2$ 를 유지할 수 있게 제한됩니다.&lt;/p&gt;
+
+&lt;p&gt;1과 0의 개수가 같지 않은 5b/6b과 3b/4b 코드에 대해 전송하는 데 사용할 수 있는 패턴이 2개가 있습니다.(1이 2개 더 많거나 0이 2개 더 많은 경우) RD의 값에 따라서 보낼 패턴이 선택됩니다. 1과 0의 개수가 같은 경우에는 D.07과 D.x.3을 제외하고는 선택의 여지가 없습니다.(D.07 같은 경우에는 1과 0의 개수가 같지만 2가지 케이스가 존재)&lt;/p&gt;
+
+&lt;p&gt;D.x.7의 경우에는 앞의 5b/6b의 코드와 결합했을 때, 5개의 연속된 같은 숫자가 나오면 안되기 때문에, D.x.P7 or D.x.A7 encoding을 사용합니다. D.x.A7의 경우 RD = 1이면  x = 11 or 13 or 14 , RD = -1 이면 x = 17 or 18 or 19 입니다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Previous RD&lt;/th&gt;
+      &lt;th&gt;Disparity of code word&lt;/th&gt;
+      &lt;th&gt;Disparity chosen&lt;/th&gt;
+      &lt;th&gt;Next RD&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;−1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;−1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;−1&lt;/td&gt;
+      &lt;td&gt;±2&lt;/td&gt;
+      &lt;td&gt;+2&lt;/td&gt;
+      &lt;td&gt;+1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;+1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;+1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;+1&lt;/td&gt;
+      &lt;td&gt;±2&lt;/td&gt;
+      &lt;td&gt;−2&lt;/td&gt;
+      &lt;td&gt;−1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;5b6b-table&quot;&gt;5b/6b table&lt;/h3&gt;
+
+&lt;table class=&quot;wikitable&quot; style=&quot;text-align:center&quot;&gt;&lt;caption&gt;5b/6b code&lt;/caption&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th colspan=&quot;2&quot;&gt;Input&lt;/th&gt;&lt;th&gt;RD=−1&lt;/th&gt;&lt;th&gt;RD=+1&lt;/th&gt;&lt;td rowspan=&quot;19&quot;&gt;&lt;/td&gt;&lt;th colspan=&quot;2&quot;&gt;Input&lt;/th&gt;&lt;th&gt;RD=−1&lt;/th&gt;&lt;th&gt;RD=+1&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;EDCBA&lt;/th&gt;&lt;th colspan=&quot;2&quot;&gt;abcdei&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;EDCBA&lt;/th&gt;&lt;th colspan=&quot;2&quot;&gt;abcdei&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.00&lt;/td&gt;&lt;td&gt;00000&lt;/td&gt;&lt;td&gt;100111&lt;/td&gt;&lt;td&gt;011000&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.16&lt;/td&gt;&lt;td&gt;10000&lt;/td&gt;&lt;td&gt;011011&lt;/td&gt;&lt;td&gt;100100&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.01&lt;/td&gt;&lt;td&gt;00001&lt;/td&gt;&lt;td&gt;011101&lt;/td&gt;&lt;td&gt;100010&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.17&lt;/td&gt;&lt;td&gt;10001&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;100011&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.02&lt;/td&gt;&lt;td&gt;00010&lt;/td&gt;&lt;td&gt;101101&lt;/td&gt;&lt;td&gt;010010&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.18&lt;/td&gt;&lt;td&gt;10010&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;010011&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.03&lt;/td&gt;&lt;td&gt;00011&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;110001&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.19&lt;/td&gt;&lt;td&gt;10011&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;110010&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.04&lt;/td&gt;&lt;td&gt;00100&lt;/td&gt;&lt;td&gt;110101&lt;/td&gt;&lt;td&gt;001010&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.20&lt;/td&gt;&lt;td&gt;10100&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;001011&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.05&lt;/td&gt;&lt;td&gt;00101&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;101001&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.21&lt;/td&gt;&lt;td&gt;10101&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;101010&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.06&lt;/td&gt;&lt;td&gt;00110&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;011001&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.22&lt;/td&gt;&lt;td&gt;10110&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;011010&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.07&lt;/td&gt;&lt;td&gt;00111&lt;/td&gt;&lt;td&gt;111000&lt;/td&gt;&lt;td&gt;000111&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.23 †&lt;/td&gt;&lt;td&gt;10111&lt;/td&gt;&lt;td&gt;111010&lt;/td&gt;&lt;td&gt;000101&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.08&lt;/td&gt;&lt;td&gt;01000&lt;/td&gt;&lt;td&gt;111001&lt;/td&gt;&lt;td&gt;000110&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.24&lt;/td&gt;&lt;td&gt;11000&lt;/td&gt;&lt;td&gt;110011&lt;/td&gt;&lt;td&gt;001100&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.09&lt;/td&gt;&lt;td&gt;01001&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;100101&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.25&lt;/td&gt;&lt;td&gt;11001&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;100110&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.10&lt;/td&gt;&lt;td&gt;01010&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;010101&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.26&lt;/td&gt;&lt;td&gt;11010&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;010110&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.11&lt;/td&gt;&lt;td&gt;01011&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;110100&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.27 †&lt;/td&gt;&lt;td&gt;11011&lt;/td&gt;&lt;td&gt;110110&lt;/td&gt;&lt;td&gt;001001&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.12&lt;/td&gt;&lt;td&gt;01100&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;001101&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.28&lt;/td&gt;&lt;td&gt;11100&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;001110&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.13&lt;/td&gt;&lt;td&gt;01101&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;101100&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.29 †&lt;/td&gt;&lt;td&gt;11101&lt;/td&gt;&lt;td&gt;101110&lt;/td&gt;&lt;td&gt;010001&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.14&lt;/td&gt;&lt;td&gt;01110&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;011100&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.30 †&lt;/td&gt;&lt;td&gt;11110&lt;/td&gt;&lt;td&gt;011110&lt;/td&gt;&lt;td&gt;100001&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;D.15&lt;/td&gt;&lt;td&gt;01111&lt;/td&gt;&lt;td&gt;010111&lt;/td&gt;&lt;td&gt;101000&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;D.31&lt;/td&gt;&lt;td&gt;11111&lt;/td&gt;&lt;td&gt;101011&lt;/td&gt;&lt;td&gt;010100&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;4&quot;&gt;&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;K.28&lt;/td&gt;&lt;td&gt;11100&lt;/td&gt;&lt;td&gt;001111&lt;/td&gt;&lt;td&gt;110000&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;h3 id=&quot;3b4b-table&quot;&gt;3b/4b table&lt;/h3&gt;
+
+&lt;table class=&quot;wikitable&quot; style=&quot;text-align:center&quot;&gt;&lt;caption&gt;3b/4b code&lt;/caption&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th colspan=&quot;2&quot;&gt;Input&lt;/th&gt;&lt;th&gt;RD=−1&lt;/th&gt;&lt;th&gt;RD=+1&lt;/th&gt;&lt;td rowspan=&quot;11&quot;&gt;&lt;/td&gt;&lt;th colspan=&quot;2&quot;&gt;Input&lt;/th&gt;&lt;th&gt;RD=−1&lt;/th&gt;&lt;th&gt;RD=+1&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;HGF&lt;/th&gt;&lt;th colspan=&quot;2&quot;&gt;fghj&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;HGF&lt;/th&gt;&lt;th colspan=&quot;2&quot;&gt;fghj&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;D.x.0&lt;/td&gt;&lt;td&gt;000&lt;/td&gt;&lt;td&gt;1011&lt;/td&gt;&lt;td&gt;0100&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;K.x.0&lt;/td&gt;&lt;td&gt;000&lt;/td&gt;&lt;td&gt;1011&lt;/td&gt;&lt;td&gt;0100&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;D.x.1&lt;/td&gt;&lt;td&gt;001&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;1001&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;K.x.1 ‡&lt;/td&gt;&lt;td&gt;001&lt;/td&gt;&lt;td&gt;0110&lt;/td&gt;&lt;td&gt;1001&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;D.x.2&lt;/td&gt;&lt;td&gt;010&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;0101&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;K.x.2 ‡&lt;/td&gt;&lt;td&gt;010&lt;/td&gt;&lt;td&gt;1010&lt;/td&gt;&lt;td&gt;0101&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;D.x.3&lt;/td&gt;&lt;td&gt;011&lt;/td&gt;&lt;td&gt;1100&lt;/td&gt;&lt;td&gt;0011&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;K.x.3 ‡&lt;/td&gt;&lt;td&gt;011&lt;/td&gt;&lt;td&gt;1100&lt;/td&gt;&lt;td&gt;0011&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;D.x.4&lt;/td&gt;&lt;td&gt;100&lt;/td&gt;&lt;td&gt;1101&lt;/td&gt;&lt;td&gt;0010&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;K.x.4&lt;/td&gt;&lt;td&gt;100&lt;/td&gt;&lt;td&gt;1101&lt;/td&gt;&lt;td&gt;0010&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;D.x.5&lt;/td&gt;&lt;td&gt;101&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;1010&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;K.x.5 ‡&lt;/td&gt;&lt;td&gt;101&lt;/td&gt;&lt;td&gt;0101&lt;/td&gt;&lt;td&gt;1010&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;D.x.6&lt;/td&gt;&lt;td&gt;110&lt;/td&gt;&lt;td colspan=&quot;2&quot;&gt;0110&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;K.x.6 ‡&lt;/td&gt;&lt;td&gt;110&lt;/td&gt;&lt;td&gt;1001&lt;/td&gt;&lt;td&gt;0110&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;D.x.P7 †&lt;/td&gt;&lt;td&gt;111&lt;/td&gt;&lt;td&gt;1110&lt;/td&gt;&lt;td&gt;0001&lt;/td&gt;&lt;td colspan=&quot;4&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;D.x.A7 †&lt;/td&gt;&lt;td&gt;111&lt;/td&gt;&lt;td&gt;0111&lt;/td&gt;&lt;td&gt;1000&lt;/td&gt;&lt;td align=&quot;left&quot;&gt;K.x.7 ‡&lt;/td&gt;&lt;td&gt;111&lt;/td&gt;&lt;td&gt;0111&lt;/td&gt;&lt;td&gt;1000&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;h3 id=&quot;control-symbols&quot;&gt;Control symbols&lt;/h3&gt;
+&lt;p&gt;control symbols는 8b/10b 데이터가 없는 유효한 sequence입니다. control symbols는 low-level control function에 사용됩니다. 예를 들어, Fibre Channel에서, K28.5는 4바이트 sequences(=Ordered Sets)의 시작에 사용됩니다.&lt;/p&gt;
+
+&lt;table class=&quot;wikitable&quot; style=&quot;text-align:center&quot;&gt;&lt;caption&gt;Control symbols&lt;/caption&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th colspan=&quot;3&quot;&gt;Input&lt;/th&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;RD=−1&lt;/th&gt;&lt;th&gt;RD=+1&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;DEC&lt;/th&gt;&lt;th&gt;HEX&lt;/th&gt;&lt;th&gt;HGF EDCBA&lt;/th&gt;&lt;th&gt;abcdei fghj&lt;/th&gt;&lt;th&gt;abcdei fghj&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.28.0&lt;/td&gt;&lt;td&gt;28&lt;/td&gt;&lt;td&gt;1C&lt;/td&gt;&lt;td&gt;000 11100&lt;/td&gt;&lt;td&gt;001111 0100&lt;/td&gt;&lt;td&gt;110000 1011&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.28.1 †&lt;/td&gt;&lt;td&gt;60&lt;/td&gt;&lt;td&gt;3C&lt;/td&gt;&lt;td&gt;001 11100&lt;/td&gt;&lt;td&gt;001111 1001&lt;/td&gt;&lt;td&gt;110000 0110&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.28.2&amp;nbsp;&lt;/td&gt;&lt;td&gt;92&lt;/td&gt;&lt;td&gt;5C&lt;/td&gt;&lt;td&gt;010 11100&lt;/td&gt;&lt;td&gt;001111 0101&lt;/td&gt;&lt;td&gt;110000 1010&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.28.3&amp;nbsp;&lt;/td&gt;&lt;td&gt;124&lt;/td&gt;&lt;td&gt;7C&lt;/td&gt;&lt;td&gt;011 11100&lt;/td&gt;&lt;td&gt;001111 0011&lt;/td&gt;&lt;td&gt;110000 1100&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.28.4&amp;nbsp;&lt;/td&gt;&lt;td&gt;156&lt;/td&gt;&lt;td&gt;9C&lt;/td&gt;&lt;td&gt;100 11100&lt;/td&gt;&lt;td&gt;001111 0010&lt;/td&gt;&lt;td&gt;110000 1101&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.28.5 †&lt;/td&gt;&lt;td&gt;188&lt;/td&gt;&lt;td&gt;BC&lt;/td&gt;&lt;td&gt;101 11100&lt;/td&gt;&lt;td&gt;001111 1010&lt;/td&gt;&lt;td&gt;110000 0101&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.28.6&amp;nbsp;&lt;/td&gt;&lt;td&gt;220&lt;/td&gt;&lt;td&gt;DC&lt;/td&gt;&lt;td&gt;110 11100&lt;/td&gt;&lt;td&gt;001111 0110&lt;/td&gt;&lt;td&gt;110000 1001&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.28.7 ‡&lt;/td&gt;&lt;td&gt;252&lt;/td&gt;&lt;td&gt;FC&lt;/td&gt;&lt;td&gt;111 11100&lt;/td&gt;&lt;td&gt;001111 1000&lt;/td&gt;&lt;td&gt;110000 0111&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.23.7&amp;nbsp;&lt;/td&gt;&lt;td&gt;247&lt;/td&gt;&lt;td&gt;F7&lt;/td&gt;&lt;td&gt;111 10111&lt;/td&gt;&lt;td&gt;111010 1000&lt;/td&gt;&lt;td&gt;000101 0111&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.27.7&amp;nbsp;&lt;/td&gt;&lt;td&gt;251&lt;/td&gt;&lt;td&gt;FB&lt;/td&gt;&lt;td&gt;111 11011&lt;/td&gt;&lt;td&gt;110110 1000&lt;/td&gt;&lt;td&gt;001001 0111&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.29.7&amp;nbsp;&lt;/td&gt;&lt;td&gt;253&lt;/td&gt;&lt;td&gt;FD&lt;/td&gt;&lt;td&gt;111 11101&lt;/td&gt;&lt;td&gt;101110 1000&lt;/td&gt;&lt;td&gt;010001 0111&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=&quot;left&quot;&gt;K.30.7&amp;nbsp;&lt;/td&gt;&lt;td&gt;254&lt;/td&gt;&lt;td&gt;FE&lt;/td&gt;&lt;td&gt;111 11110&lt;/td&gt;&lt;td&gt;011110 1000&lt;/td&gt;&lt;td&gt;100001 0111&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;출처&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;위키피디아&lt;/li&gt;
-  &lt;li&gt;나무위키&lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ul&gt;</content><author><name>melonicedlatte</name></author><category term="ComputerArchitecture" /><category term="ComputerArchitecture" /><summary type="html">What is 8b/10b encoding? 8b/10b는 8bit word를 10bit symbol에 mapping하여 만든 line code입니다. 즉, 8bit를 전송하기 위해서 10bit가 필요합니다. 이 mapping을 통하여 DC-balance와 bounded dispartiy를 달성하면서, 합리적인 clock recovery를 허용하는 충분한 상태 변화를 제공합니다. 8b/10b code는 다양한 방법으로 구현될 수 있습니다. 예를 들면 설계할 때, 하드웨어 요구사항이나 DC-balance와 같은 특별한 파라미터들에 초점을 맞춰서 설계할 수도 있습니다. How it works for the IBM code 위에서 언급한 것처럼, 8b/10b는 8bit word를 10bit symbol에 mapping하여 만든 line code입니다. low data 5개는 6-bit group으로 encode되며(5b/6b), top 3 bit는 4-bit group으로 encode됩니다(3b/4b). 이러한 code group은 10-bit symbol로 결합됩니다. data symbol은 x가 0-31, y가 0-7이고, D.x.y로 언급됩니다. 8b/10b encoding의 Standard에서는 data symbol 대신 전송할 수 있는 12개의 special symbol(혹은 control characters)를 정의하고 있습니다. 이러한 special symbol들은 start-of-frame, end-of-frame, link idle, skip and similar link-level conditions들에 사용됩니다. 10-bit symbol을 정의하는데 사용하기 위하여 special symbol(i.e. “comma symbol”)이 필요하고, K.x.y의 형태를 가집니다. 8b/10b encoding는 8-bit word를 위하여 10-bit를 사용하기 때문에, 존재할 수 있는 1024개의($ 2 ^ {10} $) code에서 아래와 같은 경우의 케이스의 code를 제외 할 수 있습니다. 5개 이상의 연속된 bit가 존재함 모든 0과 1의 총 합의 차가 2보다 큼 또, 8-bit로 구현할 수 있는 256개의 word 중 일부는 두 가지 다른 방식으로 인코딩 될 수 있습니다. 이런 alternative encoding 방식을 사용하면, serial data stream에서 long-term DC-balance를 달성할 수 있습니다. 이는 Data stream이 high-pass 특성을 가진 채널에서 사용할 수 있게 합니다. Encoding tables 아래에 나오는 표들을 보면 A는 최하위 비트이고, H는 최상위 비트입니다. extra bit는 i,j입니다. (a, b, c, d, e, i, f, g, h, j) 5b/6b 다음에 3b/4b 이 오는 형태입니다. 이러한 구조는 “comma codes”의 special bit sequence의 유일성을 보장합니다. 0과 1이 전송되는 stream에서의 residual effect는 running disparity(RD)로 유지되고, slew effect는 encoding 선택에 의하여 균형을 이룹니다. 5b/6b 코드와 3b/4b 코드는 쌍을 이루는 disparity code입니다. 각각은 0과 1의 개수가 동일하거나 2개 차이가 납니다. 0이 아닌 disparty(disparty = 1 count - 0 count), 즉 $ \pm 2$가 사용되면, positive &amp;amp; negative dispartiy endocing을 선택해야 합니다. 표를 살펴보면 RD가 $\pm 2$가 들어온 경우에 계속해서 바뀌는 것을 확인할 수 있습니다. Running disparity 8b/10b 코딩은 DC-free이다. 이것은 오랜 시간을 두고 신호를 살펴보면 0과 1의 비율이 정확히 50% 라는 것입니다. 이러한 조건을 달성하기 위해서는, 전송되는 0과 1의 숫자가 항상 $ \pm 2$ 를 유지할 수 있게 제한됩니다. 1과 0의 개수가 같지 않은 5b/6b과 3b/4b 코드에 대해 전송하는 데 사용할 수 있는 패턴이 2개가 있습니다.(1이 2개 더 많거나 0이 2개 더 많은 경우) RD의 값에 따라서 보낼 패턴이 선택됩니다. 1과 0의 개수가 같은 경우에는 D.07과 D.x.3을 제외하고는 선택의 여지가 없습니다.(D.07 같은 경우에는 1과 0의 개수가 같지만 2가지 케이스가 존재) D.x.7의 경우에는 앞의 5b/6b의 코드와 결합했을 때, 5개의 연속된 같은 숫자가 나오면 안되기 때문에, D.x.P7 or D.x.A7 encoding을 사용합니다. D.x.A7의 경우 RD = 1이면 x = 11 or 13 or 14 , RD = -1 이면 x = 17 or 18 or 19 입니다. Previous RD Disparity of code word Disparity chosen Next RD −1 0 0 −1 −1 ±2 +2 +1 +1 0 0 +1 +1 ±2 −2 −1 5b/6b table 5b/6b codeInputRD=−1RD=+1InputRD=−1RD=+1EDCBAabcdeiEDCBAabcdeiD.0000000100111011000D.1610000011011100100D.0100001011101100010D.1710001100011D.0200010101101010010D.1810010010011D.0300011110001D.1910011110010D.0400100110101001010D.2010100001011D.0500101101001D.2110101101010D.0600110011001D.2210110011010D.0700111111000000111D.23 †10111111010000101D.0801000111001000110D.2411000110011001100D.0901001100101D.2511001100110D.1001010010101D.2611010010110D.1101011110100D.27 †11011110110001001D.1201100001101D.2811100001110D.1301101101100D.29 †11101101110010001D.1401110011100D.30 †11110011110100001D.1501111010111101000D.3111111101011010100K.2811100001111110000 3b/4b table 3b/4b codeInputRD=−1RD=+1InputRD=−1RD=+1HGFfghjHGFfghjD.x.000010110100K.x.000010110100D.x.10011001K.x.1 ‡00101101001D.x.20100101K.x.2 ‡01010100101D.x.301111000011K.x.3 ‡01111000011D.x.410011010010K.x.410011010010D.x.51011010K.x.5 ‡10101011010D.x.61100110K.x.6 ‡11010010110D.x.P7 †11111100001D.x.A7 †11101111000K.x.7 ‡11101111000 Control symbols control symbols는 8b/10b 데이터가 없는 유효한 sequence입니다. control symbols는 low-level control function에 사용됩니다. 예를 들어, Fibre Channel에서, K28.5는 4바이트 sequences(=Ordered Sets)의 시작에 사용됩니다. Control symbolsInputRD=−1RD=+1DECHEXHGF EDCBAabcdei fghjabcdei fghjK.28.0281C000 11100001111 0100110000 1011K.28.1 †603C001 11100001111 1001110000 0110K.28.2&amp;nbsp;925C010 11100001111 0101110000 1010K.28.3&amp;nbsp;1247C011 11100001111 0011110000 1100K.28.4&amp;nbsp;1569C100 11100001111 0010110000 1101K.28.5 †188BC101 11100001111 1010110000 0101K.28.6&amp;nbsp;220DC110 11100001111 0110110000 1001K.28.7 ‡252FC111 11100001111 1000110000 0111K.23.7&amp;nbsp;247F7111 10111111010 1000000101 0111K.27.7&amp;nbsp;251FB111 11011110110 1000001001 0111K.29.7&amp;nbsp;253FD111 11101101110 1000010001 0111K.30.7&amp;nbsp;254FE111 11110011110 1000100001 0111 출처 위키피디아</summary></entry><entry><title type="html">Pytorch 설치하기</title><link href="http://localhost:4000/machinelearning/2019/08/17/013500.html" rel="alternate" type="text/html" title="Pytorch 설치하기" /><published>2019-08-17T00:00:00+09:00</published><updated>2019-08-17T00:00:00+09:00</updated><id>http://localhost:4000/machinelearning/2019/08/17/013500</id><content type="html" xml:base="http://localhost:4000/machinelearning/2019/08/17/013500.html">&lt;h2 id=&quot;pytorch-설치하기&quot;&gt;Pytorch 설치하기&lt;/h2&gt;
 
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;ISS&lt;/strong&gt; : International Space Station의 약자로 국제 우주정거장을 뜻한다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;openAI&lt;/strong&gt; : 인공지능 기술의 특허와 지식을 대중에게 공개함으로써 독점을 방지하여 인공지능의 안전한 발전을 위해 만들어졌다. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:3&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;더 보링 컴퍼니&lt;/strong&gt; : 도로 위 교통체증을 해결하기 위해 지하에 도로를 뚫어 차량을 실은 플랫폼을 이동시키는 서비스를 개발하는 회사. 이 터널을 이용하면 평소 6시간 걸리던 거리를 30분만에 갈 수 있다고 한다. &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">우주선은 누가 쏘는가 기존의 패러다임은 정부의 주도 미국, 러시아와 같은 나라들은 우수한 항공 기술을 가지고 있고, 이미 오래전에 달에 사람을 보냈습니다. 우리나라가 경제적으로 매우 어려울 때, 이미 선진화된 기술을 이용하여 우주산업에 진출하였습니다. 미국 항공우주국(NASA)의 로고 NASA는 세계를 대표하는 우주 산업을 이끄는 정부기관입니다. NASA는 미국의 국가 기관으로서 우주 계획 및 장기적인 일반 항공 연구 등을 실행하고 있습니다. 달에 사람을 보내는 것도 위성을 보내는 것 이외에 우리가 모르는 수 많은 우주 산업을 이끌어 가고 있습니다. 한국항공우주연구원(KARI)의 로고 한국항공우주연구원(KARI)는 과학기술정보통신부 산하 항공우주 과학기술 관련 기타공공기관 재단법인으로 우주항공기술 개발, 항공공학의 발전과 기술 개발 및 보급을 하고 있습니다. 한국형 우주 발사체 나로호를 러시아와 협력하여 만든 적이 있습니다. 현재는 누리라는 명칭을 가진 한국형 발사체가 나로호와는 다르게 우리나라에서 독자 개발중이며 2021년 첫 발사가 예정되어 있습니다. 안타깝게도 우리나라의 항공 기술은 타 선진국들과 비교해보면 상당히 뒤져있습니다. 아직은 많이 노력해야 할 단계입니다. 왜 정부가 주도하는가 우주선을 발사하기 위해서는 천문학적인 비용이듭니다. 그래서 모든 국가에서 정부 주도로 우주산업을 이끌어왔었습니다. 민간 기업은 이런 국가 기관에 부품을 납품하는 역할을 하는 정도였고, 주도적인 역할은 할 수 없었습니다. 문제는 역시 비용입니다. 민간 기업에서의 우주산업 도전 스페이스 X 의 등장 새로운 시도를 계속해서 하는 경이로운 인물 앨론 머스크 엘론 머스크가 설립한 미국의 민간 우주기업. ISS1 보급 및 상용 인공위성 발사를 주 업무로 하며, 화성 유인 탐사 및 정착을 목표로 하고 있습니다. 정부만이 할 수 있다고 생각되던 우주항공산업을 민간 기업에서 조금 더 효율적으로 할 수 있지 않을까?하는 엘론 머스크의 발상에서 시작되었습니다. 민간 우주선 기업을 선도하고 있는 스페이스 X 앨론 머스크는 테슬라, openAI2 , 솔라시티, 더 보링 컴퍼니3 와 같은 혁신적인 기업들을 만드는 놀라운 창업가입니다. 그는 여러 가치있는 회사를 만들었지만, 그 중에서 가장 놀랍다고 생각하는 것은 바로 스페이스 X입니다. 스페이스 X의 팰컨 헤비 발사 영상을 찍은 내셔널 지오그래픽의 다큐멘터리입니다. 우주선을 만들고 직접 그 현장에서 발사되고 복귀하는 모습을 보면 꽤나 감동적일 것 같습니다. 우주선이 처음으로 복귀할 수 있게 만든 걸 보면, 스페이스X에서 앞으로 무엇을 더 할 수 있을 지 기대가 됩니다. 다큐멘터리의 마지막에서 그는 아래와 같은 말을 합니다. 이런 생각을 할 수 있는게 놀랍기만 하고 본받고 싶습니다. 이런게 살아갈 이유가 되는 거에요. 단순히 당면한 문제들만 해결하며 살아갈 게 아니라, 삶의 이유를 찾아야 하죠. 펼쳐질 삶과 미래에 대해 걱정해야 되요. 화성은 제게 그런 의미에요. 스페이스 X를 자신의 전 재산을 쏟아가면서 도전하고 엄청난 리스크를 감수하면서 성공까지 했다는 점에서 이 시대에 둘도 없는 기업가라고 생각합니다. 스페이스 X 가 한 일 다시 스페이스 X 얘기로 돌아가서, 스페이스 X가 한 일들이 무엇이 있는지 정리해보았습니다. 실패하는 경우도 많습니다. 하지만 아래의 성공 사례들이 매우 많은 걸로 봐서는 꽤나 안정화된 상태인 것 같습니다. 2010년 12월 8일에 Dragon이 재진입 후 회수까지 성공하면서 발사부터 귀환까지 모든 기술을 갖춘 최초의 민간기업으로 자리잡았다. 2012년에는 세계 최초의 상용 우주선 발사로 ISS에 드래곤을 도킹시켰다. 2015년 12월 팰컨 9 로켓으로 위성을 궤도진입시킨 뒤 추진체 로켓을 그대로 회수하는 데 인류 역사상 최초로 성공하였다. 2016년 4월 팰컨 9 로켓의 해상 회수에 인류 역사상 최초로 성공하였다. 2016년 4월 말 미국 공군으로부터 8천 270만 달러 상당의 GPS 발사계약을 따냈다. 거대하지만 폐쇄적이던 국방부 계약 시장의 문을 연건 사업상으로 큰 의미가 있다. 2017년 3월 30일에 1년 전 ISS보급 미션을 위해 발사됐다 대서양에서 회수된 1단 로켓을 재사용해 인공위성을 정지궤도에 올려놓는 새로운 미션을 수행하는 데 성공했다. 2018년 12월 4일, 팰컨 9 블록 5의 세번째 재발사가 이루어졌고 1단 로켓 회수 역시 성공하였다. 사상 최초의 로켓 3번째 재발사이다. 17개국의 소형 위성 64기를 궤도에 올리는 임무였는데 여기에는 한국이 개발한 차세대소형위성 1호도 포함되어 있다. 그 이외에 우주관광, 화성과 달에 사람 보내기 등 다양한 미래 계획들을 하고 있는 놀라운 회사입니다. 블루 오리진 그런데 스페이스 X만 민간 우주기업인가? 하는 질문에 대한 대답은 NO입니다. 아마존의 설립자인 제프 베조스가 설립한 이 회사는, 낮은 비용과 높은 신뢰성의 로켓으로 개개인이 우주에 접근할수 있는 기술을 목표로 하고 있습니다. 블루 오리진도 스페이스 X와 같이 민간 우주선 업체로 많은 역할을 하고 있습니다. 제프 베조스도 혁신적인 일을 많이 하기로 유명한데, 아마존에서 머무른 것이 아니라 우주 산업에 까지 뛰어든 것이 놀랍습니다. 요약 국내에도 많은 기업들이 이러한 일들을 했으면 좋겠지만, 아직 시기상조인 것 같습니다. 기술적 뒷받침이나 투자, 경제규모 같은 여러가지 문제들이 장벽이라고 생각합니다. 국가기관에서도 성공하지 못한 내용에 대하여 기업이 뛰어들기 어려울 것입니다. 일단 국가 주도로 많이 뒤쳐져있는 우주 산업에 대한 격차를 따라 잡고, 앞으로 기업체에서도 많은 도전을 할 수 있게 되면 좋겠습니다. 출처 위키피디아 나무위키 ISS : International Space Station의 약자로 국제 우주정거장을 뜻한다. &amp;#8617; openAI : 인공지능 기술의 특허와 지식을 대중에게 공개함으로써 독점을 방지하여 인공지능의 안전한 발전을 위해 만들어졌다. &amp;#8617; 더 보링 컴퍼니 : 도로 위 교통체증을 해결하기 위해 지하에 도로를 뚫어 차량을 실은 플랫폼을 이동시키는 서비스를 개발하는 회사. 이 터널을 이용하면 평소 6시간 걸리던 거리를 30분만에 갈 수 있다고 한다. &amp;#8617;</summary></entry><entry><title type="html">윈도우 10 검은 화면에서 화면 밝기 어두워짐 해결</title><link href="http://localhost:4000/etc/2019/04/30/211100.html" rel="alternate" type="text/html" title="윈도우 10 검은 화면에서 화면 밝기 어두워짐 해결" /><published>2019-04-30T00:00:00+09:00</published><updated>2019-04-30T00:00:00+09:00</updated><id>http://localhost:4000/etc/2019/04/30/211100</id><content type="html" xml:base="http://localhost:4000/etc/2019/04/30/211100.html">&lt;p&gt;윈도우 10 에서 검은 화면과 흰 화면을 왔다 갔다 하면 화면 밝기가 자동으로 바뀌게 됩니다. 원하지 않은 설정일 경우 상당히 거슬릴 수 있는 자동 설정입니다. 이러한 설정을 없애고 동일한 밝기를 유지하려면 아래와 같은 설정이 필요합니다.&lt;/p&gt;
+&lt;h3 id=&quot;환경에-맞는-pytorch-설치하기&quot;&gt;환경에 맞는 Pytorch 설치하기&lt;/h3&gt;
 
-&lt;h2 id=&quot;설정-방법&quot;&gt;설정 방법&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/201908/pytorch_main.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
+&lt;strong class=&quot;caption&quot;&gt;pytorch 사이트 main&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;시작--작업-스케줄러-입력-후-클릭&quot;&gt;시작 &amp;gt; 작업 스케줄러 입력 후 클릭&lt;/h3&gt;
+&lt;p&gt;Pytorch 메인 페이지에서 스크롤하면, 다음 그림과 같은 설치 옵션을 선택할 수 있는 창이 있습니다. 현재 자신의 설정에 맞게 설정을 한 후에, Run this Command 에 나온 명령어를 복사한 후에 terminal에 입력하여 pytorch를 설치하세요.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/scheduler.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;시작 버튼을 누르고 작업 스케줄러를 클릭합니다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;아래와 같이 진행됩니다.&lt;/p&gt;
 
-&lt;p&gt;시작에 작업 스케줄러를 입력합니다. 그리고 클릭해줍니다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torchvision&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cpuonly&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;WARNING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deprecated&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;will&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;removed&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;future&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Collecting&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;done&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Solving&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;done&lt;/span&gt;
 
-&lt;h3 id=&quot;작업-스케줄러에서-microsoftwindowswindowscolorsystem-선택하기&quot;&gt;작업 스케줄러에서 Microsoft/Windows/WindowsColorSystem 선택하기&lt;/h3&gt;
+&lt;span class=&quot;p&quot;&gt;##&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Plan&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;##&lt;/span&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/windowscolorsystem.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;Microsoft/Windows/WindowsColorSystem 선택&lt;/strong&gt;&lt;/p&gt;
+  &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Anaconda3&lt;/span&gt;
 
-&lt;p&gt;왼쪽 탭에서 Microsoft/Windows/WindowsColorSystem으로 들어갑니다.&lt;/p&gt;
+  &lt;span class=&quot;n&quot;&gt;added&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;updated&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;specs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cpuonly&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torchvision&lt;/span&gt;
 
-&lt;h3 id=&quot;오른쪽-마우스를-누르고-사용안함-선택&quot;&gt;오른쪽 마우스를 누르고 사용안함 선택&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/not_using_color_system.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;오른쪽 마우스를 누르고 사용안함 선택&lt;/strong&gt;&lt;/p&gt;
+&lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;following&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;will&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;downloaded&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
 
-&lt;p&gt;Calibration 아이콘을 마우스 오른쪽 버튼을 클릭 한 후에 사용 안함을 선택합니다.&lt;/p&gt;
+    &lt;span class=&quot;k&quot;&gt;package&lt;/span&gt;                    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;build&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;---------------------------|-----------------&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;conda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4.7.11&lt;/span&gt;               &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;           &lt;span class=&quot;n&quot;&gt;py37_0&lt;/span&gt;         &lt;span class=&quot;m&quot;&gt;3.0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MB&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;conda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handling&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.3.11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;           &lt;span class=&quot;n&quot;&gt;py37_0&lt;/span&gt;         &lt;span class=&quot;m&quot;&gt;280&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cpuonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.0&lt;/span&gt;                &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;                &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;           &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ninja&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.9.0&lt;/span&gt;                &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;py37h74a9793_0&lt;/span&gt;         &lt;span class=&quot;m&quot;&gt;263&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.2.0&lt;/span&gt;              &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;      &lt;span class=&quot;n&quot;&gt;py3&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;.7&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_cpu_1&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;71.5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MB&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;torchvision&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.4.0&lt;/span&gt;          &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;         &lt;span class=&quot;n&quot;&gt;py37_cpu&lt;/span&gt;         &lt;span class=&quot;m&quot;&gt;2.0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MB&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;------------------------------------------------------------&lt;/span&gt;
+                                           &lt;span class=&quot;n&quot;&gt;Total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;77.0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MB&lt;/span&gt;
 
-&lt;h3 id=&quot;재부팅&quot;&gt;재부팅&lt;/h3&gt;
+&lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;following&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NEW&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;will&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INSTALLED&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
 
-&lt;p&gt;그 다음으로는 설정을 반영하기 위하여 재부팅이 필요합니다. 위와 같은 과정을 전부 거치면 화면이 바뀌더라도 밝기가 변하지 않게 됩니다.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Etc" /><category term="Etc" /><summary type="html">윈도우 10 에서 검은 화면과 흰 화면을 왔다 갔다 하면 화면 밝기가 자동으로 바뀌게 됩니다. 원하지 않은 설정일 경우 상당히 거슬릴 수 있는 자동 설정입니다. 이러한 설정을 없애고 동일한 밝기를 유지하려면 아래와 같은 설정이 필요합니다. 설정 방법 시작 &amp;gt; 작업 스케줄러 입력 후 클릭 시작 버튼을 누르고 작업 스케줄러를 클릭합니다. 시작에 작업 스케줄러를 입력합니다. 그리고 클릭해줍니다. 작업 스케줄러에서 Microsoft/Windows/WindowsColorSystem 선택하기 Microsoft/Windows/WindowsColorSystem 선택 왼쪽 탭에서 Microsoft/Windows/WindowsColorSystem으로 들어갑니다. 오른쪽 마우스를 누르고 사용안함 선택 오른쪽 마우스를 누르고 사용안함 선택 Calibration 아이콘을 마우스 오른쪽 버튼을 클릭 한 후에 사용 안함을 선택합니다. 재부팅 그 다음으로는 설정을 반영하기 위하여 재부팅이 필요합니다. 위와 같은 과정을 전부 거치면 화면이 바뀌더라도 밝기가 변하지 않게 됩니다.</summary></entry><entry><title type="html">기존 택시의 문제를 해결하려는 마카롱 택시의 등장</title><link href="http://localhost:4000/tech/2019/04/30/213600.html" rel="alternate" type="text/html" title="기존 택시의 문제를 해결하려는 마카롱 택시의 등장" /><published>2019-04-30T00:00:00+09:00</published><updated>2019-04-30T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/04/30/213600</id><content type="html" xml:base="http://localhost:4000/tech/2019/04/30/213600.html">&lt;h2 id=&quot;기존의-국내-상황&quot;&gt;기존의 국내 상황&lt;/h2&gt;
+  &lt;span class=&quot;n&quot;&gt;conda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;han&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pkgs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handling&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.3.11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py37_0&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;cpuonly&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;noarch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cpuonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ninja&lt;/span&gt;              &lt;span class=&quot;n&quot;&gt;pkgs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ninja&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.9.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py37h74a9793_0&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py3&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;.7&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_cpu_1&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;torchvision&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torchvision&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.4.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py37_cpu&lt;/span&gt;
 
-&lt;h3 id=&quot;차량-공유-서비스와-택시-업계의-반발&quot;&gt;차량 공유 서비스와 택시 업계의 반발&lt;/h3&gt;
+&lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;following&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;will&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UPDATED&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
 
-&lt;p&gt;우버가 해외에서 활발하게 서비스를 진행 중이지만 국내에서는 아직도 차량 공유 서비스가 도입되지 않았습니다. 택시 업계의 반발이 거세었기 때문에 공유 차량 서비스가 도입되는 데 어려움을 겪고 있던 것입니다.&lt;/p&gt;
+  &lt;span class=&quot;n&quot;&gt;conda&lt;/span&gt;                                       &lt;span class=&quot;m&quot;&gt;4.6.11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py37_0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;--&amp;gt;&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4.7.11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;py37_0&lt;/span&gt;
 
-&lt;h3 id=&quot;택시-업계의-문제점&quot;&gt;택시 업계의 문제점&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/taxi_cab.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;도로위의 택시&lt;/strong&gt;&lt;/p&gt;
+&lt;span class=&quot;n&quot;&gt;Proceed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)?&lt;/span&gt;
 
-&lt;p&gt;큰 문제점은 아래와 같습니다.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;서비스 퀄리티가 상대적으로 좋지 않습니다.&lt;/code&gt; 기존에 존재하던 서비스에서 시대가 많이 변했지만 큰 변화가 없습니다. 택시는 한 번 타고 나면 그 다음에 같은 손님과의 연동이 다시 이루어지지 않는 서비스이기 때문에 고객 관리에 대한 개념이 다소 부족합니다. 또, 기사님들에 대한 기존 택시 회사차원에서의 교육이 부족하여, 서비스 퀄리티가 상승하지 않고 있습니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;택시 회사들끼리의 차별점이 존재하지 않습니다.&lt;/code&gt; 택시 회사가 여러개라면 고객이 택시 회사를 골라서 서비스를 이용할 수 있습니다. 하지만, 현재는 모든 택시가 같은 모습을 하고 있기 때문에 차별점이 없어서 택시는 모두 하나로 취급됩니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;사납금 문제와 개인 사업자&lt;/code&gt; 사납금을 회사에 내야되기 때문에 기사님들은 자신의 이익을 생각해야만 하는 입장입니다. 기사님들은 월급을 받지 않고 자신이 운행한 만큼의 이익을 얻습니다. 이러한 환경에서는 기사님들은 거리에 대한 이익을 생각하지 않을 수 없습니다.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;span class=&quot;n&quot;&gt;Downloading&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Extracting&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Packages&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ninja&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.9.0&lt;/span&gt;          &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;263&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;############################################################################&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;conda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handli&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;280&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;############################################################################&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pytorch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.2.0&lt;/span&gt;        &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;71.5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MB&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;############################################################################&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;conda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4.7.11&lt;/span&gt;         &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3.0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MB&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;############################################################################&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;torchvision&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.4.0&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2.0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MB&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;############################################################################&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cpuonly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.0&lt;/span&gt;          &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;      &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;############################################################################&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Preparing&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;done&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Verifying&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;done&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Executing&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;transaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;공유-차량-서비스의-문제점&quot;&gt;공유 차량 서비스의 문제점&lt;/h3&gt;
+&lt;h3 id=&quot;torchvision-torchtext-설치하기&quot;&gt;torchvision torchtext 설치하기&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/uber_logo.png&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_25&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;대표적인 공유 차량 서비스 우버&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;torchvision은 이미지 처리용 데이터셋 처리를, torchtext는 글과 같은 데이터셋 처리를 도와주는 도구입니다. 아래의 명령어를 입력하여 설치해줍니다.&lt;/p&gt;
 
-&lt;p&gt;공유 차량 서비스 우버는 저도 미국에서 타봤지만 꽤나 편리하게 이용할 수 있고 저렴한 서비스입니다. 하지만 이런 서비스가 실제로 문제가 많습니다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 install torchvision torchtext
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;우버 기사들의 수익은 굉장히 낮습니다.&lt;/code&gt; 택시와 비교해보면 굉장히 저렴한 서비스입니다. 하지만 비용이 저렴하다는 것은 기사들의 수입에도 직결됩니다. 우버와 리프트 드라이버의 순수입은 &lt;strong&gt;시간당 8.55 달러로 뉴욕 최저시급인 13달러에 못 미치는 수준&lt;/strong&gt;입니다. 기사들의 처우가 보장되지 않으면 공유 차량 서비스가 좋은 서비스라고 말할 수 없겠죠.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;기존 택시 기사들의 삶도 위협받는다.&lt;/code&gt; 위와 같이 우버가 더 저렴하기 때문에 소비자는 우버를 탑승합니다. 저도 미국에서 저렴한 우버를 이용했습니다. 또, 우버는 차량 규제가 없어 기사 수에 제한을 두지 않습니다. 따라서, 택시 기사들의 삶도 위협받았고 우버 기사들의 삶도 좋지 않은 문제를 가져 왔습니다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;위와 같은 문제들은 결국 &lt;strong&gt;서비스 퀄리티의 하락&lt;/strong&gt;을 가져오고 있습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;문제점-요약&quot;&gt;문제점 요약&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;공유 차량 서비스는 마냥 좋은 서비스가 아닙니다.&lt;/strong&gt; &lt;strong&gt;긱 이코노미&lt;/strong&gt;&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 에 대한 많은 비판들이 또 전해지고 있습니다. 국내에서는 택시회사의 파업문제나 카카오 카풀의 도입에 차질이 전해진다는 기사를 많이 볼 수 있지만, 실제 공유 서비스에도 문제는 많습니다.&lt;/p&gt;
-
-&lt;p&gt;탑승객, 기사님에게 서로 이득인 서비스는 없을까요?? 이러한 문제를 해결하고자 마카롱 택시가 등장했고, 흥미가 가는 서비스라 포스팅해보았습니다.&lt;/p&gt;
+&lt;p&gt;위와 같은 요소들을 다 설치하면 대략적인 설치는 끝납니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;마카롱-택시의-등장&quot;&gt;마카롱 택시의 등장&lt;/h2&gt;
+&lt;h2 id=&quot;pytorch를-이용한-예제-수행&quot;&gt;Pytorch를 이용한 예제 수행&lt;/h2&gt;
 
-&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
-  &lt;iframe src=&quot;https://www.youtube.com/embed/ZgUZtGePN_8?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;tensor-출력하기&quot;&gt;tensor 출력하기&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;마카롱 택시 토마토 TV 인터뷰&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;기본적인 tensor를 출력해보는 예제입니다. tensor는 쉽게 설명하면 행렬과 같은 개념이라고 보시면 됩니다. 아래와 같은 python 코드가 필요합니다.&lt;/p&gt;
 
-&lt;p&gt;“다양한 서비스들은 다양한 브랜드를 가지고 있지만 택시만 한 브랜드다. 새로운 브랜드 택시를 만들겠다”라는 말을 인터뷰에서 전해주고 있습니다.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch&lt;/span&gt;
 
-&lt;h3 id=&quot;구체적-차별점&quot;&gt;구체적 차별점&lt;/h3&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tensor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;40시간의 기사 교육 진행하여 처우와 환경 개선 노력.&lt;/code&gt; 서비스 퀄리티를 위하여 교육을 지속적으로 도입한다고 합니다. 쇼퍼&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; 라는 개념을 도입하여 전문화된 기사 서비스를 제공합니다. 선발을 엄격하게 하고, 응급처치와 마인드 교육, 장비 교육을 진행합니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;자체적인 어플 서비스와 AI를 활용한 효율적인 운행과 편리한 서비스.&lt;/code&gt; 기존 택시 회사들은 택시 업계에서 쓸 좋은 어플리케이션들을 도입하지 못하였습니다. 결국 카카오 택시가 먼저 도입되어 택시 서비스의 퀄리티를 높혀주는 역할을 하였습니다. 마카롱 택시는 자사의 서비스를 강화하기 위하여 직접 개발한다고 합니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;사납금 폐지, 월급제 도입.&lt;/code&gt; 회사는 편하지만 사납금이 있으면 먼 거리를 가고자 하는 마음이 생길 수 밖에 없다고 합니다. 이는 서비스 퀄리티에 치명적입니다. 짧은 거리를 싫어하게 되고 승차 거부에 대한 유혹을 저버릴 수 없습니다. 실적 압박이 덜 하고, 승차거부를 막고, 안전 운행 수단을 만들기 위하여 필요합니다.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;해당 소스코드를 python 명령어를 이용하여 윈도우 console 창인 cmd에서 수행하면 아래와 같은 결과를 얻을 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190430/macarong_taxi.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;마카롱 택시 이미지. 차별화된 이미지와 깔끔함이 좋아 보입니다. (출처 : kst모빌리티)&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C:\Users\user&amp;gt; python pytorch_ch3.py
+tensor([[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;향후-계획&quot;&gt;향후 계획&lt;/h3&gt;
+&lt;p&gt;위와 같이 결과가 나오면 성공입니다! 향후 더 나은 예제들을 Pytorch를 이용하여 수행할 수 있습니다.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="MachineLearning" /><category term="MachineLearning" /><summary type="html">Pytorch 설치하기 환경에 맞는 Pytorch 설치하기 pytorch 사이트 main Pytorch 메인 페이지에서 스크롤하면, 다음 그림과 같은 설치 옵션을 선택할 수 있는 창이 있습니다. 현재 자신의 설정에 맞게 설정을 한 후에, Run this Command 에 나온 명령어를 복사한 후에 terminal에 입력하여 pytorch를 설치하세요. 아래와 같이 진행됩니다. (base) C:\Users\user&amp;gt;conda install pytorch torchvision cpuonly -c pytorch WARNING: The conda.compat module is deprecated and will be removed in a future release. Collecting package metadata: done Solving environment: done ## Package Plan ## environment location: C:\Users\user\Anaconda3 added / updated specs: - cpuonly - pytorch - torchvision The following packages will be downloaded: package | build ---------------------------|----------------- conda-4.7.11 | py37_0 3.0 MB conda-package-handling-1.3.11| py37_0 280 KB cpuonly-1.0 | 0 2 KB pytorch ninja-1.9.0 | py37h74a9793_0 263 KB pytorch-1.2.0 | py3.7_cpu_1 71.5 MB pytorch torchvision-0.4.0 | py37_cpu 2.0 MB pytorch ------------------------------------------------------------ Total: 77.0 MB The following NEW packages will be INSTALLED: conda-package-han~ pkgs/main/win-64::conda-package-handling-1.3.11-py37_0 cpuonly pytorch/noarch::cpuonly-1.0-0 ninja pkgs/main/win-64::ninja-1.9.0-py37h74a9793_0 pytorch pytorch/win-64::pytorch-1.2.0-py3.7_cpu_1 torchvision pytorch/win-64::torchvision-0.4.0-py37_cpu The following packages will be UPDATED: conda 4.6.11-py37_0 --&amp;gt; 4.7.11-py37_0 Proceed ([y]/n)? Downloading and Extracting Packages ninja-1.9.0 | 263 KB | ############################################################################ | 100% conda-package-handli | 280 KB | ############################################################################ | 100% pytorch-1.2.0 | 71.5 MB | ############################################################################ | 100% conda-4.7.11 | 3.0 MB | ############################################################################ | 100% torchvision-0.4.0 | 2.0 MB | ############################################################################ | 100% cpuonly-1.0 | 2 KB | ############################################################################ | 100% Preparing transaction: done Verifying transaction: done Executing transaction: done torchvision torchtext 설치하기 torchvision은 이미지 처리용 데이터셋 처리를, torchtext는 글과 같은 데이터셋 처리를 도와주는 도구입니다. 아래의 명령어를 입력하여 설치해줍니다. pip3 install torchvision torchtext 위와 같은 요소들을 다 설치하면 대략적인 설치는 끝납니다. Pytorch를 이용한 예제 수행 tensor 출력하기 기본적인 tensor를 출력해보는 예제입니다. tensor는 쉽게 설명하면 행렬과 같은 개념이라고 보시면 됩니다. 아래와 같은 python 코드가 필요합니다. import torch x = torch.tensor([[1,2,3], [4,5,6], [7,8,9]]) print(x) 해당 소스코드를 python 명령어를 이용하여 윈도우 console 창인 cmd에서 수행하면 아래와 같은 결과를 얻을 수 있습니다. C:\Users\user&amp;gt; python pytorch_ch3.py tensor([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) 위와 같이 결과가 나오면 성공입니다! 향후 더 나은 예제들을 Pytorch를 이용하여 수행할 수 있습니다.</summary></entry><entry><title type="html">Signal에서 Assert &amp;amp; Deassert란?</title><link href="http://localhost:4000/electronics/2019/08/14/092900.html" rel="alternate" type="text/html" title="Signal에서 Assert &amp; Deassert란?" /><published>2019-08-14T00:00:00+09:00</published><updated>2019-08-14T00:00:00+09:00</updated><id>http://localhost:4000/electronics/2019/08/14/092900</id><content type="html" xml:base="http://localhost:4000/electronics/2019/08/14/092900.html">&lt;h2 id=&quot;assert--deassert&quot;&gt;Assert &amp;amp; Deassert&lt;/h2&gt;
+&lt;p&gt;디지털 시그널의 &lt;code class=&quot;highlighter-rouge&quot;&gt;assert&lt;/code&gt; 라는 용어는 신호가 inactive에서 actvie로 가는 것을 말합니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;deassert&lt;/code&gt; 라는 용어는 신호가 active에서 inactvie로 가는 것을 말합니다. 예를 들어, low active한 신호가 low 레벨로 가면 asserted라고 하고,  high-&amp;gt;low로 가면 deassert라고 합니다.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Electronics" /><category term="Electronics" /><summary type="html">Assert &amp;amp; Deassert 디지털 시그널의 assert 라는 용어는 신호가 inactive에서 actvie로 가는 것을 말합니다. deassert 라는 용어는 신호가 active에서 inactvie로 가는 것을 말합니다. 예를 들어, low active한 신호가 low 레벨로 가면 asserted라고 하고, high-&amp;gt;low로 가면 deassert라고 합니다.</summary></entry><entry><title type="html">활성 상태 전원 관리(ASPM)란?</title><link href="http://localhost:4000/computerarchitecture/2019/07/04/110800.html" rel="alternate" type="text/html" title="활성 상태 전원 관리(ASPM)란?" /><published>2019-07-04T00:00:00+09:00</published><updated>2019-07-04T00:00:00+09:00</updated><id>http://localhost:4000/computerarchitecture/2019/07/04/110800</id><content type="html" xml:base="http://localhost:4000/computerarchitecture/2019/07/04/110800.html">&lt;h2 id=&quot;활성-상태-전원-관리aspm&quot;&gt;활성 상태 전원 관리(ASPM)&lt;/h2&gt;
+&lt;h3 id=&quot;활성-상태-전원-관리aspm이란&quot;&gt;활성 상태 전원 관리(ASPM)이란?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;활성 상태 전원 관리(ASPM, Active-State Power Management)&lt;/strong&gt;는 PCIe 서브시스템의 전원 소비를 &lt;code class=&quot;highlighter-rouge&quot;&gt;PCIe 연결로 접속된 장치가 사용중이 아닐 때 저전력 상태로 변경해서 절약하는 정책&lt;/code&gt;입니다. &lt;strong&gt;ASPM&lt;/strong&gt;은 연결된 디바이스들의 전원 상태를 제어합니다.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;택시의 가동률이 높아야 되는데 현재 택시는 60% 정도의 가동률을 보여준다고 합니다. 10대 중 4대는 운행을 못하고 놀고 있는 것입니다. &lt;code class=&quot;highlighter-rouge&quot;&gt;100%의 가동률을 위하여 기사님들의 자부심을 심어주고 처우개선이 필요&lt;/code&gt;하다고 판단하고 노력한다고 합니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;예약 서비스와 데이터를 분석&lt;/code&gt;하여 최적의 운행을 통하여 더 나은 수익화를 추구합니다.&lt;/li&gt;
-  &lt;li&gt;똑같이 손님을 태워도 여러 &lt;code class=&quot;highlighter-rouge&quot;&gt;다른 서비스를 제공하여 (예약비 추가, 샌드위치 배달 등) 추가 수익을 추구&lt;/code&gt;합니다.&lt;/li&gt;
-  &lt;li&gt;전기 택시 및 수소 택시로 전환하여 &lt;code class=&quot;highlighter-rouge&quot;&gt;연료비를 절약&lt;/code&gt;합니다.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;만약, 하나의 장치는 전원 소비를 낮추려고 하고, 연결의 한쪽 끝에 있는 장치가 완전히 전원이 켜져있는 상태라고 하더라도, &lt;strong&gt;ASPM&lt;/strong&gt;은 전력 소비를 줄여줍니다. (하나의 장치가 빠르게 전송하고 다른 장치는 빠르게 전송하지 않으면,  느린 장치의 속도에 맞춰서 전송하기 때문에 그런 것으로 보여집니다.) 따라서, 서로 다른 전원 상태에 있는 연결 양 끝단의 장치들이 상태를 변경해야 하기 때문에, 지연 시간이 발생합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;연결된 디바이스는 항상 최고의 성능을 내는 전원 상태를 유지하지 않습니다. 예를 들어, 다양한 기기들은 배터리를 사용하기 때문에, &lt;strong&gt;전원 소비를 적절하게 낮춰야합니다.&lt;/strong&gt; 항상 전원을 많이 쓰는 것은 성능에는 더 도움을 줄 수도 있지만, 항상 최고 성능을 사용하지 않는 곳에서는 많은 전기를 필요로 하기 때문에 좋은 정책은 아닙니다. 필요한 시점에서 적절한 성능을 내면서 적당한 전기를 써야 좋은 전원 정책이라고 할 수 있을 것입니다. 이런 관점에서 &lt;strong&gt;ASPM&lt;/strong&gt;가 필요합니다.&lt;/p&gt;
 
-&lt;h2 id=&quot;요약&quot;&gt;요약&lt;/h2&gt;
+&lt;h3 id=&quot;aspm의-전원-정책&quot;&gt;ASPM의 전원 정책&lt;/h3&gt;
+&lt;p&gt;ASPM 아래의 3가지 정책을 사용합니다&lt;/p&gt;
 
-&lt;p&gt;택시 업계의 자체 발전을 위해서라도 &lt;strong&gt;새로운 서비스&lt;/strong&gt;가 들어와야 한다고 개인적으로 생각합니다. 정부도 효율적으로 택시회사를 운영하고 관리하지 못한 문제점이 있지만, 택시회사 자체로도 경쟁력을 키우지 못했습니다.&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;정책&lt;/th&gt;
+      &lt;th&gt;역할&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;default&lt;/td&gt;
+      &lt;td&gt;PCIe 연결의 전원 상태를 시스템의 펌웨어(예: BIOS)에 지정된 디폴트 상태로 설정합니다. 이는 ASPM의 디폴트 상태입니다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;powersave&lt;/td&gt;
+      &lt;td&gt;ASPM을 성능 감소를 감수하고라도 가능한 한 전력을 덜 소비하도록 설정합니다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;performance&lt;/td&gt;
+      &lt;td&gt;ASPM을 비활성화해서 PCIe 연결이 최대 성능을 발휘하도록 합니다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-&lt;p&gt;현재 제도와 서비스에서는 소비자와 기사님이 모두 만족할 수 없는 서비스라고 생각합니다. 소비자에게는 좋지 않은 고객 응대와 승차 거부, 기사님에게는 사납금과 개인 사업자 신분의 고려해야 할 많은 사항들이 있습니다. 또한, 위에서 언급한 것처럼 공유 차량 서비스도 마냥 좋은 서비스는 아닙니다.&lt;/p&gt;
-
-&lt;p&gt;이러한 시점에서 서비스 차별화를 실행하려는 마카롱 택시 서비스가 기대됩니다. 고객들은 &lt;strong&gt;택시를 싫어해서 공유 차량 서비스를 원하는 것이 아니라, 택시 회사의 서비스 만족도가 낮아서 새로운 서비스를 원하는 것이라고 생각합니다.&lt;/strong&gt; 택시 서비스가 새롭게 바뀌면 고객들은 우버가 들어오지 않아도, 카카오 카풀이 도입되지 않아도 만족할 것입니다.&lt;/p&gt;
-
-&lt;p&gt;마카롱 택시가 향후 어떤 역할을 하고 어떤 서비스를 제공할지 궁금합니다. 많은 문제점을 불러 일으키지 않고 &lt;strong&gt;경쟁력을 갖추면서 고객과 기사님에게 서로 좋은 서비스&lt;/strong&gt;를 제공할 수 있었으면 좋겠습니다. 문제점이 없지는 않겠지만 기존보다 좋은 서비스를 제공할 수 있을 것 같아서 기대됩니다.&lt;/p&gt;
-
-&lt;div class=&quot;footnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;긱 이코노미&lt;/strong&gt; : ‘긱’(Gig)이란 단어는 ‘일시적인 일’이라는 의미다. 긱 이코노미는 기업들이 필요에 따라 단기 계약직이나 임시직으로 인력을 충원하는 것을 의미한다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-    &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;쇼퍼&lt;/strong&gt; : 마카롱 택시에서는 기사님보다 한 단계 높게 기사님을 부르는 직함으로 부르고자 도입. 전문적인 운송 서비스를 제공하는 직함. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">기존의 국내 상황 차량 공유 서비스와 택시 업계의 반발 우버가 해외에서 활발하게 서비스를 진행 중이지만 국내에서는 아직도 차량 공유 서비스가 도입되지 않았습니다. 택시 업계의 반발이 거세었기 때문에 공유 차량 서비스가 도입되는 데 어려움을 겪고 있던 것입니다. 택시 업계의 문제점 도로위의 택시 큰 문제점은 아래와 같습니다. 서비스 퀄리티가 상대적으로 좋지 않습니다. 기존에 존재하던 서비스에서 시대가 많이 변했지만 큰 변화가 없습니다. 택시는 한 번 타고 나면 그 다음에 같은 손님과의 연동이 다시 이루어지지 않는 서비스이기 때문에 고객 관리에 대한 개념이 다소 부족합니다. 또, 기사님들에 대한 기존 택시 회사차원에서의 교육이 부족하여, 서비스 퀄리티가 상승하지 않고 있습니다. 택시 회사들끼리의 차별점이 존재하지 않습니다. 택시 회사가 여러개라면 고객이 택시 회사를 골라서 서비스를 이용할 수 있습니다. 하지만, 현재는 모든 택시가 같은 모습을 하고 있기 때문에 차별점이 없어서 택시는 모두 하나로 취급됩니다. 사납금 문제와 개인 사업자 사납금을 회사에 내야되기 때문에 기사님들은 자신의 이익을 생각해야만 하는 입장입니다. 기사님들은 월급을 받지 않고 자신이 운행한 만큼의 이익을 얻습니다. 이러한 환경에서는 기사님들은 거리에 대한 이익을 생각하지 않을 수 없습니다. 공유 차량 서비스의 문제점 대표적인 공유 차량 서비스 우버 공유 차량 서비스 우버는 저도 미국에서 타봤지만 꽤나 편리하게 이용할 수 있고 저렴한 서비스입니다. 하지만 이런 서비스가 실제로 문제가 많습니다. 우버 기사들의 수익은 굉장히 낮습니다. 택시와 비교해보면 굉장히 저렴한 서비스입니다. 하지만 비용이 저렴하다는 것은 기사들의 수입에도 직결됩니다. 우버와 리프트 드라이버의 순수입은 시간당 8.55 달러로 뉴욕 최저시급인 13달러에 못 미치는 수준입니다. 기사들의 처우가 보장되지 않으면 공유 차량 서비스가 좋은 서비스라고 말할 수 없겠죠. 기존 택시 기사들의 삶도 위협받는다. 위와 같이 우버가 더 저렴하기 때문에 소비자는 우버를 탑승합니다. 저도 미국에서 저렴한 우버를 이용했습니다. 또, 우버는 차량 규제가 없어 기사 수에 제한을 두지 않습니다. 따라서, 택시 기사들의 삶도 위협받았고 우버 기사들의 삶도 좋지 않은 문제를 가져 왔습니다. 위와 같은 문제들은 결국 서비스 퀄리티의 하락을 가져오고 있습니다. 문제점 요약 공유 차량 서비스는 마냥 좋은 서비스가 아닙니다. 긱 이코노미1 에 대한 많은 비판들이 또 전해지고 있습니다. 국내에서는 택시회사의 파업문제나 카카오 카풀의 도입에 차질이 전해진다는 기사를 많이 볼 수 있지만, 실제 공유 서비스에도 문제는 많습니다. 탑승객, 기사님에게 서로 이득인 서비스는 없을까요?? 이러한 문제를 해결하고자 마카롱 택시가 등장했고, 흥미가 가는 서비스라 포스팅해보았습니다. 마카롱 택시의 등장 마카롱 택시 토마토 TV 인터뷰 “다양한 서비스들은 다양한 브랜드를 가지고 있지만 택시만 한 브랜드다. 새로운 브랜드 택시를 만들겠다”라는 말을 인터뷰에서 전해주고 있습니다. 구체적 차별점 40시간의 기사 교육 진행하여 처우와 환경 개선 노력. 서비스 퀄리티를 위하여 교육을 지속적으로 도입한다고 합니다. 쇼퍼2 라는 개념을 도입하여 전문화된 기사 서비스를 제공합니다. 선발을 엄격하게 하고, 응급처치와 마인드 교육, 장비 교육을 진행합니다. 자체적인 어플 서비스와 AI를 활용한 효율적인 운행과 편리한 서비스. 기존 택시 회사들은 택시 업계에서 쓸 좋은 어플리케이션들을 도입하지 못하였습니다. 결국 카카오 택시가 먼저 도입되어 택시 서비스의 퀄리티를 높혀주는 역할을 하였습니다. 마카롱 택시는 자사의 서비스를 강화하기 위하여 직접 개발한다고 합니다. 사납금 폐지, 월급제 도입. 회사는 편하지만 사납금이 있으면 먼 거리를 가고자 하는 마음이 생길 수 밖에 없다고 합니다. 이는 서비스 퀄리티에 치명적입니다. 짧은 거리를 싫어하게 되고 승차 거부에 대한 유혹을 저버릴 수 없습니다. 실적 압박이 덜 하고, 승차거부를 막고, 안전 운행 수단을 만들기 위하여 필요합니다. 마카롱 택시 이미지. 차별화된 이미지와 깔끔함이 좋아 보입니다. (출처 : kst모빌리티) 향후 계획 택시의 가동률이 높아야 되는데 현재 택시는 60% 정도의 가동률을 보여준다고 합니다. 10대 중 4대는 운행을 못하고 놀고 있는 것입니다. 100%의 가동률을 위하여 기사님들의 자부심을 심어주고 처우개선이 필요하다고 판단하고 노력한다고 합니다. 예약 서비스와 데이터를 분석하여 최적의 운행을 통하여 더 나은 수익화를 추구합니다. 똑같이 손님을 태워도 여러 다른 서비스를 제공하여 (예약비 추가, 샌드위치 배달 등) 추가 수익을 추구합니다. 전기 택시 및 수소 택시로 전환하여 연료비를 절약합니다. 요약 택시 업계의 자체 발전을 위해서라도 새로운 서비스가 들어와야 한다고 개인적으로 생각합니다. 정부도 효율적으로 택시회사를 운영하고 관리하지 못한 문제점이 있지만, 택시회사 자체로도 경쟁력을 키우지 못했습니다. 현재 제도와 서비스에서는 소비자와 기사님이 모두 만족할 수 없는 서비스라고 생각합니다. 소비자에게는 좋지 않은 고객 응대와 승차 거부, 기사님에게는 사납금과 개인 사업자 신분의 고려해야 할 많은 사항들이 있습니다. 또한, 위에서 언급한 것처럼 공유 차량 서비스도 마냥 좋은 서비스는 아닙니다. 이러한 시점에서 서비스 차별화를 실행하려는 마카롱 택시 서비스가 기대됩니다. 고객들은 택시를 싫어해서 공유 차량 서비스를 원하는 것이 아니라, 택시 회사의 서비스 만족도가 낮아서 새로운 서비스를 원하는 것이라고 생각합니다. 택시 서비스가 새롭게 바뀌면 고객들은 우버가 들어오지 않아도, 카카오 카풀이 도입되지 않아도 만족할 것입니다. 마카롱 택시가 향후 어떤 역할을 하고 어떤 서비스를 제공할지 궁금합니다. 많은 문제점을 불러 일으키지 않고 경쟁력을 갖추면서 고객과 기사님에게 서로 좋은 서비스를 제공할 수 있었으면 좋겠습니다. 문제점이 없지는 않겠지만 기존보다 좋은 서비스를 제공할 수 있을 것 같아서 기대됩니다. 긱 이코노미 : ‘긱’(Gig)이란 단어는 ‘일시적인 일’이라는 의미다. 긱 이코노미는 기업들이 필요에 따라 단기 계약직이나 임시직으로 인력을 충원하는 것을 의미한다. &amp;#8617; 쇼퍼 : 마카롱 택시에서는 기사님보다 한 단계 높게 기사님을 부르는 직함으로 부르고자 도입. 전문적인 운송 서비스를 제공하는 직함. &amp;#8617;</summary></entry><entry><title type="html">LG 스마트폰 공장 해외 이전과 LG 유저가 생각하는 LG 스마트폰의 아쉬운 점</title><link href="http://localhost:4000/tech/2019/04/29/002000.html" rel="alternate" type="text/html" title="LG 스마트폰 공장 해외 이전과 LG 유저가 생각하는 LG 스마트폰의 아쉬운 점" /><published>2019-04-29T00:00:00+09:00</published><updated>2019-04-29T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/04/29/002000</id><content type="html" xml:base="http://localhost:4000/tech/2019/04/29/002000.html">&lt;h2 id=&quot;lg-스마트폰의-공장-해외-이전&quot;&gt;LG 스마트폰의 공장 해외 이전&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190429/lg_logo.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center image--xl&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;lg 전자의 로고&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;LG 전자가 국내 스마트폰 생산 공장인 평택 공장의 문을 닫는다고 한다. 설비의 대부분은 베트남으로 이동할 예정이다. 700명이 넘는 생산 인력은 26일부터 LG의 다른 사업부로 이동하거나 아니면 희망퇴직을 하게 된다.&lt;/p&gt;
-
-&lt;p&gt;LG 전자의 휴대폰 실적이 지속적으로 좋지 않은 것은 안타까운 일이다. 국내 기업이 전부 잘 되었으면 좋겠지만 기업은 경쟁에서 살아남아야 하는 환경에 항상 놓여있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;누적된-적자&quot;&gt;누적된 적자&lt;/h3&gt;
-
-&lt;p&gt;LG 전자의 해외 이전 이유는 역시 적자이다. 3조가 넘은 적자는 다른 사업부의 영업이익으로 감당해오고 있었지만, 기업 입장에서 지속적으로 적자만 나오는 사업부는 유지하기 어렵다. 그럼에도 &lt;strong&gt;스마트폰을 포기할 수 없기 때문에&lt;/strong&gt; 공장을 해외로 옮겨서 다양한 비용을 감소하여 적자 폭을 줄여보려는 전략을 선택한 것 같다.&lt;/p&gt;
-
-&lt;h3 id=&quot;베트남의-인건비&quot;&gt;베트남의 인건비&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190429/vitenam_street.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;베트남 거리&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;베트남으로 LG 전자의 스마트폰 공장이 이전하는 이유는 해당 국가의 정부 지원도 있겠지만 역시나 인건비가 가장 큰 이유일 것이다. LG 전자 스마트폰 공장이 있는 하이퐁의 2019년 최저임금은 월 418만동, 우리돈으로 약 21만원이다. 고급 엔지니어는 약 35만~50만원 수준이다.&lt;/p&gt;
-
-&lt;p&gt;국내 인건비와 비교가 되지 않는 비용인 것이다. 적자 폭을 줄이려면 이것 저것 모든 비용을 줄여야 하는데 그 중 가장 큰 선택이 인건비일 것이다. 이러한 상황 속에서도 기존 인원들의 대규모 해고 같은 일 없이 무난하게 넘어가는 듯 하여, 기존부터 준비는 잘 한 것 같다. 대규모 해고는 기업의 이미지나 주가 같은 것에도 영향이 클 것인데 상대적으로 이 부분은 잘 넘어간 것 같다.&lt;/p&gt;
-
-&lt;h3 id=&quot;후회되는-lg-전자의-과거-선택&quot;&gt;후회되는 LG 전자의 과거 선택&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;LG 전자는 피처폰에서 스마트폰으로 전환할 때 기회를 놓쳤고, 3G에서 4G로 전환될 때는 다시 시장 지위를 높였던 기억이 있다. 최근 수년 동안은 과도한 기술 혁신을 시도하다 신뢰를 잃기도 했다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;올해 초 LG 전자 스마트폰 사업 신임 사장 자리에 앉은 권봉석 모바일커뮤니케이션(MC) 사업본부장이 지난 2월 취임 후 열린 첫 기자간담회에서 한 말이라고 한다.&lt;/p&gt;
-
+&lt;h3 id=&quot;aspm-설정-방법&quot;&gt;ASPM 설정 방법&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;스마트폰으로 전환할 때 기회를 놓쳤다 -&amp;gt; 스마트폰의 시장성을 알아 보지 못하고 기존 시장에 안주한 것&lt;/li&gt;
-  &lt;li&gt;3G에서 4G로 전환 될 때 -&amp;gt;  LG전자 스마트폰 중 처음으로 누적 판매량 1,000만대를 돌파하며 &lt;strong&gt;휴대폰 명가의 부활&lt;/strong&gt; 이라는 소리를 들은 때. MC 사업본부는 G3가 나온 2014년 3,161억원의 흑자를 기록했다.&lt;/li&gt;
-  &lt;li&gt;과도한 기술 혁신 -&amp;gt; G5의 모듈 같은 소비자가 원하지 않는 새로운 시도&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;권봉석 MC 사업본부장의 말은 위와 같이 해석된다. 휴대폰의 강자 LG가 고꾸라지고 노키아는 망하기까지 한 것을 보면 시장과 기업이 얼마나 끈끈하게 연결되어 있는지 느껴지는 것 같다. 현재는 삼성의 무선사업부가 가장 인기가 많은데 불과 몇 년 전만 해도 LG 무선사업부가 신입사원들에게 인기가 많았을 것이라고 생각하면 상상이 되지 않는다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;스마트폰의 전환&lt;/strong&gt; 기회를 놓친 것이 가장 큰 실수이고, 다양한 시도를 했지만 성공 하지 못한 것은 아쉬운 것 같다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;lg-전자의-휴대폰&quot;&gt;LG 전자의 휴대폰&lt;/h2&gt;
-
-&lt;h3 id=&quot;굳건한-양강-구도&quot;&gt;굳건한 양강 구도&lt;/h3&gt;
-
-&lt;p&gt;국내 시장에서 보면 사실상 Apple vs 삼성의 양강 구도라고 봐도 무방할 정도로 LG 폰을 사용하는 사람을 보기 어렵다.&lt;/p&gt;
-
-&lt;h3 id=&quot;lg-휴대폰을-쓰면서-느낀-점&quot;&gt;LG 휴대폰을 쓰면서 느낀 점&lt;/h3&gt;
-
-&lt;p&gt;나는 기존에 삼성폰에서 시작하여 애플폰을 거쳐 G2에서 G6를 사용하고 있다. 사실 원래 성격이 불편함을 잘 못 느끼는 것도 있지만 크게 다른 핸드폰들과 비교하여 뒤진다는 생각도 들지는 않았다. 기본은 한다는 생각 정도를 가지고 사용했다. &lt;strong&gt;“괜찮다”&lt;/strong&gt; 이런 느낌이다.&lt;/p&gt;
-
-&lt;p&gt;나는 뽑기운이 좋은지 물건을 잘 사용하는지는 모르겠지만 크게 문제가 있었던 적이 거의 없었다. 뽑기를 잘못하여 안 좋은 핸드폰을 직접 사용한 사람이라면 모르겠지만 여러 뉴스 댓글에서 볼 수 있는 무작정 LG폰 까기 댓글은 지금은 맞지 않는 것 같다.&lt;/p&gt;
-
-&lt;h3 id=&quot;시장에서의-이미지&quot;&gt;시장에서의 이미지&lt;/h3&gt;
-
-&lt;p&gt;사실 소비자들로 하여금 현재 LG 폰을 써야할 이유를 설명하기가 어렵다. 최근 S10의 행보나 폴더블을 살펴보면 삼성의 기술이 약간식 더 빠르게 나가고 있는 느낌을 준다. 삼성의 S 시리즈에서는 사실 큰 차별점을 느끼기가 어려웠지만 S10에서 다른 회사들이 선보이지 못한 기술을 잘 선보였다고 생각한다.&lt;/p&gt;
-
-&lt;p&gt;실제 LG가 폴더블을 구현할 수 있고 없고의 문제가 아니라 시장에서의 이미지는 적어도 그렇게 보인다는 것이다. LG 폰을 써야 할 이유보다는 쓰지 않아야 할 이유를 대기가 더 쉽다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190429/question-mark.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;lg 폰을 왜 써야 할까에 대해 말할 수 있을까&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;이해가 1도 안되는 제품 네이밍.&lt;/code&gt; 이건 다른 곳에서 본 적이 없는 내용이지만 나는 항상 느끼는 점이다. LG 가 가전에서는 꽤나 잘 나가고 있고, 노트북 &lt;strong&gt;그램&lt;/strong&gt; 도 매우 좋은 이미지를 가지고 있다. &lt;strong&gt;gram&lt;/strong&gt; 이라는 네이밍 자체가 가볍다는 느낌을 주면서, 기억하기도 쉽고 거부감도 없으며 짧다. 네이밍을 굉장히 잘했다고 느껴진다. 하지만 LG의 현재 스마트폰 네이밍은 전혀 이해가 되지 않는다. G 시리즈와 V 시리즈는 이름에서 주는 임팩트가 전혀 없고, 뭔지도 모르겠다. 다른 회사들에서는 &lt;strong&gt;갤럭시&lt;/strong&gt;, &lt;strong&gt;아이폰&lt;/strong&gt; 과 같이 어떤 이름이 앞에 들어가고 그 다음 알파벳과 숫자로 모델명을 표기한다. 그런데 LG는 그냥 G, V, Q다. 그리고 뒤에 인공지능 이름 ThinQ를 붙이는데, 왜 붙이는지 사실 잘 모르겠다. 솔직히 애플 삼성의 스마트폰도 인공지능이라는 기술을 보여주긴 하지만 빅스비와 시리가 아직 역할을 하는 것은 거의 없다. 지금 LG는 &lt;strong&gt;그램&lt;/strong&gt; 과 같은 좋은 네이밍이 필요하고 생각된다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;적용된 다양한 기술들. 필요없지 않나요.&lt;/code&gt; 다양한 기술들이 이번 핸드폰에 적용되었지만 굳이 왜 이렇게 많은 기술들을 더 넣어서 단가를 늘렸는지 의문이다. 가장 먼저 떠오르는 정맥 인식. 정맥 인식을 왜 굳이 넣었을까 싶다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;가격이 크게 저렴하지 않다.&lt;/code&gt; 단말기 출고가를 비교해 보면, 그 가격이면 삼성을 몇 만원 더주면 살 수 있다. 삼성이 더 낫다는 이미지가 형성된 지금 소비자들은 삼성을 고를 수 밖에 없다. 나도 왠지 삼성을 고를 것 같다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;대부분의 핸드폰은 할부를 통해서 구매가 되고 아직 국내에서는 단말기 구매를 하는 사람이 적다.&lt;/code&gt; 할부를 하면 가격적인 차이가 더 적게 느껴진다. 예시로 한 달에 5천원이면 24개월이면 12만원 정도 차이가 나지만, 12만원이라는 느낌이 잘 들지 않는다. 또, 한 번에 내는 것 보다 부담이 덜하다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;스마트폰 회사에서의 다양한 라인업을 가진 스마트폰들이 많다.&lt;/code&gt; 아싸리 삼성이 S10과 노트만 만들면 모르겠지만 A시리즈 같은 중가형이나 더 저렴한 저가형 모델도 생산한다. 아래와 같은 가격대라면 애매한 플래그십을 만들어버리면 양 극단으로 소비자가 몰릴 것이다.
-    &lt;blockquote&gt;
-      &lt;p&gt;삼성 플래그십 핸드폰 &amp;lt; - LG 스마트폰 - &amp;gt; 삼성 저가형 핸드폰&lt;/p&gt;
-    &lt;/blockquote&gt;
+  &lt;li&gt;리눅스에서는 ASPM 정책은 /sys/module/pcie_aspm/parameters/policy에 설정되어 있습니다.&lt;/li&gt;
+  &lt;li&gt;시스템 부팅시 pcie_aspm 커널 매개변수를 사용해 설정할 수도 있습니다.
+    &lt;ul&gt;
+      &lt;li&gt;pcie_aspm=off 는 ASPM 비활성&lt;/li&gt;
+      &lt;li&gt;pcie_aspm=force 는 ASPM 활성&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;특별한 차별점이 없다.&lt;/code&gt; 삼성의 갤럭시 노트는 펜이 내장되어 있기 때문에 매니아층이 좋아하고 잘 쓰는 제품이다. LG는 그러한 제품군이 없기 때문에 매니아도 끌어올 수가 없다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;hr /&gt;
 
-&lt;h2 id=&quot;요약&quot;&gt;요약&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190429/board.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;다음 lg 폰을 기대해보자&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;LG 폰이 잘 되었으면 좋겠다는 생각에 아쉬움이 든다. &lt;code class=&quot;highlighter-rouge&quot;&gt;괜찮지만 써야 할 이유를 찾기는 어렵다.&lt;/code&gt; 이제 시도는 좋지만 소비자가 원하는 기술 위주로 적용하고 차별점을 내세워야 될 것 같다. 음향쪽으로 과하지 않게 차별점을 주려는 시도는 좋다고 생각한다. 비대칭전력으로 비교우위를 점해야 되지 않을까라는 생각이 든다.&lt;/p&gt;
-
-&lt;p&gt;필요없는 기능은 다 빼고 플래그십의 가격을 더 낮춰서 판매하고, 노트처럼 차별점이 있는 제품을 만들어 보는 것도 좋을 것 같다. 다양한 시도를 하는 모습은 많이 보여줬기 때문에 이런 시도도 잘 할수 있을 것 같다. 방향만 잘 잡으면 될 것 같다.&lt;/p&gt;
-
-&lt;p&gt;하루 빨리 적자 폭을 줄이고 다시 흑자를 내는 효자 산업으로 자리 잡기를 바란다. &lt;strong&gt;&lt;em&gt;그리고 이름 좀 이쁘게 하나 지어주세요&lt;/em&gt;&lt;/strong&gt; :smiley:&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">LG 스마트폰의 공장 해외 이전 lg 전자의 로고 LG 전자가 국내 스마트폰 생산 공장인 평택 공장의 문을 닫는다고 한다. 설비의 대부분은 베트남으로 이동할 예정이다. 700명이 넘는 생산 인력은 26일부터 LG의 다른 사업부로 이동하거나 아니면 희망퇴직을 하게 된다. LG 전자의 휴대폰 실적이 지속적으로 좋지 않은 것은 안타까운 일이다. 국내 기업이 전부 잘 되었으면 좋겠지만 기업은 경쟁에서 살아남아야 하는 환경에 항상 놓여있다. 누적된 적자 LG 전자의 해외 이전 이유는 역시 적자이다. 3조가 넘은 적자는 다른 사업부의 영업이익으로 감당해오고 있었지만, 기업 입장에서 지속적으로 적자만 나오는 사업부는 유지하기 어렵다. 그럼에도 스마트폰을 포기할 수 없기 때문에 공장을 해외로 옮겨서 다양한 비용을 감소하여 적자 폭을 줄여보려는 전략을 선택한 것 같다. 베트남의 인건비 베트남 거리 베트남으로 LG 전자의 스마트폰 공장이 이전하는 이유는 해당 국가의 정부 지원도 있겠지만 역시나 인건비가 가장 큰 이유일 것이다. LG 전자 스마트폰 공장이 있는 하이퐁의 2019년 최저임금은 월 418만동, 우리돈으로 약 21만원이다. 고급 엔지니어는 약 35만~50만원 수준이다. 국내 인건비와 비교가 되지 않는 비용인 것이다. 적자 폭을 줄이려면 이것 저것 모든 비용을 줄여야 하는데 그 중 가장 큰 선택이 인건비일 것이다. 이러한 상황 속에서도 기존 인원들의 대규모 해고 같은 일 없이 무난하게 넘어가는 듯 하여, 기존부터 준비는 잘 한 것 같다. 대규모 해고는 기업의 이미지나 주가 같은 것에도 영향이 클 것인데 상대적으로 이 부분은 잘 넘어간 것 같다. 후회되는 LG 전자의 과거 선택 LG 전자는 피처폰에서 스마트폰으로 전환할 때 기회를 놓쳤고, 3G에서 4G로 전환될 때는 다시 시장 지위를 높였던 기억이 있다. 최근 수년 동안은 과도한 기술 혁신을 시도하다 신뢰를 잃기도 했다. 올해 초 LG 전자 스마트폰 사업 신임 사장 자리에 앉은 권봉석 모바일커뮤니케이션(MC) 사업본부장이 지난 2월 취임 후 열린 첫 기자간담회에서 한 말이라고 한다. 스마트폰으로 전환할 때 기회를 놓쳤다 -&amp;gt; 스마트폰의 시장성을 알아 보지 못하고 기존 시장에 안주한 것 3G에서 4G로 전환 될 때 -&amp;gt; LG전자 스마트폰 중 처음으로 누적 판매량 1,000만대를 돌파하며 휴대폰 명가의 부활 이라는 소리를 들은 때. MC 사업본부는 G3가 나온 2014년 3,161억원의 흑자를 기록했다. 과도한 기술 혁신 -&amp;gt; G5의 모듈 같은 소비자가 원하지 않는 새로운 시도 권봉석 MC 사업본부장의 말은 위와 같이 해석된다. 휴대폰의 강자 LG가 고꾸라지고 노키아는 망하기까지 한 것을 보면 시장과 기업이 얼마나 끈끈하게 연결되어 있는지 느껴지는 것 같다. 현재는 삼성의 무선사업부가 가장 인기가 많은데 불과 몇 년 전만 해도 LG 무선사업부가 신입사원들에게 인기가 많았을 것이라고 생각하면 상상이 되지 않는다. 스마트폰의 전환 기회를 놓친 것이 가장 큰 실수이고, 다양한 시도를 했지만 성공 하지 못한 것은 아쉬운 것 같다. LG 전자의 휴대폰 굳건한 양강 구도 국내 시장에서 보면 사실상 Apple vs 삼성의 양강 구도라고 봐도 무방할 정도로 LG 폰을 사용하는 사람을 보기 어렵다. LG 휴대폰을 쓰면서 느낀 점 나는 기존에 삼성폰에서 시작하여 애플폰을 거쳐 G2에서 G6를 사용하고 있다. 사실 원래 성격이 불편함을 잘 못 느끼는 것도 있지만 크게 다른 핸드폰들과 비교하여 뒤진다는 생각도 들지는 않았다. 기본은 한다는 생각 정도를 가지고 사용했다. “괜찮다” 이런 느낌이다. 나는 뽑기운이 좋은지 물건을 잘 사용하는지는 모르겠지만 크게 문제가 있었던 적이 거의 없었다. 뽑기를 잘못하여 안 좋은 핸드폰을 직접 사용한 사람이라면 모르겠지만 여러 뉴스 댓글에서 볼 수 있는 무작정 LG폰 까기 댓글은 지금은 맞지 않는 것 같다. 시장에서의 이미지 사실 소비자들로 하여금 현재 LG 폰을 써야할 이유를 설명하기가 어렵다. 최근 S10의 행보나 폴더블을 살펴보면 삼성의 기술이 약간식 더 빠르게 나가고 있는 느낌을 준다. 삼성의 S 시리즈에서는 사실 큰 차별점을 느끼기가 어려웠지만 S10에서 다른 회사들이 선보이지 못한 기술을 잘 선보였다고 생각한다. 실제 LG가 폴더블을 구현할 수 있고 없고의 문제가 아니라 시장에서의 이미지는 적어도 그렇게 보인다는 것이다. LG 폰을 써야 할 이유보다는 쓰지 않아야 할 이유를 대기가 더 쉽다. lg 폰을 왜 써야 할까에 대해 말할 수 있을까 이해가 1도 안되는 제품 네이밍. 이건 다른 곳에서 본 적이 없는 내용이지만 나는 항상 느끼는 점이다. LG 가 가전에서는 꽤나 잘 나가고 있고, 노트북 그램 도 매우 좋은 이미지를 가지고 있다. gram 이라는 네이밍 자체가 가볍다는 느낌을 주면서, 기억하기도 쉽고 거부감도 없으며 짧다. 네이밍을 굉장히 잘했다고 느껴진다. 하지만 LG의 현재 스마트폰 네이밍은 전혀 이해가 되지 않는다. G 시리즈와 V 시리즈는 이름에서 주는 임팩트가 전혀 없고, 뭔지도 모르겠다. 다른 회사들에서는 갤럭시, 아이폰 과 같이 어떤 이름이 앞에 들어가고 그 다음 알파벳과 숫자로 모델명을 표기한다. 그런데 LG는 그냥 G, V, Q다. 그리고 뒤에 인공지능 이름 ThinQ를 붙이는데, 왜 붙이는지 사실 잘 모르겠다. 솔직히 애플 삼성의 스마트폰도 인공지능이라는 기술을 보여주긴 하지만 빅스비와 시리가 아직 역할을 하는 것은 거의 없다. 지금 LG는 그램 과 같은 좋은 네이밍이 필요하고 생각된다. 적용된 다양한 기술들. 필요없지 않나요. 다양한 기술들이 이번 핸드폰에 적용되었지만 굳이 왜 이렇게 많은 기술들을 더 넣어서 단가를 늘렸는지 의문이다. 가장 먼저 떠오르는 정맥 인식. 정맥 인식을 왜 굳이 넣었을까 싶다. 가격이 크게 저렴하지 않다. 단말기 출고가를 비교해 보면, 그 가격이면 삼성을 몇 만원 더주면 살 수 있다. 삼성이 더 낫다는 이미지가 형성된 지금 소비자들은 삼성을 고를 수 밖에 없다. 나도 왠지 삼성을 고를 것 같다. 대부분의 핸드폰은 할부를 통해서 구매가 되고 아직 국내에서는 단말기 구매를 하는 사람이 적다. 할부를 하면 가격적인 차이가 더 적게 느껴진다. 예시로 한 달에 5천원이면 24개월이면 12만원 정도 차이가 나지만, 12만원이라는 느낌이 잘 들지 않는다. 또, 한 번에 내는 것 보다 부담이 덜하다. 스마트폰 회사에서의 다양한 라인업을 가진 스마트폰들이 많다. 아싸리 삼성이 S10과 노트만 만들면 모르겠지만 A시리즈 같은 중가형이나 더 저렴한 저가형 모델도 생산한다. 아래와 같은 가격대라면 애매한 플래그십을 만들어버리면 양 극단으로 소비자가 몰릴 것이다. 삼성 플래그십 핸드폰 &amp;lt; - LG 스마트폰 - &amp;gt; 삼성 저가형 핸드폰 특별한 차별점이 없다. 삼성의 갤럭시 노트는 펜이 내장되어 있기 때문에 매니아층이 좋아하고 잘 쓰는 제품이다. LG는 그러한 제품군이 없기 때문에 매니아도 끌어올 수가 없다. 요약 다음 lg 폰을 기대해보자 LG 폰이 잘 되었으면 좋겠다는 생각에 아쉬움이 든다. 괜찮지만 써야 할 이유를 찾기는 어렵다. 이제 시도는 좋지만 소비자가 원하는 기술 위주로 적용하고 차별점을 내세워야 될 것 같다. 음향쪽으로 과하지 않게 차별점을 주려는 시도는 좋다고 생각한다. 비대칭전력으로 비교우위를 점해야 되지 않을까라는 생각이 든다. 필요없는 기능은 다 빼고 플래그십의 가격을 더 낮춰서 판매하고, 노트처럼 차별점이 있는 제품을 만들어 보는 것도 좋을 것 같다. 다양한 시도를 하는 모습은 많이 보여줬기 때문에 이런 시도도 잘 할수 있을 것 같다. 방향만 잘 잡으면 될 것 같다. 하루 빨리 적자 폭을 줄이고 다시 흑자를 내는 효자 산업으로 자리 잡기를 바란다. 그리고 이름 좀 이쁘게 하나 지어주세요 :smiley:</summary></entry><entry><title type="html">MIT 공대생들이 만든 저렴한 가격의 로봇 음식점</title><link href="http://localhost:4000/tech/2019/04/21/155300.html" rel="alternate" type="text/html" title="MIT 공대생들이 만든 저렴한 가격의 로봇 음식점" /><published>2019-04-21T00:00:00+09:00</published><updated>2019-04-21T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/04/21/155300</id><content type="html" xml:base="http://localhost:4000/tech/2019/04/21/155300.html">&lt;p&gt;&lt;a href=&quot;https://toozajournal.tistory.com/817?fbclid=IwAR2wjvHKMxpVTnTEC2i6EucT7zpoJBRs6g0RkseyfAi34YCDEBFeu7XzTr4&quot;&gt;비싼 음식에 지친 MIT 공대생들이 만든 로봇 식당&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 링크에서 재미있는 회사에 대한 정보를 얻었습니다. MIT 공대생들이 비싼 음식 값에 지쳐서 직접 로봇을 이용한 식당을 만든 것입니다. 저한테 상당히 인상 깊은 스타트업이라 포스팅을 하게 되었습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;문제점&quot;&gt;문제점&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/in-n-out-1.jpg&quot; alt=&quot;Image&quot; class=&quot;rounded img_center&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;미국의-비싼-음식값&quot;&gt;미국의 비싼 음식값&lt;/h3&gt;
-
-&lt;p&gt;미국의 음식 값은 매우 비쌉니다. 우리나라 음식점에서는 6~8천원 대에 형성되지만 미국에서는 기본적으로 10~14$ 정도로 음식점 가격이 형성되어 있습니다. 물론, 이 가격은 보편적인 음식점의 가격이고 햄버거나 편의점 같은 곳에서 사는 음식은 더 저렴하지만 맨날 이런 음식을 먹을 수는 없겠죠.&lt;/p&gt;
-
-&lt;p&gt;또, 식당에서 직접 먹으면 미국에서는 tip 문화때문에 10~15%의 팁을 더 내야합니다. (take out일 경우는 아니지만요.) 계산표에 나온 음식 값에 세금도 더 추가됩니다.&lt;/p&gt;
-
-&lt;p&gt;미국의 대학생이 시급이 높다고 해도 물가가 높으니 우리나라 대학생과 동일하게 비싼 밥값은 부담이 될 것입니다. 이런 상황에서 로봇을 이용한 식당을 MIT 공대생 4명이 만들어 창업했습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;문제-해결&quot;&gt;문제 해결&lt;/h2&gt;
-
-&lt;h3 id=&quot;로봇을-이용한-창업&quot;&gt;로봇을 이용한 창업&lt;/h3&gt;
-
-&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
-  &lt;iframe src=&quot;https://www.youtube.com/embed/9LqqcDL99UA?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;4명의 공대생이 창업한 spyce 회사 소개 영상&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.spyce.com/&quot;&gt;spyce 홈페이지&lt;/a&gt;에 들어가면 회사에 대한 소개와 메뉴 같은 정보들을 얻을 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/spyce_menu.PNG&quot; alt=&quot;Image&quot; class=&quot;rounded img_center&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;메뉴는 위의 3개 말고도 여러 가지가 있습니다. 이런 음식들이 전부 7.5$에 판매되고 있었습니다. 미국 다른 식당과 비교해 보면 꽤나 저렴한 편입니다.&lt;/p&gt;
-
-&lt;div&gt;&lt;div class=&quot;extensions extensions--video&quot;&gt;
-  &lt;iframe src=&quot;https://www.youtube.com/embed/9LqqcDL99UA?rel=0&amp;amp;showinfo=0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong class=&quot;caption&quot;&gt;유투버가 리뷰한 sypce 매장. 실제 어떻게 서비스가 진행되는지 확인할 수 있다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 유투버가 올린 영상을 보면 꽤나 많은 부분이 자동화되고 깨끗하게 조리가 잘 되는 것을 확인할 수 있었습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;후기&quot;&gt;후기&lt;/h2&gt;
-
-&lt;p&gt;제가 개인적으로 생각하는 서비스의 후기는 아래와 같습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;서비스의-장점&quot;&gt;서비스의 장점&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;참고&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;가격이 기존 식당 대비 저렴합니다.&lt;/code&gt; 동일 퀄리티의 음식에서는 기존 식당 대비 더 저렴한 가격을 받습니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;위생적으로 매우 깨끗합니다.&lt;/code&gt; 다른 식당에서 발생하는 교차 오염과 같은 문제는 발생할 여지가 적습니다. 자동화된 시스템에서 재료를 넣는 곳에 재료만 넣어두면 조리되는 방식이기 때문에, 해당 부분만 깨끗하게 관리하면 다른 식당보다 비교적 위생 관리가 잘 되는 것 같습니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;음식에 퀄리티가 꽤나 높습니다.&lt;/code&gt; takeout 음식은 대부분 fastfood 인 경우가 많은데, 야채가 많이 들어간 음식을 판매한다는 점에서 건강에 더 좋을 것 같습니다. 또한, 쉐프가 음식을 관리하여 정량화된 재료를 좋은 맛으로 제공할 수 있는 것 같습니다.&lt;/li&gt;
+  &lt;li&gt;https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html/power_management_guide/aspm&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>melonicedlatte</name></author><category term="ComputerArchitecture" /><category term="ComputerArchitecture" /><summary type="html">활성 상태 전원 관리(ASPM) 활성 상태 전원 관리(ASPM)이란? 활성 상태 전원 관리(ASPM, Active-State Power Management)는 PCIe 서브시스템의 전원 소비를 PCIe 연결로 접속된 장치가 사용중이 아닐 때 저전력 상태로 변경해서 절약하는 정책입니다. ASPM은 연결된 디바이스들의 전원 상태를 제어합니다. 만약, 하나의 장치는 전원 소비를 낮추려고 하고, 연결의 한쪽 끝에 있는 장치가 완전히 전원이 켜져있는 상태라고 하더라도, ASPM은 전력 소비를 줄여줍니다. (하나의 장치가 빠르게 전송하고 다른 장치는 빠르게 전송하지 않으면, 느린 장치의 속도에 맞춰서 전송하기 때문에 그런 것으로 보여집니다.) 따라서, 서로 다른 전원 상태에 있는 연결 양 끝단의 장치들이 상태를 변경해야 하기 때문에, 지연 시간이 발생합니다. 연결된 디바이스는 항상 최고의 성능을 내는 전원 상태를 유지하지 않습니다. 예를 들어, 다양한 기기들은 배터리를 사용하기 때문에, 전원 소비를 적절하게 낮춰야합니다. 항상 전원을 많이 쓰는 것은 성능에는 더 도움을 줄 수도 있지만, 항상 최고 성능을 사용하지 않는 곳에서는 많은 전기를 필요로 하기 때문에 좋은 정책은 아닙니다. 필요한 시점에서 적절한 성능을 내면서 적당한 전기를 써야 좋은 전원 정책이라고 할 수 있을 것입니다. 이런 관점에서 ASPM가 필요합니다. ASPM의 전원 정책 ASPM 아래의 3가지 정책을 사용합니다 정책 역할 default PCIe 연결의 전원 상태를 시스템의 펌웨어(예: BIOS)에 지정된 디폴트 상태로 설정합니다. 이는 ASPM의 디폴트 상태입니다. powersave ASPM을 성능 감소를 감수하고라도 가능한 한 전력을 덜 소비하도록 설정합니다. performance ASPM을 비활성화해서 PCIe 연결이 최대 성능을 발휘하도록 합니다. ASPM 설정 방법 리눅스에서는 ASPM 정책은 /sys/module/pcie_aspm/parameters/policy에 설정되어 있습니다. 시스템 부팅시 pcie_aspm 커널 매개변수를 사용해 설정할 수도 있습니다. pcie_aspm=off 는 ASPM 비활성 pcie_aspm=force 는 ASPM 활성 참고 https://access.redhat.com/documentation/ko-kr/red_hat_enterprise_linux/6/html/power_management_guide/aspm</summary></entry><entry><title type="html">콜드 부팅과 웜 부팅의 개념</title><link href="http://localhost:4000/computerarchitecture/2019/07/02/100700.html" rel="alternate" type="text/html" title="콜드 부팅과 웜 부팅의 개념" /><published>2019-07-02T00:00:00+09:00</published><updated>2019-07-02T00:00:00+09:00</updated><id>http://localhost:4000/computerarchitecture/2019/07/02/100700</id><content type="html" xml:base="http://localhost:4000/computerarchitecture/2019/07/02/100700.html">&lt;h2 id=&quot;부팅&quot;&gt;부팅&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;컴퓨터를 처음 켰을 때, 사용자가 작업을 할 수 있는 상태로 만드는 것&lt;/li&gt;
+  &lt;li&gt;부팅 종류에 따라서 BIOS에서 POST&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 검사단계를 거친 후에, BIOS는 MBR(Master Boot Record)를 읽어서 메모리에 올리고, MBR코드를 수행시킵니다. 이후, MBR에 포함된 부트로더에서 부팅이 가능한 파티션을 찾은 후에 OS를 수행시킵니다.&lt;/li&gt;
+  &lt;li&gt;콜드 부팅과 웜 부팅이 존재함(부팅 대신 부트 라고도 하는 것 같습니다.)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;서비스의-개선해야할-점&quot;&gt;서비스의 개선해야할 점&lt;/h3&gt;
+&lt;h3 id=&quot;콜드-부팅cold-boot이란&quot;&gt;콜드 부팅(Cold Boot)이란?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;주요 부분에 전기가 통하지 않고, 전원이 모두 꺼져 있던 상태에서 전원 스위치를 눌러 컴퓨터를 다시 키는 것&lt;/li&gt;
+  &lt;li&gt;POST 검사단계를 거침&lt;/li&gt;
+  &lt;li&gt;컴퓨터에 무리를 줄 수 있기 때문에 가급적이면 피하는 것이 좋습니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;웜-부팅warm-boot이란&quot;&gt;웜 부팅(Warm Boot)이란?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;주요 부분에 전기가 통하는 상태에서 컴퓨터를 부팅시키는 것&lt;/li&gt;
+  &lt;li&gt;POST 검사단계를 거치지 않음&lt;/li&gt;
+  &lt;li&gt;시스템을 검사하는 과정을 생략하여 부팅 시간이 빠르고, 컴퓨터에 무리를 덜 줍니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;출처&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;아직 모든 부분이 자동화 되지 않았습니다.&lt;/code&gt; 아직 재료 관리나 재료 손질은 직원의 몫인 것 같습니다. 또, 영상을 보면 인력이 꽤나 많이 필요한 것 같이 보여집니다. 인건비는 결국 가격에 영향을 크게 주는 요소입니다. 완벽한 자동화는 아직 되지 않았지만 자동화가 완성되고 서비스가 좀 더 정착되면 훨씬 더 저렴한 가격에 서비스를 제공할 수 있을 것으로 보여집니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;가격이 정말 매력적으로 저렴한 것 같지 않습니다.&lt;/code&gt; 위에서 언급한 것처럼 아직 자동화가 완벽하지 않기 때문에, 아직 가격이 꽤나 나가는 것 같습니다. 또, subway 같은 takeout 음식점과 제가 비교해본 바로는 큰 차이가 없어보입니다. 가격이 7.5$ 보다 조금 더 저렴해야 메리트가 있을 것 같습니다.&lt;/li&gt;
+  &lt;li&gt;https://blog.naver.com/kky812/100195221390&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;느낀-점&quot;&gt;느낀 점&lt;/h3&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;POST(Power On Self Test)는 검사단계로서 RAM, 하드디스크 등의 주변 장치들의 이상 유무를 체크합니다. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>melonicedlatte</name></author><category term="ComputerArchitecture" /><category term="ComputerArchitecture" /><summary type="html">부팅 컴퓨터를 처음 켰을 때, 사용자가 작업을 할 수 있는 상태로 만드는 것 부팅 종류에 따라서 BIOS에서 POST1 검사단계를 거친 후에, BIOS는 MBR(Master Boot Record)를 읽어서 메모리에 올리고, MBR코드를 수행시킵니다. 이후, MBR에 포함된 부트로더에서 부팅이 가능한 파티션을 찾은 후에 OS를 수행시킵니다. 콜드 부팅과 웜 부팅이 존재함(부팅 대신 부트 라고도 하는 것 같습니다.) 콜드 부팅(Cold Boot)이란? 주요 부분에 전기가 통하지 않고, 전원이 모두 꺼져 있던 상태에서 전원 스위치를 눌러 컴퓨터를 다시 키는 것 POST 검사단계를 거침 컴퓨터에 무리를 줄 수 있기 때문에 가급적이면 피하는 것이 좋습니다. 웜 부팅(Warm Boot)이란? 주요 부분에 전기가 통하는 상태에서 컴퓨터를 부팅시키는 것 POST 검사단계를 거치지 않음 시스템을 검사하는 과정을 생략하여 부팅 시간이 빠르고, 컴퓨터에 무리를 덜 줍니다. 출처 https://blog.naver.com/kky812/100195221390 POST(Power On Self Test)는 검사단계로서 RAM, 하드디스크 등의 주변 장치들의 이상 유무를 체크합니다. &amp;#8617;</summary></entry><entry><title type="html">반도체 EUV 공정의 개념과 필요한 이유</title><link href="http://localhost:4000/semiconductor/2019/06/30/143800.html" rel="alternate" type="text/html" title="반도체 EUV 공정의 개념과 필요한 이유" /><published>2019-06-30T00:00:00+09:00</published><updated>2019-06-30T00:00:00+09:00</updated><id>http://localhost:4000/semiconductor/2019/06/30/143800</id><content type="html" xml:base="http://localhost:4000/semiconductor/2019/06/30/143800.html">&lt;h2 id=&quot;반도체-euv&quot;&gt;반도체 EUV&lt;/h2&gt;
+&lt;h3 id=&quot;euv-공정이란&quot;&gt;EUV 공정이란?&lt;/h3&gt;
+&lt;p&gt;EUV 공정이란 반도체 공정 중 하나인 포토공정&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;극자외선 파장의 광원을 활용한 제조공정&lt;/code&gt;을 말합니다. 반도체를 생산할 때, 웨이퍼(wafer)는 감광물질&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;로 코팅이 되고, 스캐너라고 하는 포토공정 설비로 들어가서 회로 패턴을 새겨 넣기 위해 레이저 광원을 웨이퍼에 투사하는 노광(photolithography) 작업을 진행합니다. 위의 과정을 모두 거쳐 반도체 위에 매우 작은 회로소자를 수업이 많이 생성하는데, 노광 작업에서 사용하는 레이저 광원의 &lt;strong&gt;파장이 줄어든 것이 기존 공정 대비 차이점입니다.&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;먼저 든 느낌은 미국의 MIT 대학생들은 열정적으로 굉장한 기술력을 가지고 뭔가를 만드는데, 저는 대학생 때 저걸 만들 엄두가 나지도 않고 불안정 하다는 느낌 때문에 저런 것을 시도해보지 못한 것이 그들과 나의 큰 차이인 것 같습니다.&lt;/p&gt;
+&lt;h3 id=&quot;euv-기술이-필요한-이유&quot;&gt;EUV 기술이 필요한 이유?&lt;/h3&gt;
+&lt;p&gt;반도체 칩에 미세한 회로를 새겨 넣는 것은 회사의 경쟁력입니다. 더 많은 트랜지스터와 콘덴서 등 소자를 반도체에 새기고, 성능과 전력효율 또한 높일 수 있기 때문입니다.&lt;/p&gt;
 
-&lt;p&gt;자동화와 관련된 식당을 국내에 만들어 보고 싶다는 생각은 크지만 기술적으로 어떻게 대처해야 할 지에 대하여 전혀 감이 오지 않는 것 같습니다. 저 학생들도 얼마나 기술적인 능력이 있었는지는 잘 모르겠지만, &lt;strong&gt;시도 하면 할 수 있다&lt;/strong&gt;라는 마인드를 가지고 부족한 기술력을 커버하면서 창업에 뛰어들었을 것이라고 생각합니다.&lt;/p&gt;
+&lt;p&gt;EUV 광원은 기존 공정에 적용 중인 불화아르곤(ArF) 광원보다 &lt;strong&gt;파장이 훨씬 짧기 때문에&lt;/strong&gt;, 더 미세하게 회로를 새겨 넣을 수 있습니다. 삼성전자 블로그에 따르면, 기존에 사용하는 장비의 빛 파장과 비교해 &lt;strong&gt;10분의 1 미만&lt;/strong&gt;에 불과하다고 합니다.&lt;/p&gt;
 
-&lt;p&gt;국내에도 저런 식당이 하루 빨리 만들어졌으면 좋겠습니다. 기회가 되면 저도 만들어보고 싶지만 저런 로봇을 어떻게 만들어야 될지는 감이 잘 오지 않네요…&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">비싼 음식에 지친 MIT 공대생들이 만든 로봇 식당 위의 링크에서 재미있는 회사에 대한 정보를 얻었습니다. MIT 공대생들이 비싼 음식 값에 지쳐서 직접 로봇을 이용한 식당을 만든 것입니다. 저한테 상당히 인상 깊은 스타트업이라 포스팅을 하게 되었습니다. 문제점 미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다 미국의 비싼 음식값 미국의 음식 값은 매우 비쌉니다. 우리나라 음식점에서는 6~8천원 대에 형성되지만 미국에서는 기본적으로 10~14$ 정도로 음식점 가격이 형성되어 있습니다. 물론, 이 가격은 보편적인 음식점의 가격이고 햄버거나 편의점 같은 곳에서 사는 음식은 더 저렴하지만 맨날 이런 음식을 먹을 수는 없겠죠. 또, 식당에서 직접 먹으면 미국에서는 tip 문화때문에 10~15%의 팁을 더 내야합니다. (take out일 경우는 아니지만요.) 계산표에 나온 음식 값에 세금도 더 추가됩니다. 미국의 대학생이 시급이 높다고 해도 물가가 높으니 우리나라 대학생과 동일하게 비싼 밥값은 부담이 될 것입니다. 이런 상황에서 로봇을 이용한 식당을 MIT 공대생 4명이 만들어 창업했습니다. 문제 해결 로봇을 이용한 창업 4명의 공대생이 창업한 spyce 회사 소개 영상 spyce 홈페이지에 들어가면 회사에 대한 소개와 메뉴 같은 정보들을 얻을 수 있습니다. 미국의 in&amp;amp;out 햄버거. 버거는 저렴하지만 그래도 음료와 프라이를 함께 먹으면 가격이 꽤 나간다 메뉴는 위의 3개 말고도 여러 가지가 있습니다. 이런 음식들이 전부 7.5$에 판매되고 있었습니다. 미국 다른 식당과 비교해 보면 꽤나 저렴한 편입니다. 유투버가 리뷰한 sypce 매장. 실제 어떻게 서비스가 진행되는지 확인할 수 있다. 위의 유투버가 올린 영상을 보면 꽤나 많은 부분이 자동화되고 깨끗하게 조리가 잘 되는 것을 확인할 수 있었습니다. 후기 제가 개인적으로 생각하는 서비스의 후기는 아래와 같습니다. 서비스의 장점 가격이 기존 식당 대비 저렴합니다. 동일 퀄리티의 음식에서는 기존 식당 대비 더 저렴한 가격을 받습니다. 위생적으로 매우 깨끗합니다. 다른 식당에서 발생하는 교차 오염과 같은 문제는 발생할 여지가 적습니다. 자동화된 시스템에서 재료를 넣는 곳에 재료만 넣어두면 조리되는 방식이기 때문에, 해당 부분만 깨끗하게 관리하면 다른 식당보다 비교적 위생 관리가 잘 되는 것 같습니다. 음식에 퀄리티가 꽤나 높습니다. takeout 음식은 대부분 fastfood 인 경우가 많은데, 야채가 많이 들어간 음식을 판매한다는 점에서 건강에 더 좋을 것 같습니다. 또한, 쉐프가 음식을 관리하여 정량화된 재료를 좋은 맛으로 제공할 수 있는 것 같습니다. 서비스의 개선해야할 점 아직 모든 부분이 자동화 되지 않았습니다. 아직 재료 관리나 재료 손질은 직원의 몫인 것 같습니다. 또, 영상을 보면 인력이 꽤나 많이 필요한 것 같이 보여집니다. 인건비는 결국 가격에 영향을 크게 주는 요소입니다. 완벽한 자동화는 아직 되지 않았지만 자동화가 완성되고 서비스가 좀 더 정착되면 훨씬 더 저렴한 가격에 서비스를 제공할 수 있을 것으로 보여집니다. 가격이 정말 매력적으로 저렴한 것 같지 않습니다. 위에서 언급한 것처럼 아직 자동화가 완벽하지 않기 때문에, 아직 가격이 꽤나 나가는 것 같습니다. 또, subway 같은 takeout 음식점과 제가 비교해본 바로는 큰 차이가 없어보입니다. 가격이 7.5$ 보다 조금 더 저렴해야 메리트가 있을 것 같습니다. 느낀 점 먼저 든 느낌은 미국의 MIT 대학생들은 열정적으로 굉장한 기술력을 가지고 뭔가를 만드는데, 저는 대학생 때 저걸 만들 엄두가 나지도 않고 불안정 하다는 느낌 때문에 저런 것을 시도해보지 못한 것이 그들과 나의 큰 차이인 것 같습니다. 자동화와 관련된 식당을 국내에 만들어 보고 싶다는 생각은 크지만 기술적으로 어떻게 대처해야 할 지에 대하여 전혀 감이 오지 않는 것 같습니다. 저 학생들도 얼마나 기술적인 능력이 있었는지는 잘 모르겠지만, 시도 하면 할 수 있다라는 마인드를 가지고 부족한 기술력을 커버하면서 창업에 뛰어들었을 것이라고 생각합니다. 국내에도 저런 식당이 하루 빨리 만들어졌으면 좋겠습니다. 기회가 되면 저도 만들어보고 싶지만 저런 로봇을 어떻게 만들어야 될지는 감이 잘 오지 않네요…</summary></entry><entry><title type="html">텀블러를 공짜로 빌려주고 씻어주는 회사 베셀 웍스(Vessel Works)</title><link href="http://localhost:4000/tech/2019/04/21/222700.html" rel="alternate" type="text/html" title="텀블러를 공짜로 빌려주고 씻어주는 회사 베셀 웍스(Vessel Works)" /><published>2019-04-21T00:00:00+09:00</published><updated>2019-04-21T00:00:00+09:00</updated><id>http://localhost:4000/tech/2019/04/21/222700</id><content type="html" xml:base="http://localhost:4000/tech/2019/04/21/222700.html">&lt;p&gt;베셀 웍스(Vessel Works)는 텀블러를 공유하는 회사입니다. 텀블러를 어떻게 공유하나 싶지만 직접 서비스를 살펴보니 아주 괜찮은 서비스라고 생각되었습니다.&lt;/p&gt;
+&lt;p&gt;결국 &lt;code class=&quot;highlighter-rouge&quot;&gt;파장이 짧은 빛을 사용하여 수 많은 회로 소자들을 웨이퍼 위에 새길 수 있기&lt;/code&gt; 때문에 경쟁력을 위해서 필요한 기술이라고 볼 수 있겠습니다.&lt;/p&gt;
 
-&lt;h2 id=&quot;문제점&quot;&gt;문제점&lt;/h2&gt;
-
-&lt;h3 id=&quot;플라스틱-쓰레기&quot;&gt;플라스틱 쓰레기&lt;/h3&gt;
-
-&lt;p&gt;요즈음 가장 이슈가 되고 있는 문제는 바로 &lt;strong&gt;플라스틱 문제&lt;/strong&gt; 입니다. 플라스틱은 만들기 편하고 가격이 저렴하여 다양한 분야에서 많이 사용되어 왔습니다. 하지만, 일회용으로 사용하는 경우가 많다 보니 전부 쓰레기가 되었습니다. 이런 플라스틱으로 99%가 구성된 한반도 7배 규모의 쓰레기섬이 북태평양에 만들어져있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/pixabay_glass.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;쓰레기가 바다에 쌓이고 있다&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;문제-해결을-위한-스타트업-시작&quot;&gt;문제 해결을 위한 스타트업 시작&lt;/h3&gt;
-
-&lt;p&gt;이러한 문제를 해결하기 위해서, 우리나라도 카페에서는 일회용 플라스틱 컵을 매장 내에서 사용할 수 없게 하는 등 국가적인 차원에서의 해결책도 나오고 있습니다. 하지만, 테이크아웃을 하는 사람들은 텀블러를 가지고 다니기 어렵기 때문에 플라스틱 컵을 많이 사용합니다. 베셀웍스는 이런 문제를 해결하기 위하여 나온 스타트업입니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;문제-해결&quot;&gt;문제 해결&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/vessel_logo.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center image--xl&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;베셀 웍스 로고&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;서비스-구조&quot;&gt;서비스 구조&lt;/h3&gt;
-
-&lt;p&gt;베셀웍스는 공유 스쿠터의 모델처럼 &lt;code class=&quot;highlighter-rouge&quot;&gt;공유 텀블러 모델&lt;/code&gt;을 적용시킨 스타트업입니다. 베셀웍스의 이용 단계는 다음과 같습니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;앱으로 베셀웍스와 계약을 맺은 카페를 찾는다.&lt;/li&gt;
-  &lt;li&gt;음료를 주문한 뒤에 베셀웍스 텀블러에 받는다.&lt;/li&gt;
-  &lt;li&gt;텀블러에 새겨진 QR 코드를 인식하고 텀블러를 가지고 나간다.&lt;/li&gt;
-  &lt;li&gt;5일안에 베셀웍스와 계약 맺은 카페나 반납기계(키오스크)에 반납한다.&lt;/li&gt;
-  &lt;li&gt;베셀웍스 직원들이 컵을 수거하여 세척한 후에 다시 카페에 비치한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/vessel_img.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_40&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;베셀 웍스 텀블러에 커피를 따르는 모습&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;수익-구조&quot;&gt;수익 구조&lt;/h3&gt;
-
-&lt;p&gt;소비자에게 돈을 받지 않으면 베셀웍스는 어떻게 해서 수익을 낼까요? 바로 계약을 맺은 카페에게 받습니다. 카페는 1개의 일회용 컵에 소요되는 비용인 10센트 정도를 베셀웍스에 내고 1개의 텀블러를 사용합니다. 카페는 거의 비슷한 비용을 내고 환경보호에 동참하고 있다는 이미지를 고객에게 제공할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/vessel_img2.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_25&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;키오스크 이미지&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;후기&quot;&gt;후기&lt;/h2&gt;
-
-&lt;h3 id=&quot;장점&quot;&gt;장점&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;환경 보존&lt;/code&gt;. 기존에 카페에 있는 컵을 사용하면 물과 인건비가 들지만, 베셀웍스의 서비스를 사용하면 그러한 불편함도 해소됩니다. 소비자는 베셀웍스의 텀블러를 이용하여 테이크아웃도 손쉽게 할 수 있고, 환경보호에 동참할 수 있습니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;테이크 아웃 가능&lt;/code&gt;. 국내에서 시행되는 매장 내 일회용컵 사용 금지는 상당히 불편한 점이 있습니다. 먹다가 나가려면 결국 일회용 컵을 써야되기 때문입니다. 베셀 웍스 서비스를 이용하면 이러한 문제를 해결할 수 있습니다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;단점&quot;&gt;단점&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;서비스가 아직 상용화되었다고 보기 어렵다.&lt;/code&gt; 2018년 11월에 처음 공유서비스를 시작하여 현재는 미국 콜로라도의 일부 카페에만 서비스를 진행하고 있습니다. 아직은 서비스 상용화가 되지 않은 것이 문제입니다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;서비스 자체의 수익성&lt;/code&gt;이 유지 가능할 지 의문입니다. 적은 비용을 받고 운송비와 세척비, 인건비 등을 모두 충당할 수 있어야 하는데 큰 수익을 내기 힘들 것 같습니다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;종합&quot;&gt;종합&lt;/h3&gt;
-
-&lt;p&gt;베셀웍스는 새로운 서비스로 기존에 없었던 시장을 창출했을 뿐만 아니라, 환경 보호까지 하는 가치도 생성했습니다. 굉장히 좋은 아이디어인 것 같습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/20190421/vessel_img3.jpg&quot; alt=&quot;glass_trash&quot; class=&quot;rounded img_center width_25&quot; /&gt;
-&lt;strong class=&quot;caption&quot;&gt;QR코드와 텀블러&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;베셀웍스는 &lt;code class=&quot;highlighter-rouge&quot;&gt;우리는 빠르게 변하는 삶을 더 낫게 하는 선택을 하는 기회를 제공한다&lt;/code&gt; 라고 말합니다. 베셀웍스의 서비스와 비전은 &lt;strong&gt;기업가 정신&lt;/strong&gt;을 잘 활용하고 있는 사례라고 볼 수 있습니다. 단순히 돈을 버는 것뿐만 아니라 다양한 가치들을 함께 제공하고 있습니다. 현재는 매우 작은 곳에서 서비스되고 있지만 점차 확장되어 플라스틱 쓰레기를 줄이는데 큰 역할을 할 것이라고 기대됩니다.&lt;/p&gt;
+&lt;hr /&gt;
 
 &lt;p&gt;&lt;strong&gt;출처&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;vessel works facebook&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>melonicedlatte</name></author><category term="Tech" /><category term="Tech" /><summary type="html">베셀 웍스(Vessel Works)는 텀블러를 공유하는 회사입니다. 텀블러를 어떻게 공유하나 싶지만 직접 서비스를 살펴보니 아주 괜찮은 서비스라고 생각되었습니다. 문제점 플라스틱 쓰레기 요즈음 가장 이슈가 되고 있는 문제는 바로 플라스틱 문제 입니다. 플라스틱은 만들기 편하고 가격이 저렴하여 다양한 분야에서 많이 사용되어 왔습니다. 하지만, 일회용으로 사용하는 경우가 많다 보니 전부 쓰레기가 되었습니다. 이런 플라스틱으로 99%가 구성된 한반도 7배 규모의 쓰레기섬이 북태평양에 만들어져있습니다. 쓰레기가 바다에 쌓이고 있다 문제 해결을 위한 스타트업 시작 이러한 문제를 해결하기 위해서, 우리나라도 카페에서는 일회용 플라스틱 컵을 매장 내에서 사용할 수 없게 하는 등 국가적인 차원에서의 해결책도 나오고 있습니다. 하지만, 테이크아웃을 하는 사람들은 텀블러를 가지고 다니기 어렵기 때문에 플라스틱 컵을 많이 사용합니다. 베셀웍스는 이런 문제를 해결하기 위하여 나온 스타트업입니다. 문제 해결 베셀 웍스 로고 서비스 구조 베셀웍스는 공유 스쿠터의 모델처럼 공유 텀블러 모델을 적용시킨 스타트업입니다. 베셀웍스의 이용 단계는 다음과 같습니다. 앱으로 베셀웍스와 계약을 맺은 카페를 찾는다. 음료를 주문한 뒤에 베셀웍스 텀블러에 받는다. 텀블러에 새겨진 QR 코드를 인식하고 텀블러를 가지고 나간다. 5일안에 베셀웍스와 계약 맺은 카페나 반납기계(키오스크)에 반납한다. 베셀웍스 직원들이 컵을 수거하여 세척한 후에 다시 카페에 비치한다. 베셀 웍스 텀블러에 커피를 따르는 모습 수익 구조 소비자에게 돈을 받지 않으면 베셀웍스는 어떻게 해서 수익을 낼까요? 바로 계약을 맺은 카페에게 받습니다. 카페는 1개의 일회용 컵에 소요되는 비용인 10센트 정도를 베셀웍스에 내고 1개의 텀블러를 사용합니다. 카페는 거의 비슷한 비용을 내고 환경보호에 동참하고 있다는 이미지를 고객에게 제공할 수 있습니다. 키오스크 이미지 후기 장점 환경 보존. 기존에 카페에 있는 컵을 사용하면 물과 인건비가 들지만, 베셀웍스의 서비스를 사용하면 그러한 불편함도 해소됩니다. 소비자는 베셀웍스의 텀블러를 이용하여 테이크아웃도 손쉽게 할 수 있고, 환경보호에 동참할 수 있습니다. 테이크 아웃 가능. 국내에서 시행되는 매장 내 일회용컵 사용 금지는 상당히 불편한 점이 있습니다. 먹다가 나가려면 결국 일회용 컵을 써야되기 때문입니다. 베셀 웍스 서비스를 이용하면 이러한 문제를 해결할 수 있습니다. 단점 서비스가 아직 상용화되었다고 보기 어렵다. 2018년 11월에 처음 공유서비스를 시작하여 현재는 미국 콜로라도의 일부 카페에만 서비스를 진행하고 있습니다. 아직은 서비스 상용화가 되지 않은 것이 문제입니다. 서비스 자체의 수익성이 유지 가능할 지 의문입니다. 적은 비용을 받고 운송비와 세척비, 인건비 등을 모두 충당할 수 있어야 하는데 큰 수익을 내기 힘들 것 같습니다. 종합 베셀웍스는 새로운 서비스로 기존에 없었던 시장을 창출했을 뿐만 아니라, 환경 보호까지 하는 가치도 생성했습니다. 굉장히 좋은 아이디어인 것 같습니다. QR코드와 텀블러 베셀웍스는 우리는 빠르게 변하는 삶을 더 낫게 하는 선택을 하는 기회를 제공한다 라고 말합니다. 베셀웍스의 서비스와 비전은 기업가 정신을 잘 활용하고 있는 사례라고 볼 수 있습니다. 단순히 돈을 버는 것뿐만 아니라 다양한 가치들을 함께 제공하고 있습니다. 현재는 매우 작은 곳에서 서비스되고 있지만 점차 확장되어 플라스틱 쓰레기를 줄이는데 큰 역할을 할 것이라고 기대됩니다. 출처 vessel works facebook</summary></entry><entry><title type="html">Listen error unable to monitor directories for changes</title><link href="http://localhost:4000/programming/2019/04/20/023600.html" rel="alternate" type="text/html" title="Listen error unable to monitor directories for changes" /><published>2019-04-20T00:00:00+09:00</published><updated>2019-04-20T00:00:00+09:00</updated><id>http://localhost:4000/programming/2019/04/20/023600</id><content type="html" xml:base="http://localhost:4000/programming/2019/04/20/023600.html">&lt;h2 id=&quot;problem&quot;&gt;problem&lt;/h2&gt;
+  &lt;li&gt;https://news.samsung.com/kr/euv-공정이란-차세대-칩의-핵심기술&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;웨이퍼 위에 회로 패턴이 담긴 마스크 상을 빛을 이용해 비춰 회로를 새긴다. 포토 리소그래피 혹은 포토 공정이라고 한다. &lt;a href=&quot;https://www.samsungsemiconstory.com/1601&quot;&gt;https://www.samsungsemiconstory.com/1601&lt;/a&gt; 참고. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;빛이나 엑스선, 감마선, 중성자선과 같은 방사선의 작용을 받아서 화학적ㆍ물리적 변화를 일으키는 화학 물질 &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>melonicedlatte</name></author><category term="SemiConductor" /><category term="SemiConductor" /><summary type="html">반도체 EUV EUV 공정이란? EUV 공정이란 반도체 공정 중 하나인 포토공정1에서 극자외선 파장의 광원을 활용한 제조공정을 말합니다. 반도체를 생산할 때, 웨이퍼(wafer)는 감광물질2로 코팅이 되고, 스캐너라고 하는 포토공정 설비로 들어가서 회로 패턴을 새겨 넣기 위해 레이저 광원을 웨이퍼에 투사하는 노광(photolithography) 작업을 진행합니다. 위의 과정을 모두 거쳐 반도체 위에 매우 작은 회로소자를 수업이 많이 생성하는데, 노광 작업에서 사용하는 레이저 광원의 파장이 줄어든 것이 기존 공정 대비 차이점입니다.. EUV 기술이 필요한 이유? 반도체 칩에 미세한 회로를 새겨 넣는 것은 회사의 경쟁력입니다. 더 많은 트랜지스터와 콘덴서 등 소자를 반도체에 새기고, 성능과 전력효율 또한 높일 수 있기 때문입니다. EUV 광원은 기존 공정에 적용 중인 불화아르곤(ArF) 광원보다 파장이 훨씬 짧기 때문에, 더 미세하게 회로를 새겨 넣을 수 있습니다. 삼성전자 블로그에 따르면, 기존에 사용하는 장비의 빛 파장과 비교해 10분의 1 미만에 불과하다고 합니다. 결국 파장이 짧은 빛을 사용하여 수 많은 회로 소자들을 웨이퍼 위에 새길 수 있기 때문에 경쟁력을 위해서 필요한 기술이라고 볼 수 있겠습니다. 출처 https://news.samsung.com/kr/euv-공정이란-차세대-칩의-핵심기술 웨이퍼 위에 회로 패턴이 담긴 마스크 상을 빛을 이용해 비춰 회로를 새긴다. 포토 리소그래피 혹은 포토 공정이라고 한다. https://www.samsungsemiconstory.com/1601 참고. &amp;#8617; 빛이나 엑스선, 감마선, 중성자선과 같은 방사선의 작용을 받아서 화학적ㆍ물리적 변화를 일으키는 화학 물질 &amp;#8617;</summary></entry><entry><title type="html">MS 서피스 펜의 반응 속도를 올리는 방법</title><link href="http://localhost:4000/etc/2019/06/29/195400.html" rel="alternate" type="text/html" title="MS 서피스 펜의 반응 속도를 올리는 방법" /><published>2019-06-29T00:00:00+09:00</published><updated>2019-06-29T00:00:00+09:00</updated><id>http://localhost:4000/etc/2019/06/29/195400</id><content type="html" xml:base="http://localhost:4000/etc/2019/06/29/195400.html">&lt;h2 id=&quot;서피스-펜-반응-속도는&quot;&gt;서피스 펜 반응 속도는?&lt;/h2&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FATAL: Listen error: unable to monitor directories &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;changes.  
-Visit https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers  
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;info on how to fix this.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;저는 서피스 프로 4를 사용하고 있습니다. 서피스 프로 같은 경우에는 펜슬이 지원됩니다. 펜슬은 AES 방식으로 Active Electrostatic의 약자입니다. 이는 정전기를 이용해 디스플레이와 신호를 주고받는 방식입니다.&lt;/p&gt;
 
-&lt;p&gt;This problem is mount of inotify watchers.&lt;/p&gt;
+&lt;p&gt;서피스 프로 5세대 이후에 나온 펜(서피스 펜 3세대)은 경우에는 서피스 프로 5 기준으로 Latency를 40ms 에서 21ms 로 낮췄다고 합니다. 제 서피스는 4세대이기 때문에 40ms 의 latency를 가지고 있습니다.&lt;/p&gt;
 
-&lt;p&gt;What is Inotify? &lt;a href=&quot;https://en.wikipedia.org/wiki/Inotify&quot;&gt;https://en.wikipedia.org/wiki/Inotify&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;저는 사실 체감을 잘 못하지만 가끔 느리다고 인식될 때가 있습니다. 예민하신 분들은 바로 캐치하고 속도가 빠른 제품으로 바꾸기도 합니다.&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;Inotify (inode notify) is a Linux kernel subsystem that acts to extend filesystems to notice changes to the filesystem, and report those changes to applications. It replaces an earlier facility, dnotify, which had similar goals.&lt;br /&gt;
-One major use is in desktop search utilities like Beagle, where its functionality permits reindexing of changed files without scanning the filesystem for changes every few minutes, which would be very inefficient.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;h2 id=&quot;서피스-펜-반응-속도-올리는-방법&quot;&gt;서피스 펜 반응 속도 올리는 방법&lt;/h2&gt;
 
-&lt;p&gt;Inotify can also be used to automatically update directory views, reload configuration files, log changes, backup, synchronize, and upload.&lt;/p&gt;
+&lt;p&gt;레지스트리 변경을 통하여 펜의 반응 속도를 올릴 수 있는 방법이 있어서 소개드립니다.&lt;/p&gt;
 
-&lt;p&gt;We have to increase mount!!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/201906/regedit.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;solve&quot;&gt;solve&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;먼저 시작 옆의 검색을 눌러 regedit 를 입력합니다.&lt;/li&gt;
+  &lt;li&gt;검색된 regedit 를 실행합니다.&lt;/li&gt;
+  &lt;li&gt;아래의 그림처럼 ‘\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\TouchPrediction’ 경로에서 Latency와 SampleTime를 8에서 2로 설정해줍니다. 1과 0으로 설정해주는 경우도 있다고 하는데, 원하는 만큼 설정해 주면 될 것 같습니다.&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;p&gt;You can find this solution in this link.
-&lt;a href=&quot;https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers&quot;&gt;https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/201906/regedit2.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;If you are running Debian, RedHat, or another similar Linux distribution, run the following in a terminal:&lt;/p&gt;
+&lt;p&gt;설정은 위와 같이 간단한데 실제 체감은 저는 잘 모르겠습니다. 약간 빨라진 것 같기도 하고… 플라시보인 것 같기도 하구요..&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;fs.inotify.max_user_watches&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;524288 | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;tee &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; /etc/sysctl.conf &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;sysctl &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;hr /&gt;
 
-&lt;p&gt;If you are running ArchLinux, run the following command instead (see here for why):&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;출처&lt;/strong&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;fs.inotify.max_user_watches&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;524288 | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;tee /etc/sysctl.d/40-max-user-watches.conf &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;sysctl &lt;span class=&quot;nt&quot;&gt;--system&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://m.blog.naver.com/PostView.nhn?blogId=froming01&amp;amp;logNo=220680707116&amp;amp;proxyReferer=https%3A%2F%2Fwww.google.com%2F&lt;/li&gt;
+  &lt;li&gt;https://www.windowscentral.com/how-improve-touch-response-surface&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>melonicedlatte</name></author><category term="Etc" /><category term="Etc" /><summary type="html">서피스 펜 반응 속도는? 저는 서피스 프로 4를 사용하고 있습니다. 서피스 프로 같은 경우에는 펜슬이 지원됩니다. 펜슬은 AES 방식으로 Active Electrostatic의 약자입니다. 이는 정전기를 이용해 디스플레이와 신호를 주고받는 방식입니다. 서피스 프로 5세대 이후에 나온 펜(서피스 펜 3세대)은 경우에는 서피스 프로 5 기준으로 Latency를 40ms 에서 21ms 로 낮췄다고 합니다. 제 서피스는 4세대이기 때문에 40ms 의 latency를 가지고 있습니다. 저는 사실 체감을 잘 못하지만 가끔 느리다고 인식될 때가 있습니다. 예민하신 분들은 바로 캐치하고 속도가 빠른 제품으로 바꾸기도 합니다. 서피스 펜 반응 속도 올리는 방법 레지스트리 변경을 통하여 펜의 반응 속도를 올릴 수 있는 방법이 있어서 소개드립니다. 먼저 시작 옆의 검색을 눌러 regedit 를 입력합니다. 검색된 regedit 를 실행합니다. 아래의 그림처럼 ‘\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\TouchPrediction’ 경로에서 Latency와 SampleTime를 8에서 2로 설정해줍니다. 1과 0으로 설정해주는 경우도 있다고 하는데, 원하는 만큼 설정해 주면 될 것 같습니다. 설정은 위와 같이 간단한데 실제 체감은 저는 잘 모르겠습니다. 약간 빨라진 것 같기도 하고… 플라시보인 것 같기도 하구요.. 출처 https://m.blog.naver.com/PostView.nhn?blogId=froming01&amp;amp;logNo=220680707116&amp;amp;proxyReferer=https%3A%2F%2Fwww.google.com%2F https://www.windowscentral.com/how-improve-touch-response-surface</summary></entry><entry><title type="html">LG전자 스타일로 5 출시 전 이미지 등장</title><link href="http://localhost:4000/news/2019/06/29/220000.html" rel="alternate" type="text/html" title="LG전자 스타일로 5 출시 전 이미지 등장" /><published>2019-06-29T00:00:00+09:00</published><updated>2019-06-29T00:00:00+09:00</updated><id>http://localhost:4000/news/2019/06/29/220000</id><content type="html" xml:base="http://localhost:4000/news/2019/06/29/220000.html">&lt;p&gt;LG전자의 스타일로 5의 이미지가 나왔습니다. 아래와 같이 생겼습니다. 기존에 봤던 Q8과 동일한 디자인인 것 같습니다. 후면 단일 카메라, 지문인식 센서, 전면 카메라 정도의 기본 옵션 정도만 가진 제품입니다.&lt;/p&gt;
 
-&lt;p&gt;Then paste it in your terminal and press on enter to run it.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Programming" /><category term="Programming" /><summary type="html">problem FATAL: Listen error: unable to monitor directories for changes. Visit https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers for info on how to fix this. This problem is mount of inotify watchers. What is Inotify? https://en.wikipedia.org/wiki/Inotify Inotify (inode notify) is a Linux kernel subsystem that acts to extend filesystems to notice changes to the filesystem, and report those changes to applications. It replaces an earlier facility, dnotify, which had similar goals. One major use is in desktop search utilities like Beagle, where its functionality permits reindexing of changed files without scanning the filesystem for changes every few minutes, which would be very inefficient. Inotify can also be used to automatically update directory views, reload configuration files, log changes, backup, synchronize, and upload. We have to increase mount!! solve You can find this solution in this link. https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers If you are running Debian, RedHat, or another similar Linux distribution, run the following in a terminal: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf &amp;amp;&amp;amp; sudo sysctl -p If you are running ArchLinux, run the following command instead (see here for why): echo fs.inotify.max_user_watches=524288 | sudo tee /etc/sysctl.d/40-max-user-watches.conf &amp;amp;&amp;amp; sudo sysctl --system Then paste it in your terminal and press on enter to run it.</summary></entry><entry><title type="html">GitHub, 원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기</title><link href="http://localhost:4000/programming/2019/04/20/031700.html" rel="alternate" type="text/html" title="GitHub, 원격 저장소에서 원하는 파일 이전 기록까지 모두 제거하기" /><published>2019-04-20T00:00:00+09:00</published><updated>2019-04-20T00:00:00+09:00</updated><id>http://localhost:4000/programming/2019/04/20/031700</id><content type="html" xml:base="http://localhost:4000/programming/2019/04/20/031700.html">&lt;h2 id=&quot;문제&quot;&gt;문제&lt;/h2&gt;
-&lt;p&gt;github를 사용하다 보면 이전에 불필요한 파일이 올라갈 때가 있습니다. 이럴 때, 이전에 올라간 파일을 github에서도 제거를 하고 싶은데, 파일만 지우고 commit 을 하게 되면 이전 commit 에서 해당 문제점을 확인할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets\images\201906\lg_stylus5.jpg&quot; alt=&quot;image&quot; class=&quot;rounded img_center width_40&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;문제가 있는 파일을 모두 제거해야 하는데 이럴때에는 아래와 같은 해결 방법을 사용합니다. 기본적인 내용은 아래의 내용을 참조해서 포스팅했습니다. 저는 Git에 내장된 filter-branch툴을 사용하는 방법만 포스팅하고,다른 방법으로는 BFG Repo-Cleaner를 사용하는 방법이 있습니다. 
-&lt;a href=&quot;http://minsone.github.io/git/github-advanced-remove-sensitive-data&quot;&gt;http://minsone.github.io/git/github-advanced-remove-sensitive-data&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;스타일러스는 상당히 아쉽습니다. 개인적으로 필기를 굉장히 좋아하는데 LG는 AES나 EMR 방식의 펜을 지원하지 않습니다. 다이소에서 구매한 터치펜으로 그리는 방식이라 너무 별로던데;; 제 생각에는 이 스타일러스 펜에 메리트가 있나 싶은 생각이 드네요.&lt;/p&gt;
 
-&lt;h2 id=&quot;해결방법&quot;&gt;해결방법&lt;/h2&gt;
-&lt;p&gt;가령 비밀번호가 들어간 파일이라던가 폴더 전체를 제거해야 하는 경우가 있습니다.&lt;/p&gt;
+&lt;hr /&gt;
 
-&lt;h3 id=&quot;파일&quot;&gt;파일&lt;/h3&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git filter-branch &lt;span class=&quot;nt&quot;&gt;--force&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--index-filter&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'git rm --cached --ignore-unmatch 파일명'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--prune-empty&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--tag-name-filter&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;출처&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;디렉토리&quot;&gt;디렉토리&lt;/h3&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git filter-branch &lt;span class=&quot;nt&quot;&gt;--force&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--index-filter&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;'git rm -r --cached --ignore-unmatch 폴더명'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--prune-empty&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--tag-name-filter&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이렇게 되면 로컬에 있는 저장소에 있는 이전 commit 들에서 파일이나 폴더가 전부 제거됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;원격-저장소에-반영하기&quot;&gt;원격 저장소에 반영하기&lt;/h3&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git add &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;delete before files&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push origin master &lt;span class=&quot;nt&quot;&gt;--force&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;그 이후, 위와 같이 push 명령어에서 –force 를 추가하여 push 해주면 원격 저장소에서도 잘 반영됩니다.&lt;/p&gt;</content><author><name>melonicedlatte</name></author><category term="Programming" /><category term="Programming" /><summary type="html">문제 github를 사용하다 보면 이전에 불필요한 파일이 올라갈 때가 있습니다. 이럴 때, 이전에 올라간 파일을 github에서도 제거를 하고 싶은데, 파일만 지우고 commit 을 하게 되면 이전 commit 에서 해당 문제점을 확인할 수 있습니다. 문제가 있는 파일을 모두 제거해야 하는데 이럴때에는 아래와 같은 해결 방법을 사용합니다. 기본적인 내용은 아래의 내용을 참조해서 포스팅했습니다. 저는 Git에 내장된 filter-branch툴을 사용하는 방법만 포스팅하고,다른 방법으로는 BFG Repo-Cleaner를 사용하는 방법이 있습니다. http://minsone.github.io/git/github-advanced-remove-sensitive-data 해결방법 가령 비밀번호가 들어간 파일이라던가 폴더 전체를 제거해야 하는 경우가 있습니다. 파일 $ git filter-branch --force --index-filter \ 'git rm --cached --ignore-unmatch 파일명' \ --prune-empty --tag-name-filter cat -- --all 디렉토리 $ git filter-branch --force --index-filter \ 'git rm -r --cached --ignore-unmatch 폴더명' \ --prune-empty --tag-name-filter cat -- --all 이렇게 되면 로컬에 있는 저장소에 있는 이전 commit 들에서 파일이나 폴더가 전부 제거됩니다. 원격 저장소에 반영하기 $ git add * $ git commit -m &quot;delete before files&quot; $ git push origin master --force 그 이후, 위와 같이 push 명령어에서 –force 를 추가하여 push 해주면 원격 저장소에서도 잘 반영됩니다.</summary></entry></feed>
+&lt;ul&gt;
+  &lt;li&gt;http://www.slashleaks.com/l/lg-stylo-5-black-color-render-image-leaked&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>melonicedlatte</name></author><category term="News" /><category term="News" /><summary type="html">LG전자의 스타일로 5의 이미지가 나왔습니다. 아래와 같이 생겼습니다. 기존에 봤던 Q8과 동일한 디자인인 것 같습니다. 후면 단일 카메라, 지문인식 센서, 전면 카메라 정도의 기본 옵션 정도만 가진 제품입니다. 스타일러스는 상당히 아쉽습니다. 개인적으로 필기를 굉장히 좋아하는데 LG는 AES나 EMR 방식의 펜을 지원하지 않습니다. 다이소에서 구매한 터치펜으로 그리는 방식이라 너무 별로던데;; 제 생각에는 이 스타일러스 펜에 메리트가 있나 싶은 생각이 드네요. 출처 http://www.slashleaks.com/l/lg-stylo-5-black-color-render-image-leaked</summary></entry></feed>

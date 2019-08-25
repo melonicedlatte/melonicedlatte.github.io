@@ -339,7 +339,34 @@
   </header>
 </div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
 
-              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div>
+
+<br>
+
+<div class="aside-ads">
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="8003124357"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> -->
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- 블로그 우측 toc 세로형 -->
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="6348453211"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div></aside></div>
 
               <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
 
@@ -354,6 +381,7 @@
             </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Feb 21, 2017</span>
             </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-02-21T00:00:00+09:00">
     <meta itemprop="keywords" content="Web"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -364,8 +392,10 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<br>
 <!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><h3 style="color: rgb(51, 51, 51);"><font face="Courier New" style="background-color: rgb(214, 214, 231);">ㅇ 날짜(-) 구분자 넣기</font></h3><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/362/original/image.png?1530323393" style="width: 374px;"><br></p><pre style="line-height: 1.42857;">function changeDateString(date){<br>&nbsp; &nbsp; var year = date.substr(2,2);<br>&nbsp; &nbsp; var month = date.substr(4,2);<br>&nbsp; &nbsp; var day = date.substr(6,2);<br>&nbsp; &nbsp; return year + "-" + month + "-" + day<br>}</pre><p style="color: rgb(51, 51, 51);">날짜에는 "20160102" 과 같은 형식의 날짜를 넣어 주면 16-01-02 형식의 string 이 반환되는 함수를 만들어 보았습니다.&nbsp;<br>substr() 함수를 이용하면 손 쉽게 할 수 있습니다.&nbsp;</p><h3 style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/363/original/image.png?1530323400" style="width: 177px;"><br></h3><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><h3 style="color: rgb(51, 51, 51);"><font face="Courier New" style="background-color: rgb(214, 214, 231);">ㅇ&nbsp;숫자 3자리 단위마다 콤마(comma) 찍기</font></h3><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/364/original/image.png?1530323408" style="width: 424px;"><br></p><pre style="line-height: 1.42857;">function comma(num){<br>&nbsp; &nbsp; var len, point, str; &nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp;<br>&nbsp; &nbsp; num = num + ""; &nbsp;<br>&nbsp; &nbsp; point = num.length % 3 ;<br>&nbsp; &nbsp; len = num.length; &nbsp;<br>&nbsp; &nbsp;<br>&nbsp; &nbsp; str = num.substring(0, point); &nbsp;<br>&nbsp; &nbsp; while (point &lt; len) { &nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; if (str != "") str += ","; &nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; str += num.substring(point, point + 3); &nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; point += 3; &nbsp;<br>&nbsp; &nbsp; } &nbsp;<br>&nbsp; &nbsp; &nbsp;<br>&nbsp; &nbsp; return str;<br>&nbsp;<br>}</pre><p style="color: rgb(51, 51, 51);">위의 함수에는 몇 자리의 string 을 넣든 3자리 단위로 나누어서 글자를 출력해줍니다.</p><p style="color: rgb(51, 51, 51);">아래는 출력 결과이고 원 데이터는 , 가 없는 그냥 데이터입니다.&nbsp;</p><p style="color: rgb(51, 51, 51);"><br><img src="/system/uploads/images/000/001/365/original/image.png?1530323414" style="width: 99px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><h2 style="color: rgb(51, 51, 51);"><span style="background-color: rgb(255, 198, 156);">- 예외 상황을 고려한 코드&nbsp;</span></h2><pre style="font-family: &quot;Fira Code&quot;; font-size: 11.3pt; line-height: 1.42857; color: rgb(169, 183, 198); background-color: rgb(43, 43, 43);"><span style="color: rgb(204, 120, 50); font-weight: bold;">function </span>formatDate(_date<span style="color: rgb(204, 120, 50);">, </span>short = <span style="color: rgb(204, 120, 50); font-weight: bold;">false</span>){<br>   <span style="color: rgb(204, 120, 50); font-weight: bold;">if</span>(_date == <span style="color: rgb(204, 120, 50); font-weight: bold;">null</span>){<br>      <span style="color: rgb(204, 120, 50); font-weight: bold;">return </span>_date<span style="color: rgb(204, 120, 50);">;<br></span><span style="color: rgb(204, 120, 50);">   </span>}<br>   <span style="color: rgb(204, 120, 50); font-weight: bold;">if</span>(_date.length == <span style="color: rgb(104, 151, 187);">8</span>){<br>      <span style="color: rgb(204, 120, 50); font-weight: bold;">if</span>(short == <span style="color: rgb(204, 120, 50); font-weight: bold;">true</span>){<br>         <span style="color: rgb(204, 120, 50); font-weight: bold;">return </span>_date.substring(<span style="color: rgb(104, 151, 187);">4</span><span style="color: rgb(204, 120, 50);">, </span><span style="color: rgb(104, 151, 187);">6</span>) + <span style="color: rgb(106, 135, 89);">"-" </span>+ _date.substring(<span style="color: rgb(104, 151, 187);">6</span><span style="color: rgb(204, 120, 50);">, </span><span style="color: rgb(104, 151, 187);">8</span>)<span style="color: rgb(204, 120, 50);">;<br></span><span style="color: rgb(204, 120, 50);">      </span>}<span style="color: rgb(204, 120, 50); font-weight: bold;">else </span>{<br>         <span style="color: rgb(204, 120, 50); font-weight: bold;">return </span>_date.substring(<span style="color: rgb(104, 151, 187);">0</span><span style="color: rgb(204, 120, 50);">, </span><span style="color: rgb(104, 151, 187);">4</span>) + <span style="color: rgb(106, 135, 89);">"-" </span>+ _date.substring(<span style="color: rgb(104, 151, 187);">4</span><span style="color: rgb(204, 120, 50);">, </span><span style="color: rgb(104, 151, 187);">6</span>) + <span style="color: rgb(106, 135, 89);">"-" </span>+ _date.substring(<span style="color: rgb(104, 151, 187);">6</span><span style="color: rgb(204, 120, 50);">, </span><span style="color: rgb(104, 151, 187);">8</span>)<span style="color: rgb(204, 120, 50);">;<br></span><span style="color: rgb(204, 120, 50);">      </span>}<br><br>   }<span style="color: rgb(204, 120, 50); font-weight: bold;">else </span>{<br>      <span style="color: rgb(204, 120, 50); font-weight: bold;">return </span>_date<span style="color: rgb(204, 120, 50);">;<br></span><span style="color: rgb(204, 120, 50);">   </span>}<br>}</pre><pre style="font-family: &quot;Fira Code&quot;; font-size: 11.3pt; line-height: 1.42857; color: rgb(169, 183, 198); background-color: rgb(43, 43, 43);"><br><br><span style="color: rgb(204, 120, 50); font-weight: bold;">function </span>formatTime(_time){<br>   <span style="color: rgb(204, 120, 50); font-weight: bold;">if</span>(_time == <span style="color: rgb(204, 120, 50); font-weight: bold;">null</span>){<br>      <span style="color: rgb(204, 120, 50); font-weight: bold;">return </span>_time<span style="color: rgb(204, 120, 50);">;<br></span><span style="color: rgb(204, 120, 50);">   </span>}<br>   <span style="color: rgb(204, 120, 50); font-weight: bold;">if</span>(_time.length == <span style="color: rgb(104, 151, 187);">6</span>){<br>      <span style="color: rgb(204, 120, 50); font-weight: bold;">return </span>_time.substring(<span style="color: rgb(104, 151, 187);">0</span><span style="color: rgb(204, 120, 50);">, </span><span style="color: rgb(104, 151, 187);">2</span>) + <span style="color: rgb(106, 135, 89);">":" </span>+ _time.substring(<span style="color: rgb(104, 151, 187);">2</span><span style="color: rgb(204, 120, 50);">, </span><span style="color: rgb(104, 151, 187);">4</span>) + <span style="color: rgb(106, 135, 89);">":" </span>+ _time.substring(<span style="color: rgb(104, 151, 187);">4</span><span style="color: rgb(204, 120, 50);">, </span><span style="color: rgb(104, 151, 187);">6</span>)<span style="color: rgb(204, 120, 50);">;<br></span><span style="color: rgb(204, 120, 50);">   </span>}<span style="color: rgb(204, 120, 50); font-weight: bold;">else </span>{<br>      <span style="color: rgb(204, 120, 50); font-weight: bold;">return </span>_time<span style="color: rgb(204, 120, 50);">;<br></span><span style="color: rgb(204, 120, 50);">   </span>}<br>}</pre><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">- 출처 -</p><p style="color: rgb(51, 51, 51);"><a href="http://fruitdev.tistory.com/160">http://fruitdev.tistory.com/160</a></p></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
     <br><footer class="article__footer"><meta itemprop="dateModified" content="2017-02-21T00:00:00+09:00"><!-- start custom article footer snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -376,6 +406,7 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<br>
 <!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
     <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
       <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
@@ -421,14 +452,14 @@
 <br/>
 <!-- facebook script  -->
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://melonicedlatte.com/post_one47" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://hellogohn.com/post_one47" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
 
 <!-- end custom main bottom snippet --></div>
             </div></div></div><div class="page__footer d-print-none">
 <footer class="footer py-4 js-page-footer">
   <div class="main"><div itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
-  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="http://melonicedlatte.com"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="http://melonicedlatte.com"><li title="Send me an Email.">
       <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
         <i class="fas fa-envelope"></i>
       </a><li title="Follow me on Github.">

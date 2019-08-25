@@ -339,7 +339,34 @@
   </header>
 </div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
 
-              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div>
+
+<br>
+
+<div class="aside-ads">
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="8003124357"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> -->
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- 블로그 우측 toc 세로형 -->
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-9601240193039960"
+        data-ad-slot="6348453211"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div></aside></div>
 
               <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
 
@@ -354,6 +381,7 @@
             </li></ul><ul class="right-col menu"><li><i class="fas fa-user"></i> <span>melonicedlatte</span></li><li><i class="far fa-calendar-alt"></i> <span>Jan 25, 2017</span>
             </li></ul></div><meta itemprop="author" content="melonicedlatte"/><meta itemprop="datePublished" content="2017-01-25T00:00:00+09:00">
     <meta itemprop="keywords" content="Android"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -364,8 +392,10 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<br>
 <!-- end custom article top snippet --><div class="article__content" itemprop="articleBody"><p style="color: rgb(51, 51, 51);"><font face="hanna">대부분 안드로이드에서 재사용을 하는 xml 을 자주 사용하시게 될 겁니다.<br>가령 spinner view 라던가 Grid View 같은 요소들이 재사용을 하게 됩니다.</font></p><p style="color: rgb(51, 51, 51);"><font face="hanna"><br>spinner 나 Grid 같은 경우에는 갯수가 많아지면 객체를 많이 생성해야 되기 때문에 재 사용을 한다고 보면 될 것 같습니다.<br>아직 저도 정확히는 모르겠지만 재사용을 해서 원래 있는 객체에 setText 라던가 다른 속성을 넣어주는 것이<br>객체를 새로 생성하는 것 보다 비용이 저렴해서 사용될 것이라고 추측됩니다.&nbsp;</font></p><p style="color: rgb(51, 51, 51);"><font face="Arial"><b><br></b></font></p><p style="color: rgb(51, 51, 51);">그러면 이러한 view 를 쓸 수 밖에 없는 상황이 오게 될 것입니다.</p><p style="color: rgb(51, 51, 51);">사실상 안 쓰는 앱이 없다고 봐도 무방할 정도로 많이 쓰이니까요</p><p style="color: rgb(51, 51, 51);">그러면 이런 상황에서 재사용을 하려면 어떻게 해야 할까요??&nbsp;</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><u>1. 주로 쓰는 방법으로 viewHolder 가 있습니다.&nbsp;</u></p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/334/original/image.png?1530322476" style="width: 632px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/335/original/image.png?1530322482" style="width: 204px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">위와 같은 형식으로 쓰는 건데요 같은 클래스에 inner class 로 써 주면 됩니다.&nbsp;</p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/336/original/image.png?1530322487" style="width: 138px;"><br></p><p style="color: rgb(51, 51, 51);">listview_pick_work.xml 은 위와 같은 형태입니다.</p><p style="color: rgb(51, 51, 51);">텍스트뷰 하나와 이미지 뷰 하나로 이루어진 친구죠.&nbsp;</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">ViewHolder 이라는 객체를 생성해서 convierView 가 null 이면 새로 생성해 주고 holder에 각 요소에 아이디를 찾아서 Tag를 붙여줍니다.</p><p style="color: rgb(51, 51, 51);">여기서 Tag 란 무엇일까요??</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51); font-family: NanumGothic, 나눔고딕, &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Dotum, 돋움, Gulim, 굴림, Verdana, Arial, &quot;Trebuchet MS&quot;; font-size: 13px; text-align: justify;"><b><span style="font-size: 14pt; background-color: rgb(198, 123, 165);"><font color="#ffffff">안드로이드/Android View의 바코드 setTag(), getTag() 기능을 이용 하자 ~!</font></span></b></p><p style="color: rgb(85, 85, 85); font-family: NanumGothic, 나눔고딕, &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Dotum, 돋움, Gulim, 굴림, Verdana, Arial, &quot;Trebuchet MS&quot;; font-size: 13px; text-align: justify;"><span style="font-size: 12pt; line-height: 27px;">우리가 마트에서 장을 본 후 물건을 계산할 때 포스기로 물건의 바코드를&nbsp;찍어서 가격을 계산하게 되는데요. View에게도 &nbsp;바코드처럼 특별한 ID를 부여 할 수 있습니다. 바로 setTag(), getTag()를 이용해서 말이죠. 말 그래도 View에게 Tag를 달아&nbsp;식별할 수 있게 만들어 주는 방법 입니다. 만약 View를 컨트롤 해야 하거나&nbsp;ListView의 getView() 등에서 사용하시면 View의 index가 꼬이지 않고 작업을 할 수 있습니다.<br><br></span></p><p style="color: rgb(85, 85, 85); font-family: NanumGothic, 나눔고딕, &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Dotum, 돋움, Gulim, 굴림, Verdana, Arial, &quot;Trebuchet MS&quot;; font-size: 13px; text-align: justify;"><span style="font-size: 12pt;">setTag(Object object)를 매개변수로 받기 때문에, 클래스를 넣어 주신 후 사용하실 때 getTag()를 이용하여 형변환 해서 사용해 주시면 됩니다. Apdater의 getView() 에서 역시 View에 Holder 클래스를 만든 후 setTag(), getTag()를 이용하여 View가 매번 findViewByID를 하지 않고 저장해 놓음으로써&nbsp;getView의 속도를 높여 주는 Holder 패턴이 많이 사용되고 있습니다.</span><br></p><div style="color: rgb(51, 51, 51);">출처 : http://arabiannight.tistory.com/entry/348<br></div><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">위의 내용은 출처에서 받아온 것으로 바코드 같은 느낌으로 인식하면 될 것 같습니다. ( 저도 정확히 이해는 못했으니 그냥 사용하셔도 됩니다)</p><p style="color: rgb(51, 51, 51);">convertView 가 else 에 들어가면 getTag를 해서 holder 를 불러오면 됩니다.</p><p style="color: rgb(51, 51, 51);">if ~ else 문을 빠져 나오면 holder 의 요소들에게 setImageDrawable, setText 같은 각각의 상태를 정의시켜주면 됩니다.</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);"><u>2, 다른 방법으로는 모든 상태에 관련해서 수정을 else 문에서 해주면 됩니다.</u></p><p style="color: rgb(51, 51, 51);"><img src="/system/uploads/images/000/001/337/original/image.png?1530322493" style="width: 552px;"><br></p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">객체를 생성하지 않을 때, else 문에서는 converView 를 원하는 view 로 Casting 해서 넣습니다.&nbsp;</p><p style="color: rgb(51, 51, 51);">이 때 if~else 문 밖에서 모든 원하는 속성에 관련된 값을 바꿔주어야 합니다.&nbsp;</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">가령 아까처럼 그리드뷰라면 텍스트와 이미지를 모두 세팅하는 메소드가 if~else 문 아래에 있어야 합니다.</p><p style="color: rgb(51, 51, 51);">가령 이미지를 setting 하지 않는다면 이미지는 바뀌지 않고, 글자만 바뀌게 되는 것입니다.</p><p style="color: rgb(51, 51, 51);">주로 하는 실수인 것 같습니다.</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">저 같은 경우도 버튼의 상태에 enable 속성과 색깔, 글자 같은 여러 속성을 지정해 두었는데</p><p style="color: rgb(51, 51, 51);">if~ else 문 밖에서는 글자만 바꾸고 enable 을 바꾸지 않아서 같은 상태인데도 버튼들이 다른 enable 값을 가지는 걸 확인했습니다.</p><p style="color: rgb(51, 51, 51);"><br></p><p style="color: rgb(51, 51, 51);">위와 같이 사용하시면 될 것 같습니다.</p><p style="color: rgb(85, 85, 85); font-family: NanumGothic, 나눔고딕, &quot;Malgun Gothic&quot;, &quot;맑은 고딕&quot;, Dotum, 돋움, Gulim, 굴림, Verdana, Arial, &quot;Trebuchet MS&quot;; font-size: 13px; text-align: justify;"><span style="font-size: 12pt; line-height: 27px;"></span></p><p style="color: rgb(51, 51, 51);">수정사항 있으면 메일이나 댓글 달아주세요 ㅎ&nbsp;</p></div><section class="article__sharing d-print-none"></section><div class="d-print-none">
     <br><footer class="article__footer"><meta itemprop="dateModified" content="2017-01-25T00:00:00+09:00"><!-- start custom article footer snippet -->
+<br>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
@@ -376,6 +406,7 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+<br>
 <!-- end custom article footer snippet --><div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div></div><div class="article__license"><div class="license">
     <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
       <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
@@ -421,14 +452,14 @@
 <br/>
 <!-- facebook script  -->
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://melonicedlatte.com/post_one32" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=203894147008906&autoLogAppEvents=1"></script><div class="fb-comments" data-href="http://hellogohn.com/post_one32" data-numposts="20" data-width="100%"></div><!-- end custom comments snippet --></section></article><!-- start custom main bottom snippet -->
 
 <!-- end custom main bottom snippet --></div>
             </div></div></div><div class="page__footer d-print-none">
 <footer class="footer py-4 js-page-footer">
   <div class="main"><div itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="https://melonicedlatte.github.io"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
-  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="https://melonicedlatte.github.io"><li title="Send me an Email.">
+      <meta itemprop="name" content="melonicedlatte"><meta itemprop="url" content="http://melonicedlatte.com"><meta itemprop="description" content="Want to make some good product for world"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><link itemprop="url" href="http://melonicedlatte.com"><li title="Send me an Email.">
       <a class="button button--circle mail-button" itemprop="email" href="mailto:melonicedlatte@gmail.com" target="_blank">
         <i class="fas fa-envelope"></i>
       </a><li title="Follow me on Github.">
