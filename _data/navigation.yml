@@ -15,7 +15,6 @@ header:
       ko      : &KO       홈       
       ko-KR   : *KO
     url: /
-
   - titles:
       en      : &EN       Archive
       en-GB   : *EN
@@ -32,7 +31,6 @@ header:
       ko      : &KO       아카이브
       ko-KR   : *KO
     url: /archive
-
   - titles:
       en      : &EN       About
       en-GB   : *EN
@@ -49,7 +47,6 @@ header:
       ko      : &KO       소개
       ko-KR   : *KO
     url: /about
-
 
 docs:
   - title:      Start
