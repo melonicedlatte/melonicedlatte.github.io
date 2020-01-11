@@ -47,3 +47,10 @@ docs:
       - title:  Navigation
         url:    /docs/en/navigation
 
+deepvoice:
+  - title:      DeepVoice
+    children:
+      - title : DeepVoice 손석희 앵커 TTS
+        url : /posts/2018-07-02-215933.html
+      - title : DeepVoice 김종혁 기자 TTS
+        url : /posts/2018-07-09-141346.html
