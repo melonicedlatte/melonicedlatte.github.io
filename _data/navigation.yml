@@ -1,5 +1,22 @@
 header:
   - titles:
+      en      : &EN       Home
+      en-GB   : *EN
+      en-US   : *EN
+      en-CA   : *EN
+      en-AU   : *EN
+      zh-Hans : *EN
+      zh      : *EN
+      zh-CN   : *EN
+      zh-SG   : *EN
+      zh-Hant : *EN
+      zh-TW   : *EN
+      zh-HK   : *EN
+      ko      : &KO       홈       
+      ko-KR   : *KO
+    url: /
+
+  - titles:
       en      : &EN       Archive
       en-GB   : *EN
       en-US   : *EN
@@ -32,6 +49,7 @@ header:
       ko      : &KO       소개
       ko-KR   : *KO
     url: /about
+
 
 docs:
   - title:      Start
