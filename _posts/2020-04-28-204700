@@ -1,0 +1,34 @@
+---
+layout : article
+title: "Baud Rate, Bit Rate란? 개념 정리"
+aside:
+  toc: true
+tags: Network
+author: melonicedlatte  
+key : 2020-04-28-204700
+---     
+
+## 1. Bit Rate
+
+- `Bit Rate`는 **초당 데이터 비트(0 or 1)를 얼마만큼 전송**할 수 있는지 나타내는 값. BPS(Bit Per Second)로도 나타냄.
+- PCIe나 버스의 데이터 전송 속도를 나타낼 때 주로 사용
+
+## 2. Baud Rate
+
+- 전기통신 및 전자공학에서 `보(baud, 단위 기호 "Bd")`는 **초당 펄스 수 또는 초당 심볼 수**를 뜻한다.
+- `Baud Rate`는 **초당 많은 심볼(Symbol, 의미 있는 데이터 묶음)을 얼마만큼 전송**할 수 있는지 나타내는 값.
+- Teraterm 같은 시리얼 통신에서 115200과 같은 수치로 사용
+- 1 킬로 보(kBd)=1,000Bd 의 전송 속도는 초당 1,000심볼의 심볼 속도와 같다.
+
+## 3. 예시
+
+- 4bit 데이터를 초당 200개 보내는 경우
+  - BPS : 4bit * 200 = 800
+  - Baud Rate : 200 
+
+---
+
+**출처**
+
+- https://m.blog.naver.com/gmqgufrn/220862079486
+- https://ko.wikipedia.org/wiki/%EB%B3%B4_(%ED%86%B5%EC%8B%A0_%EB%8B%A8%EC%9C%84)
