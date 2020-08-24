@@ -181,9 +181,11 @@ analytics:
 markdown    : kramdown
 highlighter : rouge
 permalink   : date
-syntax_highlighter_opts:
-  block:
-    line_numbers: true
+kramdown:
+  highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
 
 exclude:
   - CHANGELOG.md
@@ -226,3 +228,9 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jemoji
+
+
+## Auto Head Numbering
+##############################
+gems:
+  - jekyll-numbered-headings
