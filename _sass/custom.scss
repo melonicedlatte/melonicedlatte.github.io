@@ -14,11 +14,23 @@
     text-align: center;
     margin-bottom: 2em;
 }
+.width_20{
+    width : 20em;
+}
 .width_25{
     width : 25em;
 }
+.width_30{
+    width : 30em;
+}
+.width_35{
+    width : 35em;
+}
 .width_40{
     width : 40em;
+}
+.width_45{
+    width : 45em;
 }
 .MJXc-display{
     font-size: 1.3em !important;
@@ -46,5 +58,9 @@
 
 .page__aside .aside-ads{
     padding-left: 1.5em;
+}
+
+ul.toc--ellipsis>li {
+    white-space: normal;
 }
 /* end custom scss snippet */
