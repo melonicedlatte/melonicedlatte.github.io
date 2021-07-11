@@ -76,3 +76,6 @@ spring_boot_study:
     children: 
       - title: 스프링(Spring), 스프링 부트(Spring Boot)란?
         url: /2021/07/11/174700.html
+        children:
+          - title: DeepVoice 김종혁 기자 TTS
+            url:   /machinelearning/2018/07/09/141346.html
