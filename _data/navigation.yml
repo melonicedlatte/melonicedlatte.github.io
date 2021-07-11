@@ -65,16 +65,16 @@ docs:
 deepvoice:
   - title:      DeepVoice
     children:
-      - title : DeepVoice 손석희 앵커 TTS
-        url :   /machinelearning/2018/07/02/215933.html
-      - title : DeepVoice 김종혁 기자 TTS
-        url :   /machinelearning/2018/07/09/141346.html
+      - title: DeepVoice 손석희 앵커 TTS
+        url:   /machinelearning/2018/07/02/215933.html
+      - title: DeepVoice 김종혁 기자 TTS
+        url:   /machinelearning/2018/07/09/141346.html
 
 spring_boot_study:
   - title: Spring Boot 스터디
   - title: Spring에 필요한 기본 개념들
-    children : 
+    children: 
       - title: Spring에 필요한 기본 개념들
-        children : 
-          - title : 스프링(Spring), 스프링 부트(Spring Boot)란?
-            url : /2021/07/11/174700.html
+        children: 
+          - title: 스프링(Spring), 스프링 부트(Spring Boot)란?
+            url: /2021/07/11/174700.html
